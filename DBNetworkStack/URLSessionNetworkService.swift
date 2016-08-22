@@ -1,6 +1,6 @@
 //
-//  NetworkRequest.swift
-//  BFACore
+//  URLSessionNetworkService.swift
+//  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
 //
@@ -20,28 +20,35 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 21.07.16.
+//  Created by Lukas Schmidt on 22.08.16.
 //
 
 import Foundation
 
-/**
- See `NetworkRequestRepresening` for details.
- */
-public struct NetworkRequest: NetworkRequestRepresening {
-    public var path: String
-    public let baseURL: NSURL
-    public let HTTPMethodType: HTTPMethod
-    public let allHTTPHeaderFields: Dictionary<String, String>?
-    public let parameters: [String : AnyObject]?
-}
-
-public extension NetworkRequest {
-    public init(path: String, baseURL: NSURL, HTTPMethodType: HTTPMethod = .GET) {
-        self.path = path
-        self.baseURL = baseURL
-        self.HTTPMethodType = HTTPMethodType
-        self.allHTTPHeaderFields = nil
-        self.parameters = nil
+extension NetworkRequestRepresening {
+    var request: NSURLRequest {
+        let request = NSMutableURLRequest(URL: absoluteURL)
+        request.HTTPMethod = HTTPMethodType.rawValue
+        
+        return request
     }
 }
+
+public final class URLSessionNetworkService: NetworkServiceProviding {
+    let urlSession: NSURLSession
+    
+    init(urlSession: NSURLSession) {
+        self.urlSession = urlSession
+    }
+    
+    public func fetch<T : RessourceModeling>(ressource: T, onComplition: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest {
+        let task = urlSession.dataTaskWithRequest(ressource.request.request, completionHandler: { data, response, error in
+            
+        })
+        task.resume()
+        
+        return task
+    }
+}
+
+extension NSURLSessionDataTask: CancelableRequest {}

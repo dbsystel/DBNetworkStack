@@ -28,6 +28,8 @@
 		C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */; };
 		C60BE6A41D6B384B006B0364 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6971D6B3789006B0364 /* Alamofire.framework */; };
 		C60BE6A51D6B384B006B0364 /* JSONCodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6981D6B3789006B0364 /* JSONCodable.framework */; };
+		C60BE6AB1D6B3A6A006B0364 /* URLSessionNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AA1D6B3A6A006B0364 /* URLSessionNetworkService.swift */; };
+		C60BE6AD1D6B3E81006B0364 /* CancelableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AC1D6B3E81006B0364 /* CancelableRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		C60BE69E1D6B3807006B0364 /* AlamofireMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireMock.swift; sourceTree = "<group>"; };
 		C60BE69F1D6B3807006B0364 /* NetworkRequestMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestMock.swift; sourceTree = "<group>"; };
 		C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
+		C60BE6AA1D6B3A6A006B0364 /* URLSessionNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkService.swift; sourceTree = "<group>"; };
+		C60BE6AC1D6B3E81006B0364 /* CancelableRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelableRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 				C60BE6801D6B2C46006B0364 /* Ressource.swift */,
 				C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */,
 				C60BE6841D6B2C46006B0364 /* AlamofireNetworkService.swift */,
+				C60BE6AA1D6B3A6A006B0364 /* URLSessionNetworkService.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
 			);
@@ -142,6 +147,7 @@
 				C60BE67C1D6B2C46006B0364 /* RessourceModeling.swift */,
 				C60BE67D1D6B2C46006B0364 /* ResourceServiceProviding.swift */,
 				C60BE67E1D6B2C46006B0364 /* JSONRessourceModeling.swift */,
+				C60BE6AC1D6B3E81006B0364 /* CancelableRequest.swift */,
 			);
 			name = protocol;
 			sourceTree = "<group>";
@@ -310,8 +316,10 @@
 				C60BE68E1D6B2C46006B0364 /* JSONRessourceModeling.swift in Sources */,
 				C60BE68C1D6B2C46006B0364 /* RessourceModeling.swift in Sources */,
 				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
+				C60BE6AD1D6B3E81006B0364 /* CancelableRequest.swift in Sources */,
 				C60BE68D1D6B2C46006B0364 /* ResourceServiceProviding.swift in Sources */,
 				C60BE68B1D6B2C46006B0364 /* NetworkResourceRepresening.swift in Sources */,
+				C60BE6AB1D6B3A6A006B0364 /* URLSessionNetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

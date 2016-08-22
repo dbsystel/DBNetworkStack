@@ -42,7 +42,7 @@ extension HTTPMethod {
 }
 
 
-public final class NetworkService: NetworkServiceProviding {
+public final class AlamofireNetworkService: NetworkServiceProviding {
     public typealias RequestMethod = (method: Alamofire.Method, URLString: URLStringConvertible, parameters: [String : AnyObject]? , encoding: Alamofire.ParameterEncoding, headers: [String : String]?) -> NetworkRequestModeling
     let requestFunction: RequestMethod
     /**
@@ -54,8 +54,8 @@ public final class NetworkService: NetworkServiceProviding {
         self.requestFunction = requestFunction
     }
     
-    public func fetch<T : RessourceModeling>(ressource: T, onComplition: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkRequestModeling {
-        let request = requestFunction(method: ressource.request.HTTPMethodType.alamofireMethod, URLString: ressource.request.url, parameters: ressource.request.parameters, encoding: Alamofire.ParameterEncoding.URL, headers: ressource.request.allHTTPHeaderFields)
+    public func fetch<T : RessourceModeling>(ressource: T, onComplition: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest {
+        let request = requestFunction(method: ressource.request.HTTPMethodType.alamofireMethod, URLString: ressource.request.absoluteURL, parameters: ressource.request.parameters, encoding: Alamofire.ParameterEncoding.URL, headers: ressource.request.allHTTPHeaderFields)
         request.response(queue: dispatch_get_main_queue()) { _, response, data, error in
             if let error = error {
                 onError(error)
@@ -81,9 +81,7 @@ public final class NetworkService: NetworkServiceProviding {
 /**
  Abstracts Alamofire.Request to make it testable
 */
-public protocol NetworkRequestModeling {
+public protocol NetworkRequestModeling: CancelableRequest {
     func response(queue queue: dispatch_queue_t?, completionHandler: (NSURLRequest?, NSHTTPURLResponse?, NSData?, NSError?) -> Void) -> Self
-    
-    func cancel()
 }
 extension Alamofire.Request: NetworkRequestModeling { }

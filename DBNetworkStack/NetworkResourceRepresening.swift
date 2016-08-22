@@ -29,11 +29,19 @@ import Foundation
  `NetworkRequestRepresening` represents a networkreuqest with all components needed to retrieve correct ressources.
  */
 public protocol NetworkRequestRepresening {
-    var url: NSURL { get }
+    var path: String { get }
+    var baseURL: NSURL { get }
+    var absoluteURL: NSURL { get }
     var HTTPMethodType: HTTPMethod { get }
     var allHTTPHeaderFields: [String: String]? { get }
     /**
      Parameters which will be send with the request.
      */
     var parameters: [String : AnyObject]? { get }
+}
+
+extension NetworkRequestRepresening {
+    public var absoluteURL: NSURL {
+        return NSURL(string: path, relativeToURL: baseURL)!
+    }
 }

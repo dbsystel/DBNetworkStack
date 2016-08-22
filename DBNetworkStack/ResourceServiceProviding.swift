@@ -32,5 +32,5 @@ public protocol NetworkServiceProviding {
     /**
      Fetches a ressource asynchrony from remote location 
      */
-    func fetch<T: RessourceModeling>(ressource: T, onComplition: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkRequestModeling
+    func fetch<T: RessourceModeling>(ressource: T, onComplition: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest
 }
