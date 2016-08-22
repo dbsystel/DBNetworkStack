@@ -1,0 +1,52 @@
+//
+//  JSONListRessource.swift
+//  BFACore
+//
+//	Legal Notice! DB Systel GmbH proprietary License!
+//
+//	Copyright (C) 2015 DB Systel GmbH
+//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
+
+//	This code is protected by copyright law and is the exclusive property of
+//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
+
+//	Consent to use ("licence") shall be granted solely on the basis of a
+//	written licence agreement signed by the customer and DB Systel GmbH. Any
+//	other use, in particular copying, redistribution, publication or
+//	modification of this code without written permission of DB Systel GmbH is
+//	expressly prohibited.
+
+//	In the event of any permitted copying, redistribution or publication of
+//	this code, no changes in or deletion of author attribution, trademark
+//	legend or copyright notice shall be made.
+//
+//  Created by Lukas Schmidt on 27.07.16.
+//
+
+import Foundation
+//import JSONCodable
+
+/**
+ `JSONRessource` represents a network ressource in JSON, which can be parsed into an array of Model Types.
+ 
+ The root JSON payload must be an array.
+ 
+ See `RessourceModeling` for more details.
+ */
+//public struct JSONListRessource<Model: _ArrayType where Model.Element: JSONDecodable>: JSONRessourceModeling {
+//    public let request: NetworkRequestRepresening
+//    public var parse: (data: NSData) throws -> Model {
+//        return parseFunction
+//    }
+//    
+//    public init(request: NetworkRequestRepresening) {
+//        self.request = request
+//    }
+//    
+//    public func parse(jsonPayload: Array<Dictionary<String, AnyObject>>) throws -> Model {
+//        let result = try jsonPayload.map({ jsonObject in
+//            return try Model.Element(object: jsonObject)
+//        })
+//        return result as! Model
+//    }
+//}

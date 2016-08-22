@@ -10,6 +10,24 @@
 		C60BE65F1D6B2BF3006B0364 /* DBNetworkStack.h in Headers */ = {isa = PBXBuildFile; fileRef = C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C60BE6661D6B2BF3006B0364 /* DBNetworkStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE65B1D6B2BF3006B0364 /* DBNetworkStack.framework */; };
 		C60BE66B1D6B2BF3006B0364 /* DBNetworkStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE66A1D6B2BF3006B0364 /* DBNetworkStackTests.swift */; };
+		C60BE68B1D6B2C46006B0364 /* NetworkResourceRepresening.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67B1D6B2C46006B0364 /* NetworkResourceRepresening.swift */; };
+		C60BE68C1D6B2C46006B0364 /* RessourceModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67C1D6B2C46006B0364 /* RessourceModeling.swift */; };
+		C60BE68D1D6B2C46006B0364 /* ResourceServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67D1D6B2C46006B0364 /* ResourceServiceProviding.swift */; };
+		C60BE68E1D6B2C46006B0364 /* JSONRessourceModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67E1D6B2C46006B0364 /* JSONRessourceModeling.swift */; };
+		C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67F1D6B2C46006B0364 /* HTTPMethod.swift */; };
+		C60BE6901D6B2C46006B0364 /* Ressource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6801D6B2C46006B0364 /* Ressource.swift */; };
+		C60BE6911D6B2C46006B0364 /* JSONRessource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6811D6B2C46006B0364 /* JSONRessource.swift */; };
+		C60BE6921D6B2C46006B0364 /* JSONListRessource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6821D6B2C46006B0364 /* JSONListRessource.swift */; };
+		C60BE6931D6B2C46006B0364 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */; };
+		C60BE6941D6B2C46006B0364 /* AlamofireNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6841D6B2C46006B0364 /* AlamofireNetworkService.swift */; };
+		C60BE6961D6B2C46006B0364 /* JSONCodeableTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6861D6B2C46006B0364 /* JSONCodeableTransformers.swift */; };
+		C60BE6991D6B3789006B0364 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6971D6B3789006B0364 /* Alamofire.framework */; };
+		C60BE69A1D6B3789006B0364 /* JSONCodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6981D6B3789006B0364 /* JSONCodable.framework */; };
+		C60BE6A11D6B3807006B0364 /* AlamofireMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE69E1D6B3807006B0364 /* AlamofireMock.swift */; };
+		C60BE6A21D6B3807006B0364 /* NetworkRequestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE69F1D6B3807006B0364 /* NetworkRequestMock.swift */; };
+		C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */; };
+		C60BE6A41D6B384B006B0364 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6971D6B3789006B0364 /* Alamofire.framework */; };
+		C60BE6A51D6B384B006B0364 /* JSONCodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6981D6B3789006B0364 /* JSONCodable.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +47,22 @@
 		C60BE6651D6B2BF3006B0364 /* DBNetworkStackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DBNetworkStackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60BE66A1D6B2BF3006B0364 /* DBNetworkStackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBNetworkStackTests.swift; sourceTree = "<group>"; };
 		C60BE66C1D6B2BF3006B0364 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C60BE67B1D6B2C46006B0364 /* NetworkResourceRepresening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResourceRepresening.swift; sourceTree = "<group>"; };
+		C60BE67C1D6B2C46006B0364 /* RessourceModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RessourceModeling.swift; sourceTree = "<group>"; };
+		C60BE67D1D6B2C46006B0364 /* ResourceServiceProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceServiceProviding.swift; sourceTree = "<group>"; };
+		C60BE67E1D6B2C46006B0364 /* JSONRessourceModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONRessourceModeling.swift; sourceTree = "<group>"; };
+		C60BE67F1D6B2C46006B0364 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		C60BE6801D6B2C46006B0364 /* Ressource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ressource.swift; sourceTree = "<group>"; };
+		C60BE6811D6B2C46006B0364 /* JSONRessource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONRessource.swift; sourceTree = "<group>"; };
+		C60BE6821D6B2C46006B0364 /* JSONListRessource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONListRessource.swift; sourceTree = "<group>"; };
+		C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		C60BE6841D6B2C46006B0364 /* AlamofireNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireNetworkService.swift; sourceTree = "<group>"; };
+		C60BE6861D6B2C46006B0364 /* JSONCodeableTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONCodeableTransformers.swift; sourceTree = "<group>"; };
+		C60BE6971D6B3789006B0364 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		C60BE6981D6B3789006B0364 /* JSONCodable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONCodable.framework; path = Carthage/Build/iOS/JSONCodable.framework; sourceTree = "<group>"; };
+		C60BE69E1D6B3807006B0364 /* AlamofireMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireMock.swift; sourceTree = "<group>"; };
+		C60BE69F1D6B3807006B0364 /* NetworkRequestMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestMock.swift; sourceTree = "<group>"; };
+		C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C60BE6991D6B3789006B0364 /* Alamofire.framework in Frameworks */,
+				C60BE69A1D6B3789006B0364 /* JSONCodable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +80,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C60BE6661D6B2BF3006B0364 /* DBNetworkStack.framework in Frameworks */,
+				C60BE6A41D6B384B006B0364 /* Alamofire.framework in Frameworks */,
+				C60BE6A51D6B384B006B0364 /* JSONCodable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +91,8 @@
 		C60BE6511D6B2BF3006B0364 = {
 			isa = PBXGroup;
 			children = (
+				C60BE6971D6B3789006B0364 /* Alamofire.framework */,
+				C60BE6981D6B3789006B0364 /* JSONCodable.framework */,
 				C60BE65D1D6B2BF3006B0364 /* DBNetworkStack */,
 				C60BE6691D6B2BF3006B0364 /* DBNetworkStackTests */,
 				C60BE65C1D6B2BF3006B0364 /* Products */,
@@ -71,6 +111,12 @@
 		C60BE65D1D6B2BF3006B0364 /* DBNetworkStack */ = {
 			isa = PBXGroup;
 			children = (
+				C60BE6A91D6B39BF006B0364 /* JSONParsing */,
+				C60BE6A81D6B399A006B0364 /* protocol */,
+				C60BE67F1D6B2C46006B0364 /* HTTPMethod.swift */,
+				C60BE6801D6B2C46006B0364 /* Ressource.swift */,
+				C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */,
+				C60BE6841D6B2C46006B0364 /* AlamofireNetworkService.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
 			);
@@ -80,10 +126,34 @@
 		C60BE6691D6B2BF3006B0364 /* DBNetworkStackTests */ = {
 			isa = PBXGroup;
 			children = (
+				C60BE69E1D6B3807006B0364 /* AlamofireMock.swift */,
+				C60BE69F1D6B3807006B0364 /* NetworkRequestMock.swift */,
+				C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */,
 				C60BE66A1D6B2BF3006B0364 /* DBNetworkStackTests.swift */,
 				C60BE66C1D6B2BF3006B0364 /* Info.plist */,
 			);
 			path = DBNetworkStackTests;
+			sourceTree = "<group>";
+		};
+		C60BE6A81D6B399A006B0364 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C60BE67B1D6B2C46006B0364 /* NetworkResourceRepresening.swift */,
+				C60BE67C1D6B2C46006B0364 /* RessourceModeling.swift */,
+				C60BE67D1D6B2C46006B0364 /* ResourceServiceProviding.swift */,
+				C60BE67E1D6B2C46006B0364 /* JSONRessourceModeling.swift */,
+			);
+			name = protocol;
+			sourceTree = "<group>";
+		};
+		C60BE6A91D6B39BF006B0364 /* JSONParsing */ = {
+			isa = PBXGroup;
+			children = (
+				C60BE6811D6B2C46006B0364 /* JSONRessource.swift */,
+				C60BE6821D6B2C46006B0364 /* JSONListRessource.swift */,
+				C60BE6861D6B2C46006B0364 /* JSONCodeableTransformers.swift */,
+			);
+			name = JSONParsing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,6 +178,7 @@
 				C60BE6571D6B2BF3006B0364 /* Frameworks */,
 				C60BE6581D6B2BF3006B0364 /* Headers */,
 				C60BE6591D6B2BF3006B0364 /* Resources */,
+				C60BE69B1D6B379E006B0364 /* 📦 Carthage Copy */,
 			);
 			buildRules = (
 			);
@@ -125,6 +196,7 @@
 				C60BE6611D6B2BF3006B0364 /* Sources */,
 				C60BE6621D6B2BF3006B0364 /* Frameworks */,
 				C60BE6631D6B2BF3006B0364 /* Resources */,
+				C60BE6A71D6B386D006B0364 /* 📦 Carthage Copy */,
 			);
 			buildRules = (
 			);
@@ -189,11 +261,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C60BE69B1D6B379E006B0364 /* 📦 Carthage Copy */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/JSONCodable.framework",
+			);
+			name = "📦 Carthage Copy";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		C60BE6A71D6B386D006B0364 /* 📦 Carthage Copy */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/JSONCodable.framework",
+			);
+			name = "📦 Carthage Copy";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C60BE6561D6B2BF3006B0364 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C60BE6931D6B2C46006B0364 /* NetworkRequest.swift in Sources */,
+				C60BE6911D6B2C46006B0364 /* JSONRessource.swift in Sources */,
+				C60BE6901D6B2C46006B0364 /* Ressource.swift in Sources */,
+				C60BE6921D6B2C46006B0364 /* JSONListRessource.swift in Sources */,
+				C60BE6941D6B2C46006B0364 /* AlamofireNetworkService.swift in Sources */,
+				C60BE6961D6B2C46006B0364 /* JSONCodeableTransformers.swift in Sources */,
+				C60BE68E1D6B2C46006B0364 /* JSONRessourceModeling.swift in Sources */,
+				C60BE68C1D6B2C46006B0364 /* RessourceModeling.swift in Sources */,
+				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
+				C60BE68D1D6B2C46006B0364 /* ResourceServiceProviding.swift in Sources */,
+				C60BE68B1D6B2C46006B0364 /* NetworkResourceRepresening.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +319,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C60BE6A11D6B3807006B0364 /* AlamofireMock.swift in Sources */,
 				C60BE66B1D6B2BF3006B0364 /* DBNetworkStackTests.swift in Sources */,
+				C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */,
+				C60BE6A21D6B3807006B0364 /* NetworkRequestMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,26 +431,37 @@
 		C60BE6701D6B2BF3006B0364 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = DBNetworkStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		C60BE6711D6B2BF3006B0364 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = DBNetworkStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -342,6 +474,10 @@
 		C60BE6731D6B2BF3006B0364 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = DBNetworkStackTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStackTests;
@@ -352,6 +488,10 @@
 		C60BE6741D6B2BF3006B0364 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = DBNetworkStackTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStackTests;
@@ -378,6 +518,7 @@
 				C60BE6711D6B2BF3006B0364 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C60BE6721D6B2BF3006B0364 /* Build configuration list for PBXNativeTarget "DBNetworkStackTests" */ = {
 			isa = XCConfigurationList;
@@ -386,6 +527,7 @@
 				C60BE6741D6B2BF3006B0364 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
