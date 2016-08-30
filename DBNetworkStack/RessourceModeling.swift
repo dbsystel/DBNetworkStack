@@ -1,6 +1,6 @@
 //
 //  RessourceModeling.swift
-//  BFACore
+//  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
 //

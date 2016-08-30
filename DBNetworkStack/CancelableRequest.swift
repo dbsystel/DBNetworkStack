@@ -25,6 +25,9 @@
 
 import Foundation
 
+/**
+ `CancelableRequest` is a Request which can be canceled.
+  */
 public protocol CancelableRequest {
     func cancel()
 }

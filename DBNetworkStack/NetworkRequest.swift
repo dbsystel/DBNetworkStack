@@ -1,6 +1,6 @@
 //
 //  NetworkRequest.swift
-//  BFACore
+//  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
 //
@@ -32,16 +32,36 @@ public struct NetworkRequest: NetworkRequestRepresening {
     public var path: String
     public let baseURLKey: BaseURLKey
     public let HTTPMethodType: HTTPMethod
+    public let parameters: Dictionary<String, AnyObject>?
     public let allHTTPHeaderFields: Dictionary<String, String>?
-    public let parameters: [String : AnyObject]?
 }
 
 public extension NetworkRequest {
-    public init(path: String, baseURLKey: BaseURLKey, HTTPMethodType: HTTPMethod = .GET) {
+    public init(path: String, baseURLKey: BaseURLKey, HTTPMethodType: HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
         self.path = path
         self.baseURLKey = baseURLKey
         self.HTTPMethodType = HTTPMethodType
-        self.allHTTPHeaderFields = nil
-        self.parameters = nil
+        self.allHTTPHeaderFields = allHTTPHeaderFields
+        self.parameters = parameter
+    }
+    
+    public init(defaultRequest: NetworkRequestRepresening, parameter: Dictionary<String, AnyObject>? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
+        self.path = defaultRequest.path
+        self.HTTPMethodType = defaultRequest.HTTPMethodType
+        self.baseURLKey = defaultRequest.baseURLKey
+        self.parameters = defaultRequest.parameters?.merged(parameter)
+        self.allHTTPHeaderFields = defaultRequest.allHTTPHeaderFields?.merged(allHTTPHeaderFields)
     }
 }
+
+extension Dictionary {
+    func merged(right: [Key: Value]?) -> Dictionary<Key, Value>? {
+        var dictionary = self
+        for (key, value) in right ?? [:] {
+            dictionary.updateValue(value, forKey: key)
+        }
+        
+        return dictionary
+    }
+}
+

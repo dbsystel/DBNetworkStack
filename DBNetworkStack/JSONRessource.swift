@@ -1,6 +1,6 @@
 //
-//  JSONCodeableRessource.swift
-//  BFACore
+//  JSONRessource.swift
+//  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
 //
