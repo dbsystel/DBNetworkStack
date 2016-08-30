@@ -41,39 +41,109 @@ extension HTTPMethod {
     }
 }
 
+enum BaseURLs: String, BaseURLKey, URLStoring {
+    case BFA
+    case IRIS
+    case RIS
+    
+    var name: String {
+        return rawValue
+    }
+    
+    var productionURL: NSURL {
+        switch self {
+        case BFA:
+            return NSURL()
+        case IRIS:
+            return NSURL()
+        case RIS:
+            return NSURL()
+        }
+    }
+    
+    var testURL: NSURL {
+        switch self {
+        case BFA:
+            return NSURL()
+        case IRIS:
+            return NSURL()
+        case RIS:
+            return NSURL()
+        }
+    }
+    
+    var developmentURL: NSURL {
+        switch self {
+        case BFA:
+            return NSURL()
+        case IRIS:
+            return NSURL()
+        case RIS:
+            return NSURL()
+        }
+    }
+}
 
+/**
+ `AlamofireNetworkService` handles network request for ressources by using `Alamofire` as the network layer.
+ */
 public final class AlamofireNetworkService: NetworkServiceProviding {
     public typealias RequestMethod = (method: Alamofire.Method, URLString: URLStringConvertible, parameters: [String : AnyObject]? , encoding: Alamofire.ParameterEncoding, headers: [String : String]?) -> NetworkRequestModeling
     let requestFunction: RequestMethod
+    let endPoints: Dictionary<String, NSURL>
+    
     /**
      Creates an `NetworkService` instance by injecting a function to fetch data from
      
      - parameter requestFunction: A function of type `RequestMethod` which can fetch data
     */
-    public init(requestFunction: RequestMethod) {
+    public init(requestFunction: RequestMethod, endPoints: Dictionary<String, NSURL>) {
         self.requestFunction = requestFunction
+        self.endPoints = endPoints
     }
     
-    public func fetch<T : RessourceModeling>(ressource: T, onComplition: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest {
-        let request = requestFunction(method: ressource.request.HTTPMethodType.alamofireMethod, URLString: ressource.request.absoluteURL, parameters: ressource.request.parameters, encoding: Alamofire.ParameterEncoding.URL, headers: ressource.request.allHTTPHeaderFields)
+    public func fetch<T : RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest {
+        guard let absoluteURL = absoluteURL(fromRessource: ressource) else {
+            fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
+        }
+        
+        let request = requestFunction(method: ressource.request.HTTPMethodType.alamofireMethod,
+                                      URLString: absoluteURL,
+                                      parameters: ressource.request.parameters,
+                                      encoding: Alamofire.ParameterEncoding.URL,
+                                      headers: ressource.request.allHTTPHeaderFields)
         request.response(queue: dispatch_get_main_queue()) { _, response, data, error in
-            if let error = error {
-                onError(error)
-            }
-            guard let data = data else {
-                //TODO: Proper Error handling
-                return onError(NSError(domain: "No data recieved", code: 0, userInfo: nil))
-            }
             do {
-                let parsed = try ressource.parse(data: data)
-                onComplition(parsed)
-            }catch {
-                //TODO: Proper Error handling
-                return onError(NSError(domain: "", code: 0, userInfo: nil))
+                let parsed = try self.process(response: response, ressource: ressource, data: data, error: error)
+                onCompletion(parsed)
+            } catch let error as NSError {
+                return onError(error)
             }
         }
         
         return request
+    }
+    
+    private func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
+        if let error = error {
+            throw NSError.errorWithUnderlyingError(error, code: .HTTPError)
+        }
+        guard let data = data else {
+            throw NSError(code: .BackendError)
+        }
+        do {
+            return try ressource.parse(data: data)
+        } catch {
+            throw NSError(code: .SerializationError)
+        }
+    }
+    
+    public func absoluteURL<T : RessourceModeling>(fromRessource ressource: T) -> NSURL? {
+        guard let baseURL = endPoints[ressource.request.baseURLKey.name] else {
+            return nil
+        }
+        
+        return NSURL(string: ressource.request.path, relativeToURL: baseURL)
     }
 }
 

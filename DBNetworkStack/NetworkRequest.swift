@@ -30,16 +30,16 @@ import Foundation
  */
 public struct NetworkRequest: NetworkRequestRepresening {
     public var path: String
-    public let baseURL: NSURL
+    public let baseURLKey: BaseURLKey
     public let HTTPMethodType: HTTPMethod
     public let allHTTPHeaderFields: Dictionary<String, String>?
     public let parameters: [String : AnyObject]?
 }
 
 public extension NetworkRequest {
-    public init(path: String, baseURL: NSURL, HTTPMethodType: HTTPMethod = .GET) {
+    public init(path: String, baseURLKey: BaseURLKey, HTTPMethodType: HTTPMethod = .GET) {
         self.path = path
-        self.baseURL = baseURL
+        self.baseURLKey = baseURLKey
         self.HTTPMethodType = HTTPMethodType
         self.allHTTPHeaderFields = nil
         self.parameters = nil

@@ -30,7 +30,16 @@ import Foundation
  */
 public protocol NetworkServiceProviding {
     /**
-     Fetches a ressource asynchrony from remote location 
+     Fetches a ressource asynchrony from remote location
+     
+     - parameter ressource: The ressource you want to fetch.
+     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - return the request
      */
-    func fetch<T: RessourceModeling>(ressource: T, onComplition: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest
+    func fetch<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest
+    
+    func absoluteURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL?
+    
 }

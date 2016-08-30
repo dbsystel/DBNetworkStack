@@ -1,6 +1,6 @@
 //
-//  JSONCodeableRessource.swift
-//  BFACore
+//  JSONParsable.swift
+//  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
 //
@@ -20,28 +20,19 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 22.07.16.
+//  Created by Lukas Schmidt on 30.08.16.
 //
 
 import Foundation
-/**
- `JSONRessource` represents a network ressource in JSON, which can be parsed into a Model Type.
- 
- The root JSON payload must be an object.
- 
- See `RessourceModeling` for more details.
- */
-public struct JSONRessource<Model: JSONParsable>: JSONRessourceModeling {
-    public let request: NetworkRequestRepresening
-    public var parse: (data: NSData) throws -> Model {
-        return parseFunction
-    }
-    
-    public init(request: NetworkRequestRepresening) {
-        self.request = request
-    }
-    
-    public func parse(jsonPayload: Dictionary<String, AnyObject>) throws -> Model {
-        return try Model(object: jsonPayload)
+
+public protocol JSONParsable {
+    init(object: Dictionary<String, AnyObject>) throws
+}
+
+extension Array where Element: JSONParsable {
+    init(JSONArray: Array<Dictionary<String, AnyObject>>) throws {
+        self.init(try JSONArray.map { json in
+                return try Element(object: json)
+            })
     }
 }

@@ -24,7 +24,6 @@
 //
 
 import Foundation
-//import JSONCodable
 
 /**
  `JSONRessource` represents a network ressource in JSON, which can be parsed into an array of Model Types.
@@ -33,20 +32,17 @@ import Foundation
  
  See `RessourceModeling` for more details.
  */
-//public struct JSONListRessource<Model: _ArrayType where Model.Element: JSONDecodable>: JSONRessourceModeling {
-//    public let request: NetworkRequestRepresening
-//    public var parse: (data: NSData) throws -> Model {
-//        return parseFunction
-//    }
-//    
-//    public init(request: NetworkRequestRepresening) {
-//        self.request = request
-//    }
-//    
-//    public func parse(jsonPayload: Array<Dictionary<String, AnyObject>>) throws -> Model {
-//        let result = try jsonPayload.map({ jsonObject in
-//            return try Model.Element(object: jsonObject)
-//        })
-//        return result as! Model
-//    }
-//}
+public struct JSONArrayRessource<Element: JSONParsable>: JSONRessourceModeling {
+    public let request: NetworkRequestRepresening
+    public var parse: (data: NSData) throws -> Array<Element> {
+        return parseFunction
+    }
+    
+    public init(request: NetworkRequestRepresening) {
+        self.request = request
+    }
+    
+    public func parse(jsonPayload: Array<Dictionary<String, AnyObject>>) throws -> Array<Element> {
+        return try Array<Element>(JSONArray: jsonPayload)
+    }
+}

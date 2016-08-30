@@ -32,7 +32,7 @@ struct Train {
 }
 
 class NetworkServiceTest: XCTestCase {
-    var networkService: NetworkService!
+    var networkService: NetworkServiceProviding!
     
     var alamofireMock: AlamofireMock!
     let trainName: NSString = "ICE"
@@ -40,14 +40,14 @@ class NetworkServiceTest: XCTestCase {
     override func setUp() {
         let returnedRequest = NetworkRequestMock(data: trainName.dataUsingEncoding(NSUTF8StringEncoding)!)
         alamofireMock = AlamofireMock(returnedRequest: returnedRequest)
-        networkService = NetworkService(requestFunction: alamofireMock.request)
+        networkService = AlamofireNetworkService(requestFunction: alamofireMock.request)
     }
     
     func testValidRequest() {
         //Given
-        let url = NSURL(string: "bahn.de")!
+        let url = NSURL(string: "//bahn.de")!
         let headers = ["testHeaderField": "testHeaderValue"]
-        let request = NetworkRequest(url: url, HTTPMethodType: .GET, allHTTPHeaderFields: headers, parameters: nil)
+        let request = NetworkRequest(path:"/train", baseURL: url, HTTPMethodType: .GET, allHTTPHeaderFields: headers, parameters: nil)
         let ressource = Ressource(request: request) { Train(name: NSString(data: $0, encoding: NSUTF8StringEncoding) as! String) }
         var train: Train?
         
@@ -59,7 +59,7 @@ class NetworkServiceTest: XCTestCase {
         
         //Then
         XCTAssertEqual(train?.name, trainName)
-        XCTAssertEqual(alamofireMock.URLString?.URLString, url.URLString)
+        XCTAssertEqual(alamofireMock.URLString?.URLString, "//bahn.de/train")
         XCTAssertEqual(alamofireMock.method, HTTPMethod.GET.alamofireMethod)
         //XCTAssertEqual(alamofireMock.parameters, url.URLString)
        
@@ -72,9 +72,9 @@ class NetworkServiceTest: XCTestCase {
         //Given
         let returnedRequest = NetworkRequestMock(data: nil)
         let alamofireMock = AlamofireMock(returnedRequest: returnedRequest)
-        let networkService = NetworkService(requestFunction: alamofireMock.request)
+        let networkService = AlamofireNetworkService(requestFunction: alamofireMock.request)
         let url = NSURL(string: "bahn.de")!
-        let request = NetworkRequest(url: url, HTTPMethodType: .GET, allHTTPHeaderFields: nil, parameters: nil)
+        let request = NetworkRequest(path:"", baseURL: url, HTTPMethodType: .GET, allHTTPHeaderFields: nil, parameters: nil)
         let ressource = Ressource(request: request) { Train(name: NSString(data: $0, encoding: NSUTF8StringEncoding) as! String) }
         var error: NSError?
         
@@ -92,9 +92,9 @@ class NetworkServiceTest: XCTestCase {
         //Given
         let returnedRequest = NetworkRequestMock(data: nil, error: NSError(domain: "", code: 0, userInfo: nil))
         let alamofireMock = AlamofireMock(returnedRequest: returnedRequest)
-        let networkService = NetworkService(requestFunction: alamofireMock.request)
+        let networkService = AlamofireNetworkService(requestFunction: alamofireMock.request)
         let url = NSURL(string: "bahn.de")!
-        let request = NetworkRequest(url: url, HTTPMethodType: .GET, allHTTPHeaderFields: nil, parameters: nil)
+        let request = NetworkRequest(path:"", baseURL: url, HTTPMethodType: .GET, allHTTPHeaderFields: nil, parameters: nil)
         let ressource = Ressource(request: request) { Train(name: NSString(data: $0, encoding: NSUTF8StringEncoding) as! String) }
         var error: NSError?
         

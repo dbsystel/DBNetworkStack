@@ -1,6 +1,6 @@
 //
-//  JSONCodeableTransformers.swift
-//  BFACore
+//  URLStoring.swift
+//  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
 //
@@ -20,19 +20,13 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 01.08.16.
+//  Created by Lukas Schmidt on 30.08.16.
 //
 
 import Foundation
-//import JSONCodable
-//
-//extension JSONTransformer {
-//    /**
-//     Tranforms JSON String to NSURL
-//     */
-//    static func StringToURL() -> JSONTransformer<String, NSURL> {
-//        return JSONTransformer<String, NSURL>(
-//            decoding: { NSURL(string: $0) },
-//            encoding: { $0.absoluteString })
-//    }
-//}
+
+public protocol URLStoring {
+    var productionURL: NSURL { get }
+    var testURL: NSURL { get }
+    var developmentURL: NSURL { get }
+}

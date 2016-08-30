@@ -17,10 +17,9 @@
 		C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67F1D6B2C46006B0364 /* HTTPMethod.swift */; };
 		C60BE6901D6B2C46006B0364 /* Ressource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6801D6B2C46006B0364 /* Ressource.swift */; };
 		C60BE6911D6B2C46006B0364 /* JSONRessource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6811D6B2C46006B0364 /* JSONRessource.swift */; };
-		C60BE6921D6B2C46006B0364 /* JSONListRessource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6821D6B2C46006B0364 /* JSONListRessource.swift */; };
+		C60BE6921D6B2C46006B0364 /* JSONArrayRessource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6821D6B2C46006B0364 /* JSONArrayRessource.swift */; };
 		C60BE6931D6B2C46006B0364 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */; };
 		C60BE6941D6B2C46006B0364 /* AlamofireNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6841D6B2C46006B0364 /* AlamofireNetworkService.swift */; };
-		C60BE6961D6B2C46006B0364 /* JSONCodeableTransformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6861D6B2C46006B0364 /* JSONCodeableTransformers.swift */; };
 		C60BE6991D6B3789006B0364 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6971D6B3789006B0364 /* Alamofire.framework */; };
 		C60BE69A1D6B3789006B0364 /* JSONCodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6981D6B3789006B0364 /* JSONCodable.framework */; };
 		C60BE6A11D6B3807006B0364 /* AlamofireMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE69E1D6B3807006B0364 /* AlamofireMock.swift */; };
@@ -28,8 +27,11 @@
 		C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */; };
 		C60BE6A41D6B384B006B0364 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6971D6B3789006B0364 /* Alamofire.framework */; };
 		C60BE6A51D6B384B006B0364 /* JSONCodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE6981D6B3789006B0364 /* JSONCodable.framework */; };
-		C60BE6AB1D6B3A6A006B0364 /* URLSessionNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AA1D6B3A6A006B0364 /* URLSessionNetworkService.swift */; };
 		C60BE6AD1D6B3E81006B0364 /* CancelableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AC1D6B3E81006B0364 /* CancelableRequest.swift */; };
+		C60BE6AF1D6C24E6006B0364 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AE1D6C24E6006B0364 /* Error.swift */; };
+		C65F087B1D757A3C00239CC1 /* JSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F087A1D757A3C00239CC1 /* JSONParsable.swift */; };
+		C65F08801D75AC7500239CC1 /* URLStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F087F1D75AC7500239CC1 /* URLStoring.swift */; };
+		C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,17 +58,19 @@
 		C60BE67F1D6B2C46006B0364 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C60BE6801D6B2C46006B0364 /* Ressource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ressource.swift; sourceTree = "<group>"; };
 		C60BE6811D6B2C46006B0364 /* JSONRessource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONRessource.swift; sourceTree = "<group>"; };
-		C60BE6821D6B2C46006B0364 /* JSONListRessource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONListRessource.swift; sourceTree = "<group>"; };
+		C60BE6821D6B2C46006B0364 /* JSONArrayRessource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONArrayRessource.swift; sourceTree = "<group>"; };
 		C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		C60BE6841D6B2C46006B0364 /* AlamofireNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireNetworkService.swift; sourceTree = "<group>"; };
-		C60BE6861D6B2C46006B0364 /* JSONCodeableTransformers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONCodeableTransformers.swift; sourceTree = "<group>"; };
 		C60BE6971D6B3789006B0364 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		C60BE6981D6B3789006B0364 /* JSONCodable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONCodable.framework; path = Carthage/Build/iOS/JSONCodable.framework; sourceTree = "<group>"; };
 		C60BE69E1D6B3807006B0364 /* AlamofireMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireMock.swift; sourceTree = "<group>"; };
 		C60BE69F1D6B3807006B0364 /* NetworkRequestMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestMock.swift; sourceTree = "<group>"; };
 		C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
-		C60BE6AA1D6B3A6A006B0364 /* URLSessionNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkService.swift; sourceTree = "<group>"; };
 		C60BE6AC1D6B3E81006B0364 /* CancelableRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelableRequest.swift; sourceTree = "<group>"; };
+		C60BE6AE1D6C24E6006B0364 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		C65F087A1D757A3C00239CC1 /* JSONParsable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParsable.swift; sourceTree = "<group>"; };
+		C65F087F1D75AC7500239CC1 /* URLStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLStoring.swift; sourceTree = "<group>"; };
+		C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +125,7 @@
 				C60BE6801D6B2C46006B0364 /* Ressource.swift */,
 				C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */,
 				C60BE6841D6B2C46006B0364 /* AlamofireNetworkService.swift */,
-				C60BE6AA1D6B3A6A006B0364 /* URLSessionNetworkService.swift */,
+				C60BE6AE1D6C24E6006B0364 /* Error.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
 			);
@@ -148,6 +152,8 @@
 				C60BE67D1D6B2C46006B0364 /* ResourceServiceProviding.swift */,
 				C60BE67E1D6B2C46006B0364 /* JSONRessourceModeling.swift */,
 				C60BE6AC1D6B3E81006B0364 /* CancelableRequest.swift */,
+				C65F087F1D75AC7500239CC1 /* URLStoring.swift */,
+				C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */,
 			);
 			name = protocol;
 			sourceTree = "<group>";
@@ -156,8 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				C60BE6811D6B2C46006B0364 /* JSONRessource.swift */,
-				C60BE6821D6B2C46006B0364 /* JSONListRessource.swift */,
-				C60BE6861D6B2C46006B0364 /* JSONCodeableTransformers.swift */,
+				C60BE6821D6B2C46006B0364 /* JSONArrayRessource.swift */,
+				C65F087A1D757A3C00239CC1 /* JSONParsable.swift */,
 			);
 			name = JSONParsing;
 			sourceTree = "<group>";
@@ -307,19 +313,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C65F08801D75AC7500239CC1 /* URLStoring.swift in Sources */,
 				C60BE6931D6B2C46006B0364 /* NetworkRequest.swift in Sources */,
 				C60BE6911D6B2C46006B0364 /* JSONRessource.swift in Sources */,
 				C60BE6901D6B2C46006B0364 /* Ressource.swift in Sources */,
-				C60BE6921D6B2C46006B0364 /* JSONListRessource.swift in Sources */,
+				C60BE6921D6B2C46006B0364 /* JSONArrayRessource.swift in Sources */,
 				C60BE6941D6B2C46006B0364 /* AlamofireNetworkService.swift in Sources */,
-				C60BE6961D6B2C46006B0364 /* JSONCodeableTransformers.swift in Sources */,
+				C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */,
+				C65F087B1D757A3C00239CC1 /* JSONParsable.swift in Sources */,
 				C60BE68E1D6B2C46006B0364 /* JSONRessourceModeling.swift in Sources */,
 				C60BE68C1D6B2C46006B0364 /* RessourceModeling.swift in Sources */,
 				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
 				C60BE6AD1D6B3E81006B0364 /* CancelableRequest.swift in Sources */,
 				C60BE68D1D6B2C46006B0364 /* ResourceServiceProviding.swift in Sources */,
 				C60BE68B1D6B2C46006B0364 /* NetworkResourceRepresening.swift in Sources */,
-				C60BE6AB1D6B3A6A006B0364 /* URLSessionNetworkService.swift in Sources */,
+				C60BE6AF1D6C24E6006B0364 /* Error.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
