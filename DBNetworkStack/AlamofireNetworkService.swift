@@ -26,7 +26,7 @@
 import Foundation
 import Alamofire
 
-extension HTTPMethod {
+extension DBNetworkStack.HTTPMethod {
     var alamofireMethod: Alamofire.Method {
         switch self {
         case .GET:
@@ -37,49 +37,6 @@ extension HTTPMethod {
             return .PUT
         case .DELETE:
             return .DELETE
-        }
-    }
-}
-
-enum BaseURLs: String, BaseURLKey, URLStoring {
-    case BFA
-    case IRIS
-    case RIS
-    
-    var name: String {
-        return rawValue
-    }
-    
-    var productionURL: NSURL {
-        switch self {
-        case BFA:
-            return NSURL()
-        case IRIS:
-            return NSURL()
-        case RIS:
-            return NSURL()
-        }
-    }
-    
-    var testURL: NSURL {
-        switch self {
-        case BFA:
-            return NSURL()
-        case IRIS:
-            return NSURL()
-        case RIS:
-            return NSURL()
-        }
-    }
-    
-    var developmentURL: NSURL {
-        switch self {
-        case BFA:
-            return NSURL()
-        case IRIS:
-            return NSURL()
-        case RIS:
-            return NSURL()
         }
     }
 }
@@ -107,7 +64,7 @@ public final class AlamofireNetworkService: NetworkServiceProviding {
             fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
         }
         
-        let request = requestFunction(method: ressource.request.HTTPMethodType.alamofireMethod,
+        let request = requestFunction(method: ressource.request.HTTPMethod.alamofireMethod,
                                       URLString: absoluteURL,
                                       parameters: ressource.request.parameters,
                                       encoding: Alamofire.ParameterEncoding.URL,
@@ -138,7 +95,7 @@ public final class AlamofireNetworkService: NetworkServiceProviding {
         }
     }
     
-    public func absoluteURL<T : RessourceModeling>(fromRessource ressource: T) -> NSURL? {
+    public func absoluteURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL? {
         guard let baseURL = endPoints[ressource.request.baseURLKey.name] else {
             return nil
         }

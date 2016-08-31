@@ -1,5 +1,5 @@
 //
-//  BaseURLKey.swift
+//  NetworkResourceRepresening.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,17 +20,21 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 30.08.16.
+//  Created by Lukas Schmidt on 21.07.16.
 //
 
 import Foundation
 
-public protocol BaseURLKey {
-    var name: String { get }
-}
-
-extension String: BaseURLKey {
-    public var name: String {
-        return self
-    }
+/**
+ `NetworkRequestRepresening` represents a networkreuqest with all components needed to retrieve correct ressources.
+ */
+public protocol NetworkRequestRepresening {
+    var path: String { get }
+    var baseURLKey: BaseURLKey { get }
+    var HTTPMethod: DBNetworkStack.HTTPMethod { get }
+    var allHTTPHeaderFields: [String: String]? { get }
+    /**
+     Parameters which will be send with the request.
+     */
+    var parameters: [String : AnyObject]? { get }
 }

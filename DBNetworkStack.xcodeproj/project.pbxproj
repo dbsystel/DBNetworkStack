@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		C60BE65F1D6B2BF3006B0364 /* DBNetworkStack.h in Headers */ = {isa = PBXBuildFile; fileRef = C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C60BE6661D6B2BF3006B0364 /* DBNetworkStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C60BE65B1D6B2BF3006B0364 /* DBNetworkStack.framework */; };
-		C60BE66B1D6B2BF3006B0364 /* DBNetworkStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE66A1D6B2BF3006B0364 /* DBNetworkStackTests.swift */; };
-		C60BE68B1D6B2C46006B0364 /* NetworkResourceRepresening.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67B1D6B2C46006B0364 /* NetworkResourceRepresening.swift */; };
+		C60BE68B1D6B2C46006B0364 /* NetworkRequestRepresening.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67B1D6B2C46006B0364 /* NetworkRequestRepresening.swift */; };
 		C60BE68C1D6B2C46006B0364 /* RessourceModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67C1D6B2C46006B0364 /* RessourceModeling.swift */; };
 		C60BE68D1D6B2C46006B0364 /* ResourceServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67D1D6B2C46006B0364 /* ResourceServiceProviding.swift */; };
 		C60BE68E1D6B2C46006B0364 /* JSONRessourceModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE67E1D6B2C46006B0364 /* JSONRessourceModeling.swift */; };
@@ -31,6 +30,9 @@
 		C60BE6AF1D6C24E6006B0364 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AE1D6C24E6006B0364 /* Error.swift */; };
 		C65F087B1D757A3C00239CC1 /* JSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F087A1D757A3C00239CC1 /* JSONParsable.swift */; };
 		C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */; };
+		C6A5DED41D760CC900BC38B1 /* JSONRessourceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED31D760CC900BC38B1 /* JSONRessourceTest.swift */; };
+		C6A5DED61D760E5000BC38B1 /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED51D760E5000BC38B1 /* NetworkServiceMock.swift */; };
+		C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED91D76A06000BC38B1 /* TrainModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,9 +50,8 @@
 		C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBNetworkStack.h; sourceTree = "<group>"; };
 		C60BE6601D6B2BF3006B0364 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C60BE6651D6B2BF3006B0364 /* DBNetworkStackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DBNetworkStackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C60BE66A1D6B2BF3006B0364 /* DBNetworkStackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBNetworkStackTests.swift; sourceTree = "<group>"; };
 		C60BE66C1D6B2BF3006B0364 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C60BE67B1D6B2C46006B0364 /* NetworkResourceRepresening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResourceRepresening.swift; sourceTree = "<group>"; };
+		C60BE67B1D6B2C46006B0364 /* NetworkRequestRepresening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestRepresening.swift; sourceTree = "<group>"; };
 		C60BE67C1D6B2C46006B0364 /* RessourceModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RessourceModeling.swift; sourceTree = "<group>"; };
 		C60BE67D1D6B2C46006B0364 /* ResourceServiceProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceServiceProviding.swift; sourceTree = "<group>"; };
 		C60BE67E1D6B2C46006B0364 /* JSONRessourceModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONRessourceModeling.swift; sourceTree = "<group>"; };
@@ -69,6 +70,9 @@
 		C60BE6AE1D6C24E6006B0364 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C65F087A1D757A3C00239CC1 /* JSONParsable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParsable.swift; sourceTree = "<group>"; };
 		C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLKey.swift; sourceTree = "<group>"; };
+		C6A5DED31D760CC900BC38B1 /* JSONRessourceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONRessourceTest.swift; sourceTree = "<group>"; };
+		C6A5DED51D760E5000BC38B1 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
+		C6A5DED91D76A06000BC38B1 /* TrainModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,10 +137,10 @@
 		C60BE6691D6B2BF3006B0364 /* DBNetworkStackTests */ = {
 			isa = PBXGroup;
 			children = (
-				C60BE69E1D6B3807006B0364 /* AlamofireMock.swift */,
-				C60BE69F1D6B3807006B0364 /* NetworkRequestMock.swift */,
+				C6A5DED81D76A05300BC38B1 /* Helpers */,
+				C6A5DED21D760C9E00BC38B1 /* Mocks */,
 				C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */,
-				C60BE66A1D6B2BF3006B0364 /* DBNetworkStackTests.swift */,
+				C6A5DED31D760CC900BC38B1 /* JSONRessourceTest.swift */,
 				C60BE66C1D6B2BF3006B0364 /* Info.plist */,
 			);
 			path = DBNetworkStackTests;
@@ -145,7 +149,7 @@
 		C60BE6A81D6B399A006B0364 /* protocol */ = {
 			isa = PBXGroup;
 			children = (
-				C60BE67B1D6B2C46006B0364 /* NetworkResourceRepresening.swift */,
+				C60BE67B1D6B2C46006B0364 /* NetworkRequestRepresening.swift */,
 				C60BE67C1D6B2C46006B0364 /* RessourceModeling.swift */,
 				C60BE67D1D6B2C46006B0364 /* ResourceServiceProviding.swift */,
 				C60BE67E1D6B2C46006B0364 /* JSONRessourceModeling.swift */,
@@ -163,6 +167,24 @@
 				C65F087A1D757A3C00239CC1 /* JSONParsable.swift */,
 			);
 			name = JSONParsing;
+			sourceTree = "<group>";
+		};
+		C6A5DED21D760C9E00BC38B1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				C60BE69E1D6B3807006B0364 /* AlamofireMock.swift */,
+				C60BE69F1D6B3807006B0364 /* NetworkRequestMock.swift */,
+				C6A5DED51D760E5000BC38B1 /* NetworkServiceMock.swift */,
+			);
+			name = Mocks;
+			sourceTree = "<group>";
+		};
+		C6A5DED81D76A05300BC38B1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C6A5DED91D76A06000BC38B1 /* TrainModel.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,7 +344,7 @@
 				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
 				C60BE6AD1D6B3E81006B0364 /* CancelableRequest.swift in Sources */,
 				C60BE68D1D6B2C46006B0364 /* ResourceServiceProviding.swift in Sources */,
-				C60BE68B1D6B2C46006B0364 /* NetworkResourceRepresening.swift in Sources */,
+				C60BE68B1D6B2C46006B0364 /* NetworkRequestRepresening.swift in Sources */,
 				C60BE6AF1D6C24E6006B0364 /* Error.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -331,10 +353,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6A5DED61D760E5000BC38B1 /* NetworkServiceMock.swift in Sources */,
 				C60BE6A11D6B3807006B0364 /* AlamofireMock.swift in Sources */,
-				C60BE66B1D6B2BF3006B0364 /* DBNetworkStackTests.swift in Sources */,
+				C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */,
 				C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */,
 				C60BE6A21D6B3807006B0364 /* NetworkRequestMock.swift in Sources */,
+				C6A5DED41D760CC900BC38B1 /* JSONRessourceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

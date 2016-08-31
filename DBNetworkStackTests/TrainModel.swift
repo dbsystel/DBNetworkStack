@@ -1,5 +1,5 @@
 //
-//  BaseURLKey.swift
+//  TrainModel.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,17 +20,19 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 30.08.16.
+//  Created by Lukas Schmidt on 31.08.16.
 //
 
 import Foundation
+import DBNetworkStack
 
-public protocol BaseURLKey {
-    var name: String { get }
+struct Train {
+    let name: String
 }
 
-extension String: BaseURLKey {
-    public var name: String {
-        return self
+extension Train: JSONParsable {
+    init(object: Dictionary<String, AnyObject>) throws {
+        name = object["name"] as! String
     }
 }
+

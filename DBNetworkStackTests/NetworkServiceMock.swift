@@ -1,5 +1,5 @@
 //
-//  NetworkResourceRepresening.swift
+//  NetworkServiceMock.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,21 +20,31 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 21.07.16.
+//  Created by Lukas Schmidt on 30.08.16.
 //
 
 import Foundation
+import DBNetworkStack
 
-/**
- `NetworkRequestRepresening` represents a networkreuqest with all components needed to retrieve correct ressources.
- */
-public protocol NetworkRequestRepresening {
-    var path: String { get }
-    var baseURLKey: BaseURLKey { get }
-    var HTTPMethodType: HTTPMethod { get }
-    var allHTTPHeaderFields: [String: String]? { get }
-    /**
-     Parameters which will be send with the request.
-     */
-    var parameters: [String : AnyObject]? { get }
+class CancelRequestMock: CancelableRequest {
+    var isCanceld = false
+    func cancel() {
+        isCanceld = true
+    }
+}
+
+struct NetworkServiceMock: NetworkServiceProviding {
+    let pathToDataMap: Dictionary<String, NSData>
+    
+    func fetch<T : RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest {
+        let path = ressource.request.path
+        let data = pathToDataMap[path]!
+        let obj = try! ressource.parse(data: data)
+        onCompletion(obj)
+        return CancelRequestMock()
+    }
+    
+    func absoluteURL<T : RessourceModeling>(fromRessource ressource: T) -> NSURL? {
+        return nil
+    }
 }

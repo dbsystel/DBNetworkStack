@@ -31,23 +31,23 @@ import Foundation
 public struct NetworkRequest: NetworkRequestRepresening {
     public var path: String
     public let baseURLKey: BaseURLKey
-    public let HTTPMethodType: HTTPMethod
+    public let HTTPMethod: DBNetworkStack.HTTPMethod
     public let parameters: Dictionary<String, AnyObject>?
     public let allHTTPHeaderFields: Dictionary<String, String>?
 }
 
 public extension NetworkRequest {
-    public init(path: String, baseURLKey: BaseURLKey, HTTPMethodType: HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
+    public init(path: String, baseURLKey: BaseURLKey, HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
         self.path = path
         self.baseURLKey = baseURLKey
-        self.HTTPMethodType = HTTPMethodType
+        self.HTTPMethod = HTTPMethod
         self.allHTTPHeaderFields = allHTTPHeaderFields
         self.parameters = parameter
     }
     
     public init(defaultRequest: NetworkRequestRepresening, parameter: Dictionary<String, AnyObject>? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
         self.path = defaultRequest.path
-        self.HTTPMethodType = defaultRequest.HTTPMethodType
+        self.HTTPMethod = defaultRequest.HTTPMethod
         self.baseURLKey = defaultRequest.baseURLKey
         self.parameters = defaultRequest.parameters?.merged(parameter)
         self.allHTTPHeaderFields = defaultRequest.allHTTPHeaderFields?.merged(allHTTPHeaderFields)

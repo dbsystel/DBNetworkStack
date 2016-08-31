@@ -28,3 +28,19 @@ import Foundation
 public enum HTTPMethod: String {
     case GET, POST, PUT, DELETE
 }
+
+//public protocol HTTPMethod {
+//    var HTTPMethodName: String { get }
+//}
+//
+//extension HTTPMethod {
+//    static var GET: HTTPMethod {
+//        return "GET"
+//    }
+//}
+//
+//extension String: HTTPMethod {
+//    var HTTPMethodName: String {
+//        return self
+//    }
+//}

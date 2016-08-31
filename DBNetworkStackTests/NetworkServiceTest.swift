@@ -27,8 +27,12 @@ import XCTest
 @testable import DBNetworkStack
 import Alamofire
 
-struct Train {
-    let name: String
+enum TestEndPoints: BaseURLKey {
+    case EndPoint
+    
+    var name: String {
+        return "endPointTestKey"
+    }
 }
 
 class NetworkServiceTest: XCTestCase {
@@ -40,19 +44,18 @@ class NetworkServiceTest: XCTestCase {
     override func setUp() {
         let returnedRequest = NetworkRequestMock(data: trainName.dataUsingEncoding(NSUTF8StringEncoding)!)
         alamofireMock = AlamofireMock(returnedRequest: returnedRequest)
-        networkService = AlamofireNetworkService(requestFunction: alamofireMock.request)
+        networkService = AlamofireNetworkService(requestFunction: alamofireMock.request, endPoints: ["endPointTestKey": NSURL(string: "//bahn.de")!])
     }
     
     func testValidRequest() {
         //Given
-        let url = NSURL(string: "//bahn.de")!
         let headers = ["testHeaderField": "testHeaderValue"]
-        let request = NetworkRequest(path:"/train", baseURL: url, HTTPMethodType: .GET, allHTTPHeaderFields: headers, parameters: nil)
+        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.EndPoint, HTTPMethod: .GET, allHTTPHeaderFields: headers)
         let ressource = Ressource(request: request) { Train(name: NSString(data: $0, encoding: NSUTF8StringEncoding) as! String) }
         var train: Train?
         
         //When
-        networkService.fetch(ressource, onComplition: { fetchedTrain in
+        networkService.fetch(ressource, onCompletion: { fetchedTrain in
             train = fetchedTrain
             }, onError: { err in
         })
@@ -72,14 +75,13 @@ class NetworkServiceTest: XCTestCase {
         //Given
         let returnedRequest = NetworkRequestMock(data: nil)
         let alamofireMock = AlamofireMock(returnedRequest: returnedRequest)
-        let networkService = AlamofireNetworkService(requestFunction: alamofireMock.request)
-        let url = NSURL(string: "bahn.de")!
-        let request = NetworkRequest(path:"", baseURL: url, HTTPMethodType: .GET, allHTTPHeaderFields: nil, parameters: nil)
+        networkService = AlamofireNetworkService(requestFunction: alamofireMock.request, endPoints: ["endPointTestKey": NSURL(string: "//bahn.de")!])
+        let request = NetworkRequest(path:"", baseURLKey: TestEndPoints.EndPoint, HTTPMethod: .GET)
         let ressource = Ressource(request: request) { Train(name: NSString(data: $0, encoding: NSUTF8StringEncoding) as! String) }
         var error: NSError?
         
         //When
-        networkService.fetch(ressource, onComplition: { fetchedTrain in
+        networkService.fetch(ressource, onCompletion: { fetchedTrain in
             }, onError: { err in
                 error = err
         })
@@ -92,14 +94,14 @@ class NetworkServiceTest: XCTestCase {
         //Given
         let returnedRequest = NetworkRequestMock(data: nil, error: NSError(domain: "", code: 0, userInfo: nil))
         let alamofireMock = AlamofireMock(returnedRequest: returnedRequest)
-        let networkService = AlamofireNetworkService(requestFunction: alamofireMock.request)
-        let url = NSURL(string: "bahn.de")!
-        let request = NetworkRequest(path:"", baseURL: url, HTTPMethodType: .GET, allHTTPHeaderFields: nil, parameters: nil)
+        let networkService = AlamofireNetworkService(requestFunction: alamofireMock.request, endPoints: ["endPointTestKey": NSURL(string: "//bahn.de")!])
+        
+        let request = NetworkRequest(path:"", baseURLKey: TestEndPoints.EndPoint, HTTPMethod: .GET)
         let ressource = Ressource(request: request) { Train(name: NSString(data: $0, encoding: NSUTF8StringEncoding) as! String) }
         var error: NSError?
         
         //When
-        networkService.fetch(ressource, onComplition: { fetchedTrain in
+        networkService.fetch(ressource, onCompletion: { fetchedTrain in
             }, onError: { err in
                 error = err
         })
