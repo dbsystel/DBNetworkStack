@@ -1,5 +1,5 @@
 //
-//  TrainModel.swift
+//  NetworkAccessProviding.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -24,24 +24,7 @@
 //
 
 import Foundation
-import DBNetworkStack
 
-struct Train {
-    let name: String
-}
-
-extension Train: JSONMappable {
-    init(object: Dictionary<String, AnyObject>) throws {
-        name = object["name"] as! String
-    }
-}
-
-extension Train {
-    static var validJSONData: NSData {
-        return "{ \"name\": \"ICE\"}".dataUsingEncoding(NSUTF8StringEncoding)!
-    }
-    
-    static var invalidJSONData: NSData {
-        return "{ name: \"ICE\"}".dataUsingEncoding(NSUTF8StringEncoding)!
-    }
+public protocol NetworkAccessProviding {
+    func load(request request: NetworkRequestRepresening, relativeToBaseURL: NSURL, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> CancelableRequest
 }

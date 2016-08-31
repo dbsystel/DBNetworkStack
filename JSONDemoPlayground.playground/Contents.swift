@@ -13,7 +13,7 @@ public struct Station {
     public let name: String
 }
 
-extension Station: JSONDecodable, JSONParsable {
+extension Station: JSONDecodable, JSONMappable {
     public init(object: JSONObject) throws {
         let decoder = JSONDecoder(object: object)
         id = try decoder.decode("id")

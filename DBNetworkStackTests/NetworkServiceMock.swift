@@ -33,18 +33,23 @@ class CancelRequestMock: CancelableRequest {
     }
 }
 
-struct NetworkServiceMock: NetworkServiceProviding {
-    let pathToDataMap: Dictionary<String, NSData>
+class NetworkAccessMock: NetworkAccessProviding {
+    private(set) var data: NSData?
+    private(set) var response: NSHTTPURLResponse?
+    private(set) var error: NSError?
     
-    func fetch<T : RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest {
-        let path = ressource.request.path
-        let data = pathToDataMap[path]!
-        let obj = try! ressource.parse(data: data)
-        onCompletion(obj)
+    private(set) var baseURL: NSURL?
+    
+    func load(request request: NetworkRequestRepresening, relativeToBaseURL baseURL: NSURL, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> CancelableRequest {
+        self.baseURL = baseURL
+        callback(data, response, error)
+        
         return CancelRequestMock()
     }
     
-    func absoluteURL<T : RessourceModeling>(fromRessource ressource: T) -> NSURL? {
-        return nil
+    func changeMock(data data: NSData?, response: NSHTTPURLResponse?, error: NSError?) {
+        self.data = data
+        self.response = response
+        self.error = error
     }
 }

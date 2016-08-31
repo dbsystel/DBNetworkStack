@@ -26,7 +26,7 @@
 import Foundation
 
 
-public let NetworkErrorDomain = "Network.Errors"
+public let NetworkErrorDomain = "Network.Error"
 
 public enum NetworkErrorCode: Int {
     case UnknownError = 999

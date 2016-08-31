@@ -31,7 +31,7 @@ import Foundation
  
  See `RessourceModeling` for more details.
  */
-public struct JSONRessource<Model: JSONParsable>: JSONRessourceModeling {
+public struct JSONRessource<Model: JSONMappable>: JSONRessourceModeling {
     public let request: NetworkRequestRepresening
     public var parse: (data: NSData) throws -> Model {
         return parseFunction

@@ -36,5 +36,5 @@ public protocol NetworkRequestRepresening {
     /**
      Parameters which will be send with the request.
      */
-    var parameters: [String : AnyObject]? { get }
+    var parameter: [String : AnyObject]? { get }
 }

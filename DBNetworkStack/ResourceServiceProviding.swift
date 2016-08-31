@@ -40,6 +40,6 @@ public protocol NetworkServiceProviding {
      */
     func fetch<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest
     
-    func absoluteURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL?
+    func baseURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL?
     
 }

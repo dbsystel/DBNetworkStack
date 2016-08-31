@@ -27,17 +27,13 @@ import XCTest
 @testable import DBNetworkStack
 
 class JSONRessourceTest: XCTestCase {
-    var networkServiceMock: NetworkServiceMock!
-    let trainData = "{ \"name\": \"ICE\"}".dataUsingEncoding(NSUTF8StringEncoding)!
-    let invalidJSON = "{ name: \"ICE\"}".dataUsingEncoding(NSUTF8StringEncoding)!
-    
     func testRessource() {
         //Given
         let request = NetworkRequest(path: "/train", baseURLKey: "")
         let ressource = JSONRessource<Train>(request: request)
         
         //When
-        let fetchedTrain = try! ressource.parse(data: trainData)
+        let fetchedTrain = try! ressource.parse(data: Train.validJSONData)
        
         
         //Then
@@ -52,7 +48,7 @@ class JSONRessourceTest: XCTestCase {
         
         //When
         do {
-            let _ = try ressource.parse(data: invalidJSON)
+            let _ = try ressource.parse(data: Train.invalidJSONData)
             XCTFail()
         } catch {
         }

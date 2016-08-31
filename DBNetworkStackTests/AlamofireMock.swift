@@ -27,26 +27,23 @@ import Foundation
 import Alamofire
 @testable import DBNetworkStack
 
-class AlamofireMock {
-    let returnedRequest: NetworkRequestModeling
-    
+class AlamofireMock {    
     var method: Alamofire.Method?
     var URLString: URLStringConvertible?
-    var parameters: [String : AnyObject]?
+    var parameter: [String : AnyObject]?
     var encoding: Alamofire.ParameterEncoding?
     var headers: [String : String]?
     
-    init(returnedRequest: NetworkRequestModeling) {
-        self.returnedRequest = returnedRequest
-    }
+    var returnedRequest: NetworkRequestModeling?
+    
     
     func request(method method: Alamofire.Method, URLString: URLStringConvertible, parameters: [String : AnyObject]? , encoding: Alamofire.ParameterEncoding, headers: [String : String]?) -> NetworkRequestModeling {
         self.method = method
         self.URLString = URLString
-        self.parameters = parameters
+        self.parameter = parameters
         self.encoding = encoding
         self.headers = headers
         
-        return returnedRequest
+        return returnedRequest ?? NetworkRequestMock()
     }
 }

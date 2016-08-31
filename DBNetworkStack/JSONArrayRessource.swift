@@ -32,7 +32,7 @@ import Foundation
  
  See `RessourceModeling` for more details.
  */
-public struct JSONArrayRessource<Element: JSONParsable>: JSONRessourceModeling {
+public struct JSONArrayRessource<Element: JSONMappable>: JSONRessourceModeling {
     public let request: NetworkRequestRepresening
     public var parse: (data: NSData) throws -> Array<Element> {
         return parseFunction

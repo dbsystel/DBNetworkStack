@@ -20,66 +20,48 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 21.07.16.
+//  Created by Lukas Schmidt on 31.08.16.
 //
 
 import Foundation
-import Alamofire
 
-extension DBNetworkStack.HTTPMethod {
-    var alamofireMethod: Alamofire.Method {
-        switch self {
-        case .GET:
-            return .GET
-        case .POST:
-            return .POST
-        case .PUT:
-            return .PUT
-        case .DELETE:
-            return .DELETE
-        }
-    }
-}
 
 /**
- `AlamofireNetworkService` handles network request for ressources by using `Alamofire` as the network layer.
+ `NetworkService` handles network request for ressources by using `Alamofire` as the network layer.
  */
-public final class AlamofireNetworkService: NetworkServiceProviding {
-    public typealias RequestMethod = (method: Alamofire.Method, URLString: URLStringConvertible, parameters: [String : AnyObject]? , encoding: Alamofire.ParameterEncoding, headers: [String : String]?) -> NetworkRequestModeling
-    let requestFunction: RequestMethod
+public final class NetworkService: NetworkServiceProviding {
+    let networkAccess: NetworkAccessProviding
     let endPoints: Dictionary<String, NSURL>
     
     /**
      Creates an `NetworkService` instance by injecting a function to fetch data from
      
      - parameter requestFunction: A function of type `RequestMethod` which can fetch data
-    */
-    public init(requestFunction: RequestMethod, endPoints: Dictionary<String, NSURL>) {
-        self.requestFunction = requestFunction
+     */
+    public init(networkAccess: NetworkAccessProviding, endPoints: Dictionary<String, NSURL>) {
+        self.networkAccess = networkAccess
         self.endPoints = endPoints
     }
     
     public func fetch<T : RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest {
-        guard let absoluteURL = absoluteURL(fromRessource: ressource) else {
+        guard let baseURL = baseURL(fromRessource: ressource) else {
             fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
         }
-        
-        let request = requestFunction(method: ressource.request.HTTPMethod.alamofireMethod,
-                                      URLString: absoluteURL,
-                                      parameters: ressource.request.parameters,
-                                      encoding: Alamofire.ParameterEncoding.URL,
-                                      headers: ressource.request.allHTTPHeaderFields)
-        request.response(queue: dispatch_get_main_queue()) { _, response, data, error in
+        return networkAccess.load(request: ressource.request, relativeToBaseURL: baseURL, callback: { data, response, error in
             do {
                 let parsed = try self.process(response: response, ressource: ressource, data: data, error: error)
                 onCompletion(parsed)
             } catch let error as NSError {
                 return onError(error)
             }
-        }
-        
-        return request
+        })
     }
+    
+    public func baseURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL? {
+        return endPoints[ressource.request.baseURLKey.name]
+    }
+    
+    //MARK: Private
     
     private func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
         if let error = error {
@@ -95,20 +77,5 @@ public final class AlamofireNetworkService: NetworkServiceProviding {
         }
     }
     
-    public func absoluteURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL? {
-        guard let baseURL = endPoints[ressource.request.baseURLKey.name] else {
-            return nil
-        }
-        
-        return NSURL(string: ressource.request.path, relativeToURL: baseURL)
-    }
+    
 }
-
-
-/**
- Abstracts Alamofire.Request to make it testable
-*/
-public protocol NetworkRequestModeling: CancelableRequest {
-    func response(queue queue: dispatch_queue_t?, completionHandler: (NSURLRequest?, NSHTTPURLResponse?, NSData?, NSError?) -> Void) -> Self
-}
-extension Alamofire.Request: NetworkRequestModeling { }

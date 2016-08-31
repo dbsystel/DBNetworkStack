@@ -1,5 +1,5 @@
 //
-//  JSONParsable.swift
+//  JSONMappable.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -25,11 +25,11 @@
 
 import Foundation
 
-public protocol JSONParsable {
+public protocol JSONMappable {
     init(object: Dictionary<String, AnyObject>) throws
 }
 
-extension Array where Element: JSONParsable {
+extension Array where Element: JSONMappable {
     init(JSONArray: Array<Dictionary<String, AnyObject>>) throws {
         self.init(try JSONArray.map { json in
                 return try Element(object: json)
