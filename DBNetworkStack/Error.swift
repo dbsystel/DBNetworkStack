@@ -49,7 +49,7 @@ extension NSError {
         return NSError(code: code, userInfo: error != nil ? [NSUnderlyingErrorKey: error!] : nil)
     }
     
-    static func backendError(statusCode: Int, data: NSData?) -> ErrorType? {
+    static func backendError(statusCode: Int, data: NSData?) -> NSError? {
         switch statusCode {
         case 200..<300: return nil
         case 401:

@@ -71,6 +71,9 @@ public final class NetworkService: NetworkServiceProviding {
         if let error = error {
             throw NSError.errorWithUnderlyingError(error, code: .HTTPError)
         }
+        if let statusCode = response?.statusCode, responseError = NSError.backendError(statusCode, data: data) {
+            throw responseError
+        }
         guard let data = data else {
             throw NSError(code: .BackendError)
         }

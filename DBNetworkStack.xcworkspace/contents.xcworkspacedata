@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Experiments.playground">
-   </FileRef>
-   <FileRef
       location = "group:JSONDemoPlayground.playground">
    </FileRef>
    <FileRef

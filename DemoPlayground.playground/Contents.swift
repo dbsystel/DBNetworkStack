@@ -2,10 +2,10 @@
 
 import Foundation
 import DBNetworkStack
-import Alamofire
 import XCPlayground
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+
 
 enum BaseURLs: String, BaseURLKey {
     case BFA
@@ -34,7 +34,7 @@ enum BaseURLs: String, BaseURLKey {
 
 
 let baseURL = BaseURLs.BahnDE
-let service = AlamofireNetworkService(requestFunction: Alamofire.request, endPoints: [baseURL.name: baseURL.url])
+let service = NetworkService(t: NSURLSessionNetworkAccess, t: [:])
 
 //Different Place
 var request = NetworkRequest(path: "/p/view/index.shtml", baseURLKey: baseURL)
