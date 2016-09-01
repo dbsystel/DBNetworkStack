@@ -1,2 +1,2 @@
-github "Alamofire/Alamofire" == 3.4
+github "Alamofire/Alamofire" "swift2.3"
 github "matthewcheok/JSONCodable" == 2.1
