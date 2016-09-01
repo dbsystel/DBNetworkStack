@@ -25,14 +25,16 @@
 
 import Foundation
 import DBNetworkStack
+import JSONCodable
 
 struct Train {
     let name: String
 }
 
-extension Train: JSONMappable {
+extension Train: JSONMappable, JSONCodable {
     init(object: Dictionary<String, AnyObject>) throws {
-        name = object["name"] as! String
+        let decoder = JSONDecoder(object: object)
+        name = try decoder.decode("name")
     }
 }
 
@@ -43,5 +45,13 @@ extension Train {
     
     static var invalidJSONData: NSData {
         return "{ name: \"ICE\"}".dataUsingEncoding(NSUTF8StringEncoding)!
+    }
+    
+    static var JSONDataWithInvalidKey: NSData {
+        return "{ \"namee\": \"ICE\"}".dataUsingEncoding(NSUTF8StringEncoding)!
+    }
+    
+    static var validJSONArrayData: NSData {
+        return "[{ \"name\": \"ICE\"}, { \"name\": \"IC\"}, { \"name\": \"TGV\"}]".dataUsingEncoding(NSUTF8StringEncoding)!
     }
 }

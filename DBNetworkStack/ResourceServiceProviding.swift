@@ -42,4 +42,6 @@ public protocol NetworkServiceProviding {
     
     func baseURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL?
     
+    func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model
+    
 }

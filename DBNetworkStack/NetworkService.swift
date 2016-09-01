@@ -50,9 +50,13 @@ public final class NetworkService: NetworkServiceProviding {
         return networkAccess.load(request: ressource.request, relativeToBaseURL: baseURL, callback: { data, response, error in
             do {
                 let parsed = try self.process(response: response, ressource: ressource, data: data, error: error)
-                onCompletion(parsed)
+                dispatch_async(dispatch_get_main_queue()) {
+                    onCompletion(parsed)
+                }
             } catch let error as NSError {
-                return onError(error)
+                dispatch_async(dispatch_get_main_queue()) {
+                    return onError(error)
+                }
             }
         })
     }
@@ -63,7 +67,7 @@ public final class NetworkService: NetworkServiceProviding {
     
     //MARK: Private
     
-    private func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
+    public func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
         if let error = error {
             throw NSError.errorWithUnderlyingError(error, code: .HTTPError)
         }
@@ -72,8 +76,8 @@ public final class NetworkService: NetworkServiceProviding {
         }
         do {
             return try ressource.parse(data: data)
-        } catch {
-            throw NSError(code: .SerializationError)
+        } catch let error as CustomStringConvertible {
+            throw NSError(code: .SerializationError, userInfo: ["key": String(error)])
         }
     }
     

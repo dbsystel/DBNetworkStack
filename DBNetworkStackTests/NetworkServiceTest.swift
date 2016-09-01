@@ -54,16 +54,18 @@ class NetworkServiceTest: XCTestCase {
         networkAccess.changeMock(data: Train.validJSONData, response: nil, error: nil)
         
         //When
-        var train: Train?
-        networkService.fetch(ressource, onCompletion: { fetchedTrain in
-            train = fetchedTrain
+        let expection = expectationWithDescription("loadValidRequest")
+        networkService.fetch(ressource, onCompletion: { train in
+            //Then
+            XCTAssertEqual(train.name, self.trainName)
+            XCTAssertEqual(self.networkAccess.baseURL, self.baseURL)
+            
+            expection.fulfill()
             }, onError: { err in
                 XCTFail()
         })
         
-        //Then
-        XCTAssertEqual(train?.name, trainName)
-        XCTAssertEqual(networkAccess.baseURL, baseURL)
+        waitForExpectationsWithTimeout(1, handler: nil)
     }
 
     func testNoData() {
@@ -74,14 +76,15 @@ class NetworkServiceTest: XCTestCase {
         
         
         //When
-        var error: NSError?
+        let expection = expectationWithDescription("testNoData")
         networkService.fetch(ressource, onCompletion: { fetchedTrain in
             XCTFail()
-            }, onError: { err in
-                error = err
+            }, onError: { error in
+                //Then
+                expection.fulfill()
         })
-        //Then
-        XCTAssertNotNil(error)
+        
+         waitForExpectationsWithTimeout(1, handler: nil)
     }
     
     func testInvalidData() {
@@ -92,34 +95,56 @@ class NetworkServiceTest: XCTestCase {
         
         
         //When
-        var error: NSError?
+        let expection = expectationWithDescription("testInvalidData")
         networkService.fetch(ressource, onCompletion: { fetchedTrain in
             XCTFail()
-            }, onError: { err in
-                error = err
+            }, onError: { error in
+                //Then
+                expection.fulfill()
         })
-        //Then
-        XCTAssertNotNil(error)
+        
+         waitForExpectationsWithTimeout(1, handler: nil)
     }
     
-//
-//    func testOnError() {
-//        //Given
-//        let returnedRequest = NetworkRequestMock(data: nil, error: NSError(domain: "", code: 0, userInfo: nil))
-//        let alamofireMock = AlamofireMock(returnedRequest: returnedRequest)
-//        let networkService = AlamofireNetworkService(requestFunction: alamofireMock.request, endPoints: ["endPointTestKey": NSURL(string: "//bahn.de")!])
-//        
-//        let request = NetworkRequest(path:"", baseURLKey: TestEndPoints.EndPoint, HTTPMethod: .GET)
-//        let ressource = Ressource(request: request) { Train(name: NSString(data: $0, encoding: NSUTF8StringEncoding) as! String) }
-//        var error: NSError?
-//        
-//        //When
-//        networkService.fetch(ressource, onCompletion: { fetchedTrain in
-//            }, onError: { err in
-//                error = err
-//        })
-//        
-//        //Then
-//        XCTAssertNotNil(error)
-//    }
+    func testInvalidJSONKeyData() {
+        //Given
+        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.EndPoint)
+        let ressource = JSONRessource<Train>(request: request)
+        networkAccess.changeMock(data: Train.JSONDataWithInvalidKey, response: nil, error: nil)
+        
+        
+        //When
+        let expection = expectationWithDescription("testInvalidJSONKeyData")
+        networkService.fetch(ressource, onCompletion: { fetchedTrain in
+            XCTFail()
+            }, onError: { error in
+                //Then
+                XCTAssert(error.debugDescription.containsString("name"))
+                expection.fulfill()
+        })
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
+    }
+    
+
+    func testOnError() {
+        //Given
+        let error = NSError(domain: "", code: 0, userInfo: nil)
+        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.EndPoint)
+        let ressource = JSONRessource<Train>(request: request)
+        networkAccess.changeMock(data: nil, response: nil, error: error)
+        
+        
+        //When
+        let expection = expectationWithDescription("testOnError")
+        networkService.fetch(ressource, onCompletion: { fetchedTrain in
+            }, onError: { resultError in
+                //Then
+                XCTAssertEqual(resultError.userInfo[NSUnderlyingErrorKey] as? NSError, error)
+                expection.fulfill()
+        })
+        
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
+    }
 }
