@@ -26,25 +26,25 @@
 import Foundation
 @testable import DBNetworkStack
 
-class NetworkRequestMock: NetworkRequestModeling {
-    let data: NSData?
-    let error: NSError?
-    
-    init(data: NSData?, error: NSError? = nil) {
-        self.data = data
-        self.error = error
-    }
-    
-    convenience init() {
-        self.init(data: nil, error: nil)
-    }
-    
-    func response(queue queue: dispatch_queue_t?, completionHandler: (NSURLRequest?, NSHTTPURLResponse?, NSData?, NSError?) -> Void) -> Self {
-        completionHandler(nil, nil, data, error)
-        return self
-    }
-    
-    func cancel() {
-        
-    }
-}
+//class NetworkRequestMock: NetworkRequestModeling {
+//    let data: NSData?
+//    let error: NSError?
+//    
+//    init(data: NSData?, error: NSError? = nil) {
+//        self.data = data
+//        self.error = error
+//    }
+//    
+//    convenience init() {
+//        self.init(data: nil, error: nil)
+//    }
+//    
+//    func response(queue queue: dispatch_queue_t?, completionHandler: (NSURLRequest?, NSHTTPURLResponse?, NSData?, NSError?) -> Void) -> Self {
+//        completionHandler(nil, nil, data, error)
+//        return self
+//    }
+//    
+//    func cancel() {
+//        
+//    }
+//}

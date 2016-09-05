@@ -27,37 +27,37 @@ import XCTest
 @testable import DBNetworkStack
 
 
-class AlamofireNetworkAccessTest: XCTestCase {
-    
-    var alamofireMock = AlamofireMock()
-    var networkAccess: AlamofireNetworkAccessProvider!
-    
-    override func setUp() {
-        networkAccess = AlamofireNetworkAccessProvider(requestFunction: alamofireMock.request, endPoints: [TestEndPoints.EndPoint.name: NSURL()])
-    }
-    
-    func testValidRequest() {
-        //Given
-        let parameter: [String: AnyObject] = ["id": 1, "name": "ICE"]
-        let headers = ["testHeaderField": "testHeaderValue"]
-        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.EndPoint, HTTPMethod: .GET, parameter: parameter, allHTTPHeaderField: headers)
-        let baseURL = NSURL(string: "https://bahn.de")!
-        
-        //When
-        networkAccess.load(request: request, relativeToBaseURL: baseURL, callback: { _, _, _ in
-            
-        })
-        
-        //Then
-        XCTAssertEqual(alamofireMock.URLString?.URLString, "https://bahn.de/train")
-        XCTAssertEqual(alamofireMock.method, HTTPMethod.GET.alamofireMethod)
-        //XCTAssertEqual(alamofireMock.parameters, url.URLString)
-        
-        //XCTAssert(alamofireMock.encoding! == Alamofire.ParameterEncoding.URL)
-        XCTAssertEqual(alamofireMock.headers!, headers)
-        XCTAssertEqual(alamofireMock.parameter?.count, 2)
-        XCTAssertEqual(alamofireMock.parameter?["id"] as? Int, 1)
-        XCTAssertEqual(alamofireMock.parameter?["name"] as? String, "ICE")
-        
-    }
-}
+//class AlamofireNetworkAccessTest: XCTestCase {
+//    
+//    var alamofireMock = AlamofireMock()
+//    var networkAccess: AlamofireNetworkAccessProvider!
+//    
+//    override func setUp() {
+//        networkAccess = AlamofireNetworkAccessProvider(requestFunction: alamofireMock.request, endPoints: [TestEndPoints.EndPoint.name: NSURL()])
+//    }
+//    
+//    func testValidRequest() {
+//        //Given
+//        let parameter: [String: AnyObject] = ["id": 1, "name": "ICE"]
+//        let headers = ["testHeaderField": "testHeaderValue"]
+//        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.EndPoint, HTTPMethod: .GET, parameter: parameter, allHTTPHeaderField: headers)
+//        let baseURL = NSURL(string: "https://bahn.de")!
+//        
+//        //When
+//        networkAccess.load(request: request, relativeToBaseURL: baseURL, callback: { _, _, _ in
+//            
+//        })
+//        
+//        //Then
+//        XCTAssertEqual(alamofireMock.URLString?.URLString, "https://bahn.de/train")
+//        XCTAssertEqual(alamofireMock.method, HTTPMethod.GET.alamofireMethod)
+//        //XCTAssertEqual(alamofireMock.parameters, url.URLString)
+//        
+//        //XCTAssert(alamofireMock.encoding! == Alamofire.ParameterEncoding.URL)
+//        XCTAssertEqual(alamofireMock.headers!, headers)
+//        XCTAssertEqual(alamofireMock.parameter?.count, 2)
+//        XCTAssertEqual(alamofireMock.parameter?["id"] as? Int, 1)
+//        XCTAssertEqual(alamofireMock.parameter?["name"] as? String, "ICE")
+//        
+//    }
+//}

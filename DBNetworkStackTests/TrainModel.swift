@@ -25,16 +25,18 @@
 
 import Foundation
 import DBNetworkStack
-import JSONCodable
 
 struct Train {
     let name: String
 }
 
-extension Train: JSONMappable, JSONCodable {
+extension Train: JSONMappable {
     init(object: Dictionary<String, AnyObject>) throws {
-        let decoder = JSONDecoder(object: object)
-        name = try decoder.decode("name")
+        if let name = object["name"] as? String {
+            self.name = name
+        }else {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
     }
 }
 
