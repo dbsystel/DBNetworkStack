@@ -26,8 +26,10 @@
 import Foundation
 
 /**
- `CancelableRequest` is a Request which can be canceled.
+ `NetworkTask` is a task which runs async to fetch data.
   */
-public protocol CancelableRequest {
+public protocol NetworkTask {
     func cancel()
+    func resume()
+    func suspend()
 }

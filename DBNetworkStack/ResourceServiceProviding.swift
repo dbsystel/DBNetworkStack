@@ -38,7 +38,7 @@ public protocol NetworkServiceProviding {
      
      - return the request
      */
-    func fetch<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest
+    func fetch<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask
     
     func baseURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL?
     

@@ -39,7 +39,7 @@ extension NetworkRequestRepresening {
 }
 
 extension NSURLSession: NetworkAccessProviding {
-    public func load(request request: NetworkRequestRepresening, relativeToBaseURL baseURL: NSURL, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> CancelableRequest {
+    public func load(request request: NetworkRequestRepresening, relativeToBaseURL baseURL: NSURL, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask {
         let task = self.dataTaskWithRequest(request.urlRequest(with: baseURL))
         task.resume()
         
@@ -47,4 +47,4 @@ extension NSURLSession: NetworkAccessProviding {
     }
 }
 
-extension NSURLSessionTask: CancelableRequest { }
+extension NSURLSessionTask: NetworkTask { }

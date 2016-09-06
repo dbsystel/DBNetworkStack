@@ -43,7 +43,7 @@ public final class NetworkService: NetworkServiceProviding {
         self.endPoints = endPoints
     }
     
-    public func fetch<T : RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> CancelableRequest {
+    public func fetch<T : RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask {
         guard let baseURL = baseURL(fromRessource: ressource) else {
             fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
         }
