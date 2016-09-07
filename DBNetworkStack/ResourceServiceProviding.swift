@@ -28,7 +28,7 @@ import Foundation
 /**
  `NetworkServiceProviding` provides access to remote ressources.
  */
-public protocol NetworkServiceProviding {
+public protocol NetworkServiceProviding: NetworkResponseProcessing {
     /**
      Fetches a ressource asynchrony from remote location
      
@@ -41,7 +41,27 @@ public protocol NetworkServiceProviding {
     func fetch<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask
     
     func baseURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL?
-    
-    func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model
-    
+}
+
+public protocol NetworkResponseProcessing {
+    func process<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model
+}
+
+extension NetworkResponseProcessing {
+    public func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
+        if let error = error {
+            throw NSError.errorWithUnderlyingError(error, code: .HTTPError)
+        }
+        if let statusCode = response?.statusCode, responseError = NSError.backendError(statusCode, data: data) {
+            throw responseError
+        }
+        guard let data = data else {
+            throw NSError(code: .BackendError)
+        }
+        do {
+            return try ressource.parse(data: data)
+        } catch let error as CustomStringConvertible {
+            throw NSError(code: .SerializationError, userInfo: ["key": String(error)])
+        }
+    }
 }

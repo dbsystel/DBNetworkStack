@@ -64,25 +64,4 @@ public final class NetworkService: NetworkServiceProviding {
     public func baseURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL? {
         return endPoints[ressource.request.baseURLKey.name]
     }
-    
-    //MARK: Private
-    
-    public func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
-        if let error = error {
-            throw NSError.errorWithUnderlyingError(error, code: .HTTPError)
-        }
-        if let statusCode = response?.statusCode, responseError = NSError.backendError(statusCode, data: data) {
-            throw responseError
-        }
-        guard let data = data else {
-            throw NSError(code: .BackendError)
-        }
-        do {
-            return try ressource.parse(data: data)
-        } catch let error as CustomStringConvertible {
-            throw NSError(code: .SerializationError, userInfo: ["key": String(error)])
-        }
-    }
-    
-    
 }
