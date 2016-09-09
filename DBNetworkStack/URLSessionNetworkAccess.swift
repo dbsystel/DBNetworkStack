@@ -40,7 +40,9 @@ extension NetworkRequestRepresening {
 
 extension NSURLSession: NetworkAccessProviding {
     public func load(request request: NetworkRequestRepresening, relativeToBaseURL baseURL: NSURL, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask {
-        let task = self.dataTaskWithRequest(request.urlRequest(with: baseURL))
+        let task = self.dataTaskWithRequest(request.urlRequest(with: baseURL)) { data, response, error in
+            callback(data, response as? NSHTTPURLResponse, error)
+        }
         task.resume()
         
         return task
