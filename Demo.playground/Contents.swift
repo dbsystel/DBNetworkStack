@@ -37,8 +37,8 @@ enum BaseURLs: String, BaseURLKey {
 }
 
 let baseURL = BaseURLs.BFA
-let networkAccess = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-let service = NetworkService(networkAccess: networkAccess, endPoints: [baseURL.name: baseURL.url])
+let urlSessionNetworkAccess = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+let service = NetworkService(networkAccess: urlSessionNetworkAccess, endPoints: [baseURL.name: baseURL.url])
 
 let searchTerm = "Frankfurt"
 
@@ -51,3 +51,5 @@ service.fetch(ressource, onCompletion: { station in
     }, onError: { error in
         print(error)
 })
+
+
