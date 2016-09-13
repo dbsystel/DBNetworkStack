@@ -53,14 +53,3 @@ public extension NetworkRequest {
         self.allHTTPHeaderFields = defaultRequest.allHTTPHeaderFields?.merged(allHTTPHeaderFields)
     }
 }
-
-extension Dictionary {
-    func merged(right: [Key: Value]?) -> Dictionary<Key, Value>? {
-        var dictionary = self
-        for (key, value) in right ?? [:] {
-            dictionary.updateValue(value, forKey: key)
-        }
-        
-        return dictionary
-    }
-}
