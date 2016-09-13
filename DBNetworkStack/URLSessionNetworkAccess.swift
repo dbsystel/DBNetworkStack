@@ -26,6 +26,13 @@
 import Foundation
 
 extension NetworkRequestRepresening {
+    /**
+     Transforms self into a equivalent `NSURLRequest` with a given baseURL.
+     
+     parameter baseURL: baseURL for the resulting request.
+     
+     return: the equivalent request
+     */
     func urlRequest(with baseURL: NSURL) -> NSURLRequest {
         guard let absoluteURL = NSURL(string: path, relativeToURL: baseURL) else {
             fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
@@ -38,9 +45,12 @@ extension NetworkRequestRepresening {
     }
 }
 
+/**
+ Adds conformens to `NetworkAccessProviding`. `NSURLSession` can now be used as a networkprovider.
+ */
 extension NSURLSession: NetworkAccessProviding {
     public func load(request request: NetworkRequestRepresening, relativeToBaseURL baseURL: NSURL, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask {
-        let task = self.dataTaskWithRequest(request.urlRequest(with: baseURL)) { data, response, error in
+        let task = dataTaskWithRequest(request.urlRequest(with: baseURL)) { data, response, error in
             callback(data, response as? NSHTTPURLResponse, error)
         }
         task.resume()
