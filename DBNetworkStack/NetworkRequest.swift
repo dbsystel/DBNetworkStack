@@ -46,13 +46,4 @@ public extension NetworkRequest {
         self.parameter = parameter
         self.body = body
     }
-    
-    public init(defaultRequest: NetworkRequestRepresening, parameter: Dictionary<String, AnyObject>? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
-        self.path = defaultRequest.path
-        self.HTTPMethod = defaultRequest.HTTPMethod
-        self.baseURLKey = defaultRequest.baseURLKey
-        self.parameter = defaultRequest.parameter?.merged(parameter)
-        self.allHTTPHeaderFields = defaultRequest.allHTTPHeaderFields?.merged(allHTTPHeaderFields)
-        self.body = defaultRequest.body
-    }
 }
