@@ -32,4 +32,6 @@ public protocol NetworkTask {
     func cancel()
     func resume()
     func suspend()
+    
+    var progress: NSProgress { get }
 }

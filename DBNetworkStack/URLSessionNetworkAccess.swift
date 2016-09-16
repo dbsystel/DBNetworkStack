@@ -59,4 +59,13 @@ extension NSURLSession: NetworkAccessProviding {
     }
 }
 
-extension NSURLSessionTask: NetworkTask { }
+extension NSURLSessionTask: NetworkTask {
+    public var progress: NSProgress {
+        let totalBytesExpected = response?.expectedContentLength ?? NSURLSessionTransferSizeUnknown
+        let progress = NSProgress(totalUnitCount: totalBytesExpected)
+        progress.totalUnitCount = totalBytesExpected
+        progress.completedUnitCount = countOfBytesReceived
+        
+        return progress
+    }
+}
