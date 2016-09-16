@@ -34,14 +34,27 @@ extension NetworkRequestRepresening {
      return: the equivalent request
      */
     func urlRequest(with baseURL: NSURL) -> NSURLRequest {
-        guard let absoluteURL = NSURL(string: path, relativeToURL: baseURL) else {
-            fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
-        }
+        let absoluteURL = absoluteURLWith(baseURL)
         let request = NSMutableURLRequest(URL: absoluteURL)
         request.allHTTPHeaderFields = allHTTPHeaderFields
         request.HTTPMethod = HTTPMethod.rawValue
         
         return request
+    }
+    
+    func absoluteURLWith(baseUrl: NSURL) -> NSURL {
+        guard let absoluteURL = NSURL(string: path, relativeToURL: baseUrl) else {
+            fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseUrl)")
+        }
+        if let parameter = parameter, let urlComponents = NSURLComponents(URL: absoluteURL, resolvingAgainstBaseURL: true) where !parameter.isEmpty {
+            let percentEncodedQuery = parameter.map( {value in
+                return "\(value.0)=\(value.1)".stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
+            }).flatMap { $0 }
+            urlComponents.percentEncodedQuery = percentEncodedQuery.joinWithSeparator("&")
+            return urlComponents.URL!
+        }
+       
+        return absoluteURL
     }
 }
 
