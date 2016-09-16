@@ -44,7 +44,7 @@ public final class NetworkService: NetworkServiceProviding {
     }
     
     public func fetch<T : RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask {
-        guard let baseURL = baseURL(fromRessource: ressource) else {
+        guard let baseURL = baseURL(with: ressource) else {
             fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
         }
         let dataTask = networkAccess.load(request: ressource.request, relativeToBaseURL: baseURL, callback: { data, response, error in
@@ -62,7 +62,7 @@ public final class NetworkService: NetworkServiceProviding {
         return dataTask
     }
     
-    public func baseURL<T: RessourceModeling>(fromRessource ressource: T) -> NSURL? {
+    public func baseURL<T: RessourceModeling>(with ressource: T) -> NSURL? {
         return endPoints[ressource.request.baseURLKey.name]
     }
     

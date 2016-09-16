@@ -166,10 +166,10 @@
 				C6A5DED31D760CC900BC38B1 /* JSONRessourceTest.swift */,
 				C604250F1D78002400FD3B38 /* JSONArrayRessourceTest.swift */,
 				C60425121D7803CA00FD3B38 /* RessourceTest.swift */,
-				C60BE66C1D6B2BF3006B0364 /* Info.plist */,
 				C6A161181D788612004CC88E /* ResultTypeTest.swift */,
 				C6816E1E1D87C173003B699A /* DictionaryMergeTest.swift */,
 				C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */,
+				C60BE66C1D6B2BF3006B0364 /* Info.plist */,
 			);
 			path = DBNetworkStackTests;
 			sourceTree = "<group>";

@@ -39,6 +39,10 @@ class CancelRequestMock: NetworkTask {
     func suspend() {
         
     }
+    
+    var progress: NSProgress {
+        return NSProgress()
+    }
 }
 
 class NetworkAccessMock: NetworkAccessProviding {
