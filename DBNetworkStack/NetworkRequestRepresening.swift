@@ -37,4 +37,5 @@ public protocol NetworkRequestRepresening {
      Parameters which will be send with the request.
      */
     var parameter: [String : AnyObject]? { get }
+    var body: NSData? { get }
 }

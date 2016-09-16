@@ -33,16 +33,18 @@ public struct NetworkRequest: NetworkRequestRepresening {
     public let baseURLKey: BaseURLKey
     public let HTTPMethod: DBNetworkStack.HTTPMethod
     public let parameter: Dictionary<String, AnyObject>?
+    public let body: NSData?
     public let allHTTPHeaderFields: Dictionary<String, String>?
 }
 
 public extension NetworkRequest {
-    public init(path: String, baseURLKey: BaseURLKey, HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
+    public init(path: String, baseURLKey: BaseURLKey, HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil, body: NSData? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
         self.path = path
         self.baseURLKey = baseURLKey
         self.HTTPMethod = HTTPMethod
         self.allHTTPHeaderFields = allHTTPHeaderField
         self.parameter = parameter
+        self.body = body
     }
     
     public init(defaultRequest: NetworkRequestRepresening, parameter: Dictionary<String, AnyObject>? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
@@ -51,5 +53,6 @@ public extension NetworkRequest {
         self.baseURLKey = defaultRequest.baseURLKey
         self.parameter = defaultRequest.parameter?.merged(parameter)
         self.allHTTPHeaderFields = defaultRequest.allHTTPHeaderFields?.merged(allHTTPHeaderFields)
+        self.body = defaultRequest.body
     }
 }
