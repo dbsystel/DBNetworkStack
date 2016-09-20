@@ -153,12 +153,37 @@ class NetworkServiceTest: XCTestCase {
             }, onError: { resultError in
                 //Then
                 switch resultError {
-                case .HTTPError(let err):
+                case .RequestError(let err):
                     XCTAssertEqual(err, error)
                     expection.fulfill()
                 default:
                     XCTFail()
-                    
+                }
+        })
+        
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
+    }
+    
+    func testOnStatusCodeError() {
+        //Given
+        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.EndPoint)
+        let ressource = JSONRessource<Train>(request: request)
+        let response = NSHTTPURLResponse(URL: NSURL(), statusCode: 401, HTTPVersion: nil, headerFields: nil)
+        networkAccess.changeMock(data: nil, response: response, error: nil)
+        
+        
+        //When
+        let expection = expectationWithDescription("testOnError")
+        networkService.request(ressource, onCompletion: { fetchedTrain in
+            }, onError: { resultError in
+                //Then
+                switch resultError {
+                case .Unauthorized(let res):
+                    XCTAssertEqual(res, response)
+                    expection.fulfill()
+                default:
+                    XCTFail()
                 }
         })
         

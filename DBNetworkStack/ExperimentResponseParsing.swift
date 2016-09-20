@@ -42,7 +42,6 @@ enum Result<Value: protocol<JSONMappable, RootKeyProviding>, ErrorType: protocol
                 return
             }
             fatalError()
-            
         }
     }
     

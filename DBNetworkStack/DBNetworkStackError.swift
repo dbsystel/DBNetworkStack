@@ -30,8 +30,8 @@ public enum DBNetworkStackError: ErrorType {
     case Unauthorized(response: NSHTTPURLResponse)
     case ClientError(response: NSHTTPURLResponse?)
     case SerializationError(description: String, data: NSData?)
-    case HTTPError(error: NSError)
-    case BackendError(response: NSHTTPURLResponse?)
+    case RequestError(error: NSError)
+    case ServerError(response: NSHTTPURLResponse?)
     case BadRequest
     case MissingBaseURL
     
@@ -43,12 +43,12 @@ public enum DBNetworkStackError: ErrorType {
         case 200..<300: return nil
         case 401:
             self = .Unauthorized(response: response)
-        case 400..<451:
+        case 400...451:
             self = .ClientError(response: response)
-        case 500..<511:
-            self = .BackendError(response: response)
+        case 500...511:
+            self = .ServerError(response: response)
         default:
-            self = .BackendError(response: response)
+            return nil
         }
     }
 }

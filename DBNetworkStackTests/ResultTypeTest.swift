@@ -45,7 +45,6 @@ extension Train: RootKeyProviding {
 
 class ResultTypeTest: XCTestCase {
    
-    
     func testValidResult() {
         let json = "{\"train\": { \"name\": \"ICE\"}}".dataUsingEncoding(NSUTF8StringEncoding)!
         let dict = try! NSJSONSerialization.JSONObjectWithData(json, options: .AllowFragments) as! Dictionary<String, AnyObject>

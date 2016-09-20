@@ -71,7 +71,7 @@ public final class NetworkService: NetworkServiceProviding {
     
     public func process<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
         if let error = error {
-            throw DBNetworkStackError.HTTPError(error: error)
+            throw DBNetworkStackError.RequestError(error: error)
         }
         if let responseError = DBNetworkStackError(response: response) {
             throw responseError
@@ -90,7 +90,7 @@ public final class NetworkService: NetworkServiceProviding {
      Provides an baseURL for a given ressource.
      
      To be more flexible, a request does only contain a path and not a full URL.
-     Mapping has to be done in the method to get an registerd baseURL for the request.
+     Mapping has to be done in the service to get an registerd baseURL for the request.
      
      - parameter ressource: The ressource you want to get a baseURL for.
      
