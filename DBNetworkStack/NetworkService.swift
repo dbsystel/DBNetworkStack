@@ -44,7 +44,7 @@ public final class NetworkService: NetworkServiceProviding {
         self.endPoints = endPoints
     }
     
-    public func fetch<T : RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask {
+    public func request<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) -> NetworkTask {
         guard let baseURL = baseURL(with: ressource) else {
             fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
         }
@@ -55,9 +55,13 @@ public final class NetworkService: NetworkServiceProviding {
                 dispatch_async(dispatch_get_main_queue()) {
                     onCompletion(parsed)
                 }
-            } catch let error as NSError {
+            } catch let parsingError as DBNetworkStackError {
                 dispatch_async(dispatch_get_main_queue()) {
-                    return onError(error)
+                    return onError(parsingError)
+                }
+            } catch {
+                dispatch_async(dispatch_get_main_queue()) {
+                    return onError(.UnknownError)
                 }
             }
         })
@@ -65,20 +69,20 @@ public final class NetworkService: NetworkServiceProviding {
     }
     
     
-    public func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
+    public func process<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
         if let error = error {
-            throw NSError.errorWithUnderlyingError(error, code: .HTTPError)
+            throw DBNetworkStackError.HTTPError(error: error)
         }
-        if let statusCode = response?.statusCode, responseError = NSError.backendError(statusCode, data: data) {
+        if let responseError = DBNetworkStackError(response: response) {
             throw responseError
         }
         guard let data = data else {
-            throw NSError(code: .BackendError)
+            throw DBNetworkStackError.SerializationError(description: "No data to serialize revied from the server", data: nil)
         }
         do {
             return try ressource.parse(data: data)
         } catch let error as CustomStringConvertible {
-            throw NSError(code: .SerializationError, userInfo: ["key": String(error)])
+            throw DBNetworkStackError.SerializationError(description: error.description, data: data)
         }
     }
     

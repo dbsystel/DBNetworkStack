@@ -54,7 +54,7 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectationWithDescription("loadValidRequest")
-        networkService.fetch(ressource, onCompletion: { train in
+        networkService.request(ressource, onCompletion: { train in
             //Then
             XCTAssertEqual(train.name, self.trainName)
             XCTAssertEqual(self.networkAccess.request?.URL?.absoluteString, "//bahn.de/train")
@@ -76,11 +76,17 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectationWithDescription("testNoData")
-        networkService.fetch(ressource, onCompletion: { fetchedTrain in
+        networkService.request(ressource, onCompletion: { fetchedTrain in
             XCTFail()
             }, onError: { error in
-                //Then
-                expection.fulfill()
+                switch error {
+                case .SerializationError(let description, let data):
+                    XCTAssertEqual("No data to serialize revied from the server", description)
+                    XCTAssertNil(data)
+                    expection.fulfill()
+                default:
+                    XCTFail()
+                }
         })
         
          waitForExpectationsWithTimeout(1, handler: nil)
@@ -95,11 +101,16 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectationWithDescription("testInvalidData")
-        networkService.fetch(ressource, onCompletion: { fetchedTrain in
+        networkService.request(ressource, onCompletion: { fetchedTrain in
             XCTFail()
             }, onError: { error in
                 //Then
-                expection.fulfill()
+                switch error {
+                case .SerializationError(_, _):
+                    expection.fulfill()
+                default:
+                    XCTFail()
+                }
         })
         
          waitForExpectationsWithTimeout(1, handler: nil)
@@ -111,15 +122,17 @@ class NetworkServiceTest: XCTestCase {
         let ressource = JSONRessource<Train>(request: request)
         networkAccess.changeMock(data: Train.JSONDataWithInvalidKey, response: nil, error: nil)
         
-        
         //When
         let expection = expectationWithDescription("testInvalidJSONKeyData")
-        networkService.fetch(ressource, onCompletion: { fetchedTrain in
+        networkService.request(ressource, onCompletion: { fetchedTrain in
             XCTFail()
             }, onError: { error in
-                //Then
-                
-                expection.fulfill()
+                switch error {
+                case .SerializationError(_, _):
+                    expection.fulfill()
+                default:
+                    XCTFail()
+                }
         })
         
         waitForExpectationsWithTimeout(1, handler: nil)
@@ -136,11 +149,17 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectationWithDescription("testOnError")
-        networkService.fetch(ressource, onCompletion: { fetchedTrain in
+        networkService.request(ressource, onCompletion: { fetchedTrain in
             }, onError: { resultError in
                 //Then
-                XCTAssertEqual(resultError.userInfo[NSUnderlyingErrorKey] as? NSError, error)
-                expection.fulfill()
+                switch resultError {
+                case .HTTPError(let err):
+                    XCTAssertEqual(err, error)
+                    expection.fulfill()
+                default:
+                    XCTFail()
+                    
+                }
         })
         
         

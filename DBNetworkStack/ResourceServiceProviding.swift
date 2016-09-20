@@ -38,7 +38,7 @@ public protocol NetworkServiceProviding {
      
      - return the request
      */
-    func fetch<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask
+    func request<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) -> NetworkTask
    
     
     /**

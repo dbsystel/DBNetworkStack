@@ -27,7 +27,7 @@
 		C60BE6A21D6B3807006B0364 /* NetworkRequestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE69F1D6B3807006B0364 /* NetworkRequestMock.swift */; };
 		C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */; };
 		C60BE6AD1D6B3E81006B0364 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */; };
-		C60BE6AF1D6C24E6006B0364 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AE1D6C24E6006B0364 /* Error.swift */; };
+		C60BE6AF1D6C24E6006B0364 /* DBNetworkStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AE1D6C24E6006B0364 /* DBNetworkStackError.swift */; };
 		C6455A041D78BA48008A8C85 /* ExperimentResponseParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6455A031D78BA48008A8C85 /* ExperimentResponseParsing.swift */; };
 		C65F087B1D757A3C00239CC1 /* JSONMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F087A1D757A3C00239CC1 /* JSONMappable.swift */; };
 		C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */; };
@@ -79,7 +79,7 @@
 		C60BE69F1D6B3807006B0364 /* NetworkRequestMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestMock.swift; sourceTree = "<group>"; };
 		C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
 		C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
-		C60BE6AE1D6C24E6006B0364 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		C60BE6AE1D6C24E6006B0364 /* DBNetworkStackError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBNetworkStackError.swift; sourceTree = "<group>"; };
 		C6455A031D78BA48008A8C85 /* ExperimentResponseParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentResponseParsing.swift; sourceTree = "<group>"; };
 		C65F087A1D757A3C00239CC1 /* JSONMappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONMappable.swift; sourceTree = "<group>"; };
 		C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLKey.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 				C60BE6841D6B2C46006B0364 /* AlamofireNetworkAccess.swift */,
 				C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */,
 				C60425091D76F79F00FD3B38 /* NetworkService.swift */,
-				C60BE6AE1D6C24E6006B0364 /* Error.swift */,
+				C60BE6AE1D6C24E6006B0364 /* DBNetworkStackError.swift */,
 				C6455A031D78BA48008A8C85 /* ExperimentResponseParsing.swift */,
 				C6816E1C1D87BFDA003B699A /* Dictionary+Merge.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
@@ -348,7 +348,7 @@
 				C60BE68D1D6B2C46006B0364 /* ResourceServiceProviding.swift in Sources */,
 				C6455A041D78BA48008A8C85 /* ExperimentResponseParsing.swift in Sources */,
 				C60BE68B1D6B2C46006B0364 /* NetworkRequestRepresening.swift in Sources */,
-				C60BE6AF1D6C24E6006B0364 /* Error.swift in Sources */,
+				C60BE6AF1D6C24E6006B0364 /* DBNetworkStackError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

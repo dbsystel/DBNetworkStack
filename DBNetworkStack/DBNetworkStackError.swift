@@ -1,5 +1,5 @@
 //
-//  CancelableRequest.swift
+//  Error.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,32 +20,35 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 22.08.16.
+//  Created by Lukas Schmidt on 23.08.16.
 //
 
 import Foundation
 
-/**
- `NetworkTask` is a task which runs async to fetch data.
-  */
-public protocol NetworkTask {
-    /**
-     Cancels a task.
-     */
-    func cancel()
+public enum DBNetworkStackError: ErrorType {
+    case UnknownError
+    case Unauthorized(response: NSHTTPURLResponse)
+    case ClientError(response: NSHTTPURLResponse?)
+    case SerializationError(description: String, data: NSData?)
+    case HTTPError(error: NSError)
+    case BackendError(response: NSHTTPURLResponse?)
+    case BadRequest
+    case MissingBaseURL
     
-    /**
-     Resumes a task.
-     */
-    func resume()
-    
-    /**
-     Suspends a task.
-     */
-    func suspend()
-    
-    /**
-     Contains the current progress of a running task.
-     */
-    var progress: NSProgress { get }
+    init?(response: NSHTTPURLResponse?) {
+        guard let response = response else {
+            return nil
+        }
+        switch response.statusCode {
+        case 200..<300: return nil
+        case 401:
+            self = .Unauthorized(response: response)
+        case 400..<451:
+            self = .ClientError(response: response)
+        case 500..<511:
+            self = .BackendError(response: response)
+        default:
+            self = .BackendError(response: response)
+        }
+    }
 }
