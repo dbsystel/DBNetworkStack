@@ -34,9 +34,10 @@ public final class NetworkService: NetworkServiceProviding {
     let endPoints: Dictionary<String, NSURL>
     
     /**
-     Creates an `NetworkService` instance by injecting a function to fetch data from
+     Creates an `NetworkService` instance with a given networkAccess and a map of endPoints
      
-     - parameter requestFunction: A function of type `RequestMethod` which can fetch data
+     - parameter networkAccess: provides basic access to the network.
+     - parameter endPoints: map of baseURLKey -> baseURLs
      */
     public init(networkAccess: NetworkAccessProviding, endPoints: Dictionary<String, NSURL>) {
         self.networkAccess = networkAccess
@@ -63,11 +64,6 @@ public final class NetworkService: NetworkServiceProviding {
         return dataTask
     }
     
-    public func baseURL<T: RessourceModeling>(with ressource: T) -> NSURL? {
-        return endPoints[ressource.request.baseURLKey.name]
-    }
-    
-    //MARK: Private
     
     public func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
         if let error = error {
@@ -84,6 +80,20 @@ public final class NetworkService: NetworkServiceProviding {
         } catch let error as CustomStringConvertible {
             throw NSError(code: .SerializationError, userInfo: ["key": String(error)])
         }
+    }
+    
+    /**
+     Provides an baseURL for a given ressource.
+     
+     To be more flexible, a request does only contain a path and not a full URL.
+     Mapping has to be done in the method to get an registerd baseURL for the request.
+     
+     - parameter ressource: The ressource you want to get a baseURL for.
+     
+     - return matching baseURL to the given ressource
+     */
+    private func baseURL<T: RessourceModeling>(with ressource: T) -> NSURL? {
+        return endPoints[ressource.request.baseURLKey.name]
     }
     
     

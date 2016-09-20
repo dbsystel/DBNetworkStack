@@ -29,6 +29,9 @@ import Foundation
  `NetworkRequestRepresening` represents a networkreuqest with all components needed to retrieve correct ressources.
  */
 public protocol NetworkRequestRepresening {
+    /**
+     Parameters which will be send with the request.
+     */
     var path: String { get }
     var baseURLKey: BaseURLKey { get }
     var HTTPMethod: DBNetworkStack.HTTPMethod { get }

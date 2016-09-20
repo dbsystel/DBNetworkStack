@@ -25,6 +25,17 @@
 
 import Foundation
 
+/**
+ `NetworkAccessProviding` provides access to the network.
+ */
 public protocol NetworkAccessProviding {
+    /**
+     Fetches a ressource asynchrony from remote location.
+     
+     - parameter request: The ressource you want to fetch.
+     - parameter callback: Callback which gets called when the request finishes.
+     
+     - return the running network task
+     */
     func load(request request: NSURLRequest, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask
 }
