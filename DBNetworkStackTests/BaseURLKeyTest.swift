@@ -27,7 +27,7 @@ import XCTest
 import DBNetworkStack
 
 class BaseURLKeyTest {
-    func testStringImplemntation {
+    func testStringImplemntation() {
         let stringKey = "Key"
         
         let baseURLKey: BaseURLKey = stringKey
