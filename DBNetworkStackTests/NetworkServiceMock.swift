@@ -50,10 +50,10 @@ class NetworkAccessMock: NetworkAccessProviding {
     private(set) var response: NSHTTPURLResponse?
     private(set) var error: NSError?
     
-    private(set) var baseURL: NSURL?
+     private(set) var request: NSURLRequest?
     
-    func load(request request: NetworkRequestRepresening, relativeToBaseURL baseURL: NSURL, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask {
-        self.baseURL = baseURL
+    func load(request request: NSURLRequest, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask {
+        self.request = request
         callback(data, response, error)
         
         return CancelRequestMock()

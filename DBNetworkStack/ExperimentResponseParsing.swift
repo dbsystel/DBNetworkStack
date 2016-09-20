@@ -34,15 +34,31 @@ enum Result<Value: protocol<JSONMappable, RootKeyProviding>, ErrorType: protocol
     case error(ErrorType)
     
     init(object: Dictionary<String, AnyObject>) throws {
-        if let expectedValue = object[Value.rootKey()] as? Dictionary<String, AnyObject>, expected = try? Value(object: expectedValue) {
+        if let expected = try Result.expected(from: object) {
             self = .sucess(expected)
         } else {
-            if let errorValue = object[ErrorType.rootKey()] as? Dictionary<String, AnyObject> {
-                self = .error(try ErrorType(object: errorValue))
+            if let errorValue = try Result.errors(from: object) {
+                self = .error(errorValue)
                 return
             }
             fatalError()
             
         }
+    }
+    
+    private static func expected(from object: Dictionary<String, AnyObject>) throws -> Value? {
+        guard let expectedValue = object[Value.rootKey()] as? Dictionary<String, AnyObject> else {
+            return nil
+        }
+        
+        return try Value(object: expectedValue)
+    }
+    
+    private static func errors(from object: Dictionary<String, AnyObject>) throws -> ErrorType? {
+        guard let expectedValue = object[ErrorType.rootKey()] as? Dictionary<String, AnyObject> else {
+            return nil
+        }
+        
+        return try ErrorType(object: expectedValue)
     }
 }

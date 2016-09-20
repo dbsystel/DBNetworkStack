@@ -48,7 +48,7 @@ class NetworkServiceTest: XCTestCase {
     
     func testValidRequest() {
         //Given
-        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.EndPoint)
+        let request = NetworkRequest(path: "/train", baseURLKey: TestEndPoints.EndPoint)
         let ressource = JSONRessource<Train>(request: request)
         networkAccess.changeMock(data: Train.validJSONData, response: nil, error: nil)
         
@@ -57,7 +57,7 @@ class NetworkServiceTest: XCTestCase {
         networkService.fetch(ressource, onCompletion: { train in
             //Then
             XCTAssertEqual(train.name, self.trainName)
-            XCTAssertEqual(self.networkAccess.baseURL, self.baseURL)
+            XCTAssertEqual(self.networkAccess.request?.URL?.absoluteString, "//bahn.de/train")
             
             expection.fulfill()
             }, onError: { err in

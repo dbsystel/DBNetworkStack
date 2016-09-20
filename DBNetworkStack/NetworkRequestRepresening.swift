@@ -29,6 +29,9 @@ import Foundation
  `NetworkRequestRepresening` represents a networkreuqest with all components needed to retrieve correct ressources.
  */
 public protocol NetworkRequestRepresening {
+    /**
+     Parameters which will be send with the request.
+     */
     var path: String { get }
     var baseURLKey: BaseURLKey { get }
     var HTTPMethod: DBNetworkStack.HTTPMethod { get }
@@ -38,4 +41,38 @@ public protocol NetworkRequestRepresening {
      */
     var parameter: [String : AnyObject]? { get }
     var body: NSData? { get }
+}
+
+extension NetworkRequestRepresening {
+    /**
+     Transforms self into a equivalent `NSURLRequest` with a given baseURL.
+     
+     parameter baseURL: baseURL for the resulting request.
+     
+     return: the equivalent request
+     */
+    func urlRequest(with baseURL: NSURL) -> NSURLRequest {
+        let absoluteURL = absoluteURLWith(baseURL)
+        let request = NSMutableURLRequest(URL: absoluteURL)
+        request.allHTTPHeaderFields = allHTTPHeaderFields
+        request.HTTPMethod = HTTPMethod.rawValue
+        request.HTTPBody = body
+        
+        return request
+    }
+    
+    func absoluteURLWith(baseUrl: NSURL) -> NSURL {
+        guard let absoluteURL = NSURL(string: path, relativeToURL: baseUrl) else {
+            fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseUrl)")
+        }
+        if let parameter = parameter, let urlComponents = NSURLComponents(URL: absoluteURL, resolvingAgainstBaseURL: true) where !parameter.isEmpty {
+            let percentEncodedQuery = parameter.map( {value in
+                return "\(value.0)=\(value.1)".stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
+            }).flatMap { $0 }
+            urlComponents.percentEncodedQuery = percentEncodedQuery.joinWithSeparator("&")
+            return urlComponents.URL!
+        }
+        
+        return absoluteURL
+    }
 }

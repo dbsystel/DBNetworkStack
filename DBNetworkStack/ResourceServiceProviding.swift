@@ -39,18 +39,6 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
      - return the request
      */
     func fetch<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask
-    
-    /**
-     Provides an baseURL for a given ressource.
-     
-     To be more flexible, a request does only contain a path and not a full URL.
-     Mapping has to be done in the method to get an registerd baseURL for the request.
-     
-     - parameter ressource: The ressource you want to get a baseURL for.
-     
-     - return matching baseURL to the given ressource
-     */
-    func baseURL<T: RessourceModeling>(with ressource: T) -> NSURL?
 }
 
 public protocol NetworkResponseProcessing {

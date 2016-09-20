@@ -39,6 +39,7 @@
 		C6A5DED41D760CC900BC38B1 /* JSONRessourceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED31D760CC900BC38B1 /* JSONRessourceTest.swift */; };
 		C6A5DED61D760E5000BC38B1 /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED51D760E5000BC38B1 /* NetworkServiceMock.swift */; };
 		C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED91D76A06000BC38B1 /* TrainModel.swift */; };
+		C6C86F531D910CE500D6E59E /* NetworkRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */; };
 		C6F235D31D7DA71F00E628D8 /* AlamofireNetworkAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6841D6B2C46006B0364 /* AlamofireNetworkAccess.swift */; };
 		C6F235D51D7DA75000E628D8 /* URLSessionNetworkAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */; };
 /* End PBXBuildFile section */
@@ -90,6 +91,7 @@
 		C6A5DED31D760CC900BC38B1 /* JSONRessourceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONRessourceTest.swift; sourceTree = "<group>"; };
 		C6A5DED51D760E5000BC38B1 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
 		C6A5DED91D76A06000BC38B1 /* TrainModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainModel.swift; sourceTree = "<group>"; };
+		C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestTest.swift; sourceTree = "<group>"; };
 		C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkAccess.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,6 +173,7 @@
 				C6A161181D788612004CC88E /* ResultTypeTest.swift */,
 				C6816E1E1D87C173003B699A /* DictionaryMergeTest.swift */,
 				C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */,
+				C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */,
 				C60BE66C1D6B2BF3006B0364 /* Info.plist */,
 				C68CC28E1D8BED570019D940 /* BaseURLKeyTest.swift */,
 			);
@@ -353,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6C86F531D910CE500D6E59E /* NetworkRequestTest.swift in Sources */,
 				C6A5DED61D760E5000BC38B1 /* NetworkServiceMock.swift in Sources */,
 				C6816E1F1D87C173003B699A /* DictionaryMergeTest.swift in Sources */,
 				C60425131D7803CA00FD3B38 /* RessourceTest.swift in Sources */,
@@ -482,10 +486,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = DBNetworkStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -505,10 +506,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = DBNetworkStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -521,10 +519,7 @@
 		C60BE6731D6B2BF3006B0364 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = DBNetworkStackTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStackTests;
@@ -535,10 +530,7 @@
 		C60BE6741D6B2BF3006B0364 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = DBNetworkStackTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStackTests;
