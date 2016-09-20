@@ -1,5 +1,5 @@
 //
-//  NetworkResourceRepresening.swift
+//  BaseURLKeyTest.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,22 +20,18 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 21.07.16.
+//  Created by Lukas Schmidt on 16.09.16.
 //
 
-import Foundation
+import XCTest
+import DBNetworkStack
 
-/**
- `NetworkRequestRepresening` represents a networkreuqest with all components needed to retrieve correct ressources.
- */
-public protocol NetworkRequestRepresening {
-    var path: String { get }
-    var baseURLKey: BaseURLKey { get }
-    var HTTPMethod: DBNetworkStack.HTTPMethod { get }
-    var allHTTPHeaderFields: [String: String]? { get }
-    /**
-     Parameters which will be send with the request.
-     */
-    var parameter: [String : AnyObject]? { get }
-    var body: NSData? { get }
+class BaseURLKeyTest {
+    func testStringImplemntation() {
+        let stringKey = "Key"
+        
+        let baseURLKey: BaseURLKey = stringKey
+        
+        XCTAssertEqual(stringKey, baseURLKey.name)
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  CancelableRequest.swift
+//  Dictionary+Merge.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,16 +20,27 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 22.08.16.
+//  Created by Lukas Schmidt on 13.09.16.
 //
 
 import Foundation
 
-/**
- `NetworkTask` is a task which runs async to fetch data.
-  */
-public protocol NetworkTask {
-    func cancel()
-    func resume()
-    func suspend()
+
+extension Dictionary {
+    
+    /**
+     Merges a given dictionary into self. If self has stored the same key, it gets updated by the given dictionary.
+     
+     - parameter right: A dictionary to merge into self
+     
+     - return: A merged version of both dictionarys
+     */
+    func merged(right: [Key: Value]?) -> Dictionary<Key, Value> {
+        var dictionary = self
+        for (key, value) in right ?? [:] {
+            dictionary.updateValue(value, forKey: key)
+        }
+        
+        return dictionary
+    }
 }

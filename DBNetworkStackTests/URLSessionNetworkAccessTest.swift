@@ -1,5 +1,5 @@
 //
-//  NetworkResourceRepresening.swift
+//  URLSessionNetworkAccessTest.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,22 +20,29 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 21.07.16.
+//  Created by Lukas Schmidt on 13.09.16.
 //
 
-import Foundation
+import XCTest
+@testable import DBNetworkStack
 
-/**
- `NetworkRequestRepresening` represents a networkreuqest with all components needed to retrieve correct ressources.
- */
-public protocol NetworkRequestRepresening {
-    var path: String { get }
-    var baseURLKey: BaseURLKey { get }
-    var HTTPMethod: DBNetworkStack.HTTPMethod { get }
-    var allHTTPHeaderFields: [String: String]? { get }
-    /**
-     Parameters which will be send with the request.
-     */
-    var parameter: [String : AnyObject]? { get }
-    var body: NSData? { get }
-}
+//class URLSessionNetworkAccessTest: XCTestCase {
+//    var dataTask: NetworkTask!
+//    
+//    func testExample() {
+//        let expection = expectationWithDescription("wait")
+//        
+//        //Given
+//        let session: NetworkAccessProviding = NSURLSession(configuration: .ephemeralSessionConfiguration())
+//        
+//        let request = NetworkRequest(path: "", baseURLKey: "bahn")
+//        
+//        //When
+//        session.load(request: request, relativeToBaseURL: NSURL(string: "https://www.bahn.de")!, callback: {data, res, error in
+//            
+//            expection.fulfill()
+//        })
+//        
+//        waitForExpectationsWithTimeout(5, handler: nil)
+//    }
+//}

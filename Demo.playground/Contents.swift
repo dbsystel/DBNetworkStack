@@ -1,7 +1,7 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
-import DBNetworkStack
+@testable import DBNetworkStack
 import XCPlayground
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
@@ -37,17 +37,22 @@ enum BaseURLs: String, BaseURLKey {
 }
 
 let baseURL = BaseURLs.BFA
-let networkAccess = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-let service = NetworkService(networkAccess: networkAccess, endPoints: [baseURL.name: baseURL.url])
+let urlSessionNetworkAccess = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+let service = NetworkService(networkAccess: urlSessionNetworkAccess, endPoints: [baseURL.name: baseURL.url])
 
 let searchTerm = "Frankfurt"
 
-let path = ("/v1/station/search?term=" + searchTerm)
-let request = NetworkRequest(path: path, baseURLKey: baseURL)
+let path = ("/v1/station/search")
+let request = NetworkRequest(path: path, baseURLKey: baseURL, parameter: ["term": searchTerm])
+request.absoluteURLWith(baseURL.url).absoluteString 
 let ressource = JSONArrayRessource<Station>(request: request)
 
-service.fetch(ressource, onCompletion: { station in
+let task = service.fetch(ressource, onCompletion: { station in
         print(station)
     }, onError: { error in
         print(error)
 })
+
+print(task.progress)
+
+

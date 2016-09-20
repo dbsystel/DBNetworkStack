@@ -1,5 +1,5 @@
 //
-//  NetworkRequest.swift
+//  CancelableRequest.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,30 +20,18 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 21.07.16.
+//  Created by Lukas Schmidt on 22.08.16.
 //
 
 import Foundation
 
 /**
- See `NetworkRequestRepresening` for details.
- */
-public struct NetworkRequest: NetworkRequestRepresening {
-    public var path: String
-    public let baseURLKey: BaseURLKey
-    public let HTTPMethod: DBNetworkStack.HTTPMethod
-    public let parameter: Dictionary<String, AnyObject>?
-    public let body: NSData?
-    public let allHTTPHeaderFields: Dictionary<String, String>?
-}
-
-public extension NetworkRequest {
-    public init(path: String, baseURLKey: BaseURLKey, HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil, body: NSData? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
-        self.path = path
-        self.baseURLKey = baseURLKey
-        self.HTTPMethod = HTTPMethod
-        self.allHTTPHeaderFields = allHTTPHeaderField
-        self.parameter = parameter
-        self.body = body
-    }
+ `NetworkTask` is a task which runs async to fetch data.
+  */
+public protocol NetworkTask {
+    func cancel()
+    func resume()
+    func suspend()
+    
+    var progress: NSProgress { get }
 }
