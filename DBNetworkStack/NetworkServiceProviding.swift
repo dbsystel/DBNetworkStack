@@ -1,5 +1,5 @@
 //
-//  ResourceServiceProviding.swift
+//  NetworkServiceProviding.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
