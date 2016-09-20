@@ -26,5 +26,5 @@
 import Foundation
 
 public protocol NetworkAccessProviding {
-    func load(request request: NetworkRequestRepresening, relativeToBaseURL: NSURL, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask
+    func load(request request: NSURLRequest, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask
 }

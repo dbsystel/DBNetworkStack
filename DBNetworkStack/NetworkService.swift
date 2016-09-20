@@ -47,7 +47,8 @@ public final class NetworkService: NetworkServiceProviding {
         guard let baseURL = baseURL(with: ressource) else {
             fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
         }
-        let dataTask = networkAccess.load(request: ressource.request, relativeToBaseURL: baseURL, callback: { data, response, error in
+        let reuqest = ressource.request.urlRequest(with: baseURL)
+        let dataTask = networkAccess.load(request: reuqest, callback: { data, response, error in
             do {
                 let parsed = try self.process(response: response, ressource: ressource, data: data, error: error)
                 dispatch_async(dispatch_get_main_queue()) {
