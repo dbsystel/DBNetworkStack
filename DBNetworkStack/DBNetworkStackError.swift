@@ -32,7 +32,6 @@ public enum DBNetworkStackError: ErrorType {
     case SerializationError(description: String, data: NSData?)
     case RequestError(error: NSError)
     case ServerError(response: NSHTTPURLResponse?)
-    case BadRequest
     case MissingBaseURL
     
     init?(response: NSHTTPURLResponse?) {

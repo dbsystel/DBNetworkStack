@@ -83,6 +83,8 @@ public final class NetworkService: NetworkServiceProviding {
             return try ressource.parse(data: data)
         } catch let error as CustomStringConvertible {
             throw DBNetworkStackError.SerializationError(description: error.description, data: data)
+        } catch {
+            throw DBNetworkStackError.SerializationError(description: "", data: data)
         }
     }
     
