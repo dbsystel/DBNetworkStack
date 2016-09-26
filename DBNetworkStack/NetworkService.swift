@@ -84,7 +84,7 @@ public final class NetworkService: NetworkServiceProviding {
         } catch let error as CustomStringConvertible {
             throw DBNetworkStackError.SerializationError(description: error.description, data: data)
         } catch {
-            throw DBNetworkStackError.SerializationError(description: "", data: data)
+            throw DBNetworkStackError.SerializationError(description: "Unknown serialization error", data: data)
         }
     }
     

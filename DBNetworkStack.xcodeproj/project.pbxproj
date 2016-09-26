@@ -28,15 +28,11 @@
 		C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */; };
 		C60BE6AD1D6B3E81006B0364 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */; };
 		C60BE6AF1D6C24E6006B0364 /* DBNetworkStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AE1D6C24E6006B0364 /* DBNetworkStackError.swift */; };
-		C6455A041D78BA48008A8C85 /* ExperimentResponseParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6455A031D78BA48008A8C85 /* ExperimentResponseParsing.swift */; };
 		C65F087B1D757A3C00239CC1 /* JSONMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F087A1D757A3C00239CC1 /* JSONMappable.swift */; };
 		C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */; };
-		C6816E1D1D87BFDA003B699A /* Dictionary+Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6816E1C1D87BFDA003B699A /* Dictionary+Merge.swift */; };
-		C6816E1F1D87C173003B699A /* DictionaryMergeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6816E1E1D87C173003B699A /* DictionaryMergeTest.swift */; };
 		C6816E211D87C51C003B699A /* URLSessionNetworkAccessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */; };
 		C68CC28F1D8BED570019D940 /* BaseURLKeyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68CC28E1D8BED570019D940 /* BaseURLKeyTest.swift */; };
 		C699E0771D917501006FE7C6 /* DBNetworkStackErrorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C699E0761D917501006FE7C6 /* DBNetworkStackErrorTest.swift */; };
-		C6A161191D788612004CC88E /* ResultTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A161181D788612004CC88E /* ResultTypeTest.swift */; };
 		C6A5DED41D760CC900BC38B1 /* JSONRessourceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED31D760CC900BC38B1 /* JSONRessourceTest.swift */; };
 		C6A5DED61D760E5000BC38B1 /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED51D760E5000BC38B1 /* NetworkServiceMock.swift */; };
 		C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED91D76A06000BC38B1 /* TrainModel.swift */; };
@@ -81,15 +77,11 @@
 		C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
 		C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
 		C60BE6AE1D6C24E6006B0364 /* DBNetworkStackError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBNetworkStackError.swift; sourceTree = "<group>"; };
-		C6455A031D78BA48008A8C85 /* ExperimentResponseParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentResponseParsing.swift; sourceTree = "<group>"; };
 		C65F087A1D757A3C00239CC1 /* JSONMappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONMappable.swift; sourceTree = "<group>"; };
 		C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLKey.swift; sourceTree = "<group>"; };
-		C6816E1C1D87BFDA003B699A /* Dictionary+Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Merge.swift"; sourceTree = "<group>"; };
-		C6816E1E1D87C173003B699A /* DictionaryMergeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryMergeTest.swift; sourceTree = "<group>"; };
 		C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkAccessTest.swift; sourceTree = "<group>"; };
 		C68CC28E1D8BED570019D940 /* BaseURLKeyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLKeyTest.swift; sourceTree = "<group>"; };
 		C699E0761D917501006FE7C6 /* DBNetworkStackErrorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBNetworkStackErrorTest.swift; sourceTree = "<group>"; };
-		C6A161181D788612004CC88E /* ResultTypeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTypeTest.swift; sourceTree = "<group>"; };
 		C6A5DED31D760CC900BC38B1 /* JSONRessourceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONRessourceTest.swift; sourceTree = "<group>"; };
 		C6A5DED51D760E5000BC38B1 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
 		C6A5DED91D76A06000BC38B1 /* TrainModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainModel.swift; sourceTree = "<group>"; };
@@ -154,8 +146,6 @@
 				C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */,
 				C60425091D76F79F00FD3B38 /* NetworkService.swift */,
 				C60BE6AE1D6C24E6006B0364 /* DBNetworkStackError.swift */,
-				C6455A031D78BA48008A8C85 /* ExperimentResponseParsing.swift */,
-				C6816E1C1D87BFDA003B699A /* Dictionary+Merge.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
 			);
@@ -172,8 +162,6 @@
 				C6A5DED31D760CC900BC38B1 /* JSONRessourceTest.swift */,
 				C604250F1D78002400FD3B38 /* JSONArrayRessourceTest.swift */,
 				C60425121D7803CA00FD3B38 /* RessourceTest.swift */,
-				C6A161181D788612004CC88E /* ResultTypeTest.swift */,
-				C6816E1E1D87C173003B699A /* DictionaryMergeTest.swift */,
 				C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */,
 				C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */,
 				C60BE66C1D6B2BF3006B0364 /* Info.plist */,
@@ -343,13 +331,11 @@
 				C6F235D51D7DA75000E628D8 /* URLSessionNetworkAccess.swift in Sources */,
 				C60BE68C1D6B2C46006B0364 /* RessourceModeling.swift in Sources */,
 				C6F235D31D7DA71F00E628D8 /* AlamofireNetworkAccess.swift in Sources */,
-				C6816E1D1D87BFDA003B699A /* Dictionary+Merge.swift in Sources */,
 				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
 				C604250A1D76F79F00FD3B38 /* NetworkService.swift in Sources */,
 				C60BE6AD1D6B3E81006B0364 /* NetworkTask.swift in Sources */,
 				C60425081D76F6F400FD3B38 /* NetworkAccessProviding.swift in Sources */,
 				C60BE68D1D6B2C46006B0364 /* ResourceServiceProviding.swift in Sources */,
-				C6455A041D78BA48008A8C85 /* ExperimentResponseParsing.swift in Sources */,
 				C60BE68B1D6B2C46006B0364 /* NetworkRequestRepresening.swift in Sources */,
 				C60BE6AF1D6C24E6006B0364 /* DBNetworkStackError.swift in Sources */,
 			);
@@ -362,12 +348,10 @@
 				C6C86F531D910CE500D6E59E /* NetworkRequestTest.swift in Sources */,
 				C699E0771D917501006FE7C6 /* DBNetworkStackErrorTest.swift in Sources */,
 				C6A5DED61D760E5000BC38B1 /* NetworkServiceMock.swift in Sources */,
-				C6816E1F1D87C173003B699A /* DictionaryMergeTest.swift in Sources */,
 				C60425131D7803CA00FD3B38 /* RessourceTest.swift in Sources */,
 				C60BE6A11D6B3807006B0364 /* AlamofireMock.swift in Sources */,
 				C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */,
 				C6816E211D87C51C003B699A /* URLSessionNetworkAccessTest.swift in Sources */,
-				C6A161191D788612004CC88E /* ResultTypeTest.swift in Sources */,
 				C60425101D78002400FD3B38 /* JSONArrayRessourceTest.swift in Sources */,
 				C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */,
 				C68CC28F1D8BED570019D940 /* BaseURLKeyTest.swift in Sources */,
