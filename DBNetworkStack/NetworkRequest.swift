@@ -29,7 +29,7 @@ import Foundation
  See `NetworkRequestRepresening` for details.
  */
 public struct NetworkRequest: NetworkRequestRepresening {
-    public var path: String
+    public let path: String
     public let baseURLKey: BaseURLKey
     public let HTTPMethod: DBNetworkStack.HTTPMethod
     public let parameter: Dictionary<String, AnyObject>?
