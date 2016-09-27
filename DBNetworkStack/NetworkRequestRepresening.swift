@@ -64,9 +64,8 @@ extension NetworkRequestRepresening {
     /**
      Transforms self into a equivalent `NSURLRequest` with a given baseURL.
      
-     parameter baseURL: baseURL for the resulting request.
-     
-     return: the equivalent request
+     - parameter baseURL: baseURL for the resulting request.
+     - returns: the equivalent request
      */
     public func urlRequest(with baseURL: NSURL) -> NSURLRequest {
         let absoluteURL = absoluteURLWith(baseURL)
@@ -81,9 +80,8 @@ extension NetworkRequestRepresening {
     /**
      Creates an absulte URL of for the request by concating baseURL and path and apending request parameter
      
-     parameter baseURL: baseURL for the resulting url.
-     
-     return: absolute url for the request.
+     - parameter baseURL: baseURL for the resulting url.
+     - returns: absolute url for the request.
      */
     private func absoluteURLWith(baseUrl: NSURL) -> NSURL {
         guard let absoluteURL = NSURL(string: path, relativeToURL: baseUrl) else {

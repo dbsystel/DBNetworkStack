@@ -25,6 +25,9 @@
 
 import Foundation
 
+/**
+ `DBNetworkStackError` provides a collection of error types which can occur during execution.
+ */
 public enum DBNetworkStackError: ErrorType {
     case UnknownError
     case Unauthorized(response: NSHTTPURLResponse)
