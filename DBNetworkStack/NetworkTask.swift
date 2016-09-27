@@ -29,9 +29,23 @@ import Foundation
  `NetworkTask` is a task which runs async to fetch data.
   */
 public protocol NetworkTask {
+    /**
+     Cancels a task.
+     */
     func cancel()
+    
+    /**
+     Resumes a task.
+     */
     func resume()
+    
+    /**
+     Suspends a task.
+     */
     func suspend()
     
+    /**
+     Contains the current progress of a running task.
+     */
     var progress: NSProgress { get }
 }

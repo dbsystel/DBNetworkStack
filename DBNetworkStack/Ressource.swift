@@ -25,9 +25,7 @@
 
 import Foundation
 
-/**
- See `RessourceModeling` for details.
- */
+
 public struct Ressource<Model>: RessourceModeling {
     public let request: NetworkRequestRepresening
     public let parse: (data: NSData) throws -> Model

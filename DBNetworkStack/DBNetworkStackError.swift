@@ -1,5 +1,5 @@
 //
-//  Dictionary+Merge.swift
+//  Error.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,27 +20,34 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Lukas Schmidt on 13.09.16.
+//  Created by Lukas Schmidt on 23.08.16.
 //
 
 import Foundation
 
-
-extension Dictionary {
+public enum DBNetworkStackError: ErrorType {
+    case UnknownError
+    case Unauthorized(response: NSHTTPURLResponse)
+    case ClientError(response: NSHTTPURLResponse?)
+    case SerializationError(description: String, data: NSData?)
+    case RequestError(error: NSError)
+    case ServerError(response: NSHTTPURLResponse?)
+    case MissingBaseURL
     
-    /**
-     Merges a given dictionary into self. If self has stored the same key, it gets updated by the given dictionary.
-     
-     - parameter right: A dictionary to merge into self
-     
-     - return: A merged version of both dictionarys
-     */
-    func merged(right: [Key: Value]?) -> Dictionary<Key, Value> {
-        var dictionary = self
-        for (key, value) in right ?? [:] {
-            dictionary.updateValue(value, forKey: key)
+    init?(response: NSHTTPURLResponse?) {
+        guard let response = response else {
+            return nil
         }
-        
-        return dictionary
+        switch response.statusCode {
+        case 200..<300: return nil
+        case 401:
+            self = .Unauthorized(response: response)
+        case 400...451:
+            self = .ClientError(response: response)
+        case 500...511:
+            self = .ServerError(response: response)
+        default:
+            return nil
+        }
     }
 }
