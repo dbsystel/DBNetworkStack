@@ -24,23 +24,19 @@
 //
 
 import Foundation
-
+/**
+ HTTP Methods
+ 
+ See https://tools.ietf.org/html/rfc7231#section-4.3
+ */
 public enum HTTPMethod: String {
-    case GET, POST, PUT, DELETE
+    case GET
+    case POST
+    case PUT
+    case DELETE
+    case OPTIONS
+    case HEAD
+    case PATCH
+    case TRACE
+    case CONNECT
 }
-
-//public protocol HTTPMethod {
-//    var HTTPMethodName: String { get }
-//}
-//
-//extension HTTPMethod {
-//    static var GET: HTTPMethod {
-//        return "GET"
-//    }
-//}
-//
-//extension String: HTTPMethod {
-//    var HTTPMethodName: String {
-//        return self
-//    }
-//}

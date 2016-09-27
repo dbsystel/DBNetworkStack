@@ -30,16 +30,33 @@ import Foundation
  */
 public protocol NetworkRequestRepresening {
     /**
-     Parameters which will be send with the request.
+     Path to the remote ressource.
      */
     var path: String { get }
+    
+    /**
+     The key which represents the matching baseURL to this request.
+     */
     var baseURLKey: BaseURLKey { get }
+    
+    /**
+     The HTTP Method.
+     */
     var HTTPMethod: DBNetworkStack.HTTPMethod { get }
+    
+    /**
+     Headers for the request.
+     */
     var allHTTPHeaderFields: [String: String]? { get }
+    
     /**
      Parameters which will be send with the request.
      */
     var parameter: [String : AnyObject]? { get }
+    
+    /**
+     Data payload of the request
+     */
     var body: NSData? { get }
 }
 
@@ -47,11 +64,10 @@ extension NetworkRequestRepresening {
     /**
      Transforms self into a equivalent `NSURLRequest` with a given baseURL.
      
-     parameter baseURL: baseURL for the resulting request.
-     
-     return: the equivalent request
+     - parameter baseURL: baseURL for the resulting request.
+     - returns: the equivalent request
      */
-    func urlRequest(with baseURL: NSURL) -> NSURLRequest {
+    public func urlRequest(with baseURL: NSURL) -> NSURLRequest {
         let absoluteURL = absoluteURLWith(baseURL)
         let request = NSMutableURLRequest(URL: absoluteURL)
         request.allHTTPHeaderFields = allHTTPHeaderFields
@@ -61,7 +77,13 @@ extension NetworkRequestRepresening {
         return request
     }
     
-    func absoluteURLWith(baseUrl: NSURL) -> NSURL {
+    /**
+     Creates an absulte URL of for the request by concating baseURL and path and apending request parameter
+     
+     - parameter baseURL: baseURL for the resulting url.
+     - returns: absolute url for the request.
+     */
+    private func absoluteURLWith(baseUrl: NSURL) -> NSURL {
         guard let absoluteURL = NSURL(string: path, relativeToURL: baseUrl) else {
             fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseUrl)")
         }
@@ -70,6 +92,7 @@ extension NetworkRequestRepresening {
                 return "\(value.0)=\(value.1)".stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
             }).flatMap { $0 }
             urlComponents.percentEncodedQuery = percentEncodedQuery.joinWithSeparator("&")
+            
             return urlComponents.URL!
         }
         

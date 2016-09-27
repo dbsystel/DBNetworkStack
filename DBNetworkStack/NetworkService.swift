@@ -44,7 +44,7 @@ public final class NetworkService: NetworkServiceProviding {
         self.endPoints = endPoints
     }
     
-    public func fetch<T : RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask {
+    public func request<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) -> NetworkTask {
         guard let baseURL = baseURL(with: ressource) else {
             fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
         }
@@ -55,37 +55,24 @@ public final class NetworkService: NetworkServiceProviding {
                 dispatch_async(dispatch_get_main_queue()) {
                     onCompletion(parsed)
                 }
-            } catch let error as NSError {
+            } catch let parsingError as DBNetworkStackError {
                 dispatch_async(dispatch_get_main_queue()) {
-                    return onError(error)
+                    return onError(parsingError)
+                }
+            } catch {
+                dispatch_async(dispatch_get_main_queue()) {
+                    return onError(.UnknownError)
                 }
             }
         })
         return dataTask
     }
     
-    public func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
-        if let error = error {
-            throw NSError.errorWithUnderlyingError(error, code: .HTTPError)
-        }
-        if let statusCode = response?.statusCode, let responseError = NSError.backendError(statusCode, data: data) {
-            throw responseError
-        }
-        guard let data = data else {
-            throw NSError(code: .BackendError)
-        }
-        do {
-            return try ressource.parse(data: data)
-        } catch let error as CustomStringConvertible {
-            throw NSError(code: .SerializationError, userInfo: ["key": String(error)])
-        }
-    }
-    
     /**
      Provides an baseURL for a given ressource.
      
      To be more flexible, a request does only contain a path and not a full URL.
-     Mapping has to be done in the method to get an registerd baseURL for the request.
+     Mapping has to be done in the service to get an registerd baseURL for the request.
      
      - parameter ressource: The ressource you want to get a baseURL for.
      

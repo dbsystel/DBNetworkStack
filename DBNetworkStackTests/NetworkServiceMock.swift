@@ -26,7 +26,7 @@
 import Foundation
 import DBNetworkStack
 
-class CancelRequestMock: NetworkTask {
+class NetworkTaskMock: NetworkTask {
     var isCanceld = false
     func cancel() {
         isCanceld = true
@@ -56,7 +56,7 @@ class NetworkAccessMock: NetworkAccessProviding {
         self.request = request
         callback(data, response, error)
         
-        return CancelRequestMock()
+        return NetworkTaskMock()
     }
     
     func changeMock(data data: NSData?, response: NSHTTPURLResponse?, error: NSError?) {

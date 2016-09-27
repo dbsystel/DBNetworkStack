@@ -36,9 +36,9 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
      - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - return the request
+     - returns: the request
      */
-    func fetch<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask
+    func request<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) -> NetworkTask
 }
 
 public protocol NetworkResponseProcessing {
@@ -52,26 +52,28 @@ public protocol NetworkResponseProcessing {
      - parameter data: Returned data. Could be nil.
      - parameter error: the return error. Could be nil.
      
-     - return the parsed model object.
+     - returns: the parsed model object.
      */
     func process<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model
 }
 
 extension NetworkResponseProcessing {
-    public func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
+    public func process<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
         if let error = error {
-            throw NSError.errorWithUnderlyingError(error, code: .HTTPError)
+            throw DBNetworkStackError.RequestError(error: error)
         }
-        if let statusCode = response?.statusCode, let responseError = NSError.backendError(statusCode, data: data) {
+        if let responseError = DBNetworkStackError(response: response) {
             throw responseError
         }
         guard let data = data else {
-            throw NSError(code: .BackendError)
+            throw DBNetworkStackError.SerializationError(description: "No data to serialize revied from the server", data: nil)
         }
         do {
             return try ressource.parse(data: data)
         } catch let error as CustomStringConvertible {
-            throw NSError(code: .SerializationError, userInfo: ["key": String(error)])
+            throw DBNetworkStackError.SerializationError(description: error.description, data: data)
+        } catch {
+            throw DBNetworkStackError.SerializationError(description: "Unknown serialization error", data: data)
         }
     }
 }
