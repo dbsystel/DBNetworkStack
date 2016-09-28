@@ -25,7 +25,8 @@
 
 import Foundation
 /**
- `RessourceModeling` describes a remote ressource of generic type which can be fetched via HTTP(s) and parsed into the coresponding model object.
+ `RessourceModeling` describes a remote ressource of generic type.
+ The type can be fetched via HTTP(s) and parsed into the coresponding model object.
  */
 public protocol RessourceModeling {
     /**
@@ -41,5 +42,5 @@ public protocol RessourceModeling {
     /**
      Parses data into given Model
      */
-    var parse: (data: NSData) throws -> Model  { get }
+    var parse: (data: NSData) throws -> Model { get }
 }

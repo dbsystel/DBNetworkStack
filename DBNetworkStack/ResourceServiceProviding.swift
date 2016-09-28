@@ -40,7 +40,6 @@ public protocol NetworkServiceProviding {
      */
     func request<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) -> NetworkTask
    
-    
     /**
      Processes the results of an HTTPRequest and parses the result the matching Model type of the given ressource.
      
@@ -53,6 +52,6 @@ public protocol NetworkServiceProviding {
      
      - returns: the parsed model object.
      */
-    func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model
+    func process<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model
     
 }

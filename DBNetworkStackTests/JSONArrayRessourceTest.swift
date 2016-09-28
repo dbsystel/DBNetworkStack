@@ -35,7 +35,6 @@ class JSONArrayRessourceTest: XCTestCase {
         //When
         let fetchedTrains = try? ressource.parse(data: Train.validJSONArrayData)
         
-        
         //Then
         XCTAssertNotNil(fetchedTrains)
         XCTAssertEqual(fetchedTrains?.count, 3)

@@ -25,7 +25,16 @@
 
 import Foundation
 
+/**
+ `JSONMappable` provides an interface for initializing objects with dictionarys.
+ 
+ `JSONMappable` can be used to get an object from JSON
+ */
 public protocol JSONMappable {
+    
+    /**
+     Creates an instance with a dictionary.
+     */
     init(object: Dictionary<String, AnyObject>) throws
 }
 
