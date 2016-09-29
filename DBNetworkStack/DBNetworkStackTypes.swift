@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  DBNetworkStackTypes.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -24,6 +24,11 @@
 //
 
 import Foundation
+
+public typealias DBNetworkTaskCreationCompletionBlock = (NetworkTask) -> ()
+// TODO: Use typealiases for functions with generic types
+//typealias NetworkRequestCompletionBlock<T: RessourceModelling> = (T.Model) -> ()
+public typealias DBNetworkRequestErrorBlock = (DBNetworkStackError) -> ()
 
 /**
  `DBNetworkStackError` provides a collection of error types which can occur during execution.
