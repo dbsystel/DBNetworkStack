@@ -28,7 +28,7 @@
 
 import Foundation
 
-public protocol MultipartUploadServiceProviding {
+public protocol MultipartFormDataUploadServiceProviding {
     func upload<T: MultipartFormDataRessourceModelling>(
         ressource: T,
         onCompletion: (T.Model) -> (),
@@ -37,7 +37,7 @@ public protocol MultipartUploadServiceProviding {
     )
 }
 
-extension MultipartUploadServiceProviding {
+extension MultipartFormDataUploadServiceProviding {
     func upload<T: MultipartFormDataRessourceModelling>(
         ressource: T,
         onCompletion: (T.Model) -> (),

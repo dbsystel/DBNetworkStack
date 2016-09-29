@@ -1,5 +1,5 @@
 //
-//  MultipartUploadService.swift
+//  MultipartFormDataUploadService.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -28,18 +28,18 @@
 
 import Foundation
 
-public final class MultipartUploadService: MultipartUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
+public final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
     
-    private let uploadAccess: UploadAccessProviding
+    private let uploadAccess: MultipartFormDataUploadAccessProviding
     let endPoints: Dictionary<String, NSURL>
     
     /**
-     Creates an `MultipartUploadService` instance with a given uploadAccess and a map of endPoints
+     Creates an `MultipartFormDataUploadService` instance with a given uploadAccess and a map of endPoints
      
      - parameter uploadAccess: provides basic access to the network.
      - parameter endPoints: map of baseURLKey -> baseURLs
      */
-    public init(uploadAccess: UploadAccessProviding, endPoints: Dictionary<String, NSURL>) {
+    public init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, NSURL>) {
         self.uploadAccess = uploadAccess
         self.endPoints = endPoints
     }
@@ -60,12 +60,14 @@ public final class MultipartUploadService: MultipartUploadServiceProviding, Netw
                 dispatch_async(dispatch_get_main_queue()) {
                     onCompletion(parsed)
                 }
-            } catch let error as DBNetworkStackError {
+            } catch let parsingError as DBNetworkStackError {
                 dispatch_async(dispatch_get_main_queue()) {
-                    return onError(error)
+                    return onError(parsingError)
                 }
             } catch {
-                
+                dispatch_async(dispatch_get_main_queue()) {
+                    return onError(.UnknownError)
+                }
             }
                 
         }, onNetworkTaskCreation: { task in

@@ -1,5 +1,5 @@
 //
-//  UploadAccessProviding.swift
+//  MultipartFormDataUploadAccessProviding.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -28,7 +28,7 @@
 
 import Foundation
 
-public protocol UploadAccessProviding {
+public protocol MultipartFormDataUploadAccessProviding {
     func upload(
         request: NetworkRequestRepresening,
         relativeToBaseURL baseURL: NSURL,
@@ -39,7 +39,7 @@ public protocol UploadAccessProviding {
     )
 }
 
-extension UploadAccessProviding {
+extension MultipartFormDataUploadAccessProviding {
     func upload(
         request: NetworkRequestRepresening,
         relativeToBaseURL baseURL: NSURL,

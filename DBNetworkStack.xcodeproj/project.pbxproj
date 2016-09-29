@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7C40B9E31D9A9A7000620563 /* UploadAccessProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E21D9A9A7000620563 /* UploadAccessProviding.swift */; };
+		7C40B9E31D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E21D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift */; };
 		7C40B9E51D9AA38600620563 /* MultipartFormDataRepresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E41D9AA38600620563 /* MultipartFormDataRepresenting.swift */; };
-		7C40B9E71D9AA48200620563 /* MultipartUploadServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E61D9AA48200620563 /* MultipartUploadServiceProviding.swift */; };
+		7C40B9E71D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E61D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift */; };
 		7C40B9E91D9AA4B800620563 /* MultipartFormDataRessourceModelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E81D9AA4B800620563 /* MultipartFormDataRessourceModelling.swift */; };
 		7C40B9EB1D9AA4DE00620563 /* MultipartFormDataRessource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9EA1D9AA4DE00620563 /* MultipartFormDataRessource.swift */; };
-		7C40B9F61D9D028000620563 /* MultipartUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F51D9D028000620563 /* MultipartUploadService.swift */; };
+		7C40B9F61D9D028000620563 /* MultipartFormDataUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F51D9D028000620563 /* MultipartFormDataUploadService.swift */; };
 		7C40B9F81D9D034200620563 /* DBNetworkStackTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F71D9D034200620563 /* DBNetworkStackTypes.swift */; };
 		7C40B9FA1D9D0F6D00620563 /* BaseURLProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */; };
 		C60425081D76F6F400FD3B38 /* NetworkAccessProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */; };
@@ -59,12 +59,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7C40B9E21D9A9A7000620563 /* UploadAccessProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = UploadAccessProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		7C40B9E21D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadAccessProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9E41D9AA38600620563 /* MultipartFormDataRepresenting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormDataRepresenting.swift; sourceTree = "<group>"; };
-		7C40B9E61D9AA48200620563 /* MultipartUploadServiceProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartUploadServiceProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		7C40B9E61D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadServiceProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9E81D9AA4B800620563 /* MultipartFormDataRessourceModelling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataRessourceModelling.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9EA1D9AA4DE00620563 /* MultipartFormDataRessource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataRessource.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		7C40B9F51D9D028000620563 /* MultipartUploadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartUploadService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		7C40B9F51D9D028000620563 /* MultipartFormDataUploadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9F71D9D034200620563 /* DBNetworkStackTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DBNetworkStackTypes.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLProviding.swift; sourceTree = "<group>"; };
 		C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkAccessProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -160,7 +160,7 @@
 				C60BE6841D6B2C46006B0364 /* AlamofireNetworkAccess.swift */,
 				C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */,
 				C60425091D76F79F00FD3B38 /* NetworkService.swift */,
-				7C40B9F51D9D028000620563 /* MultipartUploadService.swift */,
+				7C40B9F51D9D028000620563 /* MultipartFormDataUploadService.swift */,
 				7C40B9F71D9D034200620563 /* DBNetworkStackTypes.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
@@ -196,9 +196,9 @@
 				C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */,
 				C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */,
 				C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */,
-				7C40B9E21D9A9A7000620563 /* UploadAccessProviding.swift */,
+				7C40B9E21D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift */,
 				7C40B9E41D9AA38600620563 /* MultipartFormDataRepresenting.swift */,
-				7C40B9E61D9AA48200620563 /* MultipartUploadServiceProviding.swift */,
+				7C40B9E61D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift */,
 				7C40B9E81D9AA4B800620563 /* MultipartFormDataRessourceModelling.swift */,
 				7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */,
 			);
@@ -365,10 +365,10 @@
 				7C40B9EB1D9AA4DE00620563 /* MultipartFormDataRessource.swift in Sources */,
 				C60BE6901D6B2C46006B0364 /* Ressource.swift in Sources */,
 				7C40B9E91D9AA4B800620563 /* MultipartFormDataRessourceModelling.swift in Sources */,
-				7C40B9E31D9A9A7000620563 /* UploadAccessProviding.swift in Sources */,
+				7C40B9E31D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift in Sources */,
 				C60BE6921D6B2C46006B0364 /* JSONArrayRessource.swift in Sources */,
 				C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */,
-				7C40B9F61D9D028000620563 /* MultipartUploadService.swift in Sources */,
+				7C40B9F61D9D028000620563 /* MultipartFormDataUploadService.swift in Sources */,
 				C65F087B1D757A3C00239CC1 /* JSONMappable.swift in Sources */,
 				C60BE68E1D6B2C46006B0364 /* JSONRessourceModeling.swift in Sources */,
 				C6F235D51D7DA75000E628D8 /* URLSessionNetworkAccess.swift in Sources */,
@@ -378,7 +378,7 @@
 				C604250A1D76F79F00FD3B38 /* NetworkService.swift in Sources */,
 				7C40B9E51D9AA38600620563 /* MultipartFormDataRepresenting.swift in Sources */,
 				7C40B9FA1D9D0F6D00620563 /* BaseURLProviding.swift in Sources */,
-				7C40B9E71D9AA48200620563 /* MultipartUploadServiceProviding.swift in Sources */,
+				7C40B9E71D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift in Sources */,
 				C60BE6AD1D6B3E81006B0364 /* NetworkTask.swift in Sources */,
 				C60425081D76F6F400FD3B38 /* NetworkAccessProviding.swift in Sources */,
 				C60BE68D1D6B2C46006B0364 /* NetworkServiceProviding.swift in Sources */,
