@@ -26,7 +26,7 @@ enum BaseURLs: String, BaseURLKey {
         return rawValue
     }
     
-    var url: NSURL {
+    var URL: NSURL {
         switch self {
         case BFA:
             return NSURL(string: "https://dbbfa.herokuapp.com/")!
@@ -38,7 +38,7 @@ enum BaseURLs: String, BaseURLKey {
 
 let baseURL = BaseURLs.BFA
 let urlSessionNetworkAccess = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-let service = NetworkService(networkAccess: urlSessionNetworkAccess, endPoints: [baseURL.name: baseURL.url])
+let service = NetworkService(networkAccess: urlSessionNetworkAccess, endPoints: [baseURL.name: baseURL.URL])
 
 let searchTerm = "Frankfurt"
 
@@ -54,5 +54,3 @@ let task = service.fetch(ressource, onCompletion: { station in
 })
 
 print(task.progress)
-
-

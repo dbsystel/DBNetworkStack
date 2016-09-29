@@ -25,7 +25,13 @@
 
 import Foundation
 
+/**
+ `BaseURLKey` porvides a unique key for a baseURL.
+ */
 public protocol BaseURLKey {
+    /**
+     Name of the provided key.
+     */
     var name: String { get }
 }
 

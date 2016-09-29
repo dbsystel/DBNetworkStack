@@ -36,11 +36,10 @@ public protocol NetworkServiceProviding {
      - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - return the request
+     - returns: the request
      */
-    func fetch<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (NSError) -> ()) -> NetworkTask
+    func request<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) -> NetworkTask
    
-    
     /**
      Processes the results of an HTTPRequest and parses the result the matching Model type of the given ressource.
      
@@ -51,8 +50,8 @@ public protocol NetworkServiceProviding {
      - parameter data: Returned data. Could be nil.
      - parameter error: the return error. Could be nil.
      
-     - return the parsed model object.
+     - returns: the parsed model object.
      */
-    func process<T : RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model
+    func process<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model
     
 }
