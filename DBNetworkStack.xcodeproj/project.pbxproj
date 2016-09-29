@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C40B9FA1D9D0F6D00620563 /* BaseURLProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */; };
 		C60425081D76F6F400FD3B38 /* NetworkAccessProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */; };
 		C604250A1D76F79F00FD3B38 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60425091D76F79F00FD3B38 /* NetworkService.swift */; };
 		C604250E1D76FF0300FD3B38 /* AlamofireNetworkAccessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C604250D1D76FF0300FD3B38 /* AlamofireNetworkAccessTest.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLProviding.swift; sourceTree = "<group>"; };
 		C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkAccessProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C60425091D76F79F00FD3B38 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C604250D1D76FF0300FD3B38 /* AlamofireNetworkAccessTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AlamofireNetworkAccessTest.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -180,6 +182,7 @@
 				C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */,
 				C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */,
 				C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */,
+				7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */,
 			);
 			name = protocol;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				C6F235D31D7DA71F00E628D8 /* AlamofireNetworkAccess.swift in Sources */,
 				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
 				C604250A1D76F79F00FD3B38 /* NetworkService.swift in Sources */,
+				7C40B9FA1D9D0F6D00620563 /* BaseURLProviding.swift in Sources */,
 				C60BE6AD1D6B3E81006B0364 /* NetworkTask.swift in Sources */,
 				C60425081D76F6F400FD3B38 /* NetworkAccessProviding.swift in Sources */,
 				C60BE68D1D6B2C46006B0364 /* NetworkServiceProviding.swift in Sources */,
