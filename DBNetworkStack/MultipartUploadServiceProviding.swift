@@ -1,5 +1,5 @@
 //
-//  BaseURLProviding.swift
+//  MultipartUploadPoviderServiceProviding.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,7 +20,7 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Christian Himmelsbach on 29.09.16.
+//  Created by Christian Himmelsbach on 27.09.16.
 //
 //
 //  DBNetworkStack
@@ -28,30 +28,27 @@
 
 import Foundation
 
-internal protocol BaseURLProviding {
-    
-    var endPoints: [String:NSURL] {get}
-    /**
-     Provides an baseURL for a given ressource.
-     
-     To be more flexible, a request does only contain a path and not a full URL.
-     Mapping has to be done in the service to get an registerd baseURL for the request.
-     
-     - parameter ressource: The ressource you want to get a baseURL for.
-     
-     - return matching baseURL to the given ressource
-     */
-    func baseURL<T: RessourceModeling>(with ressource: T) -> NSURL
+public protocol MultipartUploadServiceProviding {
+    func upload<T: MultipartFormDataRessourceModelling>(
+        ressource: T,
+        onCompletion: (T.Model) -> (),
+        onError: DBNetworkRequestErrorBlock,
+        onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock?
+    )
 }
 
-extension BaseURLProviding {
-
-    func baseURL<T: RessourceModeling>(with ressource: T) -> NSURL {
-        
-        guard let baseURL = endPoints[ressource.request.baseURLKey.name] else {
-            fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
-        }
-        
-        return baseURL
+extension MultipartUploadServiceProviding {
+    func upload<T: MultipartFormDataRessourceModelling>(
+        ressource: T,
+        onCompletion: (T.Model) -> (),
+        onError: DBNetworkRequestErrorBlock,
+        onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil
+        ) {
+        upload(
+            ressource,
+            onCompletion: onCompletion,
+            onError: onError,
+            onNetworkTaskCreation: onNetworkTaskCreation
+        )
     }
 }

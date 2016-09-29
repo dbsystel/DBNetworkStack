@@ -29,7 +29,7 @@ import Foundation
 /**
  `NetworkService` handles network request for ressources by using `Alamofire` as the network layer.
  */
-public final class NetworkService: NetworkServiceProviding {
+public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
     let networkAccess: NetworkAccessProviding
     let endPoints: Dictionary<String, NSURL>
     
@@ -45,9 +45,8 @@ public final class NetworkService: NetworkServiceProviding {
     }
     
     public func request<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) -> NetworkTask {
-        guard let baseURL = baseURL(with: ressource) else {
-            fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
-        }
+        
+        let baseURL = self.baseURL(with: ressource)
         let reuqest = ressource.request.urlRequest(with: baseURL)
         let dataTask = networkAccess.load(request: reuqest, callback: { data, response, error in
             do {
@@ -67,20 +66,5 @@ public final class NetworkService: NetworkServiceProviding {
         })
         return dataTask
     }
-    
-    /**
-     Provides an baseURL for a given ressource.
-     
-     To be more flexible, a request does only contain a path and not a full URL.
-     Mapping has to be done in the service to get an registerd baseURL for the request.
-     
-     - parameter ressource: The ressource you want to get a baseURL for.
-     
-     - return matching baseURL to the given ressource
-     */
-    private func baseURL<T: RessourceModeling>(with ressource: T) -> NSURL? {
-        return endPoints[ressource.request.baseURLKey.name]
-    }
-    
     
 }
