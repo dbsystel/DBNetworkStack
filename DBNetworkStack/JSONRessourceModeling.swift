@@ -77,7 +77,8 @@ extension JSONRessourceModeling {
     private func parseContainer<Container>(data: NSData) throws -> Container {
         let jsonObject = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)
         guard let container = jsonObject as? Container else {
-            throw NSError(domain: "Parsing Error", code: 0, userInfo: ["error": "Expected container of type: \(Container.self), but got \(jsonObject.dynamicType)"])
+            let userInfo =  ["error": "Expected container of type: \(Container.self), but got \(jsonObject.dynamicType)"]
+            throw NSError(domain: "Parsing Error", code: 0, userInfo: userInfo)
         }
         
         return container

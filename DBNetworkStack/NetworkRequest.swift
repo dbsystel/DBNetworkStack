@@ -38,6 +38,7 @@ public struct NetworkRequest: NetworkRequestRepresening {
 }
 
 public extension NetworkRequest {
+    // swiftlint:disable line_length
     public init(path: String, baseURLKey: BaseURLKey, HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil, body: NSData? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
         self.path = path
         self.baseURLKey = baseURLKey

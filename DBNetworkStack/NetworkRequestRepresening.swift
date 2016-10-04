@@ -83,17 +83,21 @@ extension NetworkRequestRepresening {
      - parameter baseURL: baseURL for the resulting url.
      - returns: absolute url for the request.
      */
-    private func absoluteURLWith(baseUrl: NSURL) -> NSURL {
-        guard let absoluteURL = NSURL(string: path, relativeToURL: baseUrl) else {
-            fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseUrl)")
+    private func absoluteURLWith(baseURL: NSURL) -> NSURL {
+        guard let absoluteURL = NSURL(string: path, relativeToURL: baseURL) else {
+            fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
         }
-        if let parameter = parameter, let urlComponents = NSURLComponents(URL: absoluteURL, resolvingAgainstBaseURL: true) where !parameter.isEmpty {
-            let percentEncodedQuery = parameter.map( {value in
+         let urlComponents = NSURLComponents(URL: absoluteURL, resolvingAgainstBaseURL: true)
+        if let parameter = parameter, let urlComponents = urlComponents where !parameter.isEmpty {
+            let percentEncodedQuery = parameter.map({ value in
                 return "\(value.0)=\(value.1)".stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
             }).flatMap { $0 }
             urlComponents.percentEncodedQuery = percentEncodedQuery.joinWithSeparator("&")
             
-            return urlComponents.URL!
+            guard let absoluteURL = urlComponents.URL else {
+                 fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
+            }
+            return absoluteURL
         }
         
         return absoluteURL

@@ -53,7 +53,7 @@ enum APIs: String, BaseURLKey {
     var name: String {
         return rawValue
     }
-    var url: NSURL {
+    var URL: NSURL {
         return NSURL(string: "https://dbbfa.herokuapp.com/")!
     }
 }
@@ -70,11 +70,11 @@ let ressource = MultipartFormDataRessource(
 let baseURL = APIs.BFA
 let service = MultipartFormDataUploadService(
     uploadAccess: UploadAccessMock(),
-    endPoints: [baseURL.name:baseURL.url]
+    endPoints: [baseURL.name:baseURL.URL]
 )
 
 service.upload(ressource, onCompletion: { report in
-    print("Nicey")
+    print("Nicey: \(report)")
 }, onError: { error in
     print("Error: \(error)")
 }, onNetworkTaskCreation: { task in
