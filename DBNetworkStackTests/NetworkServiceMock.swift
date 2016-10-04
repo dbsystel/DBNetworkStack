@@ -26,25 +26,6 @@
 import Foundation
 import DBNetworkStack
 
-class NetworkTaskMock: NetworkTask {
-    var isCanceld = false
-    func cancel() {
-        isCanceld = true
-    }
-    
-    func resume() {
-        
-    }
-    
-    func suspend() {
-        
-    }
-    
-    var progress: NSProgress {
-        return NSProgress()
-    }
-}
-
 class NetworkAccessMock: NetworkAccessProviding {
     private(set) var data: NSData?
     private(set) var response: NSHTTPURLResponse?
