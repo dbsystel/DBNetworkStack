@@ -1,5 +1,5 @@
 //
-//  MultipartFormDataRessource.swift
+//  MultipartFormDataUploadServiceTests.swift
 //  DBNetworkStack
 //
 //	Legal Notice! DB Systel GmbH proprietary License!
@@ -20,24 +20,33 @@
 //	this code, no changes in or deletion of author attribution, trademark
 //	legend or copyright notice shall be made.
 //
-//  Created by Christian Himmelsbach on 27.09.16.
-//
-//
-//  DBNetworkStack
+//  Created by Christian Himmelsbach on 29.09.16.
 //
 
-import Foundation
+import XCTest
+@testable import DBNetworkStack
 
-public struct MultipartFormDataRessource<Model>: MultipartFormDataRessourceModelling {
-    public var request: NetworkRequestRepresening
-    public var parse: (data: NSData) throws -> Model
-    public var encodingMemoryThreshold: UInt64
-    public var encodeInMultipartFormData: MultipartFormDataRepresenting -> Void
+class MultipartFormDataUploadServiceTests: XCTestCase {
+
+    var networkAccess = UploadAccessServiceMock()
+//    var service: MultipartFormDataUploadServiceProviding
     
-    public init(request: NetworkRequestRepresening, parse: (data: NSData) throws -> Model, encodingMemoryThreshold: UInt64, encodeInMultipartFormData: MultipartFormDataRepresenting -> Void) {
-        self.request = request
-        self.parse = parse
-        self.encodingMemoryThreshold = encodingMemoryThreshold
-        self.encodeInMultipartFormData = encodeInMultipartFormData
+    override func setUp() {
+        super.setUp()
+//        service = MultipartFormDataUploadService(
+//            uploadAccess: networkAccess,
+//            endPoints: <#T##Dictionary<String, NSURL>#>
+//        )
+        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
+    func testUpload() {
+        
+    }
+
 }
