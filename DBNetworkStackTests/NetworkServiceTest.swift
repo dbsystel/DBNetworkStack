@@ -136,7 +136,6 @@ class NetworkServiceTest: XCTestCase {
         waitForExpectationsWithTimeout(1, handler: nil)
     }
     
-
     func testOnError() {
         //Given
         let error = NSError(domain: "", code: 0, userInfo: nil)
