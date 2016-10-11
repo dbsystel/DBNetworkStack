@@ -81,25 +81,3 @@ service.upload(ressource, onCompletion: { report in
     print("Task created")
     
 })
-
-
-// Alamofire Implmentation
-//extension Alamofire.MultipartFormData: MultipartFormDataRepresenting {}
-//extension Alamofire.Request: NetworkTask {}
-//
-//class AlamofireUploadAccess: MultipartFormDataUploadAccessProviding {
-//    func upload(request: NetworkRequestRepresening, relativeToBaseURL: NSURL, multipartFormData: (MultipartFormDataRepresenting) -> (), encodingMemoryThreshold: UInt64, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> (), onNetworkTaskCreation: (NetworkTask) -> ()) {
-//        Alamofire.upload(
-//            .POST,
-//            NSURL(string: request.path, relativeToURL: relativeToBaseURL)!,
-//            multipartFormData: multipartFormData,
-//            encodingCompletion: { encodingResult in
-//                switch encodingResult {
-//                case .Success(let upload, _, _):
-//                    onNetworkTaskCreation(upload)
-//                    upload.response(completionHandler: { request, response, data, error in
-//                        callback(data, response, error)
-//                    })
-//                case .Failure(let encodingError):
-//                    //TODO ErrorHandling
-//                    callback(nil, nil, NSError(code: .BadRequest, 

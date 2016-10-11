@@ -26,7 +26,7 @@
 import Foundation
 
 public typealias DBNetworkTaskCreationCompletionBlock = (NetworkTask) -> ()
-// TODO: Use typealiases for functions with generic types
+// TODO: Use typealiases for functions with generic types in Swift 3.x
 //typealias NetworkRequestCompletionBlock<T: RessourceModelling> = (T.Model) -> ()
 public typealias DBNetworkRequestErrorBlock = (DBNetworkStackError) -> ()
 
@@ -58,4 +58,5 @@ public enum DBNetworkStackError: ErrorType {
             return nil
         }
     }
+    
 }

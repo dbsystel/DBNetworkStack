@@ -79,7 +79,8 @@ extension NetworkResponseProcessing {
 }
 
 extension NetworkResponseProcessing {
-    func processAsync<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) {
+    func processAsyncResponse<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?,
+                              error: NSError?, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) {
         do {
             let parsed = try self.process(
                 response: response,

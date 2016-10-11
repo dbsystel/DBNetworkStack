@@ -28,7 +28,6 @@ import XCTest
 
 class RessourceTest: XCTestCase {
     
-    
     func testRessource() {
         //Given
         let validData = "ICE".dataUsingEncoding(NSUTF8StringEncoding)!
@@ -37,7 +36,6 @@ class RessourceTest: XCTestCase {
         
         //When
         let name = try? ressource.parse(data: validData)
-        
         
         //Then
         XCTAssertNotNil(name)

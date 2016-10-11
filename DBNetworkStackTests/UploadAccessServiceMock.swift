@@ -35,7 +35,9 @@ class UploadAccessServiceMock: MultipartFormDataUploadAccessProviding {
     private var response: NSHTTPURLResponse?
     private var multipartFormData: ((MultipartFormDataRepresenting) -> ())?
     
-    func upload(request: NetworkRequestRepresening, relativeToBaseURL: NSURL, multipartFormData: (MultipartFormDataRepresenting) -> (), encodingMemoryThreshold: UInt64, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> (), onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock?) {
+    func upload(request: NetworkRequestRepresening, relativeToBaseURL: NSURL, multipartFormData: (MultipartFormDataRepresenting) -> (),
+                encodingMemoryThreshold: UInt64, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> (),
+                onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock?) {
         
         dispatch_async(dispatch_get_main_queue()) {
             multipartFormData(MulitpartFormDataRepresentingMock())

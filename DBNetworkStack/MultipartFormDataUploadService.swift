@@ -44,12 +44,13 @@ public final class MultipartFormDataUploadService: MultipartFormDataUploadServic
         self.endPoints = endPoints
     }
     
-    
-    public func upload<T: MultipartFormDataRessourceModelling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> (), onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil) {
+    public func upload<T: MultipartFormDataRessourceModelling>(ressource: T, onCompletion: (T.Model) -> (),
+                       onError: (DBNetworkStackError) -> (), onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil) {
         
         let baseURL = self.baseURL(with: ressource)
-        uploadAccess.upload(ressource.request, relativeToBaseURL: baseURL, multipartFormData: ressource.encodeInMultipartFormData, encodingMemoryThreshold: ressource.encodingMemoryThreshold, callback: { data, response, error in
-            self.processAsync(response: response, ressource: ressource, data: data, error: error, onCompletion: onCompletion, onError: onError)
+        uploadAccess.upload(ressource.request, relativeToBaseURL: baseURL, multipartFormData: ressource.encodeInMultipartFormData,
+                            encodingMemoryThreshold: ressource.encodingMemoryThreshold, callback: { data, response, error in
+            self.processAsyncResponse(response: response, ressource: ressource, data: data, error: error, onCompletion: onCompletion, onError: onError)
                 
         }, onNetworkTaskCreation: { task in
             dispatch_async(dispatch_get_main_queue(), {

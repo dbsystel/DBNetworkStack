@@ -48,6 +48,8 @@ extension MultipartFormDataUploadAccessProviding {
                           callback: (NSData?, NSHTTPURLResponse?, NSError?) -> (),
                           onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil
         ) {
-        upload(request,relativeToBaseURL: baseURL, multipartFormData: multipartFormData, encodingMemoryThreshold: encodingMemoryThreshold, callback: callback, onNetworkTaskCreation: onNetworkTaskCreation)
+        upload(request, relativeToBaseURL: baseURL, multipartFormData: multipartFormData, encodingMemoryThreshold: encodingMemoryThreshold,
+               callback: callback, onNetworkTaskCreation: onNetworkTaskCreation)
     }
+    
 }

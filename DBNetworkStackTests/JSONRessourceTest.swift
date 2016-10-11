@@ -33,12 +33,11 @@ class JSONRessourceTest: XCTestCase {
         let ressource = JSONRessource<Train>(request: request)
         
         //When
-        let fetchedTrain = try! ressource.parse(data: Train.validJSONData)
+        let fetchedTrain = try? ressource.parse(data: Train.validJSONData)
        
-        
         //Then
         XCTAssertNotNil(fetchedTrain)
-        XCTAssertEqual(fetchedTrain.name, "ICE")
+        XCTAssertEqual(fetchedTrain?.name, "ICE")
     }
     
     func testRessourceWithInvalidData() {
@@ -55,5 +54,3 @@ class JSONRessourceTest: XCTestCase {
     }
     
 }
-
-

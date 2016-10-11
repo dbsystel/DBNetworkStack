@@ -34,7 +34,7 @@ extension Train: JSONMappable {
     init(object: Dictionary<String, AnyObject>) throws {
         if let name = object["name"] as? String {
             self.name = name
-        }else {
+        } else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
     }

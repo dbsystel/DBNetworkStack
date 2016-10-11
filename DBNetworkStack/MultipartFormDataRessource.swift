@@ -34,7 +34,8 @@ public struct MultipartFormDataRessource<Model>: MultipartFormDataRessourceModel
     public var encodingMemoryThreshold: UInt64
     public var encodeInMultipartFormData: MultipartFormDataRepresenting -> Void
     
-    public init(request: NetworkRequestRepresening, parse: (data: NSData) throws -> Model, encodingMemoryThreshold: UInt64, encodeInMultipartFormData: MultipartFormDataRepresenting -> Void) {
+    public init(request: NetworkRequestRepresening, parse: (data: NSData) throws -> Model,
+                encodingMemoryThreshold: UInt64, encodeInMultipartFormData: MultipartFormDataRepresenting -> Void) {
         self.request = request
         self.parse = parse
         self.encodingMemoryThreshold = encodingMemoryThreshold

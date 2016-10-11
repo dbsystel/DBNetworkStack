@@ -73,7 +73,6 @@ class NetworkServiceTest: XCTestCase {
         let ressource = JSONRessource<Train>(request: request)
         networkAccess.changeMock(data: nil, response: nil, error: nil)
         
-        
         //When
         let expection = expectationWithDescription("testNoData")
         networkService.request(ressource, onCompletion: { fetchedTrain in
@@ -97,7 +96,6 @@ class NetworkServiceTest: XCTestCase {
         let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.EndPoint)
         let ressource = JSONRessource<Train>(request: request)
         networkAccess.changeMock(data: Train.invalidJSONData, response: nil, error: nil)
-        
         
         //When
         let expection = expectationWithDescription("testInvalidData")
@@ -146,7 +144,6 @@ class NetworkServiceTest: XCTestCase {
         let ressource = JSONRessource<Train>(request: request)
         networkAccess.changeMock(data: nil, response: nil, error: error)
         
-        
         //When
         let expection = expectationWithDescription("testOnError")
         networkService.request(ressource, onCompletion: { fetchedTrain in
@@ -161,7 +158,6 @@ class NetworkServiceTest: XCTestCase {
                 }
         })
         
-        
         waitForExpectationsWithTimeout(1, handler: nil)
     }
     
@@ -171,7 +167,6 @@ class NetworkServiceTest: XCTestCase {
         let ressource = JSONRessource<Train>(request: request)
         let response = NSHTTPURLResponse(URL: NSURL(), statusCode: 401, HTTPVersion: nil, headerFields: nil)
         networkAccess.changeMock(data: nil, response: response, error: nil)
-        
         
         //When
         let expection = expectationWithDescription("testOnError")
@@ -186,7 +181,6 @@ class NetworkServiceTest: XCTestCase {
                     XCTFail()
                 }
         })
-        
         
         waitForExpectationsWithTimeout(1, handler: nil)
     }

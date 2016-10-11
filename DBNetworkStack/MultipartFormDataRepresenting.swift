@@ -186,5 +186,4 @@ public protocol MultipartFormDataRepresenting: class {
      */
     func writeEncodedDataToDisk(fileURL: NSURL) throws
     
-    
 }
