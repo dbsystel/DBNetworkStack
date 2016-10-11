@@ -35,6 +35,7 @@
 		C60BE6931D6B2C46006B0364 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */; };
 		C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */; };
 		C60BE6AD1D6B3E81006B0364 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */; };
+		C61348B91DACB4F2000F0583 /* ArrayRessourceModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61348B81DACB4F2000F0583 /* ArrayRessourceModeling.swift */; };
 		C65F087B1D757A3C00239CC1 /* JSONMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F087A1D757A3C00239CC1 /* JSONMappable.swift */; };
 		C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */; };
 		C6816E211D87C51C003B699A /* URLSessionNetworkAccessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */; };
@@ -90,6 +91,7 @@
 		C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkRequest.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceTest.swift; sourceTree = "<group>"; };
 		C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
+		C61348B81DACB4F2000F0583 /* ArrayRessourceModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayRessourceModeling.swift; sourceTree = "<group>"; };
 		C65F087A1D757A3C00239CC1 /* JSONMappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONMappable.swift; sourceTree = "<group>"; };
 		C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLKey.swift; sourceTree = "<group>"; };
 		C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkAccessTest.swift; sourceTree = "<group>"; };
@@ -189,8 +191,9 @@
 		C60BE6A81D6B399A006B0364 /* protocol */ = {
 			isa = PBXGroup;
 			children = (
-				C60BE67B1D6B2C46006B0364 /* NetworkRequestRepresening.swift */,
 				C60BE67C1D6B2C46006B0364 /* RessourceModeling.swift */,
+				C61348B81DACB4F2000F0583 /* ArrayRessourceModeling.swift */,
+				C60BE67B1D6B2C46006B0364 /* NetworkRequestRepresening.swift */,
 				C60BE67D1D6B2C46006B0364 /* NetworkServiceProviding.swift */,
 				C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */,
 				C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */,
@@ -360,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C61348B91DACB4F2000F0583 /* ArrayRessourceModeling.swift in Sources */,
 				C60BE6931D6B2C46006B0364 /* NetworkRequest.swift in Sources */,
 				C60BE6911D6B2C46006B0364 /* JSONRessource.swift in Sources */,
 				7C40B9EB1D9AA4DE00620563 /* MultipartFormDataRessource.swift in Sources */,
