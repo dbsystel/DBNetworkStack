@@ -49,20 +49,7 @@ public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
         let baseURL = self.baseURL(with: ressource)
         let reuqest = ressource.request.urlRequest(with: baseURL)
         let dataTask = networkAccess.load(request: reuqest, callback: { data, response, error in
-            do {
-                let parsed = try self.process(response: response, ressource: ressource, data: data, error: error)
-                dispatch_async(dispatch_get_main_queue()) {
-                    onCompletion(parsed)
-                }
-            } catch let parsingError as DBNetworkStackError {
-                dispatch_async(dispatch_get_main_queue()) {
-                    return onError(parsingError)
-                }
-            } catch {
-                dispatch_async(dispatch_get_main_queue()) {
-                    return onError(.UnknownError)
-                }
-            }
+            self.processAsync(response: response, ressource: ressource, data: data, error: error, onCompletion: onCompletion, onError: onError)
         })
         return dataTask
     }

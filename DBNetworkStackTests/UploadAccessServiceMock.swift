@@ -26,16 +26,31 @@
 import Foundation
 import DBNetworkStack
 
-struct UploadAccessServiceMock: MultipartFormDataUploadAccessProviding {
+class UploadAccessServiceMock: MultipartFormDataUploadAccessProviding {
+    
+    var uploadData: NSData?
+    
+    private var reponseData: NSData?
+    private var responseError: NSError?
+    private var response: NSHTTPURLResponse?
+    private var multipartFormData: ((MultipartFormDataRepresenting) -> ())?
+    
     func upload(request: NetworkRequestRepresening, relativeToBaseURL: NSURL, multipartFormData: (MultipartFormDataRepresenting) -> (), encodingMemoryThreshold: UInt64, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> (), onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock?) {
         
         dispatch_async(dispatch_get_main_queue()) {
+            multipartFormData(MulitpartFormDataRepresentingMock())
             onNetworkTaskCreation?(NetworkTaskMock())
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2.0)*Int64(NSEC_PER_SEC)), dispatch_get_main_queue(), {
-                callback(NSData(),nil,nil)
+                callback(self.reponseData, self.response, self.responseError)
             })
         }
         
+    }
+    
+    func changeMock(data data: NSData?, response: NSHTTPURLResponse?, error: NSError?) {
+        self.reponseData = data
+        self.response = response
+        self.responseError = error
     }
 }

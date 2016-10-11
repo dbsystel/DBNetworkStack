@@ -49,26 +49,7 @@ public final class MultipartFormDataUploadService: MultipartFormDataUploadServic
         
         let baseURL = self.baseURL(with: ressource)
         uploadAccess.upload(ressource.request, relativeToBaseURL: baseURL, multipartFormData: ressource.encodeInMultipartFormData, encodingMemoryThreshold: ressource.encodingMemoryThreshold, callback: { data, response, error in
-                
-            do {
-                let parsed = try self.process(
-                    response: response,
-                    ressource: ressource,
-                    data: data,
-                    error: error
-                )
-                dispatch_async(dispatch_get_main_queue()) {
-                    onCompletion(parsed)
-                }
-            } catch let parsingError as DBNetworkStackError {
-                dispatch_async(dispatch_get_main_queue()) {
-                    return onError(parsingError)
-                }
-            } catch {
-                dispatch_async(dispatch_get_main_queue()) {
-                    return onError(.UnknownError)
-                }
-            }
+            self.processAsync(response: response, ressource: ressource, data: data, error: error, onCompletion: onCompletion, onError: onError)
                 
         }, onNetworkTaskCreation: { task in
             dispatch_async(dispatch_get_main_queue(), {
