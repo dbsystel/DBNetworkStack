@@ -25,7 +25,6 @@
 //  Created by Christian Himmelsbach on 29.09.16.
 //
 
-
 import Foundation
 
 internal protocol BaseURLProviding {

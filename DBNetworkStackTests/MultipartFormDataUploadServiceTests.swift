@@ -37,7 +37,7 @@ class MultipartFormDataUploadServiceTests: XCTestCase {
         super.setUp()
         service = MultipartFormDataUploadService(
             uploadAccess: networkAccess,
-            endPoints: [ TestEndPoints.EndPoint.name: NSURL()]
+            endPoints: [ TestEndPoints.EndPoint.name: NSURL(string: "http://bahn.de")!]
         )
     }
 

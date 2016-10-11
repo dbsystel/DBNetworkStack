@@ -25,7 +25,7 @@
 //  Created by Lukas Schmidt on 22.08.16.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for DBNetworkStack.
 FOUNDATION_EXPORT double DBNetworkStackVersionNumber;
