@@ -10,6 +10,6 @@ DBNetworkStack is a network abstraction for fetching request and mapping them to
 ---------|---------------
 &#128581; | Typed network ressources
 &#127968; | Protocol oriented architecture
-🔀| Exchangeable Implemntations
+🔀| Exchangeable Implementations
 🚄 | Extendable API
 &#9989; | Fully unit tested
