@@ -11,11 +11,25 @@ let baseURLKey = "httpBin"
 let networkAccess = NSURLSession(configuration: .defaultSessionConfiguration())
 let networkService = NetworkService(networkAccess: networkAccess, endPoints: [baseURLKey: url])
 
-let request = NetworkRequest(path: "/", baseURLKey: baseURLKey)
-let ressource = Ressource(request: request, parse: { String(data: $0, encoding: NSUTF8StringEncoding) })
+struct IPOrigin {
+    let ip: String
+}
+
+extension IPOrigin: JSONMappable {
+    init(object: Dictionary<String, AnyObject>) throws {
+        guard let ip = object["origin"] as? String else {
+            throw DBNetworkStackError.SerializationError(description: "", data: nil)
+        }
+        self.ip = ip
+    }
+}
+
+let request = NetworkRequest(path: "/ip", baseURLKey: baseURLKey)
+let ressource = JSONRessource<IPOrigin>(request: request)
 
 networkService.request(ressource, onCompletion: { htmlText in
     print(htmlText)
     }, onError: { error in
         //Handle errors
 })
+
