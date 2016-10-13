@@ -15,3 +15,16 @@ DBNetworkStack is a network abstraction for fetching request and mapping them to
 &#9989; | Fully unit tested
 
 The idea behind this project comes from this [talk.objc.io article](https://talk.objc.io/episodes/S01E01-networking).
+
+## Installation
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+Specify the following in your `Cartfile`:
+
+```ogdl
+github "dbsystel/dbnetworkstack" ~> 0.1
+```
+
