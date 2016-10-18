@@ -49,7 +49,7 @@ networkService.request(ressource, onCompletion: { htmlText in
 
 ```
 
-## JSON Mapping
+## JSON Mapping Demo
 ```swift
 struct IPOrigin {
     let ipAdress: String
