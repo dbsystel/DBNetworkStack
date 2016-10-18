@@ -8,13 +8,27 @@ DBNetworkStack is a network abstraction for fetching request and mapping them to
 
          | Main Features
 ---------|---------------
-&#128581; | Typed network ressources
+🛡 | Typed network ressources
 &#127968; | Protocol oriented architecture
-🔀| Exchangeable Implementations
+🔀| Exchangeable implementations
 🚄 | Extendable API
 &#9989; | Fully unit tested
 
 The idea behind this project comes from this [talk.objc.io article](https://talk.objc.io/episodes/S01E01-networking).
+
+## Basic Demo
+Lets say you want to fetch a ``html`` string.
+
+First you have to create a service, by providing a networkaccess. You can use NSURLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```. In addition you need to register baseURLs for request mapping. This gives you the flexability to change your baseURLs very easyly when your envionment changes.
+
+```swift
+let url = NSURL(string: "https://httpbin.org")!
+let baseURLKey = "httpBin"
+
+let networkAccess = NSURLSession(configuration: .defaultSessionConfiguration())
+let networkService = NetworkService(networkAccess: networkAccess, endPoints: [baseURLKey: url])
+```
+
 
 ## Installation
 
