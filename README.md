@@ -3,9 +3,6 @@
 [![Build Status](https://travis-ci.com/lightsprint09/DBNetworkStackTemp.svg?token=DoSuqFLfFsZgTxGUxHry&branch=feature/cross-plattorm-project)](https://travis-ci.com/lightsprint09/DBNetworkStackTemp)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) 
 
-
-DBNetworkStack is a network abstraction for fetching request and mapping them to model objects.
-
          | Main Features
 ---------|---------------
 🛡 | Typed network ressources
@@ -19,7 +16,7 @@ The idea behind this project comes from this [talk.objc.io article](https://talk
 ## Basic Demo
 Lets say you want to fetch a ``html`` string.
 
-First you have to create a service, by providing a networkaccess. You can use NSURLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```. In addition you need to register baseURLs for request mapping. This gives you the flexability to change your baseURLs very easyly when your envionment changes.
+First you have to create a service, by providing a networkaccess. You can use NSURLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```. In addition you need to register baseURLs endpoints for request mapping. This gives you the flexability to change your endpoints very easyly when your envionment changes.
 
 ```swift
 
@@ -48,6 +45,34 @@ networkService.request(ressource, onCompletion: { htmlText in
 })
 
 ```
+
+## JSON Mapping Demo
+```swift
+struct IPOrigin {
+    let ipAdress: String
+}
+
+extension IPOrigin: JSONMappable {
+    init(object: Dictionary<String, AnyObject>) throws {
+       /// Do your mapping
+    }
+}
+
+let request = NetworkRequest(path: "/ip", baseURLKey: baseURLKey)
+let ressource = JSONRessource<IPOrigin>(request: request)
+
+networkService.request(ressource, onCompletion: { origin in
+    print(origin)
+    }, onError: { error in
+        //Handle errors
+})
+```
+
+## Requirements
+
+- iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 7.3+
+- Swift 2.2/2.3
 
 ## Installation
 
