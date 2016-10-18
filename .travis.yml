@@ -5,7 +5,7 @@ env:
   - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X'
   - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 6S'
   - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm'
-  - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p'
+  - ACTION=clean test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p'
 
 script:
   - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION | xcpretty
