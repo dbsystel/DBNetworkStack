@@ -89,7 +89,7 @@ extension NetworkRequestRepresening {
         guard let absoluteURL = NSURL(string: path, relativeToURL: baseURL) else {
             fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
         }
-         let urlComponents = NSURLComponents(URL: absoluteURL, resolvingAgainstBaseURL: true)
+        let urlComponents = NSURLComponents(URL: absoluteURL, resolvingAgainstBaseURL: true)
         if let parameter = parameter, let urlComponents = urlComponents where !parameter.isEmpty {
             let percentEncodedQuery = parameter.map({ value in
                 return "\(value.0)=\(value.1)".stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
