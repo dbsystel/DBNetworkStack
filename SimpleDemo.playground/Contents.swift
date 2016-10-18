@@ -5,7 +5,7 @@ import XCPlayground
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-let url = NSURL(string: "https://httpbin.org")!
+let url: NSURL! = NSURL(string: "https://httpbin.org")
 let baseURLKey = "httpBin"
 
 let networkAccess = NSURLSession(configuration: .defaultSessionConfiguration())
