@@ -40,4 +40,5 @@ variable_name:
     excluded: # excluded via string array
         - id
         - URL
+        - url
 reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit)
