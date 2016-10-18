@@ -19,7 +19,7 @@ The idea behind this project comes from this [talk.objc.io article](https://talk
 ## Basic Demo
 Lets say you want to fetch a ``html`` string.
 
-First you have to create a service, by providing a networkaccess. You can use NSURLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```. In addition you need to register baseURLs for request mapping. This gives you the flexability to change your baseURLs very easyly when your envionment changes.
+First you have to create a service, by providing a networkaccess. You can use NSURLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```. In addition you need to register baseURLs endpoints for request mapping. This gives you the flexability to change your endpoints very easyly when your envionment changes.
 
 ```swift
 
