@@ -28,7 +28,22 @@
 
 import Foundation
 
+/**
+ `MultipartFormDataUploadAccessProviding` provides access to the network for multipart formdata Requests.
+ */
 public protocol MultipartFormDataUploadAccessProviding {
+    
+    /**
+     Uploads a multipart formdata ressource asynchrony to remote location.
+     
+     - parameter request: The ressource to upload.
+     - parameter relativeToBaseURL: The base URL on wich the request is based on
+     - parameter multipartFormData: Closure which configures the multipart form data body
+     - parameter encodingMemoryThreshold: Encoding threshold in bytes.
+     - parameter callback: Callback which gets called when the request finishes.
+     - parameter onNetworkTaskCreation: Callback which gets called, after encoding data and starting the upload. The closure gets access to the created network task. 
+     
+     */
     func upload(
         request: NetworkRequestRepresening,
         relativeToBaseURL baseURL: NSURL,

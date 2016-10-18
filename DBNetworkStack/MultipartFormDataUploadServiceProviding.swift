@@ -28,7 +28,20 @@
 
 import Foundation
 
+/**
+ `MultipartFormDataUploadServiceProviding` provides access to upload multipart formdata resources.
+ */
 public protocol MultipartFormDataUploadServiceProviding {
+    
+    /**
+     Uploads a multipart formdata resource to a remote location.
+     
+     - parameter ressource: The ressource to upload to.
+     - parameter onCompletion: Callback which gets called when uploading and tranforming the response into model succeeds.
+     - parameter onError: Callback which gets called when uploading or tranforming the response fails.
+     - parameter onNetworkTaskCreation: Callback which gets called, after encoding data and starting the upload.
+     The closure gets access to the created network task.
+    */
     func upload<T: MultipartFormDataRessourceModelling>(
         ressource: T,
         onCompletion: (T.Model) -> (),
