@@ -22,13 +22,32 @@ Lets say you want to fetch a ``html`` string.
 First you have to create a service, by providing a networkaccess. You can use NSURLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```. In addition you need to register baseURLs for request mapping. This gives you the flexability to change your baseURLs very easyly when your envionment changes.
 
 ```swift
+
 let url = NSURL(string: "https://httpbin.org")!
 let baseURLKey = "httpBin"
 
 let networkAccess = NSURLSession(configuration: .defaultSessionConfiguration())
 let networkService = NetworkService(networkAccess: networkAccess, endPoints: [baseURLKey: url])
+
 ```
 
+Create a ressource with a request to fetch your data.
+
+```swift
+
+let request = NetworkRequest(path: "/", baseURLKey: baseURLKey)
+let ressource = Ressource(request: request, parse: { String(data: $0, encoding: NSUTF8StringEncoding) })
+
+```
+Request your ressource and handle the response
+```swift
+networkService.request(ressource, onCompletion: { htmlText in
+    print(htmlText)
+    }, onError: { error in
+        //Handle errors
+})
+
+```
 
 ## Installation
 
