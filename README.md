@@ -49,6 +49,28 @@ networkService.request(ressource, onCompletion: { htmlText in
 
 ```
 
+## JSON Mapping
+```swift
+struct IPOrigin {
+    let ipAdress: String
+}
+
+extension IPOrigin: JSONMappable {
+    init(object: Dictionary<String, AnyObject>) throws {
+       /// Do your mapping
+    }
+}
+
+let request = NetworkRequest(path: "/ip", baseURLKey: baseURLKey)
+let ressource = JSONRessource<IPOrigin>(request: request)
+
+networkService.request(ressource, onCompletion: { origin in
+    print(origin)
+    }, onError: { error in
+        //Handle errors
+})
+```
+
 ## Requirements
 
 - iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
