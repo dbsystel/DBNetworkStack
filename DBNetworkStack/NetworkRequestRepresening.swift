@@ -54,7 +54,7 @@ public protocol NetworkRequestRepresening {
     /**
      Parameters which will be send with the request.
      */
-    var parameter: [String : AnyObject]? { get }
+    var parameter: [String : Any]? { get }
     
     /**
      Data payload of the request

@@ -40,7 +40,7 @@ class NetworkServiceTest: XCTestCase {
     var networkService: NetworkServiceProviding!
     
     var networkAccess = NetworkAccessMock()
-    let trainName: NSString = "ICE"
+    let trainName: String = "ICE"
     
     let baseURL =  URL(string: "//bahn.de")!
     
@@ -152,7 +152,7 @@ class NetworkServiceTest: XCTestCase {
                 //Then
                 switch resultError {
                 case .requestError(let err):
-                    XCTAssertEqual(err, error)
+                    XCTAssertEqual(err as NSError, error)
                     expection.fulfill()
                 default:
                     XCTFail()
@@ -166,7 +166,7 @@ class NetworkServiceTest: XCTestCase {
         //Given
         let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.endPoint)
         let ressource = JSONRessource<Train>(request: request)
-        let response = HTTPURLResponse(url: URL(), statusCode: 401, httpVersion: nil, headerFields: nil)
+        let response = HTTPURLResponse(url: URL(string: "https://bahn.de")!, statusCode: 401, httpVersion: nil, headerFields: nil)
         networkAccess.changeMock(data: nil, response: response, error: nil)
         
         //When

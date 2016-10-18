@@ -37,7 +37,7 @@ class RessourceTest: XCTestCase {
         let ressource = Ressource<String?>(request: request, parse: { String(data: $0, encoding: String.Encoding.utf8) })
         
         //When
-        let name = try? ressource.parse(data: validData)
+        let name = try? ressource.parse(validData)
         
         //Then
         XCTAssertNotNil(name)
@@ -52,7 +52,7 @@ class RessourceTest: XCTestCase {
         
         //When
         do {
-            let _ = try ressource.parse(data: validData)
+            let _ = try ressource.parse(validData)
             XCTFail()
         } catch { }
     }

@@ -35,7 +35,7 @@ class JSONArrayRessourceTest: XCTestCase {
         let ressource = JSONArrayRessource<Train>(request: request)
         
         //When
-        let fetchedTrains = try? ressource.parse(data: Train.validJSONArrayData)
+        let fetchedTrains = try? ressource.parse(Train.validJSONArrayData)
         
         //Then
         XCTAssertNotNil(fetchedTrains)
@@ -51,7 +51,7 @@ class JSONArrayRessourceTest: XCTestCase {
         
         //When
         do {
-            let _ = try ressource.parse(data: Train.invalidJSONData)
+            let _ = try ressource.parse(Train.invalidJSONData)
             XCTFail()
         } catch {
             
@@ -65,7 +65,7 @@ class JSONArrayRessourceTest: XCTestCase {
         
         //When
         do {
-            let _ = try ressource.parse(data: Train.validJSONData)
+            let _ = try ressource.parse(Train.validJSONData)
             XCTFail()
         } catch {
         }

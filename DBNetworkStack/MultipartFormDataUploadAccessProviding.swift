@@ -32,24 +32,9 @@ public protocol MultipartFormDataUploadAccessProviding {
     func upload(
         _ request: NetworkRequestRepresening,
         relativeToBaseURL baseURL: URL,
-                          multipartFormData: (MultipartFormDataRepresenting) -> (),
+                          multipartFormData: @escaping (MultipartFormDataRepresenting) -> (),
                           encodingMemoryThreshold: UInt64,
-                          callback: (Data?, HTTPURLResponse?, NSError?) -> (),
-                          onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock?
+                          callback: @escaping (Data?, HTTPURLResponse?, NSError?) -> (),
+                          onNetworkTaskCreation: @escaping (NetworkTask) -> ()
     )
-}
-
-extension MultipartFormDataUploadAccessProviding {
-    func upload(
-        _ request: NetworkRequestRepresening,
-        relativeToBaseURL baseURL: URL,
-                          multipartFormData: (MultipartFormDataRepresenting) -> (),
-                          encodingMemoryThreshold: UInt64,
-                          callback: (Data?, HTTPURLResponse?, NSError?) -> (),
-                          onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil
-        ) {
-        upload(request, relativeToBaseURL: baseURL, multipartFormData: multipartFormData, encodingMemoryThreshold: encodingMemoryThreshold,
-               callback: callback, onNetworkTaskCreation: onNetworkTaskCreation)
-    }
-    
 }

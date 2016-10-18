@@ -29,11 +29,11 @@ import XCTest
 @testable import DBNetworkStack
 
 class DBNetworkStackErrorTest: XCTestCase {
-    
+    let url = URL(string: "https://bahn.de")!
     func testInitFrom400() {
         //Given
         let statusCode = 400
-        let response = HTTPURLResponse(url: URL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)
+        let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
         
         //When
         guard let error = DBNetworkStackError(response: response) else {
@@ -52,7 +52,7 @@ class DBNetworkStackErrorTest: XCTestCase {
     func testInitFrom401() {
         //Given
         let statusCode = 401
-        let response = HTTPURLResponse(url: URL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)
+        let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
         
         //When
         guard let error = DBNetworkStackError(response: response) else {
@@ -71,7 +71,7 @@ class DBNetworkStackErrorTest: XCTestCase {
     func testInitFrom2xx() {
         //Given
         let statusCode = 200
-        let response = HTTPURLResponse(url: URL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)
+        let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
         
         //When
         let error = DBNetworkStackError(response: response)
@@ -83,7 +83,7 @@ class DBNetworkStackErrorTest: XCTestCase {
     func testInitFrom5xx() {
         //Given
         let statusCode = 511
-        let response = HTTPURLResponse(url: URL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)
+        let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
         
         //When
         guard let error = DBNetworkStackError(response: response) else {
@@ -102,7 +102,7 @@ class DBNetworkStackErrorTest: XCTestCase {
     func testInitFromInvalid() {
         //Given
         let statusCode = 900
-        let response = HTTPURLResponse(url: URL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)
+        let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
         
         //When
         let error = DBNetworkStackError(response: response)

@@ -31,24 +31,8 @@ import Foundation
 public protocol MultipartFormDataUploadServiceProviding {
     func upload<T: MultipartFormDataRessourceModelling>(
         _ ressource: T,
-        onCompletion: (T.Model) -> (),
-        onError: DBNetworkRequestErrorBlock,
-        onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock?
+        onCompletion: @escaping (T.Model) -> (),
+        onError: @escaping (DBNetworkStackError) -> (),
+        onNetworkTaskCreation: @escaping (NetworkTask) -> ()
     )
-}
-
-extension MultipartFormDataUploadServiceProviding {
-    public func upload<T: MultipartFormDataRessourceModelling>(
-        _ ressource: T,
-        onCompletion: (T.Model) -> (),
-        onError: DBNetworkRequestErrorBlock,
-        onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil
-        ) {
-        upload(
-            ressource,
-            onCompletion: onCompletion,
-            onError: onError,
-            onNetworkTaskCreation: onNetworkTaskCreation
-        )
-    }
 }
