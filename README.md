@@ -49,6 +49,12 @@ networkService.request(ressource, onCompletion: { htmlText in
 
 ```
 
+## Requirements
+
+- iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 7.3+
+- Swift 2.2/2.3
+
 ## Installation
 
 ### Carthage
