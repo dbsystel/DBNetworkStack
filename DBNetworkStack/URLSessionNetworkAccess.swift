@@ -30,21 +30,21 @@ import Foundation
 /**
  Adds conformens to `NetworkAccessProviding`. `NSURLSession` can now be used as a networkprovider.
  */
-extension NSURLSession: NetworkAccessProviding {
-    public func load(request request: NSURLRequest, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask {
-        let task = dataTaskWithRequest(request) { data, response, error in
-            callback(data, response as? NSHTTPURLResponse, error)
-        }
+extension URLSession: NetworkAccessProviding {
+    public func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTask {
+        let task = dataTask(with: request, completionHandler: { data, response, error in
+            callback(data, response as? HTTPURLResponse, error)
+        }) 
         task.resume()
         
         return task
     }
 }
 
-extension NSURLSessionTask: NetworkTask {
-    public var progress: NSProgress {
+extension URLSessionTask: NetworkTask {
+    public var progress: Progress {
         let totalBytesExpected = response?.expectedContentLength ?? NSURLSessionTransferSizeUnknown
-        let progress = NSProgress(totalUnitCount: totalBytesExpected)
+        let progress = Progress(totalUnitCount: totalBytesExpected)
         progress.totalUnitCount = totalBytesExpected
         progress.completedUnitCount = countOfBytesReceived
         

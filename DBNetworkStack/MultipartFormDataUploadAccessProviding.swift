@@ -30,22 +30,22 @@ import Foundation
 
 public protocol MultipartFormDataUploadAccessProviding {
     func upload(
-        request: NetworkRequestRepresening,
-        relativeToBaseURL baseURL: NSURL,
+        _ request: NetworkRequestRepresening,
+        relativeToBaseURL baseURL: URL,
                           multipartFormData: (MultipartFormDataRepresenting) -> (),
                           encodingMemoryThreshold: UInt64,
-                          callback: (NSData?, NSHTTPURLResponse?, NSError?) -> (),
+                          callback: (Data?, HTTPURLResponse?, NSError?) -> (),
                           onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock?
     )
 }
 
 extension MultipartFormDataUploadAccessProviding {
     func upload(
-        request: NetworkRequestRepresening,
-        relativeToBaseURL baseURL: NSURL,
+        _ request: NetworkRequestRepresening,
+        relativeToBaseURL baseURL: URL,
                           multipartFormData: (MultipartFormDataRepresenting) -> (),
                           encodingMemoryThreshold: UInt64,
-                          callback: (NSData?, NSHTTPURLResponse?, NSError?) -> (),
+                          callback: (Data?, HTTPURLResponse?, NSError?) -> (),
                           onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil
         ) {
         upload(request, relativeToBaseURL: baseURL, multipartFormData: multipartFormData, encodingMemoryThreshold: encodingMemoryThreshold,

@@ -47,7 +47,7 @@ public protocol JSONRessourceModeling: RessourceModeling {
      
      - Throws: If parsing fails
      */
-    func parse(jsonPayload: Container) throws -> Model
+    func parse(_ jsonPayload: Container) throws -> Model
 }
 
 extension JSONRessourceModeling {
@@ -61,7 +61,7 @@ extension JSONRessourceModeling {
      
      - Throws: If parsing fails
      */
-    func parseFunction(data: NSData) throws -> Model {
+    func parseFunction(_ data: Data) throws -> Model {
         let container: Container = try parseContainer(data)
         
         return try parse(container)
@@ -76,10 +76,10 @@ extension JSONRessourceModeling {
      
      - Throws: If parsing fails
      */
-    private func parseContainer<Container>(data: NSData) throws -> Container {
-        let jsonObject = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)
+    fileprivate func parseContainer<Container>(_ data: Data) throws -> Container {
+        let jsonObject = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
         guard let container = jsonObject as? Container else {
-            let userInfo =  ["error": "Expected container of type: \(Container.self), but got \(jsonObject.dynamicType)"]
+            let userInfo =  ["error": "Expected container of type: \(Container.self), but got \(type(of: (jsonObject) as AnyObject))"]
             throw NSError(domain: "Parsing Error", code: 0, userInfo: userInfo)
         }
         

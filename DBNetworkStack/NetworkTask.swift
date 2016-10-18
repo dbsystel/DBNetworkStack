@@ -49,5 +49,5 @@ public protocol NetworkTask {
     /**
      Contains the current progress of a running task.
      */
-    var progress: NSProgress { get }
+    var progress: Progress { get }
 }

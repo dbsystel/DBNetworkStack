@@ -42,7 +42,7 @@ class NetworkTaskMock: NetworkTask {
         
     }
     
-    var progress: NSProgress {
-        return NSProgress()
+    var progress: Progress {
+        return Progress()
     }
 }

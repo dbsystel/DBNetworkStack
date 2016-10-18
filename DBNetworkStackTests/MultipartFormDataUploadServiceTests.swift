@@ -37,13 +37,13 @@ class MultipartFormDataUploadServiceTests: XCTestCase {
         super.setUp()
         service = MultipartFormDataUploadService(
             uploadAccess: networkAccess,
-            endPoints: [ TestEndPoints.EndPoint.name: NSURL(string: "http://bahn.de")!]
+            endPoints: [ TestEndPoints.endPoint.name: URL(string: "http://bahn.de")!]
         )
     }
 
     func testUpload() {
         //Given
-        let request = NetworkRequest(path: "/train", baseURLKey: TestEndPoints.EndPoint)
+        let request = NetworkRequest(path: "/train", baseURLKey: TestEndPoints.endPoint)
         let ressource = MultipartFormDataRessource(request: request, parse: { $0 },
                                                    encodingMemoryThreshold: 200, encodeInMultipartFormData: {
             formdata in
@@ -51,7 +51,7 @@ class MultipartFormDataUploadServiceTests: XCTestCase {
         networkAccess.changeMock(data: Train.validJSONData, response: nil, error: nil)
         var didCreateTask = false
         //When
-        let expection = expectationWithDescription("loadValidRequest")
+        let expection = expectation(description: "loadValidRequest")
         service.upload(ressource, onCompletion: { data in
             XCTAssertEqual(Train.validJSONData, data)
             XCTAssert(didCreateTask)
@@ -62,7 +62,7 @@ class MultipartFormDataUploadServiceTests: XCTestCase {
             }, onNetworkTaskCreation: { task in
                 didCreateTask = true
             })
-        waitForExpectationsWithTimeout(5, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
     }
 
 }

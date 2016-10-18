@@ -30,8 +30,8 @@ import Foundation
 
 public final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
     
-    private let uploadAccess: MultipartFormDataUploadAccessProviding
-    let endPoints: Dictionary<String, NSURL>
+    fileprivate let uploadAccess: MultipartFormDataUploadAccessProviding
+    let endPoints: Dictionary<String, URL>
     
     /**
      Creates an `MultipartFormDataUploadService` instance with a given uploadAccess and a map of endPoints
@@ -39,13 +39,13 @@ public final class MultipartFormDataUploadService: MultipartFormDataUploadServic
      - parameter uploadAccess: provides basic access to the network.
      - parameter endPoints: map of baseURLKey -> baseURLs
      */
-    public init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, NSURL>) {
+    public init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, URL>) {
         self.uploadAccess = uploadAccess
         self.endPoints = endPoints
     }
     
-    public func upload<T: MultipartFormDataRessourceModelling>(ressource: T, onCompletion: (T.Model) -> (),
-                       onError: (DBNetworkStackError) -> (), onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil) {
+    public func upload<T: MultipartFormDataRessourceModelling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (),
+                       onError: @escaping (DBNetworkStackError) -> (), onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil) {
         
         let baseURL = self.baseURL(with: ressource)
         uploadAccess.upload(ressource.request, relativeToBaseURL: baseURL, multipartFormData: ressource.encodeInMultipartFormData,
@@ -53,7 +53,7 @@ public final class MultipartFormDataUploadService: MultipartFormDataUploadServic
             self.processAsyncResponse(response: response, ressource: ressource, data: data, error: error, onCompletion: onCompletion, onError: onError)
                 
         }, onNetworkTaskCreation: { task in
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 onNetworkTaskCreation?(task)
             })
         })

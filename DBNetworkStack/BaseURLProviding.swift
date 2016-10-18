@@ -29,7 +29,7 @@ import Foundation
 
 internal protocol BaseURLProviding {
     
-    var endPoints: [String:NSURL] {get}
+    var endPoints: [String:URL] {get}
     /**
      Provides an baseURL for a given ressource.
      
@@ -40,12 +40,12 @@ internal protocol BaseURLProviding {
      
      - return matching baseURL to the given ressource
      */
-    func baseURL<T: RessourceModeling>(with ressource: T) -> NSURL
+    func baseURL<T: RessourceModeling>(with ressource: T) -> URL
 }
 
 extension BaseURLProviding {
 
-    func baseURL<T: RessourceModeling>(with ressource: T) -> NSURL {
+    func baseURL<T: RessourceModeling>(with ressource: T) -> URL {
         
         guard let baseURL = endPoints[ressource.request.baseURLKey.name] else {
             fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")

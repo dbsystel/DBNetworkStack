@@ -9,43 +9,43 @@
 import Foundation
 import DBNetworkStack
 
-public class MulitpartFormDataRepresentingMock: MultipartFormDataRepresenting {
-    public var contentType: String = "multipart/form-data"
-    public var contentLength: UInt64 = 128
-    public var boundary: String = ""
+open class MulitpartFormDataRepresentingMock: MultipartFormDataRepresenting {
+    open var contentType: String = "multipart/form-data"
+    open var contentLength: UInt64 = 128
+    open var boundary: String = ""
     
-    public func appendBodyPart(data data: NSData, name: String) {
+    open func appendBodyPart(data: Data, name: String) {
         
     }
     
-    public func appendBodyPart(data data: NSData, name: String, mimeType: String) {
+    open func appendBodyPart(data: Data, name: String, mimeType: String) {
         
     }
     
-    public func appendBodyPart(fileURL fileURL: NSURL, name: String, fileName: String, mimeType: String) {
+    open func appendBodyPart(fileURL: URL, name: String, fileName: String, mimeType: String) {
         
     }
     
-    public func appendBodyPart(fileURL fileURL: NSURL, name: String) {
+    open func appendBodyPart(fileURL: URL, name: String) {
         
     }
     
-    public func appendBodyPart(data data: NSData, name: String, fileName: String, mimeType: String) {
+    open func appendBodyPart(data: Data, name: String, fileName: String, mimeType: String) {
     }
     
-    public func appendBodyPart(stream stream: NSInputStream, length: UInt64, headers: [String : String]) {
+    open func appendBodyPart(stream: InputStream, length: UInt64, headers: [String : String]) {
         
     }
     
-    public func appendBodyPart(stream stream: NSInputStream, length: UInt64, name: String, fileName: String, mimeType: String) {
+    open func appendBodyPart(stream: InputStream, length: UInt64, name: String, fileName: String, mimeType: String) {
         
     }
     
-    public func encode() throws -> NSData {
-        return NSData()
+    open func encode() throws -> Data {
+        return Data()
     }
     
-    public func writeEncodedDataToDisk(fileURL: NSURL) throws {
+    open func writeEncodedDataToDisk(_ fileURL: URL) throws {
         
     }
 }

@@ -40,7 +40,7 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
      
      - returns: the request
      */
-    func request<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) -> NetworkTask
+    func request<T: RessourceModeling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTask
 }
 
 public protocol NetworkResponseProcessing {
@@ -56,33 +56,33 @@ public protocol NetworkResponseProcessing {
      
      - returns: the parsed model object.
      */
-    func process<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model
+    func process<T: RessourceModeling>(response: HTTPURLResponse?, ressource: T, data: Data?, error: Error?) throws -> T.Model
 }
 
 extension NetworkResponseProcessing {
-    public func process<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?, error: NSError?) throws -> T.Model {
+    public func process<T: RessourceModeling>(response: HTTPURLResponse?, ressource: T, data: Data?, error: Error?) throws -> T.Model {
         if let error = error {
-            throw DBNetworkStackError.RequestError(error: error)
+            throw DBNetworkStackError.requestError(error: error)
         }
         if let responseError = DBNetworkStackError(response: response) {
             throw responseError
         }
         guard let data = data else {
-            throw DBNetworkStackError.SerializationError(description: "No data to serialize revied from the server", data: nil)
+            throw DBNetworkStackError.serializationError(description: "No data to serialize revied from the server", data: nil)
         }
         do {
-            return try ressource.parse(data: data)
+            return try ressource.parse(data)
         } catch let error as CustomStringConvertible {
-            throw DBNetworkStackError.SerializationError(description: error.description, data: data)
+            throw DBNetworkStackError.serializationError(description: error.description, data: data)
         } catch {
-            throw DBNetworkStackError.SerializationError(description: "Unknown serialization error", data: data)
+            throw DBNetworkStackError.serializationError(description: "Unknown serialization error", data: data)
         }
     }
 }
 
 extension NetworkResponseProcessing {
-    func processAsyncResponse<T: RessourceModeling>(response response: NSHTTPURLResponse?, ressource: T, data: NSData?,
-                              error: NSError?, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) {
+    func processAsyncResponse<T: RessourceModeling>(response: HTTPURLResponse?, ressource: T, data: Data?,
+                              error: Error?, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) {
         do {
             let parsed = try self.process(
                 response: response,
@@ -90,16 +90,16 @@ extension NetworkResponseProcessing {
                 data: data,
                 error: error
             )
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 onCompletion(parsed)
             }
         } catch let parsingError as DBNetworkStackError {
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 return onError(parsingError)
             }
         } catch {
-            dispatch_async(dispatch_get_main_queue()) {
-                return onError(.UnknownError)
+            DispatchQueue.main.async {
+                return onError(.unknownError)
             }
         }
     }

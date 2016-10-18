@@ -32,7 +32,7 @@ import Foundation
  */
 public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
     let networkAccess: NetworkAccessProviding
-    let endPoints: Dictionary<String, NSURL>
+    let endPoints: Dictionary<String, URL>
     
     /**
      Creates an `NetworkService` instance with a given networkAccess and a map of endPoints
@@ -40,12 +40,12 @@ public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
      - parameter networkAccess: provides basic access to the network.
      - parameter endPoints: map of baseURLKey -> baseURLs
      */
-    public init(networkAccess: NetworkAccessProviding, endPoints: Dictionary<String, NSURL>) {
+    public init(networkAccess: NetworkAccessProviding, endPoints: Dictionary<String, URL>) {
         self.networkAccess = networkAccess
         self.endPoints = endPoints
     }
     
-    public func request<T: RessourceModeling>(ressource: T, onCompletion: (T.Model) -> (), onError: (DBNetworkStackError) -> ()) -> NetworkTask {
+    public func request<T: RessourceModeling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTask {
         let baseURL = self.baseURL(with: ressource)
         let reuqest = ressource.request.urlRequest(with: baseURL)
         let dataTask = networkAccess.load(request: reuqest, callback: { data, response, error in

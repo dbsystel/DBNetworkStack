@@ -44,5 +44,5 @@ public protocol RessourceModeling {
     /**
      Parses data into given Model
      */
-    var parse: (data: NSData) throws -> Model { get }
+    var parse: (_ data: Data) throws -> Model { get }
 }

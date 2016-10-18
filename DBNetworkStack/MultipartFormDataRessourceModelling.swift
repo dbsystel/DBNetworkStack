@@ -29,6 +29,6 @@
 import Foundation
 
 public protocol MultipartFormDataRessourceModelling: RessourceModeling {
-    var encodeInMultipartFormData: MultipartFormDataRepresenting -> Void { get }
+    var encodeInMultipartFormData: (MultipartFormDataRepresenting) -> Void { get }
     var encodingMemoryThreshold: UInt64 { get }
 }

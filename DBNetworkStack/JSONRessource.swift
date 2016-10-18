@@ -35,7 +35,7 @@ import Foundation
  */
 public struct JSONRessource<Model: JSONMappable>: JSONRessourceModeling {
     public let request: NetworkRequestRepresening
-    public var parse: (data: NSData) throws -> Model {
+    public var parse: (_ data: Data) throws -> Model {
         return parseFunction
     }
     
@@ -43,7 +43,7 @@ public struct JSONRessource<Model: JSONMappable>: JSONRessourceModeling {
         self.request = request
     }
     
-    public func parse(jsonPayload: Dictionary<String, AnyObject>) throws -> Model {
+    public func parse(_ jsonPayload: Dictionary<String, AnyObject>) throws -> Model {
         return try Model(object: jsonPayload)
     }
 }

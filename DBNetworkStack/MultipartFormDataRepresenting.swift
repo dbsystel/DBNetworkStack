@@ -62,7 +62,7 @@ public protocol MultipartFormDataRepresenting: class {
      - parameter data: The data to encode into the multipart form data.
      - parameter name: The name to associate with the data in the `Content-Disposition` HTTP header.
      */
-    func appendBodyPart(data data: NSData, name: String)
+    func appendBodyPart(data: Data, name: String)
     
     /**
      Creates a body part from the data and appends it to the multipart form data object.
@@ -78,7 +78,7 @@ public protocol MultipartFormDataRepresenting: class {
      - parameter name:     The name to associate with the data in the `Content-Disposition` HTTP header.
      - parameter mimeType: The MIME type to associate with the data content type in the `Content-Type` HTTP header.
      */
-    func appendBodyPart(data data: NSData, name: String, mimeType: String)
+    func appendBodyPart(data: Data, name: String, mimeType: String)
     
     /**
      Creates a body part from the data and appends it to the multipart form data object.
@@ -95,7 +95,7 @@ public protocol MultipartFormDataRepresenting: class {
      - parameter fileName: The filename to associate with the data in the `Content-Disposition` HTTP header.
      - parameter mimeType: The MIME type to associate with the data in the `Content-Type` HTTP header.
      */
-    func appendBodyPart(data data: NSData, name: String, fileName: String, mimeType: String)
+    func appendBodyPart(data: Data, name: String, fileName: String, mimeType: String)
     
     /**
      Creates a body part from the file and appends it to the multipart form data object.
@@ -114,7 +114,7 @@ public protocol MultipartFormDataRepresenting: class {
      - parameter fileURL: The URL of the file whose content will be encoded into the multipart form data.
      - parameter name:    The name to associate with the file content in the `Content-Disposition` HTTP header.
      */
-    func appendBodyPart(fileURL fileURL: NSURL, name: String)
+    func appendBodyPart(fileURL: URL, name: String)
     
     /**
      Creates a body part from the file and appends it to the multipart form data object.
@@ -131,7 +131,7 @@ public protocol MultipartFormDataRepresenting: class {
      - parameter fileName: The filename to associate with the file content in the `Content-Disposition` HTTP header.
      - parameter mimeType: The MIME type to associate with the file content in the `Content-Type` HTTP header.
      */
-    func appendBodyPart(fileURL fileURL: NSURL, name: String, fileName: String, mimeType: String)
+    func appendBodyPart(fileURL: URL, name: String, fileName: String, mimeType: String)
     
     /**
      Creates a body part from the stream and appends it to the multipart form data object.
@@ -150,7 +150,7 @@ public protocol MultipartFormDataRepresenting: class {
      - parameter mimeType: The MIME type to associate with the stream content in the `Content-Type` HTTP header.
      */
     func appendBodyPart(
-        stream stream: NSInputStream,
+        stream: InputStream,
                length: UInt64,
                name: String,
                fileName: String,
@@ -169,7 +169,7 @@ public protocol MultipartFormDataRepresenting: class {
      - parameter length:  The content length of the stream.
      - parameter headers: The HTTP headers for the body part.
      */
-    func appendBodyPart(stream stream: NSInputStream, length: UInt64, headers: [String: String])
+    func appendBodyPart(stream: InputStream, length: UInt64, headers: [String: String])
     
     // MARK: - Data Encoding
     
@@ -184,7 +184,7 @@ public protocol MultipartFormDataRepresenting: class {
      
      - returns: The encoded `NSData` if encoding is successful.
      */
-    func encode() throws -> NSData
+    func encode() throws -> Data
     
     /**
      Writes the appended body parts into the given file URL.
@@ -196,6 +196,6 @@ public protocol MultipartFormDataRepresenting: class {
      
      - throws: An `NSError` if encoding encounters an error.
      */
-    func writeEncodedDataToDisk(fileURL: NSURL) throws
+    func writeEncodedDataToDisk(_ fileURL: URL) throws
     
 }

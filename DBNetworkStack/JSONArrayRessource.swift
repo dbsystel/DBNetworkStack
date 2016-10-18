@@ -37,7 +37,7 @@ import Foundation
 public struct JSONArrayRessource<Element_: JSONMappable>: JSONRessourceModeling, ArrayRessourceModeling {
     public typealias Element = Element_
     public let request: NetworkRequestRepresening
-    public var parse: (data: NSData) throws -> Array<Element> {
+    public var parse: (_ data: Data) throws -> Array<Element> {
         return parseFunction
     }
     
@@ -45,7 +45,7 @@ public struct JSONArrayRessource<Element_: JSONMappable>: JSONRessourceModeling,
         self.request = request
     }
     
-    public func parse(jsonPayload: Array<Dictionary<String, AnyObject>>) throws -> Array<Element> {
+    public func parse(_ jsonPayload: Array<Dictionary<String, AnyObject>>) throws -> Array<Element> {
         return try Array<Element>(JSONArray: jsonPayload)
     }
 }

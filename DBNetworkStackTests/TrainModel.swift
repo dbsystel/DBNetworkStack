@@ -43,19 +43,19 @@ extension Train: JSONMappable {
 }
 
 extension Train {
-    static var validJSONData: NSData {
-        return "{ \"name\": \"ICE\"}".dataUsingEncoding(NSUTF8StringEncoding)!
+    static var validJSONData: Data {
+        return "{ \"name\": \"ICE\"}".data(using: String.Encoding.utf8)!
     }
     
-    static var invalidJSONData: NSData {
-        return "{ name: \"ICE\"}".dataUsingEncoding(NSUTF8StringEncoding)!
+    static var invalidJSONData: Data {
+        return "{ name: \"ICE\"}".data(using: String.Encoding.utf8)!
     }
     
-    static var JSONDataWithInvalidKey: NSData {
-        return "{ \"namee\": \"ICE\"}".dataUsingEncoding(NSUTF8StringEncoding)!
+    static var JSONDataWithInvalidKey: Data {
+        return "{ \"namee\": \"ICE\"}".data(using: String.Encoding.utf8)!
     }
     
-    static var validJSONArrayData: NSData {
-        return "[{ \"name\": \"ICE\"}, { \"name\": \"IC\"}, { \"name\": \"TGV\"}]".dataUsingEncoding(NSUTF8StringEncoding)!
+    static var validJSONArrayData: Data {
+        return "[{ \"name\": \"ICE\"}, { \"name\": \"IC\"}, { \"name\": \"TGV\"}]".data(using: String.Encoding.utf8)!
     }
 }
