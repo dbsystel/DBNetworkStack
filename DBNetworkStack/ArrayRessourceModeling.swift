@@ -31,7 +31,7 @@ import Foundation
  `ArrayRessourceModeling` describes a remote ressource of generic type structured in an array.
  The ressource type can be fetched via HTTP(s) and parsed into the coresponding model object.
  */
-protocol ArrayRessourceModeling: RessourceModeling {
+public protocol ArrayRessourceModeling: RessourceModeling {
     associatedtype Element
     associatedtype Model = Array<Element>
 }
