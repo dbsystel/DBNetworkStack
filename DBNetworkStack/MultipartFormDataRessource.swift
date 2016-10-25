@@ -25,10 +25,9 @@
 //  Created by Christian Himmelsbach on 27.09.16.
 //
 
-
 import Foundation
 
-public struct MultipartFormDataRessource<Model>: MultipartFormDataRessourceModelling {
+struct MultipartFormDataRessource<Model>: MultipartFormDataRessourceModelling {
     public var request: NetworkRequestRepresening
     public var parse: (data: NSData) throws -> Model
     public var encodingMemoryThreshold: UInt64

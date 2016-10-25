@@ -28,7 +28,7 @@
 import Foundation
 
 /**
- See `NetworkRequestRepresening` for details.
+ `NetworkRequest` represents a networkreuqest with all components needed to retrieve correct ressources.
  */
 public struct NetworkRequest: NetworkRequestRepresening {
     public let path: String
