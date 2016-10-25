@@ -31,7 +31,7 @@ import Foundation
  `MultipartFormDataRessourceModelling` describes a multipart form data ressource.
  It can be uploaded via HTTP(s) and the response parsed into the coresponding model object.
  */
-public protocol MultipartFormDataRessourceModelling: RessourceModeling {
+protocol MultipartFormDataRessourceModelling: RessourceModeling {
     /**
      Encodes all parts to be sent to the remote.
      */

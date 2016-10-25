@@ -25,13 +25,12 @@
 //  Created by Christian Himmelsbach on 29.09.16.
 //
 
-
 import Foundation
 
 /**
  `MultipartFormDataUploadService` handles network request for multipart form data ressources by using a given MultipartFormDataUploadAccessProviding
  */
-public final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
+final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
     
     private let uploadAccess: MultipartFormDataUploadAccessProviding
     let endPoints: Dictionary<String, NSURL>
@@ -42,12 +41,12 @@ public final class MultipartFormDataUploadService: MultipartFormDataUploadServic
      - parameter uploadAccess: Provides basic access to the network.
      - parameter endPoints: Map of baseURLKey -> baseURLs
      */
-    public init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, NSURL>) {
+    init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, NSURL>) {
         self.uploadAccess = uploadAccess
         self.endPoints = endPoints
     }
     
-    public func upload<T: MultipartFormDataRessourceModelling>(ressource: T, onCompletion: (T.Model) -> (),
+    func upload<T: MultipartFormDataRessourceModelling>(ressource: T, onCompletion: (T.Model) -> (),
                        onError: (DBNetworkStackError) -> (), onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil) {
         
         let baseURL = self.baseURL(with: ressource)

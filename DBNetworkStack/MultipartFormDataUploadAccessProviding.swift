@@ -25,13 +25,12 @@
 //  Created by Christian Himmelsbach on 27.09.16.
 //
 
-
 import Foundation
 
 /**
  `MultipartFormDataUploadAccessProviding` provides access to the network for multipart formdata Requests.
  */
-public protocol MultipartFormDataUploadAccessProviding {
+protocol MultipartFormDataUploadAccessProviding {
     
     /**
      Uploads a multipart formdata ressource asynchrony to remote location.
@@ -41,7 +40,8 @@ public protocol MultipartFormDataUploadAccessProviding {
      - parameter multipartFormData: Closure which configures the multipart form data body
      - parameter encodingMemoryThreshold: Encoding threshold in bytes.
      - parameter callback: Callback which gets called when the request finishes.
-     - parameter onNetworkTaskCreation: Callback which gets called, after encoding data and starting the upload. The closure gets access to the created network task. 
+     - parameter onNetworkTaskCreation: Callback which gets called, after encoding data and starting the upload.
+     The closure gets access to the created network task.
      
      */
     func upload(

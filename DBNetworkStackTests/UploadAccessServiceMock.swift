@@ -26,7 +26,7 @@
 //
 
 import Foundation
-import DBNetworkStack
+@testable import DBNetworkStack
 
 class UploadAccessServiceMock: MultipartFormDataUploadAccessProviding {
     

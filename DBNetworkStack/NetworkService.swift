@@ -28,7 +28,7 @@
 import Foundation
 
 /**
- `NetworkService` handles network request for ressources by using a given NetworkAccessProviding
+ `NetworkService` handles network request for ressources by using a given `NetworkAccessProviding`
  */
 public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
     let networkAccess: NetworkAccessProviding
