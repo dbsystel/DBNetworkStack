@@ -27,6 +27,10 @@
 
 import Foundation
 
+/**
+ `Ressource` describes a remote ressource of generic type.
+ The type can be fetched via HTTP(s) and parsed into the coresponding model object.
+ */
 public struct Ressource<Model>: RessourceModeling {
     public let request: NetworkRequestRepresening
     public let parse: (data: NSData) throws -> Model
