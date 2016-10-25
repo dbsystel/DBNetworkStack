@@ -1,14 +1,14 @@
 //: Playground - noun: a place where people can play
 
 import DBNetworkStack
-import XCPlayground
+import PlaygroundSupport
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
-let url: NSURL! = NSURL(string: "https://httpbin.org")
+let url: URL! = URL(string: "https://httpbin.org")
 let baseURLKey = "httpBin"
 
-let networkAccess = NSURLSession(configuration: .defaultSessionConfiguration())
+let networkAccess = URLSession(configuration: .default)
 let networkService = NetworkService(networkAccess: networkAccess, endPoints: [baseURLKey: url])
 
 struct IPOrigin {
@@ -18,7 +18,7 @@ struct IPOrigin {
 extension IPOrigin: JSONMappable {
     init(object: Dictionary<String, AnyObject>) throws {
         guard let ipAdress = object["origin"] as? String else {
-            throw DBNetworkStackError.SerializationError(description: "", data: nil)
+            throw DBNetworkStackError.serializationError(description: "", data: nil)
         }
         self.ipAdress = ipAdress
     }
