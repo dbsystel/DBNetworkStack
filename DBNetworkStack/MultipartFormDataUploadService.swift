@@ -28,6 +28,9 @@
 
 import Foundation
 
+/**
+ `MultipartFormDataUploadService` handles network request for multipart form data ressources by using a given MultipartFormDataUploadAccessProviding
+ */
 public final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
     
     private let uploadAccess: MultipartFormDataUploadAccessProviding
@@ -36,8 +39,8 @@ public final class MultipartFormDataUploadService: MultipartFormDataUploadServic
     /**
      Creates an `MultipartFormDataUploadService` instance with a given uploadAccess and a map of endPoints
      
-     - parameter uploadAccess: provides basic access to the network.
-     - parameter endPoints: map of baseURLKey -> baseURLs
+     - parameter uploadAccess: Provides basic access to the network.
+     - parameter endPoints: Map of baseURLKey -> baseURLs
      */
     public init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, NSURL>) {
         self.uploadAccess = uploadAccess
