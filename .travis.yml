@@ -8,4 +8,4 @@ env:
   - ACTION='clean test'  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' SIGN='CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO'
 
 script:
-  - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination -enableCodeCoverage NO "$DESTINATION" $ACTION $SIGN | xcpretty
+  - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION $SIGN | xcpretty
