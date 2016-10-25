@@ -1,5 +1,5 @@
 //
-//  CancelableRequest.swift
+//  NetworkTaskRepresenting.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -28,9 +28,9 @@
 import Foundation
 
 /**
- `NetworkTask` is a task which runs async to fetch data.
+ `NetworkTaskRepresenting` is a task which runs async to fetch data.
   */
-public protocol NetworkTask {
+public protocol NetworkTaskRepresenting {
     /**
      Cancels a task.
      */
