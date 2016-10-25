@@ -36,12 +36,14 @@ class NetworkRequestTest: XCTestCase {
         let baseURLKey = "Key"
         let httpMethod = HTTPMethod.GET
         let parameter = ["test1": 1, "test2": "2"]
-        let body = "hallo body data".dataUsingEncoding(NSUTF8StringEncoding)!
+        let body: NSData! = "hallo body data".dataUsingEncoding(NSUTF8StringEncoding)
         let headerFields: Dictionary<String, String> = [:]
-        let baseURL = NSURL(string: "https://www.bahn.de/")!
+        let baseURL: NSURL! = NSURL(string: "https://www.bahn.de/")
         
         //When
-        let request = NetworkRequest(path: path, baseURLKey: baseURLKey, HTTPMethod: httpMethod, parameter: parameter, body: body, allHTTPHeaderFields: headerFields)
+        let request = NetworkRequest(path: path, baseURLKey: baseURLKey,
+                                     HTTPMethod: httpMethod, parameter: parameter,
+                                     body: body, allHTTPHeaderFields: headerFields)
         
         //Then
         let urlRequest = request.urlRequest(with: baseURL)
