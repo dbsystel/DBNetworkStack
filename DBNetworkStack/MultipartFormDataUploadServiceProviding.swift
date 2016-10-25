@@ -25,13 +25,12 @@
 //  Created by Christian Himmelsbach on 27.09.16.
 //
 
-
 import Foundation
 
 /**
  `MultipartFormDataUploadServiceProviding` provides access to upload multipart formdata resources.
  */
-public protocol MultipartFormDataUploadServiceProviding {
+protocol MultipartFormDataUploadServiceProviding {
     
     /**
      Uploads a multipart formdata resource to a remote location.

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C235E0B1DBF6E8500628DC9 /* DBNetworkStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */; };
 		7C40B9E31D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E21D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift */; };
 		7C40B9E51D9AA38600620563 /* MultipartFormDataRepresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E41D9AA38600620563 /* MultipartFormDataRepresenting.swift */; };
 		7C40B9E71D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E61D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBNetworkStackError.swift; sourceTree = "<group>"; };
 		7C40B9E21D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadAccessProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9E41D9AA38600620563 /* MultipartFormDataRepresenting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormDataRepresenting.swift; sourceTree = "<group>"; };
 		7C40B9E61D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadServiceProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -166,6 +168,7 @@
 				7C40B9F71D9D034200620563 /* DBNetworkStackTypes.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
+				7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */,
 			);
 			path = DBNetworkStack;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				C60BE6921D6B2C46006B0364 /* JSONArrayRessource.swift in Sources */,
 				C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */,
 				7C40B9F61D9D028000620563 /* MultipartFormDataUploadService.swift in Sources */,
+				7C235E0B1DBF6E8500628DC9 /* DBNetworkStackError.swift in Sources */,
 				C65F087B1D757A3C00239CC1 /* JSONMappable.swift in Sources */,
 				C60BE68E1D6B2C46006B0364 /* JSONRessourceModeling.swift in Sources */,
 				C6F235D51D7DA75000E628D8 /* URLSessionNetworkAccess.swift in Sources */,

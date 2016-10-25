@@ -1,5 +1,5 @@
 //
-//  DBNetworkStackTypes.swift
+//  DBNetworkStackError.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -27,7 +27,33 @@
 
 import Foundation
 
-public typealias DBNetworkTaskCreationCompletionBlock = (NetworkTask) -> ()
-// TODO: Use typealiases for functions with generic types in Swift 3.x
-//typealias NetworkRequestCompletionBlock<T: RessourceModelling> = (T.Model) -> ()
-public typealias DBNetworkRequestErrorBlock = (DBNetworkStackError) -> ()
+/**
+ `DBNetworkStackError` provides a collection of error types which can occur during execution.
+ */
+public enum DBNetworkStackError: ErrorType {
+    case UnknownError
+    case Unauthorized(response: NSHTTPURLResponse)
+    case ClientError(response: NSHTTPURLResponse?)
+    case SerializationError(description: String, data: NSData?)
+    case RequestError(error: NSError)
+    case ServerError(response: NSHTTPURLResponse?)
+    case MissingBaseURL
+    
+    init?(response: NSHTTPURLResponse?) {
+        guard let response = response else {
+            return nil
+        }
+        switch response.statusCode {
+        case 200..<300: return nil
+        case 401:
+            self = .Unauthorized(response: response)
+        case 400...451:
+            self = .ClientError(response: response)
+        case 500...511:
+            self = .ServerError(response: response)
+        default:
+            return nil
+        }
+    }
+    
+}
