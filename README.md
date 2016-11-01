@@ -3,13 +3,13 @@
 [![Build Status](https://travis-ci.com/lightsprint09/DBNetworkStack.svg?token=DoSuqFLfFsZgTxGUxHry&branch=develop)](https://travis-ci.com/lightsprint09/DBNetworkStack)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) 
 
-         | Main Features
----------|---------------
-🛡 | Typed network resources
-&#127968; | Protocol oriented architecture
-🔀| Exchangeable implementations
-🚄 | Extendable API
-&#9989; | Fully unit tested
+|           | Main Features                  |
+| --------- | ------------------------------ |
+| 🛡        | Typed network resources        |
+| &#127968; | Protocol oriented architecture |
+| 🔀        | Exchangeable implementations   |
+| 🚄        | Extendable API                 |
+| &#9989;   | Fully unit tested              |
 
 The idea behind this project comes from this [talk.objc.io article](https://talk.objc.io/episodes/S01E01-networking).
 
