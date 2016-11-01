@@ -85,7 +85,7 @@ struct XMLResource<T : XMLMappable> : ResourceModeling {
     
     var parse: (data: NSData) throws -> T {
         return { data in
-		        let xmlObject = // Your data to xml object conversion
+            let xmlObject = // Your data to xml object conversion
             try! T(object: xmlObject) as T
         }
     }
