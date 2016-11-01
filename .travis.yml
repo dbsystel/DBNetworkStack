@@ -2,10 +2,10 @@ language: objective-c
 osx_image: xcode8
 
 env:
-  - ACTION='clean test'  PLATFORM=Mac     DESTINATION='platform=OS X' SIGN=''
-  - ACTION='clean test'  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 6S' SIGN=''
-  - ACTION='clean build' PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' SIGN=''
-  - ACTION='clean test'  PLATFORM=tvOS SIGN='CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO'
+  - ACTION='clean test'  PLATFORM=Mac     DESTINATION='-destination platform=OS X' SIGN=''
+  - ACTION='clean test'  PLATFORM=iOS     DESTINATION='-destination platform=iOS Simulator,name=iPhone 6S' SIGN=''
+  - ACTION='clean build' PLATFORM=watchOS DESTINATION='-destination platform=watchOS Simulator,name=Apple Watch - 38mm' SIGN=''
+  - ACTION='clean test'  PLATFORM=tvOS    DESTINATION='-destination platform=tvOS Simulator,name=Apple TV 1080p' SIGN='CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO'
 
 script:
-  - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION $SIGN | xcpretty
+  - set -o pipefail && xcodebuild -scheme DBNetworkStack "$DESTINATION" $ACTION $SIGN | xcpretty
