@@ -95,6 +95,20 @@ struct XMLResource<T : XMLMappable> : ResourceModeling {
 ```XMLResource<T : XMLMappable>``` defines a resource based on a given ```XMLMappable``` model. The parse function is responsible of converting raw response data to a generic representation.
 
 
+## Protocol oriented architecture / Exchangability
+
+The following table shows all the protocols and it’s default implementations.
+
+| Protocol                         | Default Implementation |
+| -------------------------------- | ---------------------- |
+| ```NetworkAccessProviding```     | ```NSURLSession```     |
+| ```NetworkServiceProviding```    | ```NetworkService```   |
+| ```NetworkRequestRepresenting``` | ```NetworkRequest```   |
+| ```NetworkTaskRepresenting```    | ```NSURLSessionTask``` |
+| ```ResourceModelling```          | ```Resource<Model>```  |
+
+
+
 ## Requirements
 
 - iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
