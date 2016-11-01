@@ -31,24 +31,24 @@ internal protocol BaseURLProviding {
     
     var endPoints: [String: URL] {get}
     /**
-     Provides an baseURL for a given ressource.
+     Provides an baseURL for a given resource.
      
      To be more flexible, a request does only contain a path and not a full URL.
      Mapping has to be done in the service to get an registerd baseURL for the request.
      
-     - parameter ressource: The ressource you want to get a baseURL for.
+     - parameter resource: The resource you want to get a baseURL for.
      
-     - return matching baseURL to the given ressource
+     - return matching baseURL to the given resource
      */
-    func baseURL<T: RessourceModeling>(with ressource: T) -> URL
+    func baseURL<T: ResourceModeling>(with resource: T) -> URL
 }
 
 extension BaseURLProviding {
 
-    func baseURL<T: RessourceModeling>(with ressource: T) -> URL {
+    func baseURL<T: ResourceModeling>(with resource: T) -> URL {
         
-        guard let baseURL = endPoints[ressource.request.baseURLKey.name] else {
-            fatalError("Missing baseurl for key: \(ressource.request.baseURLKey.name)")
+        guard let baseURL = endPoints[resource.request.baseURLKey.name] else {
+            fatalError("Missing baseurl for key: \(resource.request.baseURLKey.name)")
         }
         
         return baseURL

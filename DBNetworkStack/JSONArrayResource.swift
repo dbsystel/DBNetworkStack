@@ -1,5 +1,5 @@
 //
-//  JSONListRessource.swift
+//  JSONListResource.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -28,13 +28,13 @@
 import Foundation
 
 /**
- `JSONRessource` represents a network ressource in JSON, which can be parsed into an array of Model Types.
+ `JSONResource` represents a network resource in JSON, which can be parsed into an array of Model Types.
  
  The root JSON payload must be an array.
  
- See `RessourceModeling` for more details.
+ See `ResourceModeling` for more details.
  */
-public struct JSONArrayRessource<Element_: JSONMappable>: JSONRessourceModeling, ArrayRessourceModeling {
+public struct JSONArrayResource<Element_: JSONMappable>: JSONResourceModeling, ArrayResourceModeling {
     public typealias Element = Element_
     public let request: NetworkRequestRepresening
     public var parse: (_ data: Data) throws -> Array<Element> {

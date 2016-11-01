@@ -1,5 +1,5 @@
 //
-//  JSONRessourceTest.swift
+//  MultipartFormDataResourceModelling.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,37 +22,23 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 30.08.16.
+//  Created by Christian Himmelsbach on 27.09.16.
 //
 
-import XCTest
-@testable import DBNetworkStack
+import Foundation
 
-class JSONRessourceTest: XCTestCase {
-    func testRessource() {
-        //Given
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
-        let ressource = JSONRessource<Train>(request: request)
-        
-        //When
-        let fetchedTrain = try? ressource.parse(Train.validJSONData)
-       
-        //Then
-        XCTAssertNotNil(fetchedTrain)
-        XCTAssertEqual(fetchedTrain?.name, "ICE")
-    }
+/**
+ `MultipartFormDataResourceModelling` describes a multipart form data resource.
+ It can be uploaded via HTTP(s) and the response parsed into the coresponding model object.
+ */
+protocol MultipartFormDataResourceModelling: ResourceModeling {
+    /**
+     Encodes all parts to be sent to the remote.
+     */
+    var encodeInMultipartFormData: (MultipartFormDataRepresenting) -> Void { get }
     
-    func testRessourceWithInvalidData() {
-        //Given
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
-        let ressource = JSONRessource<Train>(request: request)
-        
-        //When
-        do {
-            let _ = try ressource.parse(Train.invalidJSONData)
-            XCTFail()
-        } catch {
-        }
-    }
-    
+    /**
+     Defines the size in bytes up to which data is encoded in memory.
+    */
+    var encodingMemoryThreshold: UInt64 { get }
 }

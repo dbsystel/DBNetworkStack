@@ -1,5 +1,5 @@
 //
-//  JSONRessource.swift
+//  ResourceModeling.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,28 +22,27 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 22.07.16.
+//  Created by Lukas Schmidt on 21.07.16.
 //
 
 import Foundation
 /**
- `JSONRessource` represents a network ressource in JSON, which can be parsed into a Model Type.
- 
- The root JSON payload must be an object.
- 
- See `RessourceModeling` for more details.
+ `ResourceModeling` describes a remote resource of generic type.
+ The type can be fetched via HTTP(s) and parsed into the coresponding model object.
  */
-public struct JSONRessource<Model: JSONMappable>: JSONRessourceModeling {
-    public let request: NetworkRequestRepresening
-    public var parse: (_ data: Data) throws -> Model {
-        return parseFunction
-    }
+public protocol ResourceModeling {
+    /**
+     Model object which coresponds to the remote resource
+     */
+    associatedtype Model
     
-    public init(request: NetworkRequestRepresening) {
-        self.request = request
-    }
+    /**
+     The request to get the remote data payload
+     */
+    var request: NetworkRequestRepresening { get }
     
-    public func parse(_ jsonPayload: Dictionary<String, AnyObject>) throws -> Model {
-        return try Model(object: jsonPayload)
-    }
+    /**
+     Parses data into given Model
+     */
+    var parse: (_ data: Data) throws -> Model { get }
 }

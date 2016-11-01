@@ -1,5 +1,5 @@
 //
-//  JSONRessourceModeling.swift
+//  JSONResourceModeling.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -27,11 +27,11 @@
 
 import Foundation
 /**
- `JSONRessourceModeling` discribes ressource which can be parsed from JSON into Model Type.
+ `JSONResourceModeling` discribes resource which can be parsed from JSON into Model Type.
  
  It speciefies a JSON Container from which the model is parsed and a `parse` function to transform the container into the given Model.
  */
-public protocol JSONRessourceModeling: RessourceModeling {
+public protocol JSONResourceModeling: ResourceModeling {
     /** 
      The JSON container format represented as an foundation object
      e.g. {} becomes Dictionary<String, AnyObject>, [] becomes Array<Dictionary<String, AnyObject>>
@@ -50,7 +50,7 @@ public protocol JSONRessourceModeling: RessourceModeling {
     func parse(_ jsonPayload: Container) throws -> Model
 }
 
-extension JSONRessourceModeling {
+extension JSONResourceModeling {
     
     /**
      Parses JSON to a speciefied generic Model

@@ -1,5 +1,5 @@
 //
-//  MultipartFormDataRessourceModelling.swift
+//  MultipartFormDataResource.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -27,18 +27,17 @@
 
 import Foundation
 
-/**
- `MultipartFormDataRessourceModelling` describes a multipart form data ressource.
- It can be uploaded via HTTP(s) and the response parsed into the coresponding model object.
- */
-protocol MultipartFormDataRessourceModelling: RessourceModeling {
-    /**
-     Encodes all parts to be sent to the remote.
-     */
-    var encodeInMultipartFormData: (MultipartFormDataRepresenting) -> Void { get }
+struct MultipartFormDataResource<Model>: MultipartFormDataResourceModelling {
+    public var request: NetworkRequestRepresening
+    public var parse: (_ data: Data) throws -> Model
+    public var encodingMemoryThreshold: UInt64
+    public var encodeInMultipartFormData: (MultipartFormDataRepresenting) -> Void
     
-    /**
-     Defines the size in bytes up to which data is encoded in memory.
-    */
-    var encodingMemoryThreshold: UInt64 { get }
+    public init(request: NetworkRequestRepresening, parse: @escaping (_ data: Data) throws -> Model,
+                encodingMemoryThreshold: UInt64, encodeInMultipartFormData: @escaping (MultipartFormDataRepresenting) -> Void) {
+        self.request = request
+        self.parse = parse
+        self.encodingMemoryThreshold = encodingMemoryThreshold
+        self.encodeInMultipartFormData = encodeInMultipartFormData
+    }
 }

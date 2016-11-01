@@ -1,5 +1,5 @@
 //
-//  ArrayRessourceModeling.swift
+//  JSONResource.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,16 +22,28 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 11.10.16.
+//  Created by Lukas Schmidt on 22.07.16.
 //
 
 import Foundation
-
 /**
- `ArrayRessourceModeling` describes a remote ressource of generic type structured in an array.
- The ressource type can be fetched via HTTP(s) and parsed into the coresponding model object.
+ `JSONResource` represents a network resource in JSON, which can be parsed into a Model Type.
+ 
+ The root JSON payload must be an object.
+ 
+ See `ResourceModeling` for more details.
  */
-public protocol ArrayRessourceModeling: RessourceModeling {
-    associatedtype Element
-    associatedtype Model = Array<Element>
+public struct JSONResource<Model: JSONMappable>: JSONResourceModeling {
+    public let request: NetworkRequestRepresening
+    public var parse: (_ data: Data) throws -> Model {
+        return parseFunction
+    }
+    
+    public init(request: NetworkRequestRepresening) {
+        self.request = request
+    }
+    
+    public func parse(_ jsonPayload: Dictionary<String, AnyObject>) throws -> Model {
+        return try Model(object: jsonPayload)
+    }
 }

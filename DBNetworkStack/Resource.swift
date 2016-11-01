@@ -1,5 +1,5 @@
 //
-//  Ressource.swift
+//  Resource.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -28,10 +28,10 @@
 import Foundation
 
 /**
- `Ressource` describes a remote ressource of generic type.
+ `Resource` describes a remote resource of generic type.
  The type can be fetched via HTTP(s) and parsed into the coresponding model object.
  */
-public struct Ressource<Model>: RessourceModeling {
+public struct Resource<Model>: ResourceModeling {
     public let request: NetworkRequestRepresening
     public let parse: (_ data: Data) throws -> Model
     

@@ -45,7 +45,7 @@ class MultipartFormDataUploadServiceTests: XCTestCase {
     func testUpload() {
         //Given
         let request = NetworkRequest(path: "/train", baseURLKey: TestEndPoints.endPoint)
-        let ressource = MultipartFormDataRessource(request: request, parse: { $0 },
+        let resource = MultipartFormDataResource(request: request, parse: { $0 },
                                                    encodingMemoryThreshold: 200, encodeInMultipartFormData: {
             formdata in
         })
@@ -53,7 +53,7 @@ class MultipartFormDataUploadServiceTests: XCTestCase {
         var didCreateTask = false
         //When
         let expection = expectation(description: "loadValidRequest")
-        service.upload(ressource, onCompletion: { data in
+        service.upload(resource, onCompletion: { data in
             XCTAssertEqual(Train.validJSONData, data)
             XCTAssert(didCreateTask)
             expection.fulfill()

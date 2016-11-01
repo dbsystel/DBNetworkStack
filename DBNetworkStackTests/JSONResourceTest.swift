@@ -1,5 +1,5 @@
 //
-//  RessourceModeling.swift
+//  JSONResourceTest.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,27 +22,37 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 21.07.16.
+//  Created by Lukas Schmidt on 30.08.16.
 //
 
-import Foundation
-/**
- `RessourceModeling` describes a remote ressource of generic type.
- The type can be fetched via HTTP(s) and parsed into the coresponding model object.
- */
-public protocol RessourceModeling {
-    /**
-     Model object which coresponds to the remote ressource
-     */
-    associatedtype Model
+import XCTest
+@testable import DBNetworkStack
+
+class JSONResourceTest: XCTestCase {
+    func testResource() {
+        //Given
+        let request = NetworkRequest(path: "/train", baseURLKey: "")
+        let resource = JSONResource<Train>(request: request)
+        
+        //When
+        let fetchedTrain = try? resource.parse(Train.validJSONData)
+       
+        //Then
+        XCTAssertNotNil(fetchedTrain)
+        XCTAssertEqual(fetchedTrain?.name, "ICE")
+    }
     
-    /**
-     The request to get the remote data payload
-     */
-    var request: NetworkRequestRepresening { get }
+    func testResourceWithInvalidData() {
+        //Given
+        let request = NetworkRequest(path: "/train", baseURLKey: "")
+        let resource = JSONResource<Train>(request: request)
+        
+        //When
+        do {
+            let _ = try resource.parse(Train.invalidJSONData)
+            XCTFail()
+        } catch {
+        }
+    }
     
-    /**
-     Parses data into given Model
-     */
-    var parse: (_ data: Data) throws -> Model { get }
 }

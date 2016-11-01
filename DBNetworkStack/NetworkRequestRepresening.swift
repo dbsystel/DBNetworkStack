@@ -28,11 +28,11 @@
 import Foundation
 
 /**
- `NetworkRequestRepresening` represents a networkreuqest with all components needed to retrieve correct ressources.
+ `NetworkRequestRepresening` represents a networkreuqest with all components needed to retrieve correct resources.
  */
 public protocol NetworkRequestRepresening {
     /**
-     Path to the remote ressource.
+     Path to the remote resource.
      */
     var path: String { get }
     

@@ -32,9 +32,9 @@ import Foundation
  */
 public protocol NetworkAccessProviding {
     /**
-     Fetches a ressource asynchrony from remote location.
+     Fetches a resource asynchrony from remote location.
      
-     - parameter request: The ressource you want to fetch.
+     - parameter request: The resource you want to fetch.
      - parameter callback: Callback which gets called when the request finishes.
      
      - returns: the running network task

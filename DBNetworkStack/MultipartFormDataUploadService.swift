@@ -28,7 +28,7 @@
 import Foundation
 
 /**
- `MultipartFormDataUploadService` handles network request for multipart form data ressources by using a given MultipartFormDataUploadAccessProviding
+ `MultipartFormDataUploadService` handles network request for multipart form data resources by using a given MultipartFormDataUploadAccessProviding
  */
 final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
     
@@ -47,12 +47,12 @@ final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProvid
         self.endPoints = endPoints
     }
     
-    func upload<T: MultipartFormDataRessourceModelling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (),
+    func upload<T: MultipartFormDataResourceModelling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
                        onError: @escaping (DBNetworkStackError) -> (), onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> Void) {
-        let baseURL = self.baseURL(with: ressource)
-        uploadAccess.upload(ressource.request, relativeToBaseURL: baseURL, multipartFormData: ressource.encodeInMultipartFormData,
-                            encodingMemoryThreshold: ressource.encodingMemoryThreshold, callback: { data, response, error in
-            self.processAsyncResponse(response: response, ressource: ressource, data: data, error: error, onCompletion: onCompletion, onError: onError)
+        let baseURL = self.baseURL(with: resource)
+        uploadAccess.upload(resource.request, relativeToBaseURL: baseURL, multipartFormData: resource.encodeInMultipartFormData,
+                            encodingMemoryThreshold: resource.encodingMemoryThreshold, callback: { data, response, error in
+            self.processAsyncResponse(response: response, resource: resource, data: data, error: error, onCompletion: onCompletion, onError: onError)
                 
         }, onNetworkTaskCreation: { task in
             DispatchQueue.main.async(execute: {

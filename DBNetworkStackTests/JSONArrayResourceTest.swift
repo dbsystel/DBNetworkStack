@@ -1,5 +1,5 @@
 //
-//  RessourceTest.swift
+//  JSONArrayResourceTest.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -28,33 +28,46 @@
 import XCTest
 @testable import DBNetworkStack
 
-class RessourceTest: XCTestCase {
-    
-    func testRessource() {
+class JSONArrayResourceTest: XCTestCase {
+    func testResource() {
         //Given
-        let validData = "ICE".data(using: String.Encoding.utf8)!
-
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
-        let ressource = Ressource<String?>(request: request, parse: { String(data: $0, encoding: String.Encoding.utf8) })
+        let request = NetworkRequest(path: "/trains", baseURLKey: "")
+        let resource = JSONArrayResource<Train>(request: request)
         
         //When
-        let name = try? ressource.parse(validData)
+        let fetchedTrains = try? resource.parse(Train.validJSONArrayData)
         
         //Then
-        XCTAssertNotNil(name)
-        XCTAssertEqual(name!!, "ICE")
+        XCTAssertNotNil(fetchedTrains)
+        XCTAssertEqual(fetchedTrains?.count, 3)
+        XCTAssertEqual(fetchedTrains?.first?.name, "ICE")
+        XCTAssertEqual(fetchedTrains?.last?.name, "TGV")
     }
     
-    func testRessourceWithInvalidData() {
+    func testResourceWithInvalidData() {
         //Given
-        let validData = Data()
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
-        let ressource = JSONRessource<Train>(request: request)
+        let request = NetworkRequest(path: "/trains", baseURLKey: "")
+        let resource = JSONArrayResource<Train>(request: request)
         
         //When
         do {
-            let _ = try ressource.parse(validData)
+            let _ = try resource.parse(Train.invalidJSONData)
             XCTFail()
-        } catch { }
+        } catch {
+            
+        }
+    }
+    
+    func testResourceWithInvalidContainer() {
+        //Given
+        let request = NetworkRequest(path: "/trains", baseURLKey: "")
+        let resource = JSONArrayResource<Train>(request: request)
+        
+        //When
+        do {
+            let _ = try resource.parse(Train.validJSONData)
+            XCTFail()
+        } catch {
+        }
     }
 }

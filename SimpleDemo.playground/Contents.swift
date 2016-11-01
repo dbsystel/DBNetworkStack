@@ -10,9 +10,9 @@ let baseURLKey = "httpBin"
 let networkAccess = URLSession(configuration: .default)
 let networkService = NetworkService(networkAccess: networkAccess, endPoints: [baseURLKey: url])
 let request = NetworkRequest(path: "/", baseURLKey: baseURLKey)
-let ressource = Ressource(request: request, parse: { String(data: $0, encoding: .utf8) })
+let resource = Resource(request: request, parse: { String(data: $0, encoding: .utf8) })
 
-networkService.request(ressource, onCompletion: { htmlText in
+networkService.request(resource, onCompletion: { htmlText in
     print(htmlText)
     }, onError: { error in
         //Handle errors

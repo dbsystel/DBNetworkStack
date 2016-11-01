@@ -25,9 +25,9 @@ extension IPOrigin: JSONMappable {
 }
 
 let request = NetworkRequest(path: "/ip", baseURLKey: baseURLKey)
-let ressource = JSONRessource<IPOrigin>(request: request)
+let resource = JSONResource<IPOrigin>(request: request)
 
-networkService.request(ressource, onCompletion: { origin in
+networkService.request(resource, onCompletion: { origin in
     print(origin)
     }, onError: { error in
         //Handle errors

@@ -33,9 +33,9 @@ import Foundation
 protocol MultipartFormDataUploadAccessProviding {
     
     /**
-     Uploads a multipart formdata ressource asynchrony to remote location.
+     Uploads a multipart formdata resource asynchrony to remote location.
      
-     - parameter request: The ressource to upload.
+     - parameter request: The resource to upload.
      - parameter relativeToBaseURL: The base URL on wich the request is based on
      - parameter multipartFormData: Closure which configures the multipart form data body
      - parameter encodingMemoryThreshold: Encoding threshold in bytes.

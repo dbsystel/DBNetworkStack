@@ -5,7 +5,7 @@
 
          | Main Features
 ---------|---------------
-🛡 | Typed network ressources
+🛡 | Typed network resources
 &#127968; | Protocol oriented architecture
 🔀| Exchangeable implementations
 🚄 | Extendable API
@@ -16,7 +16,7 @@ The idea behind this project comes from this [talk.objc.io article](https://talk
 ## Basic Demo
 Lets say you want to fetch a ``html`` string.
 
-First you have to create a service, by providing a networkaccess. You can use NSURLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```. In addition you need to register baseURLs endpoints for request mapping. This gives you the flexability to change your endpoints very easily when your envionment changes.
+First you have to create a service, by providing a network access. You can use NSURLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```. In addition you need to register baseURLs endpoints for request mapping. This gives you the flexibility to change your endpoints very easily when your environment changes.
 
 ```swift
 
@@ -28,19 +28,19 @@ let networkService = NetworkService(networkAccess: networkAccess, endPoints: [ba
 
 ```
 
-Create a ressource with a request to fetch your data.
+Create a resource with a request to fetch your data.
 
 ```swift
 
 let request = NetworkRequest(path: "/", baseURLKey: baseURLKey)
-let ressource = Ressource(request: request, parse: { String(data: $0, encoding: NSUTF8StringEncoding) })
+let resource = Resource(request: request, parse: { String(data: $0, encoding: NSUTF8StringEncoding) })
 
 ```
-Request your ressource and handle the response
+Request your resource and handle the response
 ```swift
-networkService.request(ressource, onCompletion: { htmlText in
+networkService.request(resource, onCompletion: { htmlText in
     print(htmlText)
-    }, onError: { error in
+}, onError: { error in
         //Handle errors
 })
 
@@ -49,7 +49,7 @@ networkService.request(ressource, onCompletion: { htmlText in
 ## JSON Mapping Demo
 ```swift
 struct IPOrigin {
-    let ipAdress: String
+    let ipAddress: String
 }
 
 extension IPOrigin: JSONMappable {
@@ -59,11 +59,11 @@ extension IPOrigin: JSONMappable {
 }
 
 let request = NetworkRequest(path: "/ip", baseURLKey: baseURLKey)
-let ressource = JSONRessource<IPOrigin>(request: request)
+let resource = JSONResource<IPOrigin>(request: request)
 
-networkService.request(ressource, onCompletion: { origin in
+networkService.request(resource, onCompletion: { origin in
     print(origin)
-    }, onError: { error in
+}, onError: { error in
         //Handle errors
 })
 ```
