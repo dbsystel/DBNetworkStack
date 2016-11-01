@@ -54,12 +54,12 @@ public protocol NetworkRequestRepresening {
     /**
      Parameters which will be send with the request.
      */
-    var parameter: [String : AnyObject]? { get }
+    var parameter: [String : Any]? { get }
     
     /**
      Data payload of the request
      */
-    var body: NSData? { get }
+    var body: Data? { get }
 }
 
 extension NetworkRequestRepresening {
@@ -69,14 +69,14 @@ extension NetworkRequestRepresening {
      - parameter baseURL: baseURL for the resulting request.
      - returns: the equivalent request
      */
-    public func urlRequest(with baseURL: NSURL) -> NSURLRequest {
+    public func urlRequest(with baseURL: URL) -> URLRequest {
         let absoluteURL = absoluteURLWith(baseURL)
-        let request = NSMutableURLRequest(URL: absoluteURL)
+        let request = NSMutableURLRequest(url: absoluteURL)
         request.allHTTPHeaderFields = allHTTPHeaderFields
-        request.HTTPMethod = HTTPMethod.rawValue
-        request.HTTPBody = body
+        request.httpMethod = HTTPMethod.rawValue
+        request.httpBody = body
         
-        return request
+        return request as URLRequest
     }
     
     /**
@@ -85,18 +85,18 @@ extension NetworkRequestRepresening {
      - parameter baseURL: baseURL for the resulting url.
      - returns: absolute url for the request.
      */
-    private func absoluteURLWith(baseURL: NSURL) -> NSURL {
-        guard let absoluteURL = NSURL(string: path, relativeToURL: baseURL) else {
+    fileprivate func absoluteURLWith(_ baseURL: URL) -> URL {
+        guard let absoluteURL = URL(string: path, relativeTo: baseURL) else {
             fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
         }
-        let urlComponents = NSURLComponents(URL: absoluteURL, resolvingAgainstBaseURL: true)
-        if let parameter = parameter, let urlComponents = urlComponents where !parameter.isEmpty {
+        let urlComponents = URLComponents(url: absoluteURL, resolvingAgainstBaseURL: true)
+        if let parameter = parameter, var urlComponents = urlComponents , !parameter.isEmpty {
             let percentEncodedQuery = parameter.map({ value in
-                return "\(value.0)=\(value.1)".stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())
+                return "\(value.0)=\(value.1)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             }).flatMap { $0 }
-            urlComponents.percentEncodedQuery = percentEncodedQuery.joinWithSeparator("&")
+            urlComponents.percentEncodedQuery = percentEncodedQuery.joined(separator: "&")
             
-            guard let absoluteURL = urlComponents.URL else {
+            guard let absoluteURL = urlComponents.url else {
                  fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
             }
             return absoluteURL

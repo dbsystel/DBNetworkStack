@@ -35,7 +35,7 @@ class JSONRessourceTest: XCTestCase {
         let ressource = JSONRessource<Train>(request: request)
         
         //When
-        let fetchedTrain = try? ressource.parse(data: Train.validJSONData)
+        let fetchedTrain = try? ressource.parse(Train.validJSONData)
        
         //Then
         XCTAssertNotNil(fetchedTrain)
@@ -49,7 +49,7 @@ class JSONRessourceTest: XCTestCase {
         
         //When
         do {
-            let _ = try ressource.parse(data: Train.invalidJSONData)
+            let _ = try ressource.parse(Train.invalidJSONData)
             XCTFail()
         } catch {
         }

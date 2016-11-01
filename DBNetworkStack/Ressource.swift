@@ -33,9 +33,9 @@ import Foundation
  */
 public struct Ressource<Model>: RessourceModeling {
     public let request: NetworkRequestRepresening
-    public let parse: (data: NSData) throws -> Model
+    public let parse: (_ data: Data) throws -> Model
     
-    public init(request: NetworkRequestRepresening, parse: (NSData) throws -> Model) {
+    public init(request: NetworkRequestRepresening, parse: @escaping (Data) throws -> Model) {
         self.request = request
         self.parse = parse
     }

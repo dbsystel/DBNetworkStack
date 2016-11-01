@@ -29,12 +29,12 @@ import Foundation
 
 struct MultipartFormDataRessource<Model>: MultipartFormDataRessourceModelling {
     public var request: NetworkRequestRepresening
-    public var parse: (data: NSData) throws -> Model
+    public var parse: (_ data: Data) throws -> Model
     public var encodingMemoryThreshold: UInt64
-    public var encodeInMultipartFormData: MultipartFormDataRepresenting -> Void
+    public var encodeInMultipartFormData: (MultipartFormDataRepresenting) -> Void
     
-    public init(request: NetworkRequestRepresening, parse: (data: NSData) throws -> Model,
-                encodingMemoryThreshold: UInt64, encodeInMultipartFormData: MultipartFormDataRepresenting -> Void) {
+    public init(request: NetworkRequestRepresening, parse: @escaping (_ data: Data) throws -> Model,
+                encodingMemoryThreshold: UInt64, encodeInMultipartFormData: @escaping (MultipartFormDataRepresenting) -> Void) {
         self.request = request
         self.parse = parse
         self.encodingMemoryThreshold = encodingMemoryThreshold

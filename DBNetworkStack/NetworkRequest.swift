@@ -34,12 +34,15 @@ public struct NetworkRequest: NetworkRequestRepresening {
     public let path: String
     public let baseURLKey: BaseURLKey
     public let HTTPMethod: DBNetworkStack.HTTPMethod
-    public let parameter: Dictionary<String, AnyObject>?
-    public let body: NSData?
+    public let parameter: Dictionary<String, Any>?
+    public let body: Data?
     public let allHTTPHeaderFields: Dictionary<String, String>?
 }
 
 public extension NetworkRequest {
+    
+    // swiftlint:disable line_length
+
     
     /// Creates a instance of `NetworkRequest` with given parameters
     ///
@@ -52,7 +55,7 @@ public extension NetworkRequest {
     ///   - allHTTPHeaderField: the http headerfileds for the request
     public init(path: String, baseURLKey: BaseURLKey,
                 HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil,
-                body: NSData? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
+                body: Data? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
         self.path = path
         self.baseURLKey = baseURLKey
         self.HTTPMethod = HTTPMethod

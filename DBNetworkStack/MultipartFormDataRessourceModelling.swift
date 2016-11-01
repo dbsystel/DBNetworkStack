@@ -35,7 +35,8 @@ protocol MultipartFormDataRessourceModelling: RessourceModeling {
     /**
      Encodes all parts to be sent to the remote.
      */
-    var encodeInMultipartFormData: MultipartFormDataRepresenting -> Void { get }
+    var encodeInMultipartFormData: (MultipartFormDataRepresenting) -> Void { get }
+    
     /**
      Defines the size in bytes up to which data is encoded in memory.
     */

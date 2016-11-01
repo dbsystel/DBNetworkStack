@@ -14,7 +14,6 @@
 		7C40B9E91D9AA4B800620563 /* MultipartFormDataRessourceModelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E81D9AA4B800620563 /* MultipartFormDataRessourceModelling.swift */; };
 		7C40B9EB1D9AA4DE00620563 /* MultipartFormDataRessource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9EA1D9AA4DE00620563 /* MultipartFormDataRessource.swift */; };
 		7C40B9F61D9D028000620563 /* MultipartFormDataUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F51D9D028000620563 /* MultipartFormDataUploadService.swift */; };
-		7C40B9F81D9D034200620563 /* DBNetworkStackTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F71D9D034200620563 /* DBNetworkStackTypes.swift */; };
 		7C40B9FA1D9D0F6D00620563 /* BaseURLProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */; };
 		7C40B9FC1D9D661B00620563 /* UploadAccessServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9FB1D9D661B00620563 /* UploadAccessServiceMock.swift */; };
 		7C40B9FE1D9D66A600620563 /* NetworkTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9FD1D9D66A600620563 /* NetworkTaskMock.swift */; };
@@ -68,7 +67,6 @@
 		7C40B9E81D9AA4B800620563 /* MultipartFormDataRessourceModelling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataRessourceModelling.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9EA1D9AA4DE00620563 /* MultipartFormDataRessource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataRessource.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9F51D9D028000620563 /* MultipartFormDataUploadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		7C40B9F71D9D034200620563 /* DBNetworkStackTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DBNetworkStackTypes.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLProviding.swift; sourceTree = "<group>"; };
 		7C40B9FB1D9D661B00620563 /* UploadAccessServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = UploadAccessServiceMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9FD1D9D66A600620563 /* NetworkTaskMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkTaskMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -165,7 +163,6 @@
 				C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */,
 				C60425091D76F79F00FD3B38 /* NetworkService.swift */,
 				7C40B9F51D9D028000620563 /* MultipartFormDataUploadService.swift */,
-				7C40B9F71D9D034200620563 /* DBNetworkStackTypes.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
 				7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */,
@@ -303,9 +300,11 @@
 				TargetAttributes = {
 					C60BE65A1D6B2BF3006B0364 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					C60BE6641D6B2BF3006B0364 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -390,7 +389,6 @@
 				C60425081D76F6F400FD3B38 /* NetworkAccessProviding.swift in Sources */,
 				C60BE68D1D6B2C46006B0364 /* NetworkServiceProviding.swift in Sources */,
 				C60BE68B1D6B2C46006B0364 /* NetworkRequestRepresening.swift in Sources */,
-				7C40B9F81D9D034200620563 /* DBNetworkStackTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,7 +471,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -522,7 +520,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
@@ -550,6 +548,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -570,6 +569,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -582,6 +582,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStackTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -594,6 +595,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStackTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

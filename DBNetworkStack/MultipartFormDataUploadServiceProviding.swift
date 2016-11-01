@@ -42,25 +42,9 @@ protocol MultipartFormDataUploadServiceProviding {
      The closure gets access to the created network task.
     */
     func upload<T: MultipartFormDataRessourceModelling>(
-        ressource: T,
-        onCompletion: (T.Model) -> (),
-        onError: DBNetworkRequestErrorBlock,
-        onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock?
+        _ ressource: T,
+        onCompletion: @escaping (T.Model) -> (),
+        onError: @escaping (DBNetworkStackError) -> (),
+        onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> ()
     )
-}
-
-extension MultipartFormDataUploadServiceProviding {
-    func upload<T: MultipartFormDataRessourceModelling>(
-        ressource: T,
-        onCompletion: (T.Model) -> (),
-        onError: DBNetworkRequestErrorBlock,
-        onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock? = nil
-        ) {
-        upload(
-            ressource,
-            onCompletion: onCompletion,
-            onError: onError,
-            onNetworkTaskCreation: onNetworkTaskCreation
-        )
-    }
 }

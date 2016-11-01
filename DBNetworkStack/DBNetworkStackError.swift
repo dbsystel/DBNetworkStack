@@ -30,27 +30,27 @@ import Foundation
 /**
  `DBNetworkStackError` provides a collection of error types which can occur during execution.
  */
-public enum DBNetworkStackError: ErrorType {
-    case UnknownError
-    case Unauthorized(response: NSHTTPURLResponse)
-    case ClientError(response: NSHTTPURLResponse?)
-    case SerializationError(description: String, data: NSData?)
-    case RequestError(error: NSError)
-    case ServerError(response: NSHTTPURLResponse?)
-    case MissingBaseURL
+public enum DBNetworkStackError: Error {
+    case unknownError
+    case unauthorized(response: HTTPURLResponse)
+    case clientError(response: HTTPURLResponse?)
+    case serializationError(description: String, data: Data?)
+    case requestError(error: Error)
+    case serverError(response: HTTPURLResponse?)
+    case missingBaseURL
     
-    init?(response: NSHTTPURLResponse?) {
+    init?(response: HTTPURLResponse?) {
         guard let response = response else {
             return nil
         }
         switch response.statusCode {
         case 200..<300: return nil
         case 401:
-            self = .Unauthorized(response: response)
+            self = .unauthorized(response: response)
         case 400...451:
-            self = .ClientError(response: response)
+            self = .clientError(response: response)
         case 500...511:
-            self = .ServerError(response: response)
+            self = .serverError(response: response)
         default:
             return nil
         }

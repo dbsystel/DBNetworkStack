@@ -1,18 +1,16 @@
 //: Playground - noun: a place where people can play
 
 import DBNetworkStack
-import XCPlayground
+import PlaygroundSupport
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-let url: NSURL! = NSURL(string: "https://httpbin.org")
+PlaygroundPage.current.needsIndefiniteExecution = true
+let url: URL! = URL(string: "https://httpbin.org")
 let baseURLKey = "httpBin"
 
-let networkAccess = NSURLSession(configuration: .defaultSessionConfiguration())
+let networkAccess = URLSession(configuration: .default)
 let networkService = NetworkService(networkAccess: networkAccess, endPoints: [baseURLKey: url])
-
 let request = NetworkRequest(path: "/", baseURLKey: baseURLKey)
-let ressource = Ressource(request: request, parse: { String(data: $0, encoding: NSUTF8StringEncoding) })
+let ressource = Ressource(request: request, parse: { String(data: $0, encoding: .utf8) })
 
 networkService.request(ressource, onCompletion: { htmlText in
     print(htmlText)

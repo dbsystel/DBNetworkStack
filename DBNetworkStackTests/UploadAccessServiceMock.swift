@@ -30,29 +30,25 @@ import Foundation
 
 class UploadAccessServiceMock: MultipartFormDataUploadAccessProviding {
     
-    var uploadData: NSData?
+    var uploadData: Data?
     
-    private var reponseData: NSData?
-    private var responseError: NSError?
-    private var response: NSHTTPURLResponse?
-    private var multipartFormData: ((MultipartFormDataRepresenting) -> ())?
+    fileprivate var reponseData: Data?
+    fileprivate var responseError: NSError?
+    fileprivate var response: HTTPURLResponse?
+    fileprivate var multipartFormData: ((MultipartFormDataRepresenting) -> ())?
     
-    func upload(request: NetworkRequestRepresening, relativeToBaseURL: NSURL, multipartFormData: (MultipartFormDataRepresenting) -> (),
-                encodingMemoryThreshold: UInt64, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> (),
-                onNetworkTaskCreation: DBNetworkTaskCreationCompletionBlock?) {
-        
-        dispatch_async(dispatch_get_main_queue()) {
+    func upload(_ request: NetworkRequestRepresening, relativeToBaseURL baseURL: URL, multipartFormData: @escaping (MultipartFormDataRepresenting) -> (), encodingMemoryThreshold: UInt64, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> (), onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> ()) {
+        DispatchQueue.main.async {
             multipartFormData(MulitpartFormDataRepresentingMock())
-            onNetworkTaskCreation?(NetworkTaskMock())
+            onNetworkTaskCreation(NetworkTaskMock())
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2.0)*Int64(NSEC_PER_SEC)), dispatch_get_main_queue(), {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(2.0)*Int64(NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
                 callback(self.reponseData, self.response, self.responseError)
             })
         }
-        
     }
-    
-    func changeMock(data data: NSData?, response: NSHTTPURLResponse?, error: NSError?) {
+        
+    func changeMock(data: Data?, response: HTTPURLResponse?, error: NSError?) {
         self.reponseData = data
         self.response = response
         self.responseError = error

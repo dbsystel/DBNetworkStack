@@ -32,12 +32,13 @@ class RessourceTest: XCTestCase {
     
     func testRessource() {
         //Given
-        let validData: NSData = "ICE".dataUsingEncoding(NSUTF8StringEncoding)!
+        let validData = "ICE".data(using: String.Encoding.utf8)!
+
         let request = NetworkRequest(path: "/train", baseURLKey: "")
-        let ressource = Ressource<String?>(request: request, parse: { String(data: $0, encoding: NSUTF8StringEncoding) })
+        let ressource = Ressource<String?>(request: request, parse: { String(data: $0, encoding: String.Encoding.utf8) })
         
         //When
-        let name = try? ressource.parse(data: validData)
+        let name = try? ressource.parse(validData)
         
         //Then
         XCTAssertNotNil(name)
@@ -46,13 +47,13 @@ class RessourceTest: XCTestCase {
     
     func testRessourceWithInvalidData() {
         //Given
-        let validData = NSData()
+        let validData = Data()
         let request = NetworkRequest(path: "/train", baseURLKey: "")
         let ressource = JSONRessource<Train>(request: request)
         
         //When
         do {
-            let _ = try ressource.parse(data: validData)
+            let _ = try ressource.parse(validData)
             XCTFail()
         } catch { }
     }

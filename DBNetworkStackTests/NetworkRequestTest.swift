@@ -35,10 +35,11 @@ class NetworkRequestTest: XCTestCase {
         let path = "/index.html"
         let baseURLKey = "Key"
         let httpMethod = HTTPMethod.GET
-        let parameter = ["test1": 1, "test2": "2"]
-        let body: NSData! = "hallo body data".dataUsingEncoding(NSUTF8StringEncoding)
+        let parameter: [String : Any] = ["test1": 1, "test2": "2"] as [String : Any]
+        let body = "hallo body data".data(using: String.Encoding.utf8)!
         let headerFields: Dictionary<String, String> = [:]
-        let baseURL: NSURL! = NSURL(string: "https://www.bahn.de/")
+        let baseURL = URL(string: "https://www.bahn.de/")!
+
         
         //When
         let request = NetworkRequest(path: path, baseURLKey: baseURLKey,
@@ -48,9 +49,9 @@ class NetworkRequestTest: XCTestCase {
         //Then
         let urlRequest = request.urlRequest(with: baseURL)
         
-        XCTAssertEqual(urlRequest.URL?.absoluteString, "https://www.bahn.de/index.html?test2=2&test1=1")
-        XCTAssertEqual(urlRequest.HTTPMethod, httpMethod.rawValue)
-        XCTAssertEqual(urlRequest.HTTPBody, body)
+        XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.bahn.de/index.html?test1=1&test2=2")
+        XCTAssertEqual(urlRequest.httpMethod, httpMethod.rawValue)
+        XCTAssertEqual(urlRequest.httpBody, body)
         XCTAssertEqual(urlRequest.allHTTPHeaderFields!, headerFields)
     }
 }
