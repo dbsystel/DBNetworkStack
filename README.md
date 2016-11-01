@@ -68,6 +68,33 @@ networkService.request(resource, onCompletion: { origin in
 })
 ```
 
+## Extendability
+The following example outlines how to extend DBNetworkStack to support XML response models:
+
+```swift
+protocol XMLMappable {
+    init(object: Dictionary<String, AnyObject>) throws
+}
+
+struct XMLResource<T : XMLMappable> : ResourceModeling {
+    let request: NetworkRequestRepresening
+    
+    init(request: NetworkRequestRepresening) {
+        self.request = request
+    }
+    
+    var parse: (data: NSData) throws -> T {
+        return { data in
+		        let xmlObject = // Your data to xml object conversion
+            try! T(object: xmlObject) as T
+        }
+    }
+}
+```
+```XMLMappable``` defines the protocol, response model objects must conform to. The model class conforming to this protocol is responsible to convert a generic representation of the model into it’s specialized form.
+```XMLResource<T : XMLMappable>``` defines a resource based on a given ```XMLMappable``` model. The parse function is responsible of converting raw response data to a generic representation.
+
+
 ## Requirements
 
 - iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
