@@ -25,10 +25,12 @@
 //  Created by Christian Himmelsbach on 29.09.16.
 //
 
-
 import Foundation
 
-public final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
+/**
+ `MultipartFormDataUploadService` handles network request for multipart form data ressources by using a given MultipartFormDataUploadAccessProviding
+ */
+final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
     
     fileprivate let uploadAccess: MultipartFormDataUploadAccessProviding
     let endPoints: Dictionary<String, URL>
@@ -36,17 +38,17 @@ public final class MultipartFormDataUploadService: MultipartFormDataUploadServic
     /**
      Creates an `MultipartFormDataUploadService` instance with a given uploadAccess and a map of endPoints
      
-     - parameter uploadAccess: provides basic access to the network.
-     - parameter endPoints: map of baseURLKey -> baseURLs
+     - parameter uploadAccess: Provides basic access to the network.
+     - parameter endPoints: Map of baseURLKey -> baseURLs
      */
-    public init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, URL>) {
+
+    init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, URL>) {
         self.uploadAccess = uploadAccess
         self.endPoints = endPoints
     }
     
-    public func upload<T: MultipartFormDataRessourceModelling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (),
-                       onError: @escaping (DBNetworkStackError) -> (), onNetworkTaskCreation: @escaping (NetworkTask) -> ()) {
-        
+    func upload<T: MultipartFormDataRessourceModelling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (),
+                       onError: @escaping (DBNetworkStackError) -> (), onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> Void) {
         let baseURL = self.baseURL(with: ressource)
         uploadAccess.upload(ressource.request, relativeToBaseURL: baseURL, multipartFormData: ressource.encodeInMultipartFormData,
                             encodingMemoryThreshold: ressource.encodingMemoryThreshold, callback: { data, response, error in

@@ -1,6 +1,6 @@
 # DBNetworkStack
 
-[![Build Status](https://travis-ci.com/lightsprint09/DBNetworkStackTemp.svg?token=DoSuqFLfFsZgTxGUxHry&branch=feature/cross-plattorm-project)](https://travis-ci.com/lightsprint09/DBNetworkStackTemp)
+[![Build Status](https://travis-ci.com/lightsprint09/DBNetworkStack.svg?token=DoSuqFLfFsZgTxGUxHry&branch=develop)](https://travis-ci.com/lightsprint09/DBNetworkStack)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) 
 
          | Main Features
@@ -85,4 +85,12 @@ Specify the following in your `Cartfile`:
 ```ogdl
 github "dbsystel/dbnetworkstack" ~> 0.1
 ```
+## Contributing
+Feel free to submit a pull request with new features, improvements on tests or documentation and bug fixes. Keep in mind that we welcome code that is well tested and documented.
 
+## Contact
+Lukas Schmidt ([Mail](mailto:lukas.la.schmidt@deutschebahn.com), [@lightsprint09](https://twitter.com/lightsprint09)), 
+Christian Himmelsbach ([Mail](mailto:christian.himmelsbach@deutschebahn.com))
+
+## License
+DBNetworkStack is released under the MIT license. See LICENSE for details.

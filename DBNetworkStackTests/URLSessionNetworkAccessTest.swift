@@ -29,7 +29,7 @@ import XCTest
 @testable import DBNetworkStack
 
 //class URLSessionNetworkAccessTest: XCTestCase {
-//    var dataTask: NetworkTask!
+//    var dataTask: NetworkTaskRepresenting!
 //    
 //    func testExample() {
 //        let expection = expectationWithDescription("wait")

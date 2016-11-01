@@ -35,9 +35,10 @@ class MultipartFormDataUploadServiceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        let url: URL! = URL(string: "http://bahn.de")
         service = MultipartFormDataUploadService(
             uploadAccess: networkAccess,
-            endPoints: [ TestEndPoints.endPoint.name: URL(string: "http://bahn.de")!]
+            endPoints: [ TestEndPoints.endPoint.name: url]
         )
     }
 

@@ -33,6 +33,7 @@ class RessourceTest: XCTestCase {
     func testRessource() {
         //Given
         let validData = "ICE".data(using: String.Encoding.utf8)!
+
         let request = NetworkRequest(path: "/train", baseURLKey: "")
         let ressource = Ressource<String?>(request: request, parse: { String(data: $0, encoding: String.Encoding.utf8) })
         

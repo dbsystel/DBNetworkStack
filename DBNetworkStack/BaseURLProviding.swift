@@ -29,7 +29,7 @@ import Foundation
 
 internal protocol BaseURLProviding {
     
-    var endPoints: [String:URL] {get}
+    var endPoints: [String: URL] {get}
     /**
      Provides an baseURL for a given ressource.
      

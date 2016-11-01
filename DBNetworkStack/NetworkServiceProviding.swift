@@ -40,7 +40,7 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
      
      - returns: the request
      */
-    func request<T: RessourceModeling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTask
+    func request<T: RessourceModeling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting
 }
 
 public protocol NetworkResponseProcessing {

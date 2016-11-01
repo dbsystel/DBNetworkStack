@@ -39,9 +39,12 @@ class NetworkRequestTest: XCTestCase {
         let body = "hallo body data".data(using: String.Encoding.utf8)!
         let headerFields: Dictionary<String, String> = [:]
         let baseURL = URL(string: "https://www.bahn.de/")!
+
         
         //When
-        let request = NetworkRequest(path: path, baseURLKey: baseURLKey, HTTPMethod: httpMethod, parameter: parameter, body: body, allHTTPHeaderFields: headerFields)
+        let request = NetworkRequest(path: path, baseURLKey: baseURLKey,
+                                     HTTPMethod: httpMethod, parameter: parameter,
+                                     body: body, allHTTPHeaderFields: headerFields)
         
         //Then
         let urlRequest = request.urlRequest(with: baseURL)

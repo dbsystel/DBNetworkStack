@@ -7,45 +7,46 @@
 //
 
 import Foundation
-import DBNetworkStack
+@testable import DBNetworkStack
 
-open class MulitpartFormDataRepresentingMock: MultipartFormDataRepresenting {
-    open var contentType: String = "multipart/form-data"
-    open var contentLength: UInt64 = 128
-    open var boundary: String = ""
+class MulitpartFormDataRepresentingMock: MultipartFormDataRepresenting {
+    var contentType: String = "multipart/form-data"
+    var contentLength: UInt64 = 128
+    var boundary: String = ""
     
-    open func appendBodyPart(data: Data, name: String) {
+    
+    func appendBodyPart(data data: Data, name: String) {
         
     }
     
-    open func appendBodyPart(data: Data, name: String, mimeType: String) {
+    func appendBodyPart(data data: Data, name: String, mimeType: String) {
         
     }
     
-    open func appendBodyPart(fileURL: URL, name: String, fileName: String, mimeType: String) {
+    func appendBodyPart(fileURL fileURL: URL, name: String, fileName: String, mimeType: String) {
         
     }
     
-    open func appendBodyPart(fileURL: URL, name: String) {
+    func appendBodyPart(fileURL fileURL: URL, name: String) {
         
     }
     
-    open func appendBodyPart(data: Data, name: String, fileName: String, mimeType: String) {
+    func appendBodyPart(data data: Data, name: String, fileName: String, mimeType: String) {
     }
     
-    open func appendBodyPart(stream: InputStream, length: UInt64, headers: [String : String]) {
+    func appendBodyPart(stream stream: InputStream, length: UInt64, headers: [String : String]) {
         
     }
     
-    open func appendBodyPart(stream: InputStream, length: UInt64, name: String, fileName: String, mimeType: String) {
+    func appendBodyPart(stream stream: InputStream, length: UInt64, name: String, fileName: String, mimeType: String) {
         
     }
     
-    open func encode() throws -> Data {
+    func encode() throws -> Data {
         return Data()
     }
     
-    open func writeEncodedDataToDisk(_ fileURL: URL) throws {
+    func writeEncodedDataToDisk(_ fileURL: URL) throws {
         
     }
 }

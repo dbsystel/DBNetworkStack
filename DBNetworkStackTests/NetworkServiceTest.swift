@@ -42,7 +42,7 @@ class NetworkServiceTest: XCTestCase {
     var networkAccess = NetworkAccessMock()
     let trainName: String = "ICE"
     
-    let baseURL =  URL(string: "//bahn.de")!
+    let baseURL: URL! = URL(string: "//bahn.de")
     
     override func setUp() {
         networkService = NetworkService(networkAccess: networkAccess, endPoints: ["endPointTestKey": baseURL])

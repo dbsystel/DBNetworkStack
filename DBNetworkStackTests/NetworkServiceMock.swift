@@ -35,7 +35,7 @@ class NetworkAccessMock: NetworkAccessProviding {
     
      fileprivate(set) var request: URLRequest?
     
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTask {
+    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTaskRepresenting {
         self.request = request
         callback(data, response, error)
         

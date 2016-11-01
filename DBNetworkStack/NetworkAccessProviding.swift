@@ -39,5 +39,6 @@ public protocol NetworkAccessProviding {
      
      - returns: the running network task
      */
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTask
+    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTaskRepresenting
+
 }

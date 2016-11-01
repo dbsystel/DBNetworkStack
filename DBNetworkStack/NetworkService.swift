@@ -28,7 +28,7 @@
 import Foundation
 
 /**
- `NetworkService` handles network request for ressources by using a given NetworkAccessProviding
+ `NetworkService` handles network request for ressources by using a given `NetworkAccessProviding`
  */
 public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
     let networkAccess: NetworkAccessProviding
@@ -45,7 +45,7 @@ public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
         self.endPoints = endPoints
     }
     
-    public func request<T: RessourceModeling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTask {
+    public func request<T: RessourceModeling>(_ ressource: T, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
         let baseURL = self.baseURL(with: ressource)
         let reuqest = ressource.request.urlRequest(with: baseURL)
         let dataTask = networkAccess.load(request: reuqest, callback: { data, response, error in

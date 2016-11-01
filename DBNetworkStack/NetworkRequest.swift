@@ -28,7 +28,7 @@
 import Foundation
 
 /**
- See `NetworkRequestRepresening` for details.
+ `NetworkRequest` represents a network reuqest with all components needed to retrieve correct ressources.
  */
 public struct NetworkRequest: NetworkRequestRepresening {
     public let path: String
@@ -40,8 +40,22 @@ public struct NetworkRequest: NetworkRequestRepresening {
 }
 
 public extension NetworkRequest {
+    
     // swiftlint:disable line_length
-    public init(path: String, baseURLKey: BaseURLKey, HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, Any>? = nil, body: Data? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
+
+    
+    /// Creates a instance of `NetworkRequest` with given parameters
+    ///
+    /// - Parameters:
+    ///   - path: the relative path to the source without the base url.
+    ///   - baseURLKey: a key to a baseurl which was registerd at `Networkservice`
+    ///   - HTTPMethod: http method to fetch the request with
+    ///   - parameter: url parameter for the request.
+    ///   - body: the body of the request encoded as data
+    ///   - allHTTPHeaderField: the http headerfileds for the request
+    public init(path: String, baseURLKey: BaseURLKey,
+                HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil,
+                body: Data? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
         self.path = path
         self.baseURLKey = baseURLKey
         self.HTTPMethod = HTTPMethod
