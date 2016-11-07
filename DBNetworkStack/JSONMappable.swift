@@ -37,11 +37,11 @@ public protocol JSONMappable {
     /**
      Creates an instance with a dictionary.
      */
-    init(object: Dictionary<String, AnyObject>) throws
+    init(object: Dictionary<String, Any>) throws
 }
 
 extension Array where Element: JSONMappable {
-    init(JSONArray: Array<Dictionary<String, AnyObject>>) throws {
+    init(JSONArray: Array<Dictionary<String, Any>>) throws {
         self.init(try JSONArray.map { json in
                 return try Element(object: json)
             })

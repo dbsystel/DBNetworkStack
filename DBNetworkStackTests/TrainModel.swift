@@ -33,7 +33,7 @@ struct Train {
 }
 
 extension Train: JSONMappable {
-    init(object: Dictionary<String, AnyObject>) throws {
+    init(object: Dictionary<String, Any>) throws {
         if let name = object["name"] as? String {
             self.name = name
         } else {
