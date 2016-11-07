@@ -43,7 +43,6 @@ public extension NetworkRequest {
     
     // swiftlint:disable line_length
 
-    
     /// Creates a instance of `NetworkRequest` with given parameters
     ///
     /// - Parameters:
@@ -54,7 +53,7 @@ public extension NetworkRequest {
     ///   - body: the body of the request encoded as data
     ///   - allHTTPHeaderField: the http headerfileds for the request
     public init(path: String, baseURLKey: BaseURLKey,
-                HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, AnyObject>? = nil,
+                HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, Any>? = nil,
                 body: Data? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
         self.path = path
         self.baseURLKey = baseURLKey
