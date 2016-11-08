@@ -97,7 +97,7 @@ struct XMLResource<T : XMLMappable> : ResourceModeling {
 
 ## Protocol oriented architecture / Exchangability
 
-The following table shows all the protocols and it’s default implementations.
+The following table shows all the protocols and their default implementations.
 
 | Protocol                         | Default Implementation |
 | -------------------------------- | ---------------------- |
