@@ -28,42 +28,42 @@
 import XCTest
 @testable import DBNetworkStack
 
-class MultipartFormDataUploadServiceTests: XCTestCase {
-
-    var networkAccess = UploadAccessServiceMock()
-    var service: MultipartFormDataUploadServiceProviding!
-    
-    override func setUp() {
-        super.setUp()
-        let url: URL! = URL(string: "http://bahn.de")
-        service = MultipartFormDataUploadService(
-            uploadAccess: networkAccess,
-            endPoints: [ TestEndPoints.endPoint.name: url]
-        )
-    }
-
-    func testUpload() {
-        //Given
-        let request = NetworkRequest(path: "/train", baseURLKey: TestEndPoints.endPoint)
-        let resource = MultipartFormDataResource(request: request, parse: { $0 },
-                                                   encodingMemoryThreshold: 200, encodeInMultipartFormData: {
-            formdata in
-        })
-        networkAccess.changeMock(data: Train.validJSONData, response: nil, error: nil)
-        var didCreateTask = false
-        //When
-        let expection = expectation(description: "loadValidRequest")
-        service.upload(resource, onCompletion: { data in
-            XCTAssertEqual(Train.validJSONData, data)
-            XCTAssert(didCreateTask)
-            expection.fulfill()
-            }, onError: { err in
-                print(err)
-                XCTFail()
-            }, onNetworkTaskCreation: { task in
-                didCreateTask = true
-            })
-        waitForExpectations(timeout: 5, handler: nil)
-    }
-
-}
+//class MultipartFormDataUploadServiceTests: XCTestCase {
+//
+//    var networkAccess = UploadAccessServiceMock()
+//    var service: MultipartFormDataUploadServiceProviding!
+//    
+//    override func setUp() {
+//        super.setUp()
+//        let url: URL! = URL(string: "http://bahn.de")
+//        service = MultipartFormDataUploadService(
+//            uploadAccess: networkAccess,
+//            endPoints: [ TestEndPoints.endPoint.name: url]
+//        )
+//    }
+//
+//    func testUpload() {
+//        //Given
+//        let request = NetworkRequest(path: "/train", baseURLKey: TestEndPoints.endPoint)
+//        let resource = MultipartFormDataResource(request: request, parse: { $0 },
+//                                                   encodingMemoryThreshold: 200, encodeInMultipartFormData: {
+//            formdata in
+//        })
+//        networkAccess.changeMock(data: Train.validJSONData, response: nil, error: nil)
+//        var didCreateTask = false
+//        //When
+//        let expection = expectation(description: "loadValidRequest")
+//        service.upload(resource, onCompletion: { data in
+//            XCTAssertEqual(Train.validJSONData, data)
+//            XCTAssert(didCreateTask)
+//            expection.fulfill()
+//            }, onError: { err in
+//                print(err)
+//                XCTFail()
+//            }, onNetworkTaskCreation: { task in
+//                didCreateTask = true
+//            })
+//        waitForExpectations(timeout: 5, handler: nil)
+//    }
+//
+//}

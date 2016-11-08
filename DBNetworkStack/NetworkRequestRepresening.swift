@@ -90,7 +90,7 @@ extension NetworkRequestRepresening {
             fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
         }
         let urlComponents = URLComponents(url: absoluteURL, resolvingAgainstBaseURL: true)
-        if let parameter = parameter, var urlComponents = urlComponents , !parameter.isEmpty {
+        if let parameter = parameter, var urlComponents = urlComponents, !parameter.isEmpty {
             let percentEncodedQuery = parameter.map({ value in
                 return "\(value.0)=\(value.1)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             }).flatMap { $0 }

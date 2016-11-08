@@ -28,29 +28,31 @@
 import Foundation
 @testable import DBNetworkStack
 
-class UploadAccessServiceMock: MultipartFormDataUploadAccessProviding {
-    
-    var uploadData: Data?
-    
-    fileprivate var reponseData: Data?
-    fileprivate var responseError: NSError?
-    fileprivate var response: HTTPURLResponse?
-    fileprivate var multipartFormData: ((MultipartFormDataRepresenting) -> ())?
-    
-    func upload(_ request: NetworkRequestRepresening, relativeToBaseURL baseURL: URL, multipartFormData: @escaping (MultipartFormDataRepresenting) -> (), encodingMemoryThreshold: UInt64, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> (), onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> ()) {
-        DispatchQueue.main.async {
-            multipartFormData(MulitpartFormDataRepresentingMock())
-            onNetworkTaskCreation(NetworkTaskMock())
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(2.0)*Int64(NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
-                callback(self.reponseData, self.response, self.responseError)
-            })
-        }
-    }
-        
-    func changeMock(data: Data?, response: HTTPURLResponse?, error: NSError?) {
-        self.reponseData = data
-        self.response = response
-        self.responseError = error
-    }
-}
+//class UploadAccessServiceMock: MultipartFormDataUploadAccessProviding {
+//    
+//    var uploadData: Data?
+//    
+//    fileprivate var reponseData: Data?
+//    fileprivate var responseError: NSError?
+//    fileprivate var response: HTTPURLResponse?
+//    fileprivate var multipartFormData: ((MultipartFormDataRepresenting) -> ())?
+//    
+//    func upload(_ request: NetworkRequestRepresening, relativeToBaseURL baseURL: URL, multipartFormData: @escaping (MultipartFormDataRepresenting) -> (),
+//                encodingMemoryThreshold: UInt64, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> (),
+//                onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> ()) {
+//        DispatchQueue.main.async {
+//            multipartFormData(MulitpartFormDataRepresentingMock())
+//            onNetworkTaskCreation(NetworkTaskMock())
+//            
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(2.0)*Int64(NSEC_PER_SEC)) / Double(NSEC_PER_SEC), execute: {
+//                callback(self.reponseData, self.response, self.responseError)
+//            })
+//        }
+//    }
+//        
+//    func changeMock(data: Data?, response: HTTPURLResponse?, error: NSError?) {
+//        self.reponseData = data
+//        self.response = response
+//        self.responseError = error
+//    }
+//}

@@ -36,11 +36,10 @@ class NetworkRequestTest: XCTestCase {
         let baseURLKey = "Key"
         let httpMethod = HTTPMethod.GET
         let parameter: [String : Any] = ["test1": 1, "test2": "2"] as [String : Any]
-        let body = "hallo body data".data(using: String.Encoding.utf8)!
+        let body: Data! = "hallo body data".data(using: String.Encoding.utf8)
         let headerFields: Dictionary<String, String> = [:]
-        let baseURL = URL(string: "https://www.bahn.de/")!
+        let baseURL: URL! = URL(string: "https://www.bahn.de/")
 
-        
         //When
         let request = NetworkRequest(path: path, baseURLKey: baseURLKey,
                                      HTTPMethod: httpMethod, parameter: parameter,

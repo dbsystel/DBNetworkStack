@@ -29,7 +29,7 @@ import XCTest
 @testable import DBNetworkStack
 
 class DBNetworkStackErrorTest: XCTestCase {
-    let url = URL(string: "https://bahn.de")!
+    let url: URL! = URL(string: "https://bahn.de")
     func testInitFrom400() {
         //Given
         let statusCode = 400

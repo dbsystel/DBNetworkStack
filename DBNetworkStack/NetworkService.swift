@@ -45,7 +45,8 @@ public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
         self.endPoints = endPoints
     }
     
-    public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
+    public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
+                        onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
         let baseURL = self.baseURL(with: resource)
         let reuqest = resource.request.urlRequest(with: baseURL)
         let dataTask = networkAccess.load(request: reuqest, callback: { data, response, error in

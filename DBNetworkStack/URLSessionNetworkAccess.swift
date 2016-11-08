@@ -42,7 +42,6 @@ extension URLSession: NetworkAccessProviding {
     }
 }
 
-
 extension URLSessionTask: NetworkTaskRepresenting {
     public var progress: Progress {
         let totalBytesExpected = response?.expectedContentLength ?? NSURLSessionTransferSizeUnknown
