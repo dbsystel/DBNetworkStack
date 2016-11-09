@@ -8,4 +8,4 @@ env:
   - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p'
 
 script:
-  - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION | xcpretty
+  - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty

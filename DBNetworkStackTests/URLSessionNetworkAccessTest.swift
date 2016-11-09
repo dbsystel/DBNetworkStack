@@ -28,23 +28,72 @@
 import XCTest
 @testable import DBNetworkStack
 
-//class URLSessionNetworkAccessTest: XCTestCase {
-//    var dataTask: NetworkTaskRepresenting!
-//    
-//    func testExample() {
-//        let expection = expectationWithDescription("wait")
-//        
-//        //Given
-//        let session: NetworkAccessProviding = NSURLSession(configuration: .ephemeralSessionConfiguration())
-//        
-//        let request = NetworkRequest(path: "", baseURLKey: "bahn")
-//        
-//        //When
-//        session.load(request: request, relativeToBaseURL: NSURL(string: "https://www.bahn.de")!, callback: {data, res, error in
-//            
-//            expection.fulfill()
-//        })
-//        
-//        waitForExpectationsWithTimeout(5, handler: nil)
-//    }
-//}
+class URLSessionProtocolMock: URLSessionProtocol {
+    var request: URLRequest?
+    var callback: ((Data?, URLResponse?, Error?) -> Void)?
+
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        self.request = request
+        self.callback = completionHandler
+        
+        let url: URL! = URL(string: "http://bahn.de")
+        return URLSession(configuration: .default).dataTask(with: url)
+    }
+}
+
+class URLSessionNetworkAccessTest: XCTestCase {
+    
+    func testURLSession_MatchesTypeOfNetworkAccess() {
+        let _: NetworkAccessProviding = URLSession(configuration: .default)
+    }
+    
+    func test_URLSessionCreatsDataTask() {
+        //Given
+        let mock = URLSessionProtocolMock()
+        let url: URL! = URL(string: "http://bahn.de")
+        let urlRequest = URLRequest(url: url)
+        
+        //When
+        _ = mock.load(request: urlRequest, callback: { _, _, _ in
+        
+        })
+        
+        //Then
+        XCTAssertNotNil(mock.request)
+        XCTAssertEqual(urlRequest, mock.request)
+    }
+    
+    func testURLSession_CallbackGetsRegistered() {
+        //Given
+        let mock = URLSessionProtocolMock()
+        let url: URL! = URL(string: "http://bahn.de")
+        let urlRequest = URLRequest(url: url)
+        var completionHanlderCalled = false
+        //When
+        _ = mock.load(request: urlRequest, callback: { _, _, _ in
+            completionHanlderCalled = true
+        })
+        mock.callback?(nil, nil, nil)
+        
+        //Then
+        XCTAssert(completionHanlderCalled)
+    }
+    
+    func testURLSession_DataTaksGetsResumed() {
+        //Given
+        let mock = URLSessionProtocolMock()
+        let url: URL! = URL(string: "http://bahn.de")
+        let urlRequest = URLRequest(url: url)
+        
+        //When
+        let task = mock.load(request: urlRequest, callback: { _, _, _ in
+        })
+        
+        //Then
+        guard let sessionTask = task as? URLSessionDataTask else {
+            XCTFail()
+            return
+        }
+        XCTAssert(sessionTask.state == .running)
+    }
+}
