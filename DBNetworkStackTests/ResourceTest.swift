@@ -42,7 +42,7 @@ class ResourceTest: XCTestCase {
         
         //Then
         XCTAssertNotNil(name)
-        XCTAssertEqual(name!!, "ICE")
+        XCTAssertEqual(name ?? nil, "ICE")
     }
     
     func testResourceWithInvalidData() {
