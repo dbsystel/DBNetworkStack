@@ -1,6 +1,6 @@
 # DBNetworkStack
 
-[![Build Status](https://travis-ci.com/lightsprint09/DBNetworkStack.svg?token=DoSuqFLfFsZgTxGUxHry&branch=develop)](https://travis-ci.com/lightsprint09/DBNetworkStack)
+[![Build Status](https://travis-ci.org/dbsystel/DBNetworkStack.svg?branch=develop)](https://travis-ci.org/dbsystel/DBNetworkStack)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) 
 
 |           | Main Features                  |
