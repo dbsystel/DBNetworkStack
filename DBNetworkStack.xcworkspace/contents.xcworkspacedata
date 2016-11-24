@@ -2,7 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Demo.playground">
+      location = "group:JSONExample.playground">
+   </FileRef>
+   <FileRef
+      location = "group:SimpleDemo.playground">
    </FileRef>
    <FileRef
       location = "container:DBNetworkStack.xcodeproj">

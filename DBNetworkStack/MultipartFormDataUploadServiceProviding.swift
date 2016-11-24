@@ -1,5 +1,5 @@
 //
-//  NetworkRequestTest.swift
+//  MultipartUploadPoviderServiceProviding.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,35 +22,29 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 20.09.16.
+//  Created by Christian Himmelsbach on 27.09.16.
 //
 
-import XCTest
-@testable import DBNetworkStack
+import Foundation
 
-class NetworkRequestTest: XCTestCase {
+/**
+ `MultipartFormDataUploadServiceProviding` provides access to upload multipart formdata resources.
+ */
+protocol MultipartFormDataUploadServiceProviding {
     
-    func testURLRequestTranformation() {
-        //Given
-        let path = "/index.html"
-        let baseURLKey = "Key"
-        let httpMethod = HTTPMethod.GET
-        let parameter: [String : Any] = ["test1": 1, "test2": "2"] as [String : Any]
-        let body: Data! = "hallo body data".data(using: String.Encoding.utf8)
-        let headerFields: Dictionary<String, String> = [:]
-        let baseURL: URL! = URL(string: "https://www.bahn.de/")
-
-        //When
-        let request = NetworkRequest(path: path, baseURLKey: baseURLKey,
-                                     HTTPMethod: httpMethod, parameter: parameter,
-                                     body: body, allHTTPHeaderFields: headerFields)
-        
-        //Then
-        let urlRequest = request.urlRequest(with: baseURL)
-        
-        XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.bahn.de/index.html?test1=1&test2=2")
-        XCTAssertEqual(urlRequest.httpMethod, httpMethod.rawValue)
-        XCTAssertEqual(urlRequest.httpBody, body)
-        XCTAssertEqual(urlRequest.allHTTPHeaderFields!, headerFields)
-    }
+    /**
+     Uploads a multipart formdata resource to a remote location.
+     
+     - parameter resource: The resource to upload to.
+     - parameter onCompletion: Callback which gets called when uploading and tranforming the response into model succeeds.
+     - parameter onError: Callback which gets called when uploading or tranforming the response fails.
+     - parameter onNetworkTaskCreation: Callback which gets called, after encoding data and starting the upload.
+     The closure gets access to the created network task.
+    */
+    func upload<T: MultipartFormDataResourceModelling>(
+        _ resource: T,
+        onCompletion: @escaping (T.Model) -> (),
+        onError: @escaping (DBNetworkStackError) -> (),
+        onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> ()
+    )
 }

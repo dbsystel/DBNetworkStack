@@ -1,5 +1,5 @@
 //
-//  NetworkAccessProviding.swift
+//  MultipartFormDataUploadAccessProviding.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,23 +22,34 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 31.08.16.
+//  Created by Christian Himmelsbach on 27.09.16.
 //
 
 import Foundation
 
 /**
- `NetworkAccessProviding` provides access to the network.
+ `MultipartFormDataUploadAccessProviding` provides access to the network for multipart formdata Requests.
  */
-public protocol NetworkAccessProviding {
+protocol MultipartFormDataUploadAccessProviding {
+    
     /**
-     Fetches a resource asynchrony from remote location.
+     Uploads a multipart formdata resource asynchrony to remote location.
      
-     - parameter request: The resource you want to fetch.
+     - parameter request: The resource to upload.
+     - parameter relativeToBaseURL: The base URL on wich the request is based on
+     - parameter multipartFormData: Closure which configures the multipart form data body
+     - parameter encodingMemoryThreshold: Encoding threshold in bytes.
      - parameter callback: Callback which gets called when the request finishes.
+     - parameter onNetworkTaskCreation: Callback which gets called, after encoding data and starting the upload.
+     The closure gets access to the created network task.
      
-     - returns: the running network task
      */
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTaskRepresenting
-
+    func upload(
+        _ request: NetworkRequestRepresening,
+        relativeToBaseURL baseURL: URL,
+                          multipartFormData: @escaping (MultipartFormDataRepresenting) -> (),
+                          encodingMemoryThreshold: UInt64,
+                          callback: @escaping (Data?, HTTPURLResponse?, Error?) -> (),
+                          onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> ()
+    )
 }

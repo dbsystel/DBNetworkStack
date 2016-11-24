@@ -1,5 +1,5 @@
 //
-//  NetworkService.swift
+//  MultipartFormDataUploadService.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,37 +22,42 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 31.08.16.
+//  Created by Christian Himmelsbach on 29.09.16.
 //
 
 import Foundation
 
 /**
- `NetworkService` handles network request for resources by using a given `NetworkAccessProviding`
+ `MultipartFormDataUploadService` handles network request for multipart form data resources by using a given MultipartFormDataUploadAccessProviding
  */
-public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
-    let networkAccess: NetworkAccessProviding
+final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProviding, NetworkResponseProcessing, BaseURLProviding {
+    
+    fileprivate let uploadAccess: MultipartFormDataUploadAccessProviding
     let endPoints: Dictionary<String, URL>
     
     /**
-     Creates an `NetworkService` instance with a given networkAccess and a map of endPoints
+     Creates an `MultipartFormDataUploadService` instance with a given uploadAccess and a map of endPoints
      
-     - parameter networkAccess: provides basic access to the network.
-     - parameter endPoints: map of baseURLKey -> baseURLs
+     - parameter uploadAccess: Provides basic access to the network.
+     - parameter endPoints: Map of baseURLKey -> baseURLs
      */
-    public init(networkAccess: NetworkAccessProviding, endPoints: Dictionary<String, URL>) {
-        self.networkAccess = networkAccess
+
+    init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, URL>) {
+        self.uploadAccess = uploadAccess
         self.endPoints = endPoints
     }
     
-    public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
-                        onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
+    func upload<T: MultipartFormDataResourceModelling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
+                       onError: @escaping (DBNetworkStackError) -> (), onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> Void) {
         let baseURL = self.baseURL(with: resource)
-        let reuqest = resource.request.urlRequest(with: baseURL)
-        let dataTask = networkAccess.load(request: reuqest, callback: { data, response, error in
+        uploadAccess.upload(resource.request, relativeToBaseURL: baseURL, multipartFormData: resource.encodeInMultipartFormData,
+                            encodingMemoryThreshold: resource.encodingMemoryThreshold, callback: { data, response, error in
             self.processAsyncResponse(response: response, resource: resource, data: data, error: error, onCompletion: onCompletion, onError: onError)
+                
+        }, onNetworkTaskCreation: { task in
+            DispatchQueue.main.async(execute: {
+                onNetworkTaskCreation(task)
+            })
         })
-        return dataTask
     }
-    
 }

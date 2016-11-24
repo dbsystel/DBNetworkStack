@@ -1,5 +1,5 @@
 //
-//  DBNetworkStack.h
+//  ArrayResourceModeling.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,17 +22,16 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 22.08.16.
+//  Created by Lukas Schmidt on 11.10.16.
 //
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-//! Project version number for DBNetworkStack.
-FOUNDATION_EXPORT double DBNetworkStackVersionNumber;
-
-//! Project version string for DBNetworkStack.
-FOUNDATION_EXPORT const unsigned char DBNetworkStackVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <DBNetworkStack/PublicHeader.h>
-
-
+/**
+ `ArrayResourceModeling` describes a remote resource of generic type structured in an array.
+ The resource type can be fetched via HTTP(s) and parsed into the coresponding model object.
+ */
+public protocol ArrayResourceModeling: ResourceModeling {
+    associatedtype Element
+    associatedtype Model = Array<Element>
+}

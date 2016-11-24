@@ -1,24 +1,26 @@
 //
 //  NetworkServiceMock.swift
-//  DBNetworkStack
 //
-//	Legal Notice! DB Systel GmbH proprietary License!
+//  Copyright (C) 2016 DB Systel GmbH.
+//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
-//	Copyright (C) 2015 DB Systel GmbH
-//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
-
-//	This code is protected by copyright law and is the exclusive property of
-//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
-
-//	Consent to use ("licence") shall be granted solely on the basis of a
-//	written licence agreement signed by the customer and DB Systel GmbH. Any
-//	other use, in particular copying, redistribution, publication or
-//	modification of this code without written permission of DB Systel GmbH is
-//	expressly prohibited.
-
-//	In the event of any permitted copying, redistribution or publication of
-//	this code, no changes in or deletion of author attribution, trademark
-//	legend or copyright notice shall be made.
+//  Permission is hereby granted, free of charge, to any person obtaining a
+//  copy of this software and associated documentation files (the "Software"),
+//  to deal in the Software without restriction, including without limitation
+//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+//  and/or sell copies of the Software, and to permit persons to whom the
+//  Software is furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//  DEALINGS IN THE SOFTWARE.
 //
 //  Created by Lukas Schmidt on 30.08.16.
 //
@@ -26,40 +28,21 @@
 import Foundation
 import DBNetworkStack
 
-class NetworkTaskMock: NetworkTask {
-    var isCanceld = false
-    func cancel() {
-        isCanceld = true
-    }
-    
-    func resume() {
-        
-    }
-    
-    func suspend() {
-        
-    }
-    
-    var progress: NSProgress {
-        return NSProgress()
-    }
-}
-
 class NetworkAccessMock: NetworkAccessProviding {
-    private(set) var data: NSData?
-    private(set) var response: NSHTTPURLResponse?
-    private(set) var error: NSError?
+    fileprivate(set) var data: Data?
+    fileprivate(set) var response: HTTPURLResponse?
+    fileprivate(set) var error: NSError?
     
-     private(set) var request: NSURLRequest?
+     fileprivate(set) var request: URLRequest?
     
-    func load(request request: NSURLRequest, callback: (NSData?, NSHTTPURLResponse?, NSError?) -> ()) -> NetworkTask {
+    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTaskRepresenting {
         self.request = request
         callback(data, response, error)
         
         return NetworkTaskMock()
     }
     
-    func changeMock(data data: NSData?, response: NSHTTPURLResponse?, error: NSError?) {
+    func changeMock(data: Data?, response: HTTPURLResponse?, error: NSError?) {
         self.data = data
         self.response = response
         self.error = error
