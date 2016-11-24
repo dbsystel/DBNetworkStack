@@ -57,3 +57,32 @@ public enum DBNetworkStackError: Error {
     }
     
 }
+
+extension DBNetworkStackError : CustomDebugStringConvertible {
+    
+    public var debugDescription: String {
+        var result = ""
+        
+        switch self {
+        case .unknownError:
+            result = "Unknown error"
+        case .unauthorized(let response):
+            result = "Authorization error: \(response)"
+        case .clientError(let response):
+            result = "Client error: \(response)"
+        case .serializationError(let description, let data):
+            result = "Serialization error: \(description)"
+            if let data = data, let string = String(data: data, encoding: String.Encoding.utf8) {
+                result.append("\n\tdata: \(string)")
+            }
+        case .requestError(let error):
+            result = "Request error: \(error)"
+        case .serverError(let response):
+            result = "Server error: \(response)"
+        case .missingBaseURL:
+            result = "Missing base url error"
+        }
+        
+        return result
+    }
+}
