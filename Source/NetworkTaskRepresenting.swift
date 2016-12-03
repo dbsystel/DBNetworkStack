@@ -30,7 +30,7 @@ import Foundation
 /**
  `NetworkTaskRepresenting` is a task which runs async to fetch data.
   */
-public protocol NetworkTaskRepresenting {
+public protocol NetworkTaskRepresenting: class {
     /**
      Cancels a task.
      */
