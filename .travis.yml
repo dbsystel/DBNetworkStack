@@ -1,11 +1,30 @@
 language: objective-c
 osx_image: xcode8.1
 
-env:
-  - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
-  - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone SE' COVERAGE='-enableCodeCoverage NO'
-  - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
-  - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+    - os: osx
+      osx_image: xcode8.1
+	  language: objective-c
+    - env:
+		- ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
+		- ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone SE' COVERAGE='-enableCodeCoverage NO'
+		- ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
+		- ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; echo "load swift toolchain"          ; fi
+
+# env:
+#   - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
+#   - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone SE' COVERAGE='-enableCodeCoverage NO'
+#   - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
+#   - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
+#   - PLATFORM=SPM
 
 script:
-  - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO $COVERAGE | xcpretty
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO $COVERAGE | xcpretty ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO $COVERAGE | xcpretty ; fi
