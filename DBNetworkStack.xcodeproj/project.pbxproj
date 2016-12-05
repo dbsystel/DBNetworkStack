@@ -185,7 +185,8 @@
 				C699E0761D917501006FE7C6 /* DBNetworkStackErrorTest.swift */,
 				7C40B9FF1D9D67CD00620563 /* MultipartFormDataUploadServiceTests.swift */,
 			);
-			path = Tests;
+			name = Tests;
+			path = Tests/DBNetworkStackTests;
 			sourceTree = "<group>";
 		};
 		C60BE6A81D6B399A006B0364 /* protocol */ = {

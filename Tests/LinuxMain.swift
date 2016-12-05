@@ -1,7 +1,8 @@
 //
-//  Package.swift
+//  URLSessionNetworkAccessTest.swift
 //
-//  Copyright © 2016  Lukas Schmidt. All rights reserved.
+//  Copyright (C) 2016 DB Systel GmbH.
+//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -21,11 +22,10 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 21.07.16.
+//  Created by Lukas Schmidt on 05.12.16.
 //
 
-import PackageDescription
+import XCTest
+@testable import DBNetworkStack
 
-let package = Package(
-    name: "DBNetworkStack"
-)
+XCTMain([testCase(NetworkServiceTest.allTests)])

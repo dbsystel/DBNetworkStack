@@ -187,3 +187,13 @@ class NetworkServiceTest: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
 }
+
+#if os(Linux)
+    extension NetworkServiceTest: XCTestCaseProvider {
+        static var allTests: [(String, () throws -> Void)] {
+            return [
+                ("testValidRequest", testValidRequest),
+            ]
+        }
+    }
+#endif
