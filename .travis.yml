@@ -1,18 +1,10 @@
-language: objective-c
-
-# env:
-#   - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
-#   - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone SE' COVERAGE='-enableCodeCoverage NO'
-#   - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
-#   - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
-#   - PLATFORM=SPM
-
 matrix:
   include:
     - os: linux
       dist: trusty
       sudo: required
-      env: PLATFORM=SPM
+      language: generic
+      env: PLATFORM=SPM SWIFT_VERSION=swift-3.0.2-release
     - os: osx
       osx_image: xcode8.2
       language: objective-c
@@ -20,7 +12,7 @@ matrix:
     - os: osx
       osx_image: xcode8.2
       language: objective-c
-      env: ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone SE' COVERAGE='-enableCodeCoverage NO'
+      env: ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator' COVERAGE='-enableCodeCoverage NO'
     - os: osx
       osx_image: xcode8.2
       language: objective-c
@@ -35,7 +27,7 @@ matrix:
       env: PLATFORM=SPM
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "load swift toolchain"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)" ; fi
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO $COVERAGE | xcpretty ; fi
