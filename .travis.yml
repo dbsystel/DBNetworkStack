@@ -1,23 +1,42 @@
 language: objective-c
 
+# env:
+#   - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
+#   - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone SE' COVERAGE='-enableCodeCoverage NO'
+#   - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
+#   - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
+#   - PLATFORM=SPM
+
 matrix:
   include:
     - os: linux
       dist: trusty
       sudo: required
+      env: PLATFORM=SPM
     - os: osx
       osx_image: xcode8.2
+      language: objective-c
+      env: ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
+    - os: osx
+      osx_image: xcode8.2
+      language: objective-c
+      env: ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone SE' COVERAGE='-enableCodeCoverage NO'
+    - os: osx
+      osx_image: xcode8.2
+      language: objective-c
+      env: ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
+    - os: osx
+      osx_image: xcode8.2
+      language: objective-c
+      env: ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
+    - os: osx
+      osx_image: xcode8.2
+      language: objective-c
+      env: PLATFORM=SPM
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; echo "load swift toolchain"          ; fi
-
-env:
-  - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
-  - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone SE' COVERAGE='-enableCodeCoverage NO'
-  - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
-  - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
-  - PLATFORM=SPM
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "load swift toolchain"; fi
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO $COVERAGE | xcpretty ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; swift test ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO $COVERAGE | xcpretty ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then swift test ; fi
