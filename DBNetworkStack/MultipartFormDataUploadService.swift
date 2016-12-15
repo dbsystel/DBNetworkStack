@@ -41,7 +41,6 @@ final class MultipartFormDataUploadService: MultipartFormDataUploadServiceProvid
      - parameter uploadAccess: Provides basic access to the network.
      - parameter endPoints: Map of baseURLKey -> baseURLs
      */
-
     init(uploadAccess: MultipartFormDataUploadAccessProviding, endPoints: Dictionary<String, URL>) {
         self.uploadAccess = uploadAccess
         self.endPoints = endPoints
