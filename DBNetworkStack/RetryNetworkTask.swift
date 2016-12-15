@@ -72,6 +72,12 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
         self.onError = onError
     }
     
+    /**
+     Creates a error closure which can be used as to call the original service with.
+     
+     - return: the onError closure for a network request.
+     */
+    ///
     func createOnError() -> (DBNetworkStackError) -> () {
         return { error in
             if self.shouldRetry(error), self.numberOfRetriesLeft > 0 {

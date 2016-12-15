@@ -28,6 +28,9 @@
 
 import Foundation
 
+/**
+ `RetryNetworkService` can request resource. When a request fails with a given condtion it can retry the request after a given time interval. The count of retry attemps can be configured as well.
+ */
 public final class RetryNetworkService: NetworkServiceProviding {
     private let networkService: NetworkServiceProviding
     private let numberOfRetries: Int
@@ -35,6 +38,15 @@ public final class RetryNetworkService: NetworkServiceProviding {
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> () ) -> ()
     private let shouldRetry: (DBNetworkStackError) -> Bool
     
+    
+    /// Creates an instance of
+    ///
+    /// - Parameters:
+    ///   - networkService: a networkservice
+    ///   - numberOfRetries: the number of retrys before final error
+    ///   - idleTimeInterval: time between error and retry
+    ///   - shouldRetry: closure which evaluated if error should be retry
+    ///   - dispatchRetry: closure where to dispatch the waiting
     public init(networkService: NetworkServiceProviding, numberOfRetries: Int,
                 idleTimeInterval: TimeInterval, shouldRetry: @escaping (DBNetworkStackError) -> Bool,
                 dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> () ) -> ()) {
