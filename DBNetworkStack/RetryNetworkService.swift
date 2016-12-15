@@ -49,12 +49,15 @@ public final class RetryNetworkService: NetworkServiceProviding {
     ///   - dispatchRetry: closure where to dispatch the waiting
     public init(networkService: NetworkServiceProviding, numberOfRetries: Int,
                 idleTimeInterval: TimeInterval, shouldRetry: @escaping (DBNetworkStackError) -> Bool,
-                dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> () ) -> ()) {
+                dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> () ) -> () = { deadline, execute in
+            DispatchQueue.global(qos: .utility).asyncAfter(deadline: deadline, execute: execute)
+        }) {
         self.networkService = networkService
         self.numberOfRetries = numberOfRetries
         self.idleTimeInterval = idleTimeInterval
         self.shouldRetry = shouldRetry
         self.dispatchRetry = dispatchRetry
+        
     }
     
     public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
@@ -66,7 +69,6 @@ public final class RetryNetworkService: NetworkServiceProviding {
             self?.dispatchRetry(disptachTime, block)
         })
         retryTask.originalTask = networkService.request(resource, onCompletion: onCompletion, onError: retryTask.createOnError())
-        
         return retryTask
     }
     
