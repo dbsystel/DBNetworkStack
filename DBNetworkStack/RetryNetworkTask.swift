@@ -28,6 +28,8 @@
 
 import Foundation
 
+
+/// A NetworkTaskRepresenting which can be used together with `RetryNetworkService` to keep a task alife to repeat the task after a given time
 class RetryNetworkTask<T> : NetworkTaskRepresenting {
     private let maxmimumNumberOfRetries: Int
     private let idleTimeInterval: TimeInterval
@@ -42,6 +44,17 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
     private let retryAction: (@escaping (T) -> (), @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> () ) -> ()
     
+    
+    /// Creates an instance of `RetryNetworkTaks`
+    ///
+    /// - Parameters:
+    ///   - maxmimumNumberOfRetries: the number of retries the task can be restarted
+    ///   - idleTimeInterval: the thime interval between a failure and a retry
+    ///   - shouldRetry: closure which gets evaluated if a error should trigger a retry
+    ///   - onSuccess: closure which gets fired on success
+    ///   - onError: closure which gets fired on error
+    ///   - retryAction: closure which gets triggerd when retry starts
+    ///   - dispatchRetry: location where to dispatch the retry action
     init(maxmimumNumberOfRetries: Int, idleTimeInterval: TimeInterval, shouldRetry: @escaping (DBNetworkStackError) -> Bool, onSuccess: @escaping (T) -> (),
          onError: @escaping (DBNetworkStackError) -> (),
          retryAction: @escaping (@escaping (T) -> (), @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting,
