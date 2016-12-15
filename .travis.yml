@@ -4,31 +4,29 @@ matrix:
       dist: trusty
       sudo: required
       language: generic
-      env: PLATFORM=SPM SWIFT_VERSION=swift-3.0.2-release
+      before_install:
+        - wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import -
+        - cd ..
+        - export SWIFT_VERSION=swift-3.0-RELEASE
+        - wget https://swift.org/builds/swift-3.0-release/ubuntu1404/$SWIFT_VERSION/$SWIFT_VERSION-ubuntu14.04.tar.gz
+        - tar xzf $SWIFT_VERSION-ubuntu14.04.tar.gz
+        - export PATH="${PWD}/${SWIFT_VERSION}-ubuntu14.04/usr/bin:${PATH}"
+        - cd DBNetworkStack
+	  script:
+		- swift build --clean && swift build && swift test
     - os: osx
       osx_image: xcode8.2
       language: objective-c
-      env: ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
-    - os: osx
-      osx_image: xcode8.2
-      language: objective-c
-      env: ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator' COVERAGE='-enableCodeCoverage NO'
-    - os: osx
-      osx_image: xcode8.2
-      language: objective-c
-      env: ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
-    - os: osx
-      osx_image: xcode8.2
-      language: objective-c
-      env: ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
+      env: 
+        - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
+		- ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator, name=iPhone SE, OS=latest' COVERAGE='-enableCodeCoverage NO'
+		- ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
+		- ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
+	  script:
+		- set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO $COVERAGE | xcpretty
     - os: osx
       osx_image: xcode8.2
       language: objective-c
       env: PLATFORM=SPM
-
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; eval '$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)' ; fi
-
-script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO $COVERAGE | xcpretty ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then swift test ; fi
+  	  script:
+  	   - swift build --clean && swift build && swift test
