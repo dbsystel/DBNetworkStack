@@ -38,8 +38,7 @@ public final class RetryNetworkService: NetworkServiceProviding {
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> () ) -> ()
     private let shouldRetry: (DBNetworkStackError) -> Bool
     
-    
-    /// Creates an instance of
+    /// Creates an instance of `RetryNetworkService`
     ///
     /// - Parameters:
     ///   - networkService: a networkservice
@@ -57,9 +56,9 @@ public final class RetryNetworkService: NetworkServiceProviding {
         self.idleTimeInterval = idleTimeInterval
         self.shouldRetry = shouldRetry
         self.dispatchRetry = dispatchRetry
-        
     }
     
+    @discardableResult
     public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
                         onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
         let retryTask = RetryNetworkTask(maxmimumNumberOfRetries: numberOfRetries, idleTimeInterval: idleTimeInterval, shouldRetry: shouldRetry,
@@ -69,6 +68,7 @@ public final class RetryNetworkService: NetworkServiceProviding {
             self?.dispatchRetry(disptachTime, block)
         })
         retryTask.originalTask = networkService.request(resource, onCompletion: onCompletion, onError: retryTask.createOnError())
+        
         return retryTask
     }
     

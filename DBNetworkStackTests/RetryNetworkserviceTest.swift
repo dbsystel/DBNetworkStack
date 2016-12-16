@@ -26,79 +26,86 @@
 import XCTest
 @testable import DBNetworkStack
 
-
 class RetryNetworkserviceTest: XCTestCase {
-    let networkServiceMock = NetworkServiceMock()
-    let mockError: DBNetworkStackError = {
-        let url: URL! = URL(string: "bahn.de")
-        let response = HTTPURLResponse(url: url, statusCode: 503, httpVersion: nil, headerFields: nil)
-        return .serverError(response: response)
-    }()
+    var networkServiceMock: NetworkServiceMock!
+    let request = NetworkRequest(path: "", baseURLKey: "")
+    var resource: Resource<Int> {
+        return Resource(request: request, parse: {d in return 1})
+    }
     
-    func testRetryRequest() {
+    override func setUp() {
+        super.setUp()
+        networkServiceMock = NetworkServiceMock()
+    }
+    
+    override func tearDown() {
+        networkServiceMock = nil
+        super.tearDown()
+    }
+    
+    func testRetryRequest_shouldRetry() {
         //Given
-        let request = NetworkRequest(path: "", baseURLKey: "")
-        let ressource = Resource(request: request, parse: {d in return 1})
+        let errorCount = 2
+        let numberOfRetries = 3
+        var executedRetrys = 0
         
-        var retryCount = 0
+        //When
+        weak var task: NetworkTaskRepresenting?
+        task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: numberOfRetries,
+                                   idleTimeInterval: 0, shouldRetry: { err in return true}, dispatchRetry: {time, block in
+            executedRetrys += 1
+            block()
+        }).request(resource, onCompletion: { int in
+        }, onError: { err in
+            XCTFail()
+        })
+        networkServiceMock.returnError(error: .unknownError, count: errorCount)
+        
+        //Then
+        XCTAssertEqual(executedRetrys, numberOfRetries)
+        XCTAssertNil(task)
+    }
+    
+    func testRetryRequest_moreErrorsThenRetryAttemps() {
+        //Given
+        var executedRetrys = 0
         
         //When
         weak var task: NetworkTaskRepresenting?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
-                                   idleTimeInterval: 0, shouldRetry: { err in return true}, dispatchRetry: {time, block in
-            retryCount += 1
+                                   idleTimeInterval: 0, shouldRetry: { err in return true},
+                                   dispatchRetry: { time, block in
+            executedRetrys += 1
             block()
-        }).request(ressource, onCompletion: { int in
-        }, onError: { err in
-            XCTFail()
-        })
-        networkServiceMock.returnError(error: mockError, count: 2)
-        
-        //Then
-        XCTAssertEqual(retryCount, 3)
-        XCTAssertNil(task)
-    }
-    
-    func testRetryRequest_tooManyErrors() {
-        //Given
-        let request = NetworkRequest(path: "", baseURLKey: "")
-        let ressource = Resource(request: request, parse: {d in return 1})
-        var retryCount = 0
-        
-        //When
-        weak var task: NetworkTaskRepresenting?
-        task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3, idleTimeInterval: 0, shouldRetry: { err in return true}, dispatchRetry: {time, block in
-            retryCount += 1
-            block()
-        }).request(ressource, onCompletion: { int in
+        }).request(resource, onCompletion: { int in
             XCTFail()
         }, onError: { err in
         })
-        networkServiceMock.returnError(error: mockError, count: 3)
+        networkServiceMock.returnError(error: .unknownError, count: 3)
         
         //Then
-        XCTAssertEqual(retryCount, 3)
+        XCTAssertEqual(executedRetrys, 3)
         XCTAssertNil(task)
     }
     
     func testRetryRequest_shouldNotRetry() {
         //Given
-        let request = NetworkRequest(path: "", baseURLKey: "")
-        let ressource = Resource(request: request, parse: {d in return 1})
         let shoudlRetry = false
         var error: DBNetworkStackError?
         
         //When
         weak var task: NetworkTaskRepresenting?
-        task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3, idleTimeInterval: 0, shouldRetry: { err in return shoudlRetry }, dispatchRetry: { time, block in
+        task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
+                                   idleTimeInterval: 0, shouldRetry: { err in return shoudlRetry },
+                                   dispatchRetry: { time, block in
             XCTFail()
             block()
-        }).request(ressource, onCompletion: { int in
+        }).request(resource, onCompletion: { int in
             XCTFail()
         }, onError: { err in
            error = err
         })
-        networkServiceMock.returnError(error: mockError, count: 3)
+        networkServiceMock.returnError(error: .unknownError, count: 3)
         
         //Then
         XCTAssertNil(task)
