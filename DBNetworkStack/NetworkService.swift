@@ -45,6 +45,7 @@ public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
         self.endPoints = endPoints
     }
     
+    @discardableResult
     public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
                         onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
         let baseURL = self.baseURL(with: resource)

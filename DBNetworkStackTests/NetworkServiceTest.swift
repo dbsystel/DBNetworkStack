@@ -59,7 +59,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "loadValidRequest")
         
         //When
-        _ = networkService.request(resource, onCompletion: { train in
+        networkService.request(resource, onCompletion: { train in
             XCTAssertEqual(train.name, self.trainName)
             expection.fulfill()
             }, onError: { err in
@@ -78,7 +78,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testNoData")
         
         //When
-        _ = networkService.request(resource, onCompletion: { _ in
+        networkService.request(resource, onCompletion: { _ in
             XCTFail()
             }, onError: { error in
                 switch error {
@@ -101,7 +101,7 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectation(description: "testInvalidData")
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+        networkService.request(resource, onCompletion: { fetchedTrain in
             XCTFail()
             }, onError: { error in
                 if case .serializationError(_, _) = error {
@@ -120,7 +120,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testRequest_withFailingSerialization")
         
         //When
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+        networkService.request(resource, onCompletion: { fetchedTrain in
             XCTFail()
             }, onError: { error in
                 if case .serializationError(_, _) = error {
@@ -140,7 +140,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testOnError")
         
         //When
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+        networkService.request(resource, onCompletion: { fetchedTrain in
             }, onError: { resultError in
                 //Then
                 switch resultError {
@@ -163,7 +163,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testOnError")
         
         //When
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+        networkService.request(resource, onCompletion: { fetchedTrain in
             }, onError: { resultError in
                 //Then
                 switch resultError {
