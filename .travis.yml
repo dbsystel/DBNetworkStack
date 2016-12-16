@@ -12,16 +12,16 @@ matrix:
         - tar xzf $SWIFT_VERSION-ubuntu14.04.tar.gz
         - export PATH="${PWD}/${SWIFT_VERSION}-ubuntu14.04/usr/bin:${PATH}"
         - cd DBNetworkStack
-	  script:
-		- swift build --clean && swift build && swift test
+      script:
+        - swift build --clean && swift build && swift test
     - os: osx
       osx_image: xcode8.2
       language: objective-c
       env: 
         - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X' COVERAGE='-enableCodeCoverage NO'
-		- ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator, name=iPhone SE, OS=latest' COVERAGE='-enableCodeCoverage NO'
-		- ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
-		- ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
+        - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator, name=iPhone SE, OS=latest' COVERAGE='-enableCodeCoverage NO'
+        - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm' COVERAGE=''
+        - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p' COVERAGE='-enableCodeCoverage NO'
 	  script:
 		- set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "$DESTINATION" $ACTION CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO $COVERAGE | xcpretty
     - os: osx
