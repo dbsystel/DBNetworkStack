@@ -28,11 +28,12 @@
 import Foundation
 
 /**
- Adds conformens to `NetworkAccessProviding`. `NSURLSession` can now be used as a networkprovider.
+ Adds conformens to `NetworkAccessProviding`. `URLSession` can now be used as a networkprovider.
  */
 extension URLSession: URLSessionProtocol {}
 
 extension URLSessionDataTask: NetworkTaskRepresenting {
+    #if !os(Linux)
     public var progress: Progress {
         let totalBytesExpected = response?.expectedContentLength ?? NSURLSessionTransferSizeUnknown
         let progress = Progress(totalUnitCount: totalBytesExpected)
@@ -41,6 +42,7 @@ extension URLSessionDataTask: NetworkTaskRepresenting {
         
         return progress
     }
+    #endif
 }
 
 public protocol URLSessionProtocol: NetworkAccessProviding {

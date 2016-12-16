@@ -42,7 +42,9 @@ class NetworkTaskMock: NetworkTaskRepresenting {
         
     }
     
+    #if !os(Linux)
     var progress: Progress {
         return Progress()
     }
+    #endif
 }

@@ -64,7 +64,7 @@ public protocol NetworkRequestRepresening {
 
 extension NetworkRequestRepresening {
     /**
-     Transforms self into a equivalent `NSURLRequest` with a given baseURL.
+     Transforms self into a equivalent `URLRequest` with a given baseURL.
      
      - parameter baseURL: baseURL for the resulting request.
      - returns: the equivalent request

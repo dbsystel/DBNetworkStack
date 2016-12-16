@@ -31,7 +31,7 @@ import DBNetworkStack
 class NetworkAccessMock: NetworkAccessProviding {
     fileprivate(set) var data: Data?
     fileprivate(set) var response: HTTPURLResponse?
-    fileprivate(set) var error: NSError?
+    fileprivate(set) var error: Error?
     
      fileprivate(set) var request: URLRequest?
     
@@ -42,7 +42,7 @@ class NetworkAccessMock: NetworkAccessProviding {
         return NetworkTaskMock()
     }
     
-    func changeMock(data: Data?, response: HTTPURLResponse?, error: NSError?) {
+    func changeMock(data: Data?, response: HTTPURLResponse?, error: Error?) {
         self.data = data
         self.response = response
         self.error = error
