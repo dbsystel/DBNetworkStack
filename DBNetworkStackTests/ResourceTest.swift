@@ -29,13 +29,13 @@ import XCTest
 @testable import DBNetworkStack
 
 class ResourceTest: XCTestCase {
+    let request = NetworkRequest(path: "/trains", baseURLKey: "")
     
     func testResource() {
         //Given
-        let validData: Data! = "ICE".data(using: String.Encoding.utf8)
+        let validData: Data! = "ICE".data(using: .utf8)
 
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
-        let resource = Resource<String?>(request: request, parse: { String(data: $0, encoding: String.Encoding.utf8) })
+        let resource = Resource<String?>(request: request, parse: { String(data: $0, encoding: .utf8) })
         
         //When
         let name = try? resource.parse(validData)
@@ -47,13 +47,12 @@ class ResourceTest: XCTestCase {
     
     func testResourceWithInvalidData() {
         //Given
-        let validData = Data()
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
+        let data = Data()
         let resource = JSONResource<Train>(request: request)
         
         //When
         do {
-            let _ = try resource.parse(validData)
+            _ = try resource.parse(data)
             XCTFail()
         } catch { }
     }

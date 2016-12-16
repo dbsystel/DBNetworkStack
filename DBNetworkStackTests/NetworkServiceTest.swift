@@ -40,44 +40,45 @@ class NetworkServiceTest: XCTestCase {
     var networkService: NetworkServiceProviding!
     
     var networkAccess = NetworkAccessMock()
-    let trainName: String = "ICE"
     
+    let trainName = "ICE"
     let baseURL: URL! = URL(string: "//bahn.de")
+    
+    var resource: JSONResource<Train> {
+        let request = NetworkRequest(path:"train", baseURLKey: TestEndPoints.endPoint)
+        return JSONResource<Train>(request: request)
+    }
     
     override func setUp() {
         networkService = NetworkService(networkAccess: networkAccess, endPoints: ["endPointTestKey": baseURL])
     }
     
-    func testValidRequest() {
+    func testRequest_withValidREsponse() {
         //Given
-        let request = NetworkRequest(path: "/train", baseURLKey: TestEndPoints.endPoint)
-        let resource = JSONResource<Train>(request: request)
         networkAccess.changeMock(data: Train.validJSONData, response: nil, error: nil)
+        let expection = expectation(description: "loadValidRequest")
         
         //When
-        let expection = expectation(description: "loadValidRequest")
         _ = networkService.request(resource, onCompletion: { train in
-            //Then
             XCTAssertEqual(train.name, self.trainName)
-            XCTAssertEqual(self.networkAccess.request?.url?.absoluteString, "//bahn.de/train")
-            
             expection.fulfill()
             }, onError: { err in
                 XCTFail()
         })
         
         waitForExpectations(timeout: 1, handler: nil)
+        
+        //Then
+        XCTAssertEqual(networkAccess.request?.url?.absoluteString, "//bahn.de/train")
     }
 
-    func testNoData() {
+    func testRequest_withNoDataResponse() {
         //Given
-        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.endPoint)
-        let resource = JSONResource<Train>(request: request)
         networkAccess.changeMock(data: nil, response: nil, error: nil)
+        let expection = expectation(description: "testNoData")
         
         //When
-        let expection = expectation(description: "testNoData")
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+        _ = networkService.request(resource, onCompletion: { _ in
             XCTFail()
             }, onError: { error in
                 switch error {
@@ -90,13 +91,12 @@ class NetworkServiceTest: XCTestCase {
                 }
         })
         
-         waitForExpectations(timeout: 1, handler: nil)
+        //Then
+        waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testInvalidData() {
         //Given
-        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.endPoint)
-        let resource = JSONResource<Train>(request: request)
         networkAccess.changeMock(data: Train.invalidJSONData, response: nil, error: nil)
         
         //When
@@ -104,33 +104,9 @@ class NetworkServiceTest: XCTestCase {
         _ = networkService.request(resource, onCompletion: { fetchedTrain in
             XCTFail()
             }, onError: { error in
-                //Then
-                switch error {
-                case .serializationError(_, _):
+                if case .serializationError(_, _) = error {
                     expection.fulfill()
-                default:
-                    XCTFail()
-                }
-        })
-        
-         waitForExpectations(timeout: 1, handler: nil)
-    }
-    
-    func testInvalidJSONKeyData() {
-        //Given
-        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.endPoint)
-        let resource = JSONResource<Train>(request: request)
-        networkAccess.changeMock(data: Train.JSONDataWithInvalidKey, response: nil, error: nil)
-        
-        //When
-        let expection = expectation(description: "testInvalidJSONKeyData")
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
-            XCTFail()
-            }, onError: { error in
-                switch error {
-                case .serializationError(_, _):
-                    expection.fulfill()
-                default:
+                } else {
                     XCTFail()
                 }
         })
@@ -138,15 +114,32 @@ class NetworkServiceTest: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testOnError() {
+    func testRequest_withFailingSerialization() {
         //Given
-        let error = NSError(domain: "", code: 0, userInfo: nil)
-        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.endPoint)
-        let resource = JSONResource<Train>(request: request)
-        networkAccess.changeMock(data: nil, response: nil, error: error)
+        networkAccess.changeMock(data: Train.JSONDataWithInvalidKey, response: nil, error: nil)
+        let expection = expectation(description: "testRequest_withFailingSerialization")
         
         //When
+        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+            XCTFail()
+            }, onError: { error in
+                if case .serializationError(_, _) = error {
+                    expection.fulfill()
+                } else {
+                    XCTFail()
+                }
+        })
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testRequest_withErrorResponse() {
+        //Given
+        let error = NSError(domain: "", code: 0, userInfo: nil)
+        networkAccess.changeMock(data: nil, response: nil, error: error)
         let expection = expectation(description: "testOnError")
+        
+        //When
         _ = networkService.request(resource, onCompletion: { fetchedTrain in
             }, onError: { resultError in
                 //Then
@@ -162,16 +155,14 @@ class NetworkServiceTest: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testOnStatusCodeError() {
+    func testRequest_withStatusCode401Response() {
         //Given
-        let request = NetworkRequest(path:"/train", baseURLKey: TestEndPoints.endPoint)
-        let resource = JSONResource<Train>(request: request)
         let url: URL! = URL(string: "https://bahn.de")
         let response = HTTPURLResponse(url: url, statusCode: 401, httpVersion: nil, headerFields: nil)
         networkAccess.changeMock(data: nil, response: response, error: nil)
+        let expection = expectation(description: "testOnError")
         
         //When
-        let expection = expectation(description: "testOnError")
         _ = networkService.request(resource, onCompletion: { fetchedTrain in
             }, onError: { resultError in
                 //Then

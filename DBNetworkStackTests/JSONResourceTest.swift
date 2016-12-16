@@ -29,11 +29,12 @@ import XCTest
 @testable import DBNetworkStack
 
 class JSONResourceTest: XCTestCase {
-    func testResource() {
-        //Given
+    var resource: JSONResource<Train> {
         let request = NetworkRequest(path: "/train", baseURLKey: "")
-        let resource = JSONResource<Train>(request: request)
-        
+        return JSONResource<Train>(request: request)
+    }
+    
+    func testResource_withValidData() {
         //When
         let fetchedTrain = try? resource.parse(Train.validJSONData)
        
@@ -42,14 +43,10 @@ class JSONResourceTest: XCTestCase {
         XCTAssertEqual(fetchedTrain?.name, "ICE")
     }
     
-    func testResourceWithInvalidData() {
-        //Given
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
-        let resource = JSONResource<Train>(request: request)
-        
+    func testResource_WithInvalidData() {
         //When
         do {
-            let _ = try resource.parse(Train.invalidJSONData)
+            _ = try resource.parse(Train.invalidJSONData)
             XCTFail()
         } catch {
         }
