@@ -26,6 +26,7 @@
 //
 
 import Foundation
+import Dispatch
 
 /**
  `NetworkServiceProviding` provides access to remote resources.
