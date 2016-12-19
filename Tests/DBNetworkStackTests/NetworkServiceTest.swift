@@ -25,6 +25,7 @@
 //  Created by Lukas Schmidt on 26.07.16.
 //
 
+import Foundation
 import XCTest
 @testable import DBNetworkStack
 
@@ -37,6 +38,19 @@ enum TestEndPoints: BaseURLKey {
 }
 
 class NetworkServiceTest: XCTestCase {
+    
+    public static var allTests = {
+        return [
+            ("testRequest_withValidREsponse", testRequest_withValidREsponse)
+            //            ,
+            //            ("testNoData", testNoData),
+            //            ("testInvalidData", testInvalidData),
+            //            ("testInvalidJSONKeyData", testInvalidJSONKeyData),
+            //            ("testOnError", testOnError),
+            //            ("testOnStatusCodeError", testOnStatusCodeError)
+        ]
+    }()
+    
     var networkService: NetworkServiceProviding!
     
     var networkAccess = NetworkAccessMock()
