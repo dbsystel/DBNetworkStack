@@ -25,6 +25,7 @@
 //  Created by Christian Himmelsbach on 29.09.16.
 //
 
+import Foundation
 import XCTest
 @testable import DBNetworkStack
 
