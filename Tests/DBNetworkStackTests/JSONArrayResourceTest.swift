@@ -30,11 +30,13 @@ import XCTest
 @testable import DBNetworkStack
 
 class JSONArrayResourceTest: XCTestCase {
-    func testResource() {
-        //Given
+    
+    var resource: JSONArrayResource<Train> {
         let request = NetworkRequest(path: "/trains", baseURLKey: "")
-        let resource = JSONArrayResource<Train>(request: request)
-        
+        return JSONArrayResource<Train>(request: request)
+    }
+    
+    func testResource_withValidData() {
         //When
         let fetchedTrains = try? resource.parse(Train.validJSONArrayData)
         
@@ -45,11 +47,7 @@ class JSONArrayResourceTest: XCTestCase {
         XCTAssertEqual(fetchedTrains?.last?.name, "TGV")
     }
     
-    func testResourceWithInvalidData() {
-        //Given
-        let request = NetworkRequest(path: "/trains", baseURLKey: "")
-        let resource = JSONArrayResource<Train>(request: request)
-        
+    func testResource_WithInvalidData() {
         //When
         do {
             let _ = try resource.parse(Train.invalidJSONData)
@@ -59,11 +57,7 @@ class JSONArrayResourceTest: XCTestCase {
         }
     }
     
-    func testResourceWithInvalidContainer() {
-        //Given
-        let request = NetworkRequest(path: "/trains", baseURLKey: "")
-        let resource = JSONArrayResource<Train>(request: request)
-        
+    func testResource_WithInvalidContainer() {
         //When
         do {
             let _ = try resource.parse(Train.validJSONData)

@@ -41,6 +41,7 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
      
      - returns: the request
      */
+    @discardableResult
     func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
                  onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting
 }

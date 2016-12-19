@@ -20,46 +20,36 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 //
-//  NetworkServiceMock.swift
+//  URLSessionProtocolMock.swift
 //  DBNetworkStack
 //
-//  Created by Lukas Schmidt on 14.12.16.
+//  Created by Lukas Schmidt on 16.12.16.
 //
 
 import Foundation
-import DBNetworkStack
+@testable import DBNetworkStack
 
-
-class NetworkServiceMock: NetworkServiceProviding {
-    private var onErrorCallback: ((DBNetworkStackError) -> ())?
-    private var onSuccess: (() -> ())?
+class URLSessionProtocolMock: URLSessionProtocol {
+    var request: URLRequest?
+    var callback: ((Data?, URLResponse?, Error?) -> Void)?
     
-    var requestCount: Int = 0
-
-    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
-                 onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
-        onSuccess = {
-             onCompletion(try! resource.parse(Data()))
-        }
-        onErrorCallback = { error in
-            onError(error)
-        }
+    #if os(Linux)
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, NSError?) -> Void) -> URLSessionDataTask {
+        self.request = request
+        self.callback = { data, response, error in
+        completionHandler(data, response, error as! NSError)
+    }
+    
+    let url: URL! = URL(string: "http://bahn.de")
+    return URLSession(configuration: .default).dataTask(with: url)
+    }
+    #else
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        self.request = request
+        self.callback = completionHandler
         
-        return NetworkTaskMock()
+        let url: URL! = URL(string: "http://bahn.de")
+        return URLSession(configuration: .default).dataTask(with: url)
     }
-    
-
-    func returnError(error: DBNetworkStackError, count: Int = 1) {
-        for _ in 0...count {
-            onErrorCallback?(error)
-        }
-        onErrorCallback = nil
-    }
-    
-    func returnSuccess(count: Int = 1) {
-        for _ in 0...count {
-            onSuccess?()
-        }
-        onSuccess = nil
-    }
+    #endif
 }

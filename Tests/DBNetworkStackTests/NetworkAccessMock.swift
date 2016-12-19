@@ -1,5 +1,5 @@
 //
-//  Resource.swift
+//  NetworkServiceMock.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,31 +22,30 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 21.07.16.
+//  Created by Lukas Schmidt on 30.08.16.
 //
 
 import Foundation
+import DBNetworkStack
 
-/**
- `Resource` describes a remote resource of generic type.
- The type can be fetched via HTTP(s) and parsed into the coresponding model object.
- */
-public struct Resource<Model>: ResourceModeling {
-    public let request: NetworkRequestRepresening
-    public let parse: (_ data: Data) throws -> Model
+class NetworkAccessMock: NetworkAccessProviding {
+    fileprivate(set) var data: Data?
+    fileprivate(set) var response: HTTPURLResponse?
+    fileprivate(set) var error: NSError?
     
-    public init(request: NetworkRequestRepresening, parse: @escaping (Data) throws -> Model) {
+    fileprivate(set) var request: URLRequest?
+    
+    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTaskRepresenting {
         self.request = request
-        self.parse = parse
+        
+        callback(data, response, error)
+        
+        return NetworkTaskMock()
     }
-}
-
-public extension ResourceModeling {
     
-    /// Wrappes self into a `Resource` to hide away implementation details. This could be helpful when you think your typeinformation gets leaked.
-    ///
-    /// - Returns: the wrapped ressource
-    func wrapped() -> Resource<Model> {
-        return Resource(request: request, parse: parse)
+    func changeMock(data: Data?, response: HTTPURLResponse?, error: NSError?) {
+        self.data = data
+        self.response = response
+        self.error = error
     }
 }
