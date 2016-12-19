@@ -9,6 +9,7 @@
 | &#127968; | Protocol oriented architecture |
 | 🔀        | Exchangeable implementations   |
 | 🚄        | Extendable API                 |
+| 🎹        | Composable Features            |
 | &#9989;   | Fully unit tested              |
 
 The idea behind this project comes from this [talk.objc.io article](https://talk.objc.io/episodes/S01E01-networking).
@@ -107,7 +108,11 @@ The following table shows all the protocols and their default implementations.
 | ```NetworkTaskRepresenting```    | ```NSURLSessionTask``` |
 | ```ResourceModelling```          | ```Resource<Model>```  |
 
+## Composable Features
 
+| Class                         | Feature |
+| -------------------------------- | ---------------------- |
+| ```RetryNetworkService```        | Retrys requests after a given delay when an error meets given criteria. |
 
 ## Requirements
 
