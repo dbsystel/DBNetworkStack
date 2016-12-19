@@ -32,6 +32,12 @@ import XCTest
 class ResourceTest: XCTestCase {
     let request = NetworkRequest(path: "/trains", baseURLKey: "")
     
+    public static var allTests = {
+        return [
+            ("testResource", testResource)
+        ]
+    }()
+    
     func testResource() {
         //Given
         let validData: Data! = "ICE".data(using: .utf8)
