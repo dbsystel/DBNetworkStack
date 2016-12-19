@@ -136,7 +136,7 @@ class NetworkServiceTest: XCTestCase {
         //When
         networkService.request(resource, onCompletion: { fetchedTrain in
             XCTFail()
-            }, onError: { error in
+        }, onError: { (error: DBNetworkStackError) in
                 if case .serializationError(_, _) = error {
                     expection.fulfill()
                 } else {
