@@ -40,6 +40,26 @@ class URLSessionProtocolMock: URLSessionProtocol {
         let url: URL! = URL(string: "http://bahn.de")
         return URLSession(configuration: .default).dataTask(with: url)
     }
+    #if !os(Linux)
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, NSError?) -> Void) -> URLSessionDataTask {
+    self.request = request
+        self.callback = { data, response, error in
+            completionHandler(data, response, error as! NSError)
+        }
+    
+    let url: URL! = URL(string: "http://bahn.de")
+    return URLSession(configuration: .default).dataTask(with: url)
+    }
+    #else
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        self.request = request
+        self.callback = completionHandler
+        
+        let url: URL! = URL(string: "http://bahn.de")
+        return URLSession(configuration: .default).dataTask(with: url)
+    }
+    #endif
+
 }
 
 class URLSessionNetworkAccessTest: XCTestCase {
