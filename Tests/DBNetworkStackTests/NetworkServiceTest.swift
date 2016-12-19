@@ -41,7 +41,12 @@ class NetworkServiceTest: XCTestCase {
     
     public static var allTests = {
         return [
-            ("testValidRequest", testValidRequest)
+            ("testValidRequest", testValidRequest),
+            ("testNoData", testNoData),
+            ("testInvalidData", testInvalidData),
+            ("testInvalidJSONKeyData", testInvalidJSONKeyData),
+            ("testOnError", testOnError),
+            ("testOnStatusCodeError", testOnStatusCodeError),
         ]
     }()
     
