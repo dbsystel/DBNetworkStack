@@ -1,5 +1,5 @@
 //
-//  JSONArrayResourceTest.swift
+//  NetworkServiceMock.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,46 +22,30 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 01.09.16.
+//  Created by Lukas Schmidt on 30.08.16.
 //
 
-import XCTest
-@testable import DBNetworkStack
+import Foundation
+import DBNetworkStack
 
-class JSONArrayResourceTest: XCTestCase {
+class NetworkAccessMock: NetworkAccessProviding {
+    fileprivate(set) var data: Data?
+    fileprivate(set) var response: HTTPURLResponse?
+    fileprivate(set) var error: NSError?
     
-    var resource: JSONArrayResource<Train> {
-        let request = NetworkRequest(path: "/trains", baseURLKey: "")
-        return JSONArrayResource<Train>(request: request)
-    }
+    fileprivate(set) var request: URLRequest?
     
-    func testResource_withValidData() {
-        //When
-        let fetchedTrains = try? resource.parse(Train.validJSONArrayData)
+    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTaskRepresenting {
+        self.request = request
         
-        //Then
-        XCTAssertNotNil(fetchedTrains)
-        XCTAssertEqual(fetchedTrains?.count, 3)
-        XCTAssertEqual(fetchedTrains?.first?.name, "ICE")
-        XCTAssertEqual(fetchedTrains?.last?.name, "TGV")
+        callback(data, response, error)
+        
+        return NetworkTaskMock()
     }
     
-    func testResource_WithInvalidData() {
-        //When
-        do {
-            let _ = try resource.parse(Train.invalidJSONData)
-            XCTFail()
-        } catch {
-            
-        }
-    }
-    
-    func testResource_WithInvalidContainer() {
-        //When
-        do {
-            let _ = try resource.parse(Train.validJSONData)
-            XCTFail()
-        } catch {
-        }
+    func changeMock(data: Data?, response: HTTPURLResponse?, error: NSError?) {
+        self.data = data
+        self.response = response
+        self.error = error
     }
 }
