@@ -190,7 +190,7 @@ class NetworkServiceTest: XCTestCase {
 }
 
 #if os(Linux)
-    extension NetworkServiceTest: XCTestCaseProvider {
+    extension NetworkServiceTest {
         static var allTests: [(String, () throws -> Void)] {
             return [
                 ("testValidRequest", testValidRequest),
