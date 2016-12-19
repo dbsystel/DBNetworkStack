@@ -93,17 +93,20 @@ extension NetworkResponseProcessing {
                 data: data,
                 error: error
             )
-            DispatchQueue.main.async {
-                onCompletion(parsed)
-            }
+            onCompletion(parsed)
+//            DispatchQueue.main.async {
+//                onCompletion(parsed)
+//            }
         } catch let parsingError as DBNetworkStackError {
-            DispatchQueue.main.async {
-                return onError(parsingError)
-            }
+            return onError(parsingError)
+//            DispatchQueue.main.async {
+//                return onError(parsingError)
+//            }
         } catch {
-            DispatchQueue.main.async {
-                return onError(.unknownError)
-            }
+            return onError(.unknownError)
+//            DispatchQueue.main.async {
+//                return onError(.unknownError)
+//            }
         }
     }
     
