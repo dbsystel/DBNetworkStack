@@ -29,7 +29,8 @@
 import Foundation
 
 /**
- `RetryNetworkService` can request resource. When a request fails with a given condtion it can retry the request after a given time interval. The count of retry attemps can be configured as well.
+ `RetryNetworkService` can request resource. When a request fails with a given condtion it can retry the request after a given time interval.
+ The count of retry attemps can be configured as well.
  */
 public final class RetryNetworkService: NetworkServiceProviding {
     private let networkService: NetworkServiceProviding

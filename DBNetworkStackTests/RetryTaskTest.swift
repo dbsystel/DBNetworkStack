@@ -49,7 +49,8 @@ class RetryTaskTest: XCTestCase {
     func testDontHoldReference_Sucess() {
         //Given
         var successValue: Int?
-        var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 1, idleTimeInterval: 1, shouldRetry: { err in return true}, onSuccess: { (t: Int) in
+        var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 1, idleTimeInterval: 1,
+                                                            shouldRetry: { err in return true}, onSuccess: { (t: Int) in
             successValue = t
         }, onError: { err in
         }, retryAction: {sucess, _ in
@@ -75,7 +76,8 @@ class RetryTaskTest: XCTestCase {
     func testDontHoldReference_CreatingErrorClosure() {
         //Given
         var numerOfRertrys = 0
-        var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3, shouldRetry: { err in return true}, onSuccess: { (t: Int) in
+        var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
+                                                            shouldRetry: { err in return true}, onSuccess: { (t: Int) in
         }, onError: { err in
         }, retryAction: {success, error in
             numerOfRertrys += 1
@@ -106,7 +108,8 @@ class RetryTaskTest: XCTestCase {
     
     func testDontHoldReference_CancleTask() {
         var numerOfRertrys = 0
-        var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3, shouldRetry: { err in return true}, onSuccess: { (t: Int) in
+        var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
+                                                            shouldRetry: { err in return true}, onSuccess: { (t: Int) in
         }, onError: { err in
         }, retryAction: {a, b in
             numerOfRertrys += 1
@@ -136,7 +139,8 @@ class RetryTaskTest: XCTestCase {
     
     func testShouldNotRetry() {
         var error: DBNetworkStackError?
-        var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3, shouldRetry: { err in return false}, onSuccess: { _ in
+        var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
+                                                            shouldRetry: { err in return false}, onSuccess: { _ in
             
         }, onError: { err in
             error = err

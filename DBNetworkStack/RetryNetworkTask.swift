@@ -28,7 +28,6 @@
 
 import Foundation
 
-
 /// A NetworkTaskRepresenting which can be used together with `RetryNetworkService` to keep a task alife to repeat the task after a given time
 class RetryNetworkTask<T> : NetworkTaskRepresenting {
     private let maxmimumNumberOfRetries: Int
@@ -43,7 +42,6 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
     
     private let retryAction: (@escaping (T) -> (), @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> () ) -> ()
-    
     
     /// Creates an instance of `RetryNetworkTaks`
     ///
