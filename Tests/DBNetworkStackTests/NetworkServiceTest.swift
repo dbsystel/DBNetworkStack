@@ -64,6 +64,13 @@ class NetworkServiceTest: XCTestCase {
     
     func testTrue() {
         XCTAssert(true)
+        //Given
+        let request = NetworkRequest(path: "/train", baseURLKey: TestEndPoints.endPoint)
+        let resource = JSONResource<Train>(request: request)
+        //networkAccess.changeMock(data: Train.validJSONData, response: nil, error: nil)
+        
+        //When
+        let expection = expectation(description: "loadValidRequest")
     }
     
     func testValidRequest() {
