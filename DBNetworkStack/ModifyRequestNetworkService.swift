@@ -28,16 +28,23 @@
 
 import Foundation
 
+
+/// `ModifyRequestNetworkService` can be composed with a networkService to modify all outgoing requests. One could add auth tokens or API keys for specifics URLs.
 public final class ModifyRequestNetworkService: NetworkServiceProviding {
     
     private let requestModifications: Array<(NetworkRequestRepresening) -> NetworkRequestRepresening>
     private let networkService: NetworkServiceProviding
     
-    init(networkService: NetworkServiceProviding, requestModifications: Array<(NetworkRequestRepresening) -> NetworkRequestRepresening>) {
+    
+    /// Creates an insatcne of `ModifyRequestNetworkService`.
+    ///
+    /// - Parameters:
+    ///   - networkService: a networkservice.
+    ///   - requestModifications: array of modifications to modify requests.
+    public init(networkService: NetworkServiceProviding, requestModifications: Array<(NetworkRequestRepresening) -> NetworkRequestRepresening>) {
         self.networkService = networkService
         self.requestModifications = requestModifications
     }
-    
     
     public func request<T : ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
         let request = requestModifications.reduce(resource.request, { request, modify in
@@ -47,8 +54,6 @@ public final class ModifyRequestNetworkService: NetworkServiceProviding {
         return networkService.request(newResource, onCompletion: onCompletion, onError: onError)
     }
 }
-
-
 
 public extension NetworkRequestRepresening {
     
@@ -75,7 +80,7 @@ extension Dictionary {
     ///
     /// - Parameter HTTPHeaderFields: the header fileds to add to the request
     /// - Returns: a new `NetworkRequestRepresening`
-    func merged(with dictionary: Dictionary<Key, Value>) -> Dictionary<Key, Value>  {
+    func merged(with dictionary: Dictionary<Key, Value>) -> Dictionary<Key, Value> {
         var copySelf = self
         for (key, value) in self {
             copySelf[key] = value
