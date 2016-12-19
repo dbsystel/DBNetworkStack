@@ -191,12 +191,19 @@ class NetworkServiceTest: XCTestCase {
     }
 }
 
+extension NetworkServiceTest {
+    static var allTests = {
+        return [
+            ("testValidRequest", testValidRequest)
+        ]
+    }()
+}
 #if os(Linux)
     extension NetworkServiceTest {
-        static var allTests: [(String, () throws -> Void)] {
+        static var allTests = {
             return [
-                ("testValidRequest", testValidRequest),
+                ("testValidRequest", testValidRequest)
             ]
-        }
+        }()
     }
 #endif
