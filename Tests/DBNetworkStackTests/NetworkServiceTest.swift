@@ -148,7 +148,7 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectation(description: "testOnError")
-        _ = networkService.request(resource, onCompletion: { _ in
+        networkService.request(resource, onCompletion: { (result: Train) in
             XCTFail()
             }, onError: { (resultError: DBNetworkStackError) in
                 //Then
