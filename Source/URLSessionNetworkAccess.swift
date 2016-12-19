@@ -46,7 +46,12 @@ extension URLSessionDataTask: NetworkTaskRepresenting {
 }
 
 public protocol URLSessionProtocol: NetworkAccessProviding {
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
+    #if os(Linux)
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, NSError?) -> Void) -> URLSessionDataTask
+    #else
+     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
+    #endif
+    
 }
 
 public extension URLSessionProtocol {
