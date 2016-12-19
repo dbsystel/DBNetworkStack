@@ -106,11 +106,13 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
         originalTask?.suspend()
     }
     
+    #if !os(Linux)
     var progress: Progress {
         guard let task = originalTask else {
             fatalError("OrginalTask has to be set")
         }
         return task.progress
     }
+    #endif
     
 }
