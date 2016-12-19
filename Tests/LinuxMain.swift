@@ -26,6 +26,6 @@
 //
 
 import XCTest
-@testable import DBNetworkStack
+@testable import DBNetworkStackTests
 
 XCTMain([testCase(NetworkServiceTest.allTests)])
