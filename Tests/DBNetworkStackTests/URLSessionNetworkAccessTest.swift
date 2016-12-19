@@ -33,22 +33,15 @@ class URLSessionProtocolMock: URLSessionProtocol {
     var request: URLRequest?
     var callback: ((Data?, URLResponse?, Error?) -> Void)?
 
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    #if os(Linux)
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, NSError?) -> Void) -> URLSessionDataTask {
         self.request = request
-        self.callback = completionHandler
+            self.callback = { data, response, error in
+                completionHandler(data, response, error as! NSError)
+            }
         
         let url: URL! = URL(string: "http://bahn.de")
         return URLSession(configuration: .default).dataTask(with: url)
-    }
-    #if !os(Linux)
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, NSError?) -> Void) -> URLSessionDataTask {
-    self.request = request
-        self.callback = { data, response, error in
-            completionHandler(data, response, error as! NSError)
-        }
-    
-    let url: URL! = URL(string: "http://bahn.de")
-    return URLSession(configuration: .default).dataTask(with: url)
     }
     #else
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
