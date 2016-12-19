@@ -16,7 +16,7 @@ matrix:
 #         - export PATH="${PWD}/swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a-ubuntu14.04/usr/bin:${PATH}"
         - cd DBNetworkStack
       script:
-        - swift build --clean && swift build && swift test
+        - swift build --clean && swift build && swift test --verbose
     - os: osx
       osx_image: xcode8.2
       language: objective-c
