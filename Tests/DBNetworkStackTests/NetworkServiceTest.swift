@@ -78,9 +78,9 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectation(description: "testNoData")
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+        _ = networkService.request(resource, onCompletion: { _ in
             XCTFail()
-            }, onError: { error in
+        }, onError: { (error: DBNetworkStackError) in
                 switch error {
                 case .serializationError(let description, let data):
                     XCTAssertEqual("No data to serialize revied from the server", description)
@@ -102,9 +102,9 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectation(description: "testInvalidData")
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+        _ = networkService.request(resource, onCompletion: { _ in
             XCTFail()
-            }, onError: { error in
+            }, onError: { (error: DBNetworkStackError) in
                 //Then
                 switch error {
                 case .serializationError(_, _):
@@ -125,9 +125,9 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectation(description: "testInvalidJSONKeyData")
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+        _ = networkService.request(resource, onCompletion: { _ in
             XCTFail()
-            }, onError: { error in
+            }, onError: { (error: DBNetworkStackError) in
                 switch error {
                 case .serializationError(_, _):
                     expection.fulfill()
@@ -148,7 +148,8 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectation(description: "testOnError")
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
+        _ = networkService.request(resource, onCompletion: { _ in
+            XCTFail()
             }, onError: { resultError in
                 //Then
                 switch resultError {
@@ -173,10 +174,11 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectation(description: "testOnError")
-        _ = networkService.request(resource, onCompletion: { fetchedTrain in
-            }, onError: { resultError in
+        _ = networkService.request(resource, onCompletion: { _ in
+            XCTFail()
+            }, onError: { (error: DBNetworkStackError) in
                 //Then
-                switch resultError {
+                switch error {
                 case .unauthorized(let res):
                     XCTAssertEqual(res, response)
                     expection.fulfill()
