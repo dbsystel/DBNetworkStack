@@ -38,6 +38,13 @@ enum TestEndPoints: BaseURLKey {
 }
 
 class NetworkServiceTest: XCTestCase {
+    
+    public static var allTests = {
+        return [
+            ("testValidRequest", testValidRequest)
+        ]
+    }()
+    
     var networkService: NetworkServiceProviding!
     
     var networkAccess = NetworkAccessMock()
@@ -189,12 +196,4 @@ class NetworkServiceTest: XCTestCase {
         
         waitForExpectations(timeout: 1, handler: nil)
     }
-}
-
-extension NetworkServiceTest {
-    static var allTests = {
-        return [
-            ("testValidRequest", testValidRequest)
-        ]
-    }()
 }
