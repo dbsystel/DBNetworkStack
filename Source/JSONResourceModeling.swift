@@ -79,7 +79,7 @@ extension JSONResourceModeling {
     fileprivate func parseContainer<Container>(_ data: Data) throws -> Container {
         let jsonObject = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
         guard let container = jsonObject as? Container else {
-            let userInfo =  ["error": "Expected container of type: \(Container.self), but got \(type(of: (jsonObject) as AnyObject))"]
+            let userInfo =  ["error": "Expected container of type: \(Container.self), but got \(type(of: (jsonObject)))"]
             throw NSError(domain: "Parsing Error", code: 0, userInfo: userInfo)
         }
         
