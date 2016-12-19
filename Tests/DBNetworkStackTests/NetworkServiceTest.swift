@@ -198,12 +198,3 @@ extension NetworkServiceTest {
         ]
     }()
 }
-#if os(Linux)
-    extension NetworkServiceTest {
-        static var allTests = {
-            return [
-                ("testValidRequest", testValidRequest)
-            ]
-        }()
-    }
-#endif
