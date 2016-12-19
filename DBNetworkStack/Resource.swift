@@ -40,3 +40,13 @@ public struct Resource<Model>: ResourceModeling {
         self.parse = parse
     }
 }
+
+public extension ResourceModeling {
+    
+    /// Wrappes self into a `Resource` to hide away implementation details. This could be helpful when you think your typeinformation gets leaked.
+    ///
+    /// - Returns: the wrapped ressource
+    func wrapped() -> Resource<Model> {
+        return Resource(request: request, parse: parse)
+    }
+}

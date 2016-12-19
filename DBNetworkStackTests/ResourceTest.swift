@@ -56,4 +56,15 @@ class ResourceTest: XCTestCase {
             XCTFail()
         } catch { }
     }
+    
+    func testCreateRessourceFromOtherRessource() {
+        //Given
+        let request = NetworkRequest(path: "/trains", baseURLKey: "")
+        let arrayResource = JSONArrayResource<Train>(request: request)
+        
+        //When
+        let ressource = arrayResource.wrapped()
+        
+        XCTAssert(ressource is Resource<Array<Train>>)
+    }
 }
