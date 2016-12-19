@@ -32,9 +32,11 @@ import XCTest
 class ResourceTest: XCTestCase {
     let request = NetworkRequest(path: "/trains", baseURLKey: "")
     
-    public static var allTests = {
+    static var allTests = {
         return [
-            ("testResource", testResource)
+            ("testResource", testResource),
+            ("testResourceWithInvalidData", testResourceWithInvalidData),
+            ("testCreateRessourceFromOtherRessource", testCreateRessourceFromOtherRessource)
         ]
     }()
     

@@ -31,6 +31,15 @@ import XCTest
 
 class URLSessionNetworkAccessTest: XCTestCase {
     
+    static var allTests = {
+        return [
+            ("testURLSession_MatchesTypeOfNetworkAccess", testURLSession_MatchesTypeOfNetworkAccess),
+            ("test_URLSessionCreatsDataTask", test_URLSessionCreatsDataTask),
+            ("testURLSession_CallbackGetsRegistered", testURLSession_CallbackGetsRegistered),
+            ("testURLSession_DataTaksGetsResumed", testURLSession_DataTaksGetsResumed)
+        ]
+    }()
+    
     var urlSessionMock: URLSessionProtocolMock!
     let url: URL! = URL(string: "http://bahn.de")
     var urlRequest: URLRequest {

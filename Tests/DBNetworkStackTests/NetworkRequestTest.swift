@@ -31,6 +31,11 @@ import XCTest
 
 class NetworkRequestTest: XCTestCase {
     
+    static var allTests = {
+        return [
+            ("testURLRequestTranformation", testURLRequestTranformation)        ]
+    }()
+    
     func testURLRequestTranformation() {
         //Given
         let path = "/index.html"
