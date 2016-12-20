@@ -28,13 +28,12 @@
 
 import Foundation
 
-
-/// `ModifyRequestNetworkService` can be composed with a networkService to modify all outgoing requests. One could add auth tokens or API keys for specifics URLs.
+/// `ModifyRequestNetworkService` can be composed with a networkService to modify all outgoing requests.
+/// One could add auth tokens or API keys for specifics URLs.
 public final class ModifyRequestNetworkService: NetworkServiceProviding {
     
     private let requestModifications: Array<(NetworkRequestRepresening) -> NetworkRequestRepresening>
     private let networkService: NetworkServiceProviding
-    
     
     /// Creates an insatcne of `ModifyRequestNetworkService`.
     ///
@@ -46,7 +45,8 @@ public final class ModifyRequestNetworkService: NetworkServiceProviding {
         self.requestModifications = requestModifications
     }
     
-    public func request<T : ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
+    public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
+                        onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         let request = requestModifications.reduce(resource.request, { request, modify in
             return modify(request)
         })
@@ -57,20 +57,26 @@ public final class ModifyRequestNetworkService: NetworkServiceProviding {
 
 public extension NetworkRequestRepresening {
     
-    /// Creates a new `NetworkRequestRepresening` with HTTPHeaderFields added into the new request. Keep in mind that this overrides header fields which are already contained
+    /// Creates a new `NetworkRequestRepresening` with HTTPHeaderFields added into the new request.
+    /// Keep in mind that this overrides header fields which are already contained
     ///
     /// - Parameter HTTPHeaderFields: the header fileds to add to the request
     /// - Returns: a new `NetworkRequestRepresening`
     func added(HTTPHeaderFields: [String: String]) -> NetworkRequestRepresening {
-        return NetworkRequest(path: path, baseURLKey: baseURLKey, HTTPMethod: HTTPMethod, parameter: parameter, body: body, allHTTPHeaderField: (allHTTPHeaderFields ?? [:]).merged(with: HTTPHeaderFields))
+        return NetworkRequest(path: path, baseURLKey: baseURLKey, HTTPMethod: HTTPMethod,
+                              parameter: parameter, body: body,
+                              allHTTPHeaderField: (allHTTPHeaderFields ?? [:]).merged(with: HTTPHeaderFields))
     }
     
-    /// Creates a new `NetworkRequestRepresening` with query parameters added into the new request. Keep in mind that this overrides parameters which are already contained.
+    /// Creates a new `NetworkRequestRepresening` with query parameters added into the new request.
+    /// Keep in mind that this overrides parameters which are already contained.
     ///
     /// - Parameter HTTPHeaderFields: the header fileds to add to the request
     /// - Returns: a new `NetworkRequestRepresening`
     func added(parameter: [String: Any]) -> NetworkRequestRepresening {
-        return NetworkRequest(path: path, baseURLKey: baseURLKey, HTTPMethod: HTTPMethod, parameter: (self.parameter ?? [:]).merged(with: parameter), body: body, allHTTPHeaderField: allHTTPHeaderFields)
+        return NetworkRequest(path: path, baseURLKey: baseURLKey, HTTPMethod: HTTPMethod,
+                              parameter: (self.parameter ?? [:]).merged(with: parameter),
+                              body: body, allHTTPHeaderField: allHTTPHeaderFields)
     }
     
 }
@@ -82,7 +88,7 @@ extension Dictionary {
     /// - Returns: a new `NetworkRequestRepresening`
     func merged(with dictionary: Dictionary<Key, Value>) -> Dictionary<Key, Value> {
         var copySelf = self
-        for (key, value) in self {
+        for (key, value) in dictionary {
             copySelf[key] = value
         }
         

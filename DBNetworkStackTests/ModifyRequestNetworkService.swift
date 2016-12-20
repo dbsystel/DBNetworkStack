@@ -31,14 +31,38 @@ import XCTest
 
 class ModifyRequestNetworkServiceTest: XCTestCase {
     
+    var networkServiceMock: NetworkServiceMock!
+    
+    override func setUp() {
+        super.setUp()
+        networkServiceMock = NetworkServiceMock()
+    }
+    
     func testRequest_withModifedRequest() {
         //Given
-        let modeification:  Array<(NetworkRequestRepresening) -> NetworkRequestRepresening> = [ { request in
-            return request.added(parameter: ["key": 1])
+        let modification: Array<(NetworkRequestRepresening) -> NetworkRequestRepresening> = [ { request in
+            return request.added(parameter: ["key": "1"])
             } ]
-//        let networkService: NetworkServiceProviding = ModifyRequestNetworkService(networkService: networkService(), requestModifications: modeification)
+        let networkService: NetworkServiceProviding = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
+        let request = NetworkRequest(path: "index", baseURLKey: "")
+        let ressource = Resource<Int>(request: request, parse: { _ in return 1 })
         
         //When
-        XCTFail("Unimplemnted test case. Waiting for NetworkServiceMock to be merged")
+        networkService.request(ressource, onCompletion: { _ in }, onError: { _ in })
+        
+        //Then
+        XCTAssertEqual(networkServiceMock.lastReuqest?.parameter?["key"] as? String, "1")
+    }
+    
+    func testAddHTTPHeaderToRequest() {
+        //Given
+        let request = NetworkRequest(path: "", baseURLKey: "")
+        let header = ["header": "head"]
+        
+        //When
+        let newRequest = request.added(HTTPHeaderFields: header)
+        
+        //Then
+        XCTAssertEqual(newRequest.allHTTPHeaderFields?["header"], "head")
     }
 }
