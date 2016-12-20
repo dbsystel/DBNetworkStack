@@ -72,7 +72,7 @@ extension DBNetworkStackError : CustomDebugStringConvertible {
             result = "Client error: \(response)"
         case .serializationError(let description, let data):
             result = "Serialization error: \(description)"
-            if let data = data, let string = String(data: data, encoding: String.Encoding.utf8) {
+            if let data = data, let string = String(data: data, encoding: .utf8) {
                 result.append("\n\tdata: \(string)")
             }
         case .requestError(let error):
