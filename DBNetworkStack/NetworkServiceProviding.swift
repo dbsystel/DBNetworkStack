@@ -64,6 +64,11 @@ public protocol NetworkResponseProcessing {
 extension NetworkResponseProcessing {
     public func process<T: ResourceModeling>(response: HTTPURLResponse?, resource: T, data: Data?, error: Error?) throws -> T.Model {
         if let error = error {
+            
+            if case URLError.cancelled = error {
+                throw DBNetworkStackError.cancelled
+            }
+            
             throw DBNetworkStackError.requestError(error: error)
         }
         if let responseError = DBNetworkStackError(response: response) {
