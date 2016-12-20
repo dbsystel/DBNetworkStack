@@ -113,6 +113,7 @@ The following table shows all the protocols and their default implementations.
 | Class                         | Feature |
 | -------------------------------- | ---------------------- |
 | ```RetryNetworkService```        | Retrys requests after a given delay when an error meets given criteria. |
+| ```ModifyRequestNetworkService```        | Modify matching requests. Can be used to add auth tokens or API Keys  |
 
 ## Requirements
 
