@@ -7,7 +7,6 @@ matrix:
       sudo: required
       language: generic
       before_install:
-        - snapshot reset_simulators
         - wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import -
         - cd ..
         - export SWIFT_VERSION=swift-3.0.2-RELEASE
