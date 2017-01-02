@@ -20,6 +20,7 @@ matrix:
       osx_image: xcode8.2
       language: objective-c
       before_install:
+        - export SNAPSHOT_FORCE_DELETE=1
         - fastlane snapshot reset_simulators --SNAPSHOT_FORCE_DELETE
       script:
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=OS X' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
