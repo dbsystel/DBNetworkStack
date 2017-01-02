@@ -1,28 +1,32 @@
 matrix:
+  allow_failures:
+    - os: linux
   include:
     - os: linux
       dist: trusty
       sudo: required
       language: generic
       before_install:
+        - snapshot reset_simulators
         - wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import -
         - cd ..
         - export SWIFT_VERSION=swift-3.0.2-RELEASE
         - wget https://swift.org/builds/swift-3.0.2-release/ubuntu1404/$SWIFT_VERSION/$SWIFT_VERSION-ubuntu14.04.tar.gz
         - tar xzf $SWIFT_VERSION-ubuntu14.04.tar.gz
         - export PATH="${PWD}/${SWIFT_VERSION}-ubuntu14.04/usr/bin:${PATH}"
-        # - wget https://swift.org/builds/development/ubuntu1404/swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a/swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a-ubuntu14.04.tar.gz
-#         - tar xzf swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a-ubuntu14.04.tar.gz
-#         - export PATH="${PWD}/swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a-ubuntu14.04/usr/bin:${PATH}"
         - cd DBNetworkStack
       script:
         - swift test --verbose
-    # - os: osx
-   #    osx_image: xcode8.2
-   #    language: objective-c
-   #    script:
-   #      - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=OS X' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
-   #      - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=iOS Simulator,name=iPhone SE,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
-   #      - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm,OS=latest' build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
-   #      - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
-   #      - swift build --clean && swift build && swift test
+    - os: osx
+      osx_image: xcode8.2
+      language: objective-c
+      before_install:
+        - snapshot reset_simulators
+      script:
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=OS X' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=iOS Simulator,name=iPhone SE,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm,OS=latest' build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
+        - swift build --clean && swift test
+        - carthage build --no-skip-current
+        

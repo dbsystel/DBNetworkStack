@@ -46,10 +46,8 @@ public protocol NetworkTaskRepresenting: class {
      */
     func suspend()
     
-    #if !os(Linux)
     /**
      Contains the current progress of a running task.
      */
     var progress: Progress { get }
-    #endif
 }
