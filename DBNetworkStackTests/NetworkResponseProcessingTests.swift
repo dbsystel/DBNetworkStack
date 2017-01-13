@@ -20,13 +20,7 @@ class NetworkResponseProcessingTests: XCTestCase {
         processor = NetworkResponseProcessor()
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testCancelError() {
-
         // Given
         let request = NetworkRequest(path: "", baseURLKey: "")
         let resource = Resource(request: request, parse: { _ in return 0 })
