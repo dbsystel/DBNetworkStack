@@ -13,7 +13,7 @@ fileprivate class NetworkResponseProcessor : NetworkResponseProcessing {}
 
 class NetworkResponseProcessingTests: XCTestCase {
     
-    fileprivate var processor: NetworkResponseProcessor!
+    var processor: NetworkResponseProcessing!
     
     override func setUp() {
         super.setUp()
