@@ -41,7 +41,6 @@ class ResourceTest: XCTestCase {
         let name = try? resource.parse(validData)
         
         //Then
-        XCTAssertNotNil(name)
         XCTAssertEqual(name ?? nil, "ICE")
     }
     
