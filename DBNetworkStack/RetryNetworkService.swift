@@ -36,7 +36,7 @@ public final class RetryNetworkService: NetworkServiceProviding {
     private let networkService: NetworkServiceProviding
     private let numberOfRetries: Int
     private let idleTimeInterval: TimeInterval
-    private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> () ) -> ()
+    private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void
     private let shouldRetry: (DBNetworkStackError) -> Bool
     
     /// Creates an instance of `RetryNetworkService`
@@ -49,7 +49,7 @@ public final class RetryNetworkService: NetworkServiceProviding {
     ///   - dispatchRetry: closure where to dispatch the waiting
     public init(networkService: NetworkServiceProviding, numberOfRetries: Int,
                 idleTimeInterval: TimeInterval, shouldRetry: @escaping (DBNetworkStackError) -> Bool,
-                dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> () ) -> () = { deadline, execute in
+                dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void = { deadline, execute in
             DispatchQueue.global(qos: .utility).asyncAfter(deadline: deadline, execute: execute)
         }) {
         self.networkService = networkService
@@ -60,8 +60,8 @@ public final class RetryNetworkService: NetworkServiceProviding {
     }
     
     @discardableResult
-    public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
-                        onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
+    public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
+                        onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         let retryTask = RetryNetworkTask(maxmimumNumberOfRetries: numberOfRetries, idleTimeInterval: idleTimeInterval, shouldRetry: shouldRetry,
                                   onSuccess: onCompletion, onError: onError, retryAction: { completion, error in
                                     return self.networkService.request(resource, onCompletion: completion, onError: error)

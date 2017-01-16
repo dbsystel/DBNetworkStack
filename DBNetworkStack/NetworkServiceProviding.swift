@@ -41,8 +41,8 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
      - returns: the request
      */
     @discardableResult
-    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
-                 onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting
+    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
+                 onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting
 }
 
 public protocol NetworkResponseProcessing {
@@ -89,7 +89,7 @@ extension NetworkResponseProcessing {
 
 extension NetworkResponseProcessing {
     func processAsyncResponse<T: ResourceModeling>(response: HTTPURLResponse?, resource: T, data: Data?,
-                              error: Error?, onCompletion: @escaping (T.Model) -> (), onError: @escaping (DBNetworkStackError) -> ()) {
+                              error: Error?, onCompletion: @escaping (T.Model) -> Void, onError: @escaping (DBNetworkStackError) -> Void) {
         do {
             let parsed = try self.process(
                 response: response,

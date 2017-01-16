@@ -43,8 +43,8 @@ protocol MultipartFormDataUploadServiceProviding {
     */
     func upload<T: MultipartFormDataResourceModelling>(
         _ resource: T,
-        onCompletion: @escaping (T.Model) -> (),
-        onError: @escaping (DBNetworkStackError) -> (),
-        onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> ()
+        onCompletion: @escaping (T.Model) -> Void,
+        onError: @escaping (DBNetworkStackError) -> Void,
+        onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> Void
     )
 }

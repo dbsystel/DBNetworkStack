@@ -30,7 +30,7 @@ class RetryNetworkserviceTest: XCTestCase {
     var networkServiceMock: NetworkServiceMock!
     let request = NetworkRequest(path: "", baseURLKey: "")
     var resource: Resource<Int> {
-        return Resource(request: request, parse: {d in return 1})
+        return Resource(request: request, parse: { _ in return 1})
     }
     
     override func setUp() {
@@ -52,11 +52,11 @@ class RetryNetworkserviceTest: XCTestCase {
         //When
         weak var task: NetworkTaskRepresenting?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: numberOfRetries,
-                                   idleTimeInterval: 0, shouldRetry: { err in return true}, dispatchRetry: {time, block in
+                                   idleTimeInterval: 0, shouldRetry: { _ in return true}, dispatchRetry: { _, block in
             executedRetrys += 1
             block()
-        }).request(resource, onCompletion: { int in
-        }, onError: { err in
+        }).request(resource, onCompletion: { _ in
+        }, onError: { _ in
             XCTFail()
         })
         networkServiceMock.returnError(error: .unknownError, count: errorCount)
@@ -73,13 +73,13 @@ class RetryNetworkserviceTest: XCTestCase {
         //When
         weak var task: NetworkTaskRepresenting?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
-                                   idleTimeInterval: 0, shouldRetry: { err in return true},
-                                   dispatchRetry: { time, block in
+                                   idleTimeInterval: 0, shouldRetry: { _ in return true},
+                                   dispatchRetry: { _, block in
             executedRetrys += 1
             block()
-        }).request(resource, onCompletion: { int in
+        }).request(resource, onCompletion: { _ in
             XCTFail()
-        }, onError: { err in
+        }, onError: { _ in
         })
         networkServiceMock.returnError(error: .unknownError, count: 3)
         
@@ -96,11 +96,11 @@ class RetryNetworkserviceTest: XCTestCase {
         //When
         weak var task: NetworkTaskRepresenting?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
-                                   idleTimeInterval: 0, shouldRetry: { err in return shoudlRetry },
-                                   dispatchRetry: { time, block in
+                                   idleTimeInterval: 0, shouldRetry: { _ in return shoudlRetry },
+                                   dispatchRetry: { _, block in
             XCTFail()
             block()
-        }).request(resource, onCompletion: { int in
+        }).request(resource, onCompletion: { _ in
             XCTFail()
         }, onError: { err in
            error = err

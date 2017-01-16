@@ -33,9 +33,9 @@ class RetryTaskTest: XCTestCase {
     func testDontHoldReference_withoutCreatingErrorClosure() {
         //Given
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 1, idleTimeInterval: 1,
-            shouldRetry: { err in return true}, onSuccess: { _ in }, onError: { err in }, retryAction: {a, b in
+            shouldRetry: { _ in return true}, onSuccess: { _ in }, onError: { _ in }, retryAction: { _, _ in
             return NetworkTaskMock()
-        }, dispatchRetry: {time, block in
+        }, dispatchRetry: { _, _ in
         })
         
         //When
@@ -56,7 +56,7 @@ class RetryTaskTest: XCTestCase {
         }, retryAction: {sucess, _ in
             sucess(0)
             return NetworkTaskMock()
-        }, dispatchRetry: {time, block in
+        }, dispatchRetry: { _, block in
             block()
         })
         
@@ -77,8 +77,8 @@ class RetryTaskTest: XCTestCase {
         //Given
         var numerOfRertrys = 0
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
-                                                            shouldRetry: { err in return true}, onSuccess: { (t: Int) in
-        }, onError: { err in
+                                                            shouldRetry: { _ in return true}, onSuccess: { (_: Int) in
+        }, onError: { _ in
         }, retryAction: {success, error in
             numerOfRertrys += 1
             if numerOfRertrys == 3 {
@@ -88,7 +88,7 @@ class RetryTaskTest: XCTestCase {
             }
             
             return NetworkTaskMock()
-        }, dispatchRetry: {time, block in
+        }, dispatchRetry: { _, block in
             block()
         })
         
@@ -109,8 +109,8 @@ class RetryTaskTest: XCTestCase {
     func testDontHoldReference_CancleTask() {
         var numerOfRertrys = 0
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
-                                                            shouldRetry: { err in return true}, onSuccess: { (t: Int) in
-        }, onError: { err in
+                                                            shouldRetry: { _ in return true}, onSuccess: { (_: Int) in
+        }, onError: { _ in
         }, retryAction: {a, b in
             numerOfRertrys += 1
             if numerOfRertrys == 3 {
@@ -120,7 +120,7 @@ class RetryTaskTest: XCTestCase {
             }
             
             return NetworkTaskMock()
-        }, dispatchRetry: {time, block in
+        }, dispatchRetry: { _, block in
             block()
         })
         weak var weakTask = task
@@ -144,10 +144,10 @@ class RetryTaskTest: XCTestCase {
             
         }, onError: { err in
             error = err
-        }, retryAction: {a, b in
+        }, retryAction: { _, _ in
             XCTFail()
             return NetworkTaskMock()
-        }, dispatchRetry: {time, block in
+        }, dispatchRetry: { _, block in
             block()
         })
         weak var weakTask = task

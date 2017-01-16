@@ -30,13 +30,13 @@ import Foundation
 import DBNetworkStack
 
 class NetworkServiceMock: NetworkServiceProviding {
-    private var onErrorCallback: ((DBNetworkStackError) -> ())?
-    private var onSuccess: (() -> ())?
+    private var onErrorCallback: ((DBNetworkStackError) -> Void)?
+    private var onSuccess: (() -> Void)?
     
     var requestCount: Int = 0
 
-    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> (),
-                 onError: @escaping (DBNetworkStackError) -> ()) -> NetworkTaskRepresenting {
+    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
+                 onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         onSuccess = {
              onCompletion(try! resource.parse(Data()))
         }
