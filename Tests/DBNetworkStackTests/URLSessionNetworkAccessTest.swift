@@ -25,10 +25,20 @@
 //  Created by Lukas Schmidt on 13.09.16.
 //
 
+import Foundation
 import XCTest
 @testable import DBNetworkStack
 
 class URLSessionNetworkAccessTest: XCTestCase {
+    
+    static var allTests = {
+        return [
+            ("testURLSession_MatchesTypeOfNetworkAccess", testURLSession_MatchesTypeOfNetworkAccess),
+            ("test_URLSessionCreatsDataTask", test_URLSessionCreatsDataTask),
+            ("testURLSession_CallbackGetsRegistered", testURLSession_CallbackGetsRegistered),
+            ("testURLSession_DataTaksGetsResumed", testURLSession_DataTaksGetsResumed)
+        ]
+    }()
     
     var urlSessionMock: URLSessionProtocolMock!
     let url: URL! = URL(string: "http://bahn.de")

@@ -29,6 +29,7 @@
 import Foundation
 import DBNetworkStack
 
+
 class NetworkServiceMock: NetworkServiceProviding {
     private var onErrorCallback: ((DBNetworkStackError) -> Void)?
     private var onSuccess: ((Data) -> Void)?
@@ -49,6 +50,7 @@ class NetworkServiceMock: NetworkServiceProviding {
         return NetworkTaskMock()
     }
     
+
     func returnError(error: DBNetworkStackError, count: Int = 1) {
         for _ in 0...count {
             onErrorCallback?(error)

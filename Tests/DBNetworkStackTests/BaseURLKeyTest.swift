@@ -1,5 +1,5 @@
 //
-//  JSONArrayResourceTest.swift
+//  BaseURLKeyTest.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,46 +22,19 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 01.09.16.
+//  Created by Lukas Schmidt on 16.09.16.
 //
 
+import Foundation
 import XCTest
-@testable import DBNetworkStack
+import DBNetworkStack
 
-class JSONArrayResourceTest: XCTestCase {
-    
-    var resource: JSONArrayResource<Train> {
-        let request = NetworkRequest(path: "/trains", baseURLKey: "")
-        return JSONArrayResource<Train>(request: request)
-    }
-    
-    func testResource_withValidData() {
-        //When
-        let fetchedTrains = try? resource.parse(Train.validJSONArrayData)
+class BaseURLKeyTest: XCTestCase {
+    func testStringImplemntation() {
+        let stringKey = "Key"
         
-        //Then
-        XCTAssertNotNil(fetchedTrains)
-        XCTAssertEqual(fetchedTrains?.count, 3)
-        XCTAssertEqual(fetchedTrains?.first?.name, "ICE")
-        XCTAssertEqual(fetchedTrains?.last?.name, "TGV")
-    }
-    
-    func testResource_WithInvalidData() {
-        //When
-        do {
-            let _ = try resource.parse(Train.invalidJSONData)
-            XCTFail()
-        } catch {
-            
-        }
-    }
-    
-    func testResource_WithInvalidContainer() {
-        //When
-        do {
-            let _ = try resource.parse(Train.validJSONData)
-            XCTFail()
-        } catch {
-        }
+        let baseURLKey: BaseURLKey = stringKey
+        
+        XCTAssertEqual(stringKey, baseURLKey.name)
     }
 }

@@ -27,6 +27,7 @@
 //
 
 import Foundation
+import Dispatch
 
 /**
  `RetryNetworkService` can request resource. When a request fails with a given condtion it can retry the request after a given time interval.

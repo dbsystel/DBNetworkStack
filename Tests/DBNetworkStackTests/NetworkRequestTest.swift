@@ -1,5 +1,5 @@
 //
-//  JSONResourceTest.swift
+//  NetworkRequestTest.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,42 +22,41 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 30.08.16.
+//  Created by Lukas Schmidt on 20.09.16.
 //
 
+import Foundation
 import XCTest
 @testable import DBNetworkStack
 
-class JSONResourceTest: XCTestCase {
-    var resource: JSONResource<Train> {
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
-        return JSONResource<Train>(request: request)
-    }
+class NetworkRequestTest: XCTestCase {
     
-    func testResource_withValidData() {
-        //When
-        let fetchedTrain = try? resource.parse(Train.validJSONData)
-       
-        //Then
-        XCTAssertEqual(fetchedTrain?.name, "ICE")
-    }
+    static var allTests = {
+        return [
+            ("testURLRequestTranformation", testURLRequestTranformation)        ]
+    }()
     
-    func testResource_withMAppedResult() {
+    func testURLRequestTranformation() {
+        //Given
+        let path = "/index.html"
+        let baseURLKey = "Key"
+        let httpMethod = HTTPMethod.GET
+        let parameter: [String : Any] = ["test1": 1, "test2": "2"] as [String : Any]
+        let body: Data! = "hallo body data".data(using: String.Encoding.utf8)
+        let headerFields: Dictionary<String, String> = [:]
+        let baseURL: URL! = URL(string: "https://www.bahn.de/")
+
         //When
-        let nameResource = resource.map { $0.name }
-        let fetchedTrainName = try? nameResource.parse(Train.validJSONData)
+        let request = NetworkRequest(path: path, baseURLKey: baseURLKey,
+                                     HTTPMethod: httpMethod, parameter: parameter,
+                                     body: body, allHTTPHeaderFields: headerFields)
         
         //Then
-        XCTAssertEqual(fetchedTrainName, "ICE")
+        let urlRequest = request.urlRequest(with: baseURL)
+        
+        XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.bahn.de/index.html?test1=1&test2=2")
+        XCTAssertEqual(urlRequest.httpMethod, httpMethod.rawValue)
+        XCTAssertEqual(urlRequest.httpBody, body)
+        XCTAssertEqual(urlRequest.allHTTPHeaderFields!, headerFields)
     }
-    
-    func testResource_WithInvalidData() {
-        //When
-        do {
-            _ = try resource.parse(Train.invalidJSONData)
-            XCTFail()
-        } catch {
-        }
-    }
-    
 }

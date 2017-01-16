@@ -25,11 +25,20 @@
 //  Created by Lukas Schmidt on 01.09.16.
 //
 
+import Foundation
 import XCTest
 @testable import DBNetworkStack
 
 class ResourceTest: XCTestCase {
     let request = NetworkRequest(path: "/trains", baseURLKey: "")
+    
+    static var allTests = {
+        return [
+            ("testResource", testResource),
+            ("testResourceWithInvalidData", testResourceWithInvalidData),
+            ("testCreateRessourceFromOtherRessource", testCreateRessourceFromOtherRessource)
+        ]
+    }()
     
     func testResource() {
         //Given

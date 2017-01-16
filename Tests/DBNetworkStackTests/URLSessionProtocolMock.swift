@@ -33,6 +33,7 @@ class URLSessionProtocolMock: URLSessionProtocol {
     var request: URLRequest?
     var callback: ((Data?, URLResponse?, Error?) -> Void)?
     
+    
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         self.request = request
         self.callback = completionHandler
@@ -40,4 +41,5 @@ class URLSessionProtocolMock: URLSessionProtocol {
         let url: URL! = URL(string: "http://bahn.de")
         return URLSession(configuration: .default).dataTask(with: url)
     }
+
 }

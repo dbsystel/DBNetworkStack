@@ -1,5 +1,5 @@
 //
-//  BaseURLKeyTest.swift
+//  URLSessionNetworkAccessTest.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,18 +22,14 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 16.09.16.
+//  Created by Lukas Schmidt on 05.12.16.
 //
 
 import XCTest
-import DBNetworkStack
+@testable import DBNetworkStackTests
 
-class BaseURLKeyTest: XCTestCase {
-    func testStringImplemntation() {
-        let stringKey = "Key"
-        
-        let baseURLKey: BaseURLKey = stringKey
-        
-        XCTAssertEqual(stringKey, baseURLKey.name)
-    }
-}
+XCTMain([
+    testCase(ResourceTest.allTests),
+    testCase(URLSessionNetworkAccessTest.allTests),
+    testCase(NetworkRequestTest.allTests)
+    ])

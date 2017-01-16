@@ -26,6 +26,7 @@
 //
 
 import Foundation
+import Dispatch
 
 /**
  `MultipartFormDataUploadService` handles network request for multipart form data resources by using a given MultipartFormDataUploadAccessProviding

@@ -1,5 +1,5 @@
 //
-//  NetworkRequestTest.swift
+//  JSONArrayResourceTest.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,35 +22,47 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 20.09.16.
+//  Created by Lukas Schmidt on 01.09.16.
 //
 
+import Foundation
 import XCTest
 @testable import DBNetworkStack
 
-class NetworkRequestTest: XCTestCase {
+class JSONArrayResourceTest: XCTestCase {
     
-    func testURLRequestTranformation() {
-        //Given
-        let path = "/index.html"
-        let baseURLKey = "Key"
-        let httpMethod = HTTPMethod.GET
-        let parameter: [String : Any] = ["test1": 1, "test2": "2"] as [String : Any]
-        let body: Data! = "hallo body data".data(using: String.Encoding.utf8)
-        let headerFields: Dictionary<String, String> = [:]
-        let baseURL: URL! = URL(string: "https://www.bahn.de/")
-
+    var resource: JSONArrayResource<Train> {
+        let request = NetworkRequest(path: "/trains", baseURLKey: "")
+        return JSONArrayResource<Train>(request: request)
+    }
+    
+    func testResource_withValidData() {
         //When
-        let request = NetworkRequest(path: path, baseURLKey: baseURLKey,
-                                     HTTPMethod: httpMethod, parameter: parameter,
-                                     body: body, allHTTPHeaderFields: headerFields)
+        let fetchedTrains = try? resource.parse(Train.validJSONArrayData)
         
         //Then
-        let urlRequest = request.urlRequest(with: baseURL)
-        
-        XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.bahn.de/index.html?test1=1&test2=2")
-        XCTAssertEqual(urlRequest.httpMethod, httpMethod.rawValue)
-        XCTAssertEqual(urlRequest.httpBody, body)
-        XCTAssertEqual(urlRequest.allHTTPHeaderFields!, headerFields)
+        XCTAssertNotNil(fetchedTrains)
+        XCTAssertEqual(fetchedTrains?.count, 3)
+        XCTAssertEqual(fetchedTrains?.first?.name, "ICE")
+        XCTAssertEqual(fetchedTrains?.last?.name, "TGV")
+    }
+    
+    func testResource_WithInvalidData() {
+        //When
+        do {
+            let _ = try resource.parse(Train.invalidJSONData)
+            XCTFail()
+        } catch {
+            
+        }
+    }
+    
+    func testResource_WithInvalidContainer() {
+        //When
+        do {
+            let _ = try resource.parse(Train.validJSONData)
+            XCTFail()
+        } catch {
+        }
     }
 }
