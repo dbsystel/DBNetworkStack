@@ -32,6 +32,7 @@ import Foundation
  */
 public enum DBNetworkStackError: Error {
     case unknownError
+    case cancelled
     case unauthorized(response: HTTPURLResponse)
     case clientError(response: HTTPURLResponse?)
     case serializationError(description: String, data: Data?)
@@ -43,6 +44,7 @@ public enum DBNetworkStackError: Error {
         guard let response = response else {
             return nil
         }
+        
         switch response.statusCode {
         case 200..<300: return nil
         case 401:
@@ -66,6 +68,8 @@ extension DBNetworkStackError : CustomDebugStringConvertible {
         switch self {
         case .unknownError:
             result = "Unknown error"
+        case .cancelled:
+            result = "Request cancelled"
         case .unauthorized(let response):
             result = "Authorization error: \(response)"
         case .clientError(let response):
