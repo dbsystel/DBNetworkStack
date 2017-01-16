@@ -1,5 +1,5 @@
 //
-//  JSONResourceTest.swift
+//  URLSessionNetworkAccessTest.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,42 +22,14 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 30.08.16.
+//  Created by Lukas Schmidt on 05.12.16.
 //
 
 import XCTest
-@testable import DBNetworkStack
+@testable import DBNetworkStackTests
 
-class JSONResourceTest: XCTestCase {
-    var resource: JSONResource<Train> {
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
-        return JSONResource<Train>(request: request)
-    }
-    
-    func testResource_withValidData() {
-        //When
-        let fetchedTrain = try? resource.parse(Train.validJSONData)
-       
-        //Then
-        XCTAssertEqual(fetchedTrain?.name, "ICE")
-    }
-    
-    func testResource_withMAppedResult() {
-        //When
-        let nameResource = resource.map { $0.name }
-        let fetchedTrainName = try? nameResource.parse(Train.validJSONData)
-        
-        //Then
-        XCTAssertEqual(fetchedTrainName, "ICE")
-    }
-    
-    func testResource_WithInvalidData() {
-        //When
-        do {
-            _ = try resource.parse(Train.invalidJSONData)
-            XCTFail()
-        } catch {
-        }
-    }
-    
-}
+XCTMain([
+    testCase(ResourceTest.allTests),
+    testCase(URLSessionNetworkAccessTest.allTests),
+    testCase(NetworkRequestTest.allTests)
+    ])

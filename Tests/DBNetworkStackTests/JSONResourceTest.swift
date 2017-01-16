@@ -1,5 +1,5 @@
 //
-//  URLSessionNetworkAccess.swift
+//  JSONResourceTest.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,39 +22,43 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 05.09.16.
+//  Created by Lukas Schmidt on 30.08.16.
 //
 
 import Foundation
+import XCTest
+@testable import DBNetworkStack
 
-/**
- Adds conformens to `NetworkAccessProviding`. `NSURLSession` can now be used as a networkprovider.
- */
-extension URLSession: URLSessionProtocol {}
-
-extension URLSessionDataTask: NetworkTaskRepresenting {
-    public var progress: Progress {
-        let totalBytesExpected = response?.expectedContentLength ?? NSURLSessionTransferSizeUnknown
-        let progress = Progress(totalUnitCount: totalBytesExpected)
-        progress.totalUnitCount = totalBytesExpected
-        progress.completedUnitCount = countOfBytesReceived
-        
-        return progress
+class JSONResourceTest: XCTestCase {
+    var resource: JSONResource<Train> {
+        let request = NetworkRequest(path: "/train", baseURLKey: "")
+        return JSONResource<Train>(request: request)
     }
-}
-
-public protocol URLSessionProtocol: NetworkAccessProviding {
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-}
-
-public extension URLSessionProtocol {
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
-        let task = dataTask(with: request, completionHandler: { data, response, error in
-            callback(data, response as? HTTPURLResponse, error)
-        })
-        
-        task.resume()
-        
-        return task
+    
+    func testResource_withValidData() {
+        //When
+        let fetchedTrain = try? resource.parse(Train.validJSONData)
+       
+        //Then
+        XCTAssertEqual(fetchedTrain?.name, "ICE")
     }
+    
+    func testResource_withMAppedResult() {
+        //When
+        let nameResource = resource.map { $0.name }
+        let fetchedTrainName = try? nameResource.parse(Train.validJSONData)
+        
+        //Then
+        XCTAssertEqual(fetchedTrainName, "ICE")
+    }
+    
+    func testResource_WithInvalidData() {
+        //When
+        do {
+            _ = try resource.parse(Train.invalidJSONData)
+            XCTFail()
+        } catch {
+        }
+    }
+    
 }

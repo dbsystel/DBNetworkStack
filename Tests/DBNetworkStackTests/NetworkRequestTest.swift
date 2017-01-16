@@ -1,5 +1,5 @@
 //
-//  ResourceTest.swift
+//  NetworkRequestTest.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,48 +22,41 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 01.09.16.
+//  Created by Lukas Schmidt on 20.09.16.
 //
 
+import Foundation
 import XCTest
 @testable import DBNetworkStack
 
-class ResourceTest: XCTestCase {
-    let request = NetworkRequest(path: "/trains", baseURLKey: "")
+class NetworkRequestTest: XCTestCase {
     
-    func testResource() {
+    static var allTests = {
+        return [
+            ("testURLRequestTranformation", testURLRequestTranformation)        ]
+    }()
+    
+    func testURLRequestTranformation() {
         //Given
-        let validData: Data! = "ICE".data(using: .utf8)
+        let path = "/index.html"
+        let baseURLKey = "Key"
+        let httpMethod = HTTPMethod.GET
+        let parameter: [String : Any] = ["test1": 1, "test2": "2"] as [String : Any]
+        let body: Data! = "hallo body data".data(using: String.Encoding.utf8)
+        let headerFields: Dictionary<String, String> = [:]
+        let baseURL: URL! = URL(string: "https://www.bahn.de/")
 
-        let resource = Resource<String?>(request: request, parse: { String(data: $0, encoding: .utf8) })
-        
         //When
-        let name = try? resource.parse(validData)
+        let request = NetworkRequest(path: path, baseURLKey: baseURLKey,
+                                     HTTPMethod: httpMethod, parameter: parameter,
+                                     body: body, allHTTPHeaderFields: headerFields)
         
         //Then
-        XCTAssertEqual(name ?? nil, "ICE")
-    }
-    
-    func testResourceWithInvalidData() {
-        //Given
-        let data = Data()
-        let resource = JSONResource<Train>(request: request)
+        let urlRequest = request.urlRequest(with: baseURL)
         
-        //When
-        do {
-            _ = try resource.parse(data)
-            XCTFail()
-        } catch { }
-    }
-    
-    func testCreateRessourceFromOtherRessource() {
-        //Given
-        let request = NetworkRequest(path: "/trains", baseURLKey: "")
-        let arrayResource = JSONArrayResource<Train>(request: request)
-        
-        //When
-        let ressource = arrayResource.wrapped()
-        
-        XCTAssert(ressource is Resource<Array<Train>>)
+        XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.bahn.de/index.html?test1=1&test2=2")
+        XCTAssertEqual(urlRequest.httpMethod, httpMethod.rawValue)
+        XCTAssertEqual(urlRequest.httpBody, body)
+        XCTAssertEqual(urlRequest.allHTTPHeaderFields!, headerFields)
     }
 }

@@ -25,6 +25,7 @@
 //  Created by Lukas Schmidt on 16.09.16.
 //
 
+import Foundation
 import XCTest
 import DBNetworkStack
 

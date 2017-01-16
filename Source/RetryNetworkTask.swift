@@ -27,6 +27,7 @@
 //
 
 import Foundation
+import Dispatch
 
 /// A NetworkTaskRepresenting which can be used together with `RetryNetworkService` to keep a task alife to repeat the task after a given time
 class RetryNetworkTask<T> : NetworkTaskRepresenting {

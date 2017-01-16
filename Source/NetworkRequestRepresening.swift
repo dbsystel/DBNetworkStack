@@ -64,14 +64,14 @@ public protocol NetworkRequestRepresening {
 
 extension NetworkRequestRepresening {
     /**
-     Transforms self into a equivalent `NSURLRequest` with a given baseURL.
+     Transforms self into a equivalent `URLRequest` with a given baseURL.
      
      - parameter baseURL: baseURL for the resulting request.
      - returns: the equivalent request
      */
     public func urlRequest(with baseURL: URL) -> URLRequest {
         let absoluteURL = absoluteURLWith(baseURL)
-        let request = NSMutableURLRequest(url: absoluteURL)
+        var request = URLRequest(url: absoluteURL)
         request.allHTTPHeaderFields = allHTTPHeaderFields
         request.httpMethod = HTTPMethod.rawValue
         request.httpBody = body

@@ -20,24 +20,48 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 //
-//  URLSessionProtocolMock.swift
+//  NetworkServiceMock.swift
 //  DBNetworkStack
 //
-//  Created by Lukas Schmidt on 16.12.16.
+//  Created by Lukas Schmidt on 14.12.16.
 //
 
 import Foundation
-@testable import DBNetworkStack
+import DBNetworkStack
 
-class URLSessionProtocolMock: URLSessionProtocol {
-    var request: URLRequest?
-    var callback: ((Data?, URLResponse?, Error?) -> Void)?
+
+class NetworkServiceMock: NetworkServiceProviding {
+    private var onErrorCallback: ((DBNetworkStackError) -> Void)?
+    private var onSuccess: ((Data) -> Void)?
     
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        self.request = request
-        self.callback = completionHandler
+    var requestCount: Int = 0
+    var lastReuqest: NetworkRequestRepresening?
+
+    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
+                 onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
+        lastReuqest = resource.request
+        onSuccess = { data in
+             onCompletion(try! resource.parse(data))
+        }
+        onErrorCallback = { error in
+            onError(error)
+        }
         
-        let url: URL! = URL(string: "http://bahn.de")
-        return URLSession(configuration: .default).dataTask(with: url)
+        return NetworkTaskMock()
+    }
+    
+
+    func returnError(error: DBNetworkStackError, count: Int = 1) {
+        for _ in 0...count {
+            onErrorCallback?(error)
+        }
+        onErrorCallback = nil
+    }
+    
+    func returnSuccess(data: Data = Data(), count: Int = 1) {
+        for _ in 0...count {
+            onSuccess?(data)
+        }
+        onSuccess = nil
     }
 }
