@@ -40,8 +40,16 @@ class JSONResourceTest: XCTestCase {
         let fetchedTrain = try? resource.parse(Train.validJSONData)
        
         //Then
-        XCTAssertNotNil(fetchedTrain)
         XCTAssertEqual(fetchedTrain?.name, "ICE")
+    }
+    
+    func testResource_withMAppedResult() {
+        //When
+        let nameResource = resource.map { $0.name }
+        let fetchedTrainName = try? nameResource.parse(Train.validJSONData)
+        
+        //Then
+        XCTAssertEqual(fetchedTrainName, "ICE")
     }
     
     func testResource_WithInvalidData() {

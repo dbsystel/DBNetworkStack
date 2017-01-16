@@ -36,7 +36,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         return HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
     }
     
-    func testInit_WithStatusCode400() {
+    func testInit_WithHTTPStatusCode400() {
         //Given
         let response = urlResponseWith(statusCode: 400)
         
@@ -54,7 +54,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         }
     }
     
-    func testInit_WithStatusCode401() {
+    func testInit_WithHTTPStatusCode401() {
         //Given
         let response = urlResponseWith(statusCode: 401)
         
@@ -72,7 +72,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         }
     }
     
-    func testInit_WithStatusCode200() {
+    func testInit_WithHTTPStatusCode200() {
         //Given
         let response = urlResponseWith(statusCode: 200)
         
@@ -83,7 +83,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         XCTAssertNil(error)
     }
     
-    func testInit_WithStatusCode511() {
+    func testInit_WithHTTPStatusCode511() {
         //Given
         let response = urlResponseWith(statusCode: 511)
         //When
@@ -100,7 +100,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         }
     }
     
-    func testInit_WithInvalidStatusCode900() {
+    func testInit_WithInvalidHTTPStatusCode900() {
         //Given
         let response = urlResponseWith(statusCode: 900)
         

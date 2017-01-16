@@ -1,5 +1,5 @@
 //
-//  Copyright (C) 2016 Lukas Schmidt.
+//  Copyright (C) 2017 Lukas Schmidt.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a 
 //  copy of this software and associated documentation files (the "Software"), 
@@ -20,48 +20,23 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 //
-//  NetworkServiceMock.swift
+//  Ressource+Map.swift
 //  DBNetworkStack
 //
-//  Created by Lukas Schmidt on 14.12.16.
+//  Created by Lukas Schmidt on 02.01.17.
 //
 
 import Foundation
-import DBNetworkStack
 
-
-class NetworkServiceMock: NetworkServiceProviding {
-    private var onErrorCallback: ((DBNetworkStackError) -> Void)?
-    private var onSuccess: ((Data) -> Void)?
+extension ResourceModeling {
     
-    var requestCount: Int = 0
-    var lastReuqest: NetworkRequestRepresening?
-
-    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
-                 onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
-        lastReuqest = resource.request
-        onSuccess = { data in
-             onCompletion(try! resource.parse(data))
-        }
-        onErrorCallback = { error in
-            onError(error)
-        }
-        
-        return NetworkTaskMock()
-    }
-    
-
-    func returnError(error: DBNetworkStackError, count: Int = 1) {
-        for _ in 0...count {
-            onErrorCallback?(error)
-        }
-        onErrorCallback = nil
-    }
-    
-    func returnSuccess(data: Data = Data(), count: Int = 1) {
-        for _ in 0...count {
-            onSuccess?(data)
-        }
-        onSuccess = nil
+    /// Maps a resource result to a different ressource. This is useful when you have result of R which contains T and your API request a resource of T,
+    ///
+    /// - Parameter transform: transforms the original result of the ressource
+    /// - Returns: the transformed resource
+    public func map<T>(transform: @escaping (Model) -> (T)) -> Resource<T> {
+        return Resource(request: request, parse: { data in
+            return transform(try self.parse(data))
+        })
     }
 }
