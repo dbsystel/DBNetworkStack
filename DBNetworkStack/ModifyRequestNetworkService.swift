@@ -58,7 +58,7 @@ public final class ModifyRequestNetworkService: NetworkServiceProviding {
 public extension NetworkRequestRepresening {
     
     /// Creates a new `NetworkRequestRepresening` with HTTPHeaderFields added into the new request.
-    /// Keep in mind that this overrides header fields which are already contained
+    /// Keep in mind that this overrides header fields which are already contained.
     ///
     /// - Parameter HTTPHeaderFields: the header fileds to add to the request
     /// - Returns: a new `NetworkRequestRepresening`
@@ -71,7 +71,7 @@ public extension NetworkRequestRepresening {
     /// Creates a new `NetworkRequestRepresening` with query parameters added into the new request.
     /// Keep in mind that this overrides parameters which are already contained.
     ///
-    /// - Parameter HTTPHeaderFields: the header fileds to add to the request
+    /// - Parameter parameter: the parameter to add to the request
     /// - Returns: a new `NetworkRequestRepresening`
     func added(parameter: [String: Any]) -> NetworkRequestRepresening {
         return NetworkRequest(path: path, baseURLKey: baseURLKey, HTTPMethod: HTTPMethod,
