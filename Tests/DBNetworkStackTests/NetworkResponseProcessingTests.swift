@@ -9,7 +9,7 @@
 import XCTest
 @testable import DBNetworkStack
 
-fileprivate class NetworkResponseProcessor : NetworkResponseProcessing {}
+fileprivate class NetworkResponseProcessor: NetworkResponseProcessing {}
 
 class NetworkResponseProcessingTests: XCTestCase {
     

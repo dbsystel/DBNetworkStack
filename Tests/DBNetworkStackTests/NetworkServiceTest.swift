@@ -76,7 +76,7 @@ class NetworkServiceTest: XCTestCase {
         networkService.request(resource, onCompletion: { train in
             XCTAssertEqual(train.name, self.trainName)
             expection.fulfill()
-            }, onError: { err in
+            }, onError: { _ in
                 XCTFail()
         })
         
@@ -115,7 +115,7 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let expection = expectation(description: "testInvalidData")
-        networkService.request(resource, onCompletion: { fetchedTrain in
+        networkService.request(resource, onCompletion: { _ in
             XCTFail()
             }, onError: { error in
                 if case .serializationError(_, _) = error {
@@ -134,7 +134,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testRequest_withFailingSerialization")
         
         //When
-        networkService.request(resource, onCompletion: { fetchedTrain in
+        networkService.request(resource, onCompletion: { _ in
             XCTFail()
         }, onError: { (error: DBNetworkStackError) in
                 if case .serializationError(_, _) = error {
@@ -154,7 +154,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testOnError")
         
         //When
-        networkService.request(resource, onCompletion: { fetchedTrain in
+        networkService.request(resource, onCompletion: { _ in
             }, onError: { resultError in
                 //Then
                 switch resultError {
@@ -177,7 +177,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testOnError")
         
         //When
-        networkService.request(resource, onCompletion: { fetchedTrain in
+        networkService.request(resource, onCompletion: { _ in
             }, onError: { resultError in
                 //Then
                 switch resultError {

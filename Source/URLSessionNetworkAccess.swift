@@ -51,7 +51,7 @@ public protocol URLSessionProtocol: NetworkAccessProviding {
 }
 
 public extension URLSessionProtocol {
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> ()) -> NetworkTaskRepresenting {
+    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
         let task = dataTask(with: request, completionHandler: { data, response, error in
             callback(data, response as? HTTPURLResponse, error)
         })

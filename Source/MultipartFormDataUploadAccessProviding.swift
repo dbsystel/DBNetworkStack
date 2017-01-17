@@ -47,9 +47,9 @@ protocol MultipartFormDataUploadAccessProviding {
     func upload(
         _ request: NetworkRequestRepresening,
         relativeToBaseURL baseURL: URL,
-                          multipartFormData: @escaping (MultipartFormDataRepresenting) -> (),
+                          multipartFormData: @escaping (MultipartFormDataRepresenting) -> Void,
                           encodingMemoryThreshold: UInt64,
-                          callback: @escaping (Data?, HTTPURLResponse?, Error?) -> (),
-                          onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> ()
+                          callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void,
+                          onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> Void
     )
 }

@@ -35,11 +35,11 @@ import Foundation
 //    fileprivate var reponseData: Data?
 //    fileprivate var responseError: NSError?
 //    fileprivate var response: HTTPURLResponse?
-//    fileprivate var multipartFormData: ((MultipartFormDataRepresenting) -> ())?
+//    fileprivate var multipartFormData: ((MultipartFormDataRepresenting) -> Void)?
 //    
-//    func upload(_ request: NetworkRequestRepresening, relativeToBaseURL baseURL: URL, multipartFormData: @escaping (MultipartFormDataRepresenting) -> (),
-//                encodingMemoryThreshold: UInt64, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> (),
-//                onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> ()) {
+//    func upload(_ request: NetworkRequestRepresening, relativeToBaseURL baseURL: URL, multipartFormData: @escaping (MultipartFormDataRepresenting) -> Void,
+//                encodingMemoryThreshold: UInt64, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void,
+//                onNetworkTaskCreation: @escaping (NetworkTaskRepresenting) -> Void) {
 //        DispatchQueue.main.async {
 //            multipartFormData(MulitpartFormDataRepresentingMock())
 //            onNetworkTaskCreation(NetworkTaskMock())
