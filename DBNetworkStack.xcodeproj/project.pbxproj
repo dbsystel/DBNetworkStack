@@ -8,16 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7C235E0B1DBF6E8500628DC9 /* DBNetworkStackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */; };
-		7C40B9E31D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E21D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift */; };
-		7C40B9E51D9AA38600620563 /* MultipartFormDataRepresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E41D9AA38600620563 /* MultipartFormDataRepresenting.swift */; };
-		7C40B9E71D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E61D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift */; };
-		7C40B9E91D9AA4B800620563 /* MultipartFormDataResourceModelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9E81D9AA4B800620563 /* MultipartFormDataResourceModelling.swift */; };
-		7C40B9EB1D9AA4DE00620563 /* MultipartFormDataResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9EA1D9AA4DE00620563 /* MultipartFormDataResource.swift */; };
-		7C40B9F61D9D028000620563 /* MultipartFormDataUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F51D9D028000620563 /* MultipartFormDataUploadService.swift */; };
 		7C40B9FA1D9D0F6D00620563 /* BaseURLProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */; };
 		7C40B9FC1D9D661B00620563 /* UploadAccessServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9FB1D9D661B00620563 /* UploadAccessServiceMock.swift */; };
 		7C40B9FE1D9D66A600620563 /* NetworkTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9FD1D9D66A600620563 /* NetworkTaskMock.swift */; };
-		7C40BA001D9D67CD00620563 /* MultipartFormDataUploadServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9FF1D9D67CD00620563 /* MultipartFormDataUploadServiceTests.swift */; };
 		7C653BC91E09325500199993 /* NetworkResponseProcessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C653BC81E09325500199993 /* NetworkResponseProcessingTests.swift */; };
 		C60425081D76F6F400FD3B38 /* NetworkAccessProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */; };
 		C604250A1D76F79F00FD3B38 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60425091D76F79F00FD3B38 /* NetworkService.swift */; };
@@ -52,9 +45,9 @@
 		C6A5DED61D760E5000BC38B1 /* NetworkAccessMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED51D760E5000BC38B1 /* NetworkAccessMock.swift */; };
 		C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED91D76A06000BC38B1 /* TrainModel.swift */; };
 		C6AB45D91DA3DB4D00FD41D2 /* MulitpartFormDataRepresentingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AB45D81DA3DB4D00FD41D2 /* MulitpartFormDataRepresentingMock.swift */; };
+		C6C395921E03DF9D00413AD2 /* URLSessionProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C395911E03DF9D00413AD2 /* URLSessionProtocolMock.swift */; };
 		C6C395941E04212F00413AD2 /* ModifyRequestNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C395931E04212F00413AD2 /* ModifyRequestNetworkService.swift */; };
 		C6C395961E0422AF00413AD2 /* ModifyRequestNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */; };
-		C6C395921E03DF9D00413AD2 /* URLSessionProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C395911E03DF9D00413AD2 /* URLSessionProtocolMock.swift */; };
 		C6C86F531D910CE500D6E59E /* NetworkRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */; };
 		C6F235D51D7DA75000E628D8 /* URLSessionNetworkAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */; };
 /* End PBXBuildFile section */
@@ -71,16 +64,9 @@
 
 /* Begin PBXFileReference section */
 		7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBNetworkStackError.swift; sourceTree = "<group>"; };
-		7C40B9E21D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadAccessProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		7C40B9E41D9AA38600620563 /* MultipartFormDataRepresenting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormDataRepresenting.swift; sourceTree = "<group>"; };
-		7C40B9E61D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadServiceProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		7C40B9E81D9AA4B800620563 /* MultipartFormDataResourceModelling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataResourceModelling.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		7C40B9EA1D9AA4DE00620563 /* MultipartFormDataResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataResource.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		7C40B9F51D9D028000620563 /* MultipartFormDataUploadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BaseURLProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9FB1D9D661B00620563 /* UploadAccessServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = UploadAccessServiceMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C40B9FD1D9D66A600620563 /* NetworkTaskMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkTaskMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		7C40B9FF1D9D67CD00620563 /* MultipartFormDataUploadServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultipartFormDataUploadServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C653BC81E09325500199993 /* NetworkResponseProcessingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponseProcessingTests.swift; sourceTree = "<group>"; };
 		C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkAccessProviding.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C60425091D76F79F00FD3B38 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -118,9 +104,9 @@
 		C6A5DED51D760E5000BC38B1 /* NetworkAccessMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkAccessMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6A5DED91D76A06000BC38B1 /* TrainModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainModel.swift; sourceTree = "<group>"; };
 		C6AB45D81DA3DB4D00FD41D2 /* MulitpartFormDataRepresentingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulitpartFormDataRepresentingMock.swift; sourceTree = "<group>"; };
+		C6C395911E03DF9D00413AD2 /* URLSessionProtocolMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionProtocolMock.swift; sourceTree = "<group>"; };
 		C6C395931E04212F00413AD2 /* ModifyRequestNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyRequestNetworkService.swift; sourceTree = "<group>"; };
 		C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyRequestNetworkService.swift; sourceTree = "<group>"; };
-		C6C395911E03DF9D00413AD2 /* URLSessionProtocolMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionProtocolMock.swift; sourceTree = "<group>"; };
 		C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkRequestTest.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = URLSessionNetworkAccess.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
@@ -144,14 +130,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C60425111D7801A400FD3B38 /* protocol */ = {
-			isa = PBXGroup;
-			children = (
-				C60BE67E1D6B2C46006B0364 /* JSONResourceModeling.swift */,
-			);
-			name = protocol;
-			sourceTree = "<group>";
-		};
 		C60BE6511D6B2BF3006B0364 = {
 			isa = PBXGroup;
 			children = (
@@ -174,22 +152,17 @@
 		C60BE65D1D6B2BF3006B0364 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C60BE6A91D6B39BF006B0364 /* JSONParsing */,
-				C60BE6A81D6B399A006B0364 /* protocol */,
+				C6E5A4D11E2FBD1100F966DB /* NetworkService */,
+				C6E5A4D41E2FBD7700F966DB /* NetworkAccess */,
+				C6E5A4D01E2FBCF000F966DB /* Resource */,
+				C6E5A4D21E2FBD2B00F966DB /* NetworkRequest */,
+				C6E5A4D31E2FBD5800F966DB /* NetworkTask */,
+				C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */,
+				7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */,
 				C60BE67F1D6B2C46006B0364 /* HTTPMethod.swift */,
-				C60BE6801D6B2C46006B0364 /* Resource.swift */,
-				7C40B9EA1D9AA4DE00620563 /* MultipartFormDataResource.swift */,
-				C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */,
-				C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */,
-				C60425091D76F79F00FD3B38 /* NetworkService.swift */,
-				7C40B9F51D9D028000620563 /* MultipartFormDataUploadService.swift */,
-				C6C395931E04212F00413AD2 /* ModifyRequestNetworkService.swift */,
 				7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
-				C6461F011E01678100E0B081 /* RetryNetworkService.swift */,
-				C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */,
-				C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -199,52 +172,17 @@
 			children = (
 				C6A5DED81D76A05300BC38B1 /* Helpers */,
 				C6A5DED21D760C9E00BC38B1 /* Mocks */,
-				C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */,
+				C6E5A4D51E2FBDDD00F966DB /* NetworkServiceTests */,
+				C6E5A4D61E2FBE0000F966DB /* RessourceTests */,
 				C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */,
-				C6461F071E0167FA00E0B081 /* RetryNetworkserviceTest.swift */,
-				C6A5DED31D760CC900BC38B1 /* JSONResourceTest.swift */,
-				C604250F1D78002400FD3B38 /* JSONArrayResourceTest.swift */,
-				C60425121D7803CA00FD3B38 /* ResourceTest.swift */,
 				C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */,
 				C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */,
 				C68CC28E1D8BED570019D940 /* BaseURLKeyTest.swift */,
 				C699E0761D917501006FE7C6 /* DBNetworkStackErrorTest.swift */,
-				7C40B9FF1D9D67CD00620563 /* MultipartFormDataUploadServiceTests.swift */,
-				C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */,
 				7C653BC81E09325500199993 /* NetworkResponseProcessingTests.swift */,
 			);
 			name = Tests;
 			path = Tests/DBNetworkStackTests;
-			sourceTree = "<group>";
-		};
-		C60BE6A81D6B399A006B0364 /* protocol */ = {
-			isa = PBXGroup;
-			children = (
-				C60BE67C1D6B2C46006B0364 /* ResourceModeling.swift */,
-				C61348B81DACB4F2000F0583 /* ArrayResourceModeling.swift */,
-				C60BE67B1D6B2C46006B0364 /* NetworkRequestRepresening.swift */,
-				C60BE67D1D6B2C46006B0364 /* NetworkServiceProviding.swift */,
-				C60BE6AC1D6B3E81006B0364 /* NetworkTaskRepresenting.swift */,
-				C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */,
-				C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */,
-				7C40B9E21D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift */,
-				7C40B9E61D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift */,
-				7C40B9E41D9AA38600620563 /* MultipartFormDataRepresenting.swift */,
-				7C40B9E81D9AA4B800620563 /* MultipartFormDataResourceModelling.swift */,
-				7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */,
-			);
-			name = protocol;
-			sourceTree = "<group>";
-		};
-		C60BE6A91D6B39BF006B0364 /* JSONParsing */ = {
-			isa = PBXGroup;
-			children = (
-				C60425111D7801A400FD3B38 /* protocol */,
-				C60BE6811D6B2C46006B0364 /* JSONResource.swift */,
-				C60BE6821D6B2C46006B0364 /* JSONArrayResource.swift */,
-				C65F087A1D757A3C00239CC1 /* JSONMappable.swift */,
-			);
-			name = JSONParsing;
 			sourceTree = "<group>";
 		};
 		C6A5DED21D760C9E00BC38B1 /* Mocks */ = {
@@ -266,6 +204,79 @@
 				C6A5DED91D76A06000BC38B1 /* TrainModel.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		C6E5A4D01E2FBCF000F966DB /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C60BE6811D6B2C46006B0364 /* JSONResource.swift */,
+				C60BE6821D6B2C46006B0364 /* JSONArrayResource.swift */,
+				C65F087A1D757A3C00239CC1 /* JSONMappable.swift */,
+				C60BE67E1D6B2C46006B0364 /* JSONResourceModeling.swift */,
+				C60BE67C1D6B2C46006B0364 /* ResourceModeling.swift */,
+				C61348B81DACB4F2000F0583 /* ArrayResourceModeling.swift */,
+				C60BE6801D6B2C46006B0364 /* Resource.swift */,
+				C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		C6E5A4D11E2FBD1100F966DB /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				C60BE67D1D6B2C46006B0364 /* NetworkServiceProviding.swift */,
+				C60425091D76F79F00FD3B38 /* NetworkService.swift */,
+				C6C395931E04212F00413AD2 /* ModifyRequestNetworkService.swift */,
+				C6461F011E01678100E0B081 /* RetryNetworkService.swift */,
+			);
+			name = NetworkService;
+			sourceTree = "<group>";
+		};
+		C6E5A4D21E2FBD2B00F966DB /* NetworkRequest */ = {
+			isa = PBXGroup;
+			children = (
+				C60BE67B1D6B2C46006B0364 /* NetworkRequestRepresening.swift */,
+				C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */,
+			);
+			name = NetworkRequest;
+			sourceTree = "<group>";
+		};
+		C6E5A4D31E2FBD5800F966DB /* NetworkTask */ = {
+			isa = PBXGroup;
+			children = (
+				C60BE6AC1D6B3E81006B0364 /* NetworkTaskRepresenting.swift */,
+				C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */,
+			);
+			name = NetworkTask;
+			sourceTree = "<group>";
+		};
+		C6E5A4D41E2FBD7700F966DB /* NetworkAccess */ = {
+			isa = PBXGroup;
+			children = (
+				C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */,
+				C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */,
+			);
+			name = NetworkAccess;
+			sourceTree = "<group>";
+		};
+		C6E5A4D51E2FBDDD00F966DB /* NetworkServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */,
+				C6461F071E0167FA00E0B081 /* RetryNetworkserviceTest.swift */,
+				C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */,
+			);
+			name = NetworkServiceTests;
+			sourceTree = "<group>";
+		};
+		C6E5A4D61E2FBE0000F966DB /* RessourceTests */ = {
+			isa = PBXGroup;
+			children = (
+				C6A5DED31D760CC900BC38B1 /* JSONResourceTest.swift */,
+				C604250F1D78002400FD3B38 /* JSONArrayResourceTest.swift */,
+				C60425121D7803CA00FD3B38 /* ResourceTest.swift */,
+			);
+			name = RessourceTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -400,14 +411,10 @@
 				C6C395941E04212F00413AD2 /* ModifyRequestNetworkService.swift in Sources */,
 				C60BE6931D6B2C46006B0364 /* NetworkRequest.swift in Sources */,
 				C60BE6911D6B2C46006B0364 /* JSONResource.swift in Sources */,
-				7C40B9EB1D9AA4DE00620563 /* MultipartFormDataResource.swift in Sources */,
 				C60BE6901D6B2C46006B0364 /* Resource.swift in Sources */,
-				7C40B9E91D9AA4B800620563 /* MultipartFormDataResourceModelling.swift in Sources */,
-				7C40B9E31D9A9A7000620563 /* MultipartFormDataUploadAccessProviding.swift in Sources */,
 				C60BE6921D6B2C46006B0364 /* JSONArrayResource.swift in Sources */,
 				C6461F021E01678100E0B081 /* RetryNetworkService.swift in Sources */,
 				C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */,
-				7C40B9F61D9D028000620563 /* MultipartFormDataUploadService.swift in Sources */,
 				7C235E0B1DBF6E8500628DC9 /* DBNetworkStackError.swift in Sources */,
 				C65F087B1D757A3C00239CC1 /* JSONMappable.swift in Sources */,
 				C60BE68E1D6B2C46006B0364 /* JSONResourceModeling.swift in Sources */,
@@ -417,9 +424,7 @@
 				C68FF1F51E1A64CB00A2513F /* Ressource+Map.swift in Sources */,
 				C604250A1D76F79F00FD3B38 /* NetworkService.swift in Sources */,
 				C6461F051E0167C900E0B081 /* RetryNetworkTask.swift in Sources */,
-				7C40B9E51D9AA38600620563 /* MultipartFormDataRepresenting.swift in Sources */,
 				7C40B9FA1D9D0F6D00620563 /* BaseURLProviding.swift in Sources */,
-				7C40B9E71D9AA48200620563 /* MultipartFormDataUploadServiceProviding.swift in Sources */,
 				C60BE6AD1D6B3E81006B0364 /* NetworkTaskRepresenting.swift in Sources */,
 				C60425081D76F6F400FD3B38 /* NetworkAccessProviding.swift in Sources */,
 				C60BE68D1D6B2C46006B0364 /* NetworkServiceProviding.swift in Sources */,
@@ -438,7 +443,6 @@
 				C6461F0B1E016C7700E0B081 /* NetworkServiceMock.swift in Sources */,
 				C6A5DED61D760E5000BC38B1 /* NetworkAccessMock.swift in Sources */,
 				C60425131D7803CA00FD3B38 /* ResourceTest.swift in Sources */,
-				7C40BA001D9D67CD00620563 /* MultipartFormDataUploadServiceTests.swift in Sources */,
 				C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */,
 				C6816E211D87C51C003B699A /* URLSessionNetworkAccessTest.swift in Sources */,
 				7C653BC91E09325500199993 /* NetworkResponseProcessingTests.swift in Sources */,
