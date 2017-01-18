@@ -30,7 +30,9 @@ matrix:
         - export SNAPSHOT_FORCE_DELETE=1
         - fastlane snapshot reset_simulators
       script:
-        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=iOS Simulator,name=iPhone SE,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=iOS Simulator,name=iPhone SE,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage YES | xcpretty
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
     - os: osx
       osx_image: xcode8.2
       language: objective-c
