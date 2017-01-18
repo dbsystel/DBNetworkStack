@@ -137,8 +137,8 @@
 			children = (
 				C60BE65D1D6B2BF3006B0364 /* Source */,
 				C60BE6691D6B2BF3006B0364 /* Tests */,
-				C60BE66C1D6B2BF3006B0364 /* Info.plist */,
 				C60BE65C1D6B2BF3006B0364 /* Products */,
+				C60BE66C1D6B2BF3006B0364 /* Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,16 +154,16 @@
 		C60BE65D1D6B2BF3006B0364 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */,
-				C60BE67F1D6B2C46006B0364 /* HTTPMethod.swift */,
-				C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */,
-				7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */,
-				C641E59A1E2F9CEF004F5857 /* NetworkService */,
-				C641E5971E2F9BCB004F5857 /* Ressource */,
 				C641E59B1E2F9D31004F5857 /* NetworkAccess */,
 				C641E5991E2F9CC9004F5857 /* NetworkRequest */,
+				C641E59A1E2F9CEF004F5857 /* NetworkService */,
 				C641E5981E2F9C27004F5857 /* NetworkTask */,
+				C641E5971E2F9BCB004F5857 /* Ressource */,
+				C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */,
+				7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
+				7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */,
+				C60BE67F1D6B2C46006B0364 /* HTTPMethod.swift */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
 			);
 			path = Source;
@@ -174,37 +174,36 @@
 			children = (
 				C6A5DED81D76A05300BC38B1 /* Helpers */,
 				C6A5DED21D760C9E00BC38B1 /* Mocks */,
-				C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */,
-				C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */,
-				C6461F071E0167FA00E0B081 /* RetryNetworkserviceTest.swift */,
-				C6A5DED31D760CC900BC38B1 /* JSONResourceTest.swift */,
-				C604250F1D78002400FD3B38 /* JSONArrayResourceTest.swift */,
-				C60425121D7803CA00FD3B38 /* ResourceTest.swift */,
-				C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */,
-				C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */,
 				C68CC28E1D8BED570019D940 /* BaseURLKeyTest.swift */,
 				C699E0761D917501006FE7C6 /* DBNetworkStackErrorTest.swift */,
-				7C40B9FF1D9D67CD00620563 /* MultipartFormDataUploadServiceTests.swift */,
+				C604250F1D78002400FD3B38 /* JSONArrayResourceTest.swift */,
+				C6A5DED31D760CC900BC38B1 /* JSONResourceTest.swift */,
 				C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */,
+				7C40B9FF1D9D67CD00620563 /* MultipartFormDataUploadServiceTests.swift */,
+				C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */,
 				7C653BC81E09325500199993 /* NetworkResponseProcessingTests.swift */,
+				C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */,
+				C60425121D7803CA00FD3B38 /* ResourceTest.swift */,
+				C6461F071E0167FA00E0B081 /* RetryNetworkserviceTest.swift */,
+				C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */,
+				C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */,
 			);
-			name = Tests;
-			path = Tests/DBNetworkStackTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		C641E5971E2F9BCB004F5857 /* Ressource */ = {
 			isa = PBXGroup;
 			children = (
-				C60BE67E1D6B2C46006B0364 /* JSONResourceModeling.swift */,
-				C60BE6811D6B2C46006B0364 /* JSONResource.swift */,
+				C61348B81DACB4F2000F0583 /* ArrayResourceModeling.swift */,
 				C60BE6821D6B2C46006B0364 /* JSONArrayResource.swift */,
 				C65F087A1D757A3C00239CC1 /* JSONMappable.swift */,
-				C60BE67C1D6B2C46006B0364 /* ResourceModeling.swift */,
-				C61348B81DACB4F2000F0583 /* ArrayResourceModeling.swift */,
+				C60BE6811D6B2C46006B0364 /* JSONResource.swift */,
+				C60BE67E1D6B2C46006B0364 /* JSONResourceModeling.swift */,
 				C60BE6801D6B2C46006B0364 /* Resource.swift */,
+				C60BE67C1D6B2C46006B0364 /* ResourceModeling.swift */,
 				C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */,
 			);
-			name = Ressource;
+			path = Ressource;
 			sourceTree = "<group>";
 		};
 		C641E5981E2F9C27004F5857 /* NetworkTask */ = {
@@ -213,49 +212,49 @@
 				C60BE6AC1D6B3E81006B0364 /* NetworkTaskRepresenting.swift */,
 				C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */,
 			);
-			name = NetworkTask;
+			path = NetworkTask;
 			sourceTree = "<group>";
 		};
 		C641E5991E2F9CC9004F5857 /* NetworkRequest */ = {
 			isa = PBXGroup;
 			children = (
-				C60BE67B1D6B2C46006B0364 /* NetworkRequestRepresening.swift */,
 				C60BE6831D6B2C46006B0364 /* NetworkRequest.swift */,
+				C60BE67B1D6B2C46006B0364 /* NetworkRequestRepresening.swift */,
 			);
-			name = NetworkRequest;
+			path = NetworkRequest;
 			sourceTree = "<group>";
 		};
 		C641E59A1E2F9CEF004F5857 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
+				C6C395931E04212F00413AD2 /* ModifyRequestNetworkService.swift */,
 				C60425091D76F79F00FD3B38 /* NetworkService.swift */,
 				C60BE67D1D6B2C46006B0364 /* NetworkServiceProviding.swift */,
-				C6C395931E04212F00413AD2 /* ModifyRequestNetworkService.swift */,
 				C6461F011E01678100E0B081 /* RetryNetworkService.swift */,
 			);
-			name = NetworkService;
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 		C641E59B1E2F9D31004F5857 /* NetworkAccess */ = {
 			isa = PBXGroup;
 			children = (
-				C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */,
 				C60425071D76F6F400FD3B38 /* NetworkAccessProviding.swift */,
+				C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */,
 			);
-			name = NetworkAccess;
+			path = NetworkAccess;
 			sourceTree = "<group>";
 		};
 		C6A5DED21D760C9E00BC38B1 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				C6AB45D81DA3DB4D00FD41D2 /* MulitpartFormDataRepresentingMock.swift */,
 				C6A5DED51D760E5000BC38B1 /* NetworkAccessMock.swift */,
 				C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */,
-				7C40B9FB1D9D661B00620563 /* UploadAccessServiceMock.swift */,
 				7C40B9FD1D9D66A600620563 /* NetworkTaskMock.swift */,
-				C6AB45D81DA3DB4D00FD41D2 /* MulitpartFormDataRepresentingMock.swift */,
 				C6C395911E03DF9D00413AD2 /* URLSessionProtocolMock.swift */,
+				7C40B9FB1D9D661B00620563 /* UploadAccessServiceMock.swift */,
 			);
-			name = Mocks;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		C6A5DED81D76A05300BC38B1 /* Helpers */ = {
@@ -263,7 +262,7 @@
 			children = (
 				C6A5DED91D76A06000BC38B1 /* TrainModel.swift */,
 			);
-			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
