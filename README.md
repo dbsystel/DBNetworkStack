@@ -1,7 +1,8 @@
 # DBNetworkStack
 
 [![Build Status](https://travis-ci.org/dbsystel/DBNetworkStack.svg?branch=develop)](https://travis-ci.org/dbsystel/DBNetworkStack)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) 
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![codecov](https://codecov.io/gh/dbsystel/DBNetworkStack/branch/develop/graph/badge.svg)](https://codecov.io/gh/dbsystel/DBNetworkStack)
 
 |           | Main Features                  |
 | --------- | ------------------------------ |
@@ -9,6 +10,7 @@
 | &#127968; | Protocol oriented architecture |
 | 🔀        | Exchangeable implementations   |
 | 🚄        | Extendable API                 |
+| 🎹        | Composable Features            |
 | &#9989;   | Fully unit tested              |
 
 The idea behind this project comes from this [talk.objc.io article](https://talk.objc.io/episodes/S01E01-networking).
@@ -107,7 +109,12 @@ The following table shows all the protocols and their default implementations.
 | ```NetworkTaskRepresenting```    | ```NSURLSessionTask``` |
 | ```ResourceModelling```          | ```Resource<Model>```  |
 
+## Composable Features
 
+| Class                         | Feature |
+| -------------------------------- | ---------------------- |
+| ```RetryNetworkService```        | Retrys requests after a given delay when an error meets given criteria. |
+| ```ModifyRequestNetworkService```        | Modify matching requests. Can be used to add auth tokens or API Keys  |
 
 ## Requirements
 
@@ -124,7 +131,7 @@ The following table shows all the protocols and their default implementations.
 Specify the following in your `Cartfile`:
 
 ```ogdl
-github "dbsystel/dbnetworkstack" ~> 0.1
+github "dbsystel/dbnetworkstack" ~> 0.3
 ```
 ## Contributing
 Feel free to submit a pull request with new features, improvements on tests or documentation and bug fixes. Keep in mind that we welcome code that is well tested and documented.

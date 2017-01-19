@@ -29,6 +29,6 @@ let resource = JSONResource<IPOrigin>(request: request)
 
 networkService.request(resource, onCompletion: { origin in
     print(origin)
-    }, onError: { error in
+    }, onError: { _ in
         //Handle errors
 })

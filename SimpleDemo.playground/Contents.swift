@@ -14,6 +14,6 @@ let resource = Resource(request: request, parse: { String(data: $0, encoding: .u
 
 networkService.request(resource, onCompletion: { htmlText in
     print(htmlText)
-    }, onError: { error in
+    }, onError: { _ in
         //Handle errors
 })
