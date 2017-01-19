@@ -34,8 +34,8 @@ import Foundation
  
  See `ResourceModeling` for more details.
  */
-public struct JSONArrayResource<Element_: JSONMappable>: JSONResourceModeling, ArrayResourceModeling {
-    public typealias Element = Element_
+public struct JSONArrayResource<ModelElement: JSONMappable>: JSONResourceModeling, ArrayResourceModeling {
+    public typealias Element = ModelElement
     public let request: NetworkRequestRepresening
     public var parse: (_ data: Data) throws -> Array<Element> {
         return parseFunction
