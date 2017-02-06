@@ -27,21 +27,38 @@
 //
 
 import Foundation
-import DBNetworkStack
 
+fileprivate class NetworkTaskMock: NetworkTaskRepresenting {
+    func cancel() { }
+    
+    func resume() { }
+    
+    func suspend() { }
+    
+    var progress: Progress {
+        return Progress()
+    }
+}
 
-class NetworkServiceMock: NetworkServiceProviding {
+public class NetworkServiceMock: NetworkServiceProviding {
     private var onErrorCallback: ((DBNetworkStackError) -> Void)?
     private var onSuccess: ((Data) -> Void)?
+    private var onTypedSucess: ((Any) -> Void)?
     
-    var requestCount: Int = 0
-    var lastReuqest: NetworkRequestRepresening?
+    public var requestCount: Int = 0
+    public var lastReuqest: NetworkRequestRepresening?
 
-    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
+    public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         lastReuqest = resource.request
         onSuccess = { data in
              onCompletion(try! resource.parse(data))
+        }
+        onTypedSucess = { anyResult in
+            guard let typedResult =  anyResult as? T.Model else {
+                fatalError("Extected type of \(T.Model.self)")
+            }
+            onCompletion(typedResult)
         }
         onErrorCallback = { error in
             onError(error)
@@ -50,18 +67,29 @@ class NetworkServiceMock: NetworkServiceProviding {
         return NetworkTaskMock()
     }
     
-
-    func returnError(error: DBNetworkStackError, count: Int = 1) {
+    public func returnError(with error: DBNetworkStackError, count: Int = 1) {
         for _ in 0...count {
             onErrorCallback?(error)
         }
         onErrorCallback = nil
     }
     
-    func returnSuccess(data: Data = Data(), count: Int = 1) {
+    public func returnSuccess(with data: Data = Data(), count: Int = 1) {
         for _ in 0...count {
             onSuccess?(data)
         }
         onSuccess = nil
+    }
+    
+    public func returnSucess<T>(with serializedResponse: T, count: Int = 1) {
+        for _ in 0...count {
+            onTypedSucess?(serializedResponse)
+        }
+        onSuccess = nil
+        onTypedSucess = nil
+    }
+    
+    public func returnSucess<Resource: ResourceModeling>(with resource: Resource, data: Data, count: Int = 1) {
+        returnSucess(with: try! resource.parse(data))
     }
 }

@@ -30,11 +30,11 @@
 		C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */; };
 		C60BE6AD1D6B3E81006B0364 /* NetworkTaskRepresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BE6AC1D6B3E81006B0364 /* NetworkTaskRepresenting.swift */; };
 		C61348B91DACB4F2000F0583 /* ArrayResourceModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61348B81DACB4F2000F0583 /* ArrayResourceModeling.swift */; };
+		C61E77871E48CAFE00D55BB2 /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */; };
 		C6461F021E01678100E0B081 /* RetryNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F011E01678100E0B081 /* RetryNetworkService.swift */; };
 		C6461F051E0167C900E0B081 /* RetryNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */; };
 		C6461F081E0167FA00E0B081 /* RetryTaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */; };
 		C6461F091E0167FA00E0B081 /* RetryNetworkserviceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F071E0167FA00E0B081 /* RetryNetworkserviceTest.swift */; };
-		C6461F0B1E016C7700E0B081 /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */; };
 		C65F087B1D757A3C00239CC1 /* JSONMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F087A1D757A3C00239CC1 /* JSONMappable.swift */; };
 		C65F08821D75AC8D00239CC1 /* BaseURLKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */; };
 		C6816E211D87C51C003B699A /* URLSessionNetworkAccessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */; };
@@ -93,7 +93,7 @@
 		C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryNetworkTask.swift; sourceTree = "<group>"; };
 		C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryTaskTest.swift; sourceTree = "<group>"; };
 		C6461F071E0167FA00E0B081 /* RetryNetworkserviceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryNetworkserviceTest.swift; sourceTree = "<group>"; };
-		C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
+		C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkServiceMock.swift; path = ../Tests/DBNetworkStackTests/NetworkServiceMock.swift; sourceTree = "<group>"; };
 		C65F087A1D757A3C00239CC1 /* JSONMappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONMappable.swift; sourceTree = "<group>"; };
 		C65F08811D75AC8D00239CC1 /* BaseURLKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLKey.swift; sourceTree = "<group>"; };
 		C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = URLSessionNetworkAccessTest.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -161,6 +161,7 @@
 				7C40B9F91D9D0F6D00620563 /* BaseURLProviding.swift */,
 				C60BE67F1D6B2C46006B0364 /* HTTPMethod.swift */,
 				7C235E0A1DBF6E8500628DC9 /* DBNetworkStackError.swift */,
+				C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */,
 				C60BE65E1D6B2BF3006B0364 /* DBNetworkStack.h */,
 				C60BE6601D6B2BF3006B0364 /* Info.plist */,
 			);
@@ -189,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				C6A5DED51D760E5000BC38B1 /* NetworkAccessMock.swift */,
-				C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */,
 				7C40B9FB1D9D661B00620563 /* UploadAccessServiceMock.swift */,
 				7C40B9FD1D9D66A600620563 /* NetworkTaskMock.swift */,
 				C6AB45D81DA3DB4D00FD41D2 /* MulitpartFormDataRepresentingMock.swift */,
@@ -427,6 +427,7 @@
 				7C40B9FA1D9D0F6D00620563 /* BaseURLProviding.swift in Sources */,
 				C60BE6AD1D6B3E81006B0364 /* NetworkTaskRepresenting.swift in Sources */,
 				C60425081D76F6F400FD3B38 /* NetworkAccessProviding.swift in Sources */,
+				C61E77871E48CAFE00D55BB2 /* NetworkServiceMock.swift in Sources */,
 				C60BE68D1D6B2C46006B0364 /* NetworkServiceProviding.swift in Sources */,
 				C60BE68B1D6B2C46006B0364 /* NetworkRequestRepresening.swift in Sources */,
 			);
@@ -440,7 +441,6 @@
 				C6C86F531D910CE500D6E59E /* NetworkRequestTest.swift in Sources */,
 				7C40B9FE1D9D66A600620563 /* NetworkTaskMock.swift in Sources */,
 				C699E0771D917501006FE7C6 /* DBNetworkStackErrorTest.swift in Sources */,
-				C6461F0B1E016C7700E0B081 /* NetworkServiceMock.swift in Sources */,
 				C6A5DED61D760E5000BC38B1 /* NetworkAccessMock.swift in Sources */,
 				C60425131D7803CA00FD3B38 /* ResourceTest.swift in Sources */,
 				C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */,
