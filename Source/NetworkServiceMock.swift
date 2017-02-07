@@ -45,14 +45,18 @@ public class NetworkServiceMock: NetworkServiceProviding {
     private var onSuccess: ((Data) -> Void)?
     private var onTypedSucess: ((Any) -> Void)?
     
+    public init() {}
+    
     /// Count of all stared requests
     public var requestCount: Int = 0
     /// Last executed request
     public var lastReuqest: NetworkRequestRepresening?
 
+    @discardableResult
     public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         lastReuqest = resource.request
+        requestCount += 1
         onSuccess = { data in
             guard let result = try? resource.parse(data) else {
                 fatalError("Could not parse data into matching result type")
@@ -76,11 +80,8 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///
     /// - Parameters:
     ///   - error: the error which gets passed to the caller
-    ///   - count: the count, how often the error accours. 1 by default
-    public func returnError(with error: DBNetworkStackError, count: Int = 1) {
-        for _ in 0...count {
-            onErrorCallback?(error)
-        }
+    public func returnError(with error: DBNetworkStackError) {
+       onErrorCallback?(error)
         onErrorCallback = nil
     }
     
@@ -88,11 +89,8 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
-    ///   - count: the yount how often the response gets triggerd. 1 by default
-    public func returnSuccess(with data: Data = Data(), count: Int = 1) {
-        for _ in 0...count {
-            onSuccess?(data)
-        }
+    public func returnSuccess(with data: Data = Data()) {
+        onSuccess?(data)
         onSuccess = nil
     }
     
@@ -102,11 +100,8 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
-    ///   - count: the yount how often the response gets triggerd. 1 by default
-    public func returnSucess<T>(with serializedResponse: T, count: Int = 1) {
-        for _ in 0...count {
-            onTypedSucess?(serializedResponse)
-        }
+    public func returnSucess<T>(with serializedResponse: T) {
+        onTypedSucess?(serializedResponse)
         onSuccess = nil
         onTypedSucess = nil
     }
