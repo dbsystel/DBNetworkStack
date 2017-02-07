@@ -28,18 +28,6 @@
 
 import Foundation
 
-fileprivate class NetworkTaskMock: NetworkTaskRepresenting {
-    func cancel() { }
-    
-    func resume() { }
-    
-    func suspend() { }
-    
-    var progress: Progress {
-        return Progress()
-    }
-}
-
 public class NetworkServiceMock: NetworkServiceProviding {
     private var onErrorCallback: ((DBNetworkStackError) -> Void)?
     private var onSuccess: ((Data) -> Void)?
@@ -51,6 +39,8 @@ public class NetworkServiceMock: NetworkServiceProviding {
     public var requestCount: Int = 0
     /// Last executed request
     public var lastReuqest: NetworkRequestRepresening?
+    /// Set this to hava a custom networktask
+    public var nextNetworkTask: NetworkTaskRepresenting?
 
     @discardableResult
     public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
@@ -73,7 +63,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
             onError(error)
         }
         
-        return NetworkTaskMock()
+        return nextNetworkTask ?? NetworkTaskMock()
     }
     
     /// Will return an error to the current waiting request.

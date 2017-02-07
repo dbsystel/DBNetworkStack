@@ -26,23 +26,29 @@
 //
 
 import Foundation
-import DBNetworkStack
 
-class NetworkTaskMock: NetworkTaskRepresenting {
-    var isCanceld = false
-    func cancel() {
-        isCanceld = true
+public enum NetworkTaskMockState {
+    case cancled, resumed, suspended
+}
+
+public class NetworkTaskMock: NetworkTaskRepresenting {
+    
+    public init() {}
+    public var state: NetworkTaskMockState?
+    
+    public func cancel() {
+        state = .cancled
     }
     
-    func resume() {
-        
+    public func resume() {
+        state = .resumed
     }
     
-    func suspend() {
-        
+    public func suspend() {
+        state = .suspended
     }
     
-    var progress: Progress {
+    public var progress: Progress {
         return Progress()
     }
 }
