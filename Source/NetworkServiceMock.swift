@@ -45,14 +45,19 @@ public class NetworkServiceMock: NetworkServiceProviding {
     private var onSuccess: ((Data) -> Void)?
     private var onTypedSucess: ((Any) -> Void)?
     
+    /// Count of all stared requests
     public var requestCount: Int = 0
+    /// Last executed request
     public var lastReuqest: NetworkRequestRepresening?
 
     public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         lastReuqest = resource.request
         onSuccess = { data in
-             onCompletion(try! resource.parse(data))
+            guard let result = try? resource.parse(data) else {
+                fatalError("Could not parse data into matching result type")
+            }
+            onCompletion(result)
         }
         onTypedSucess = { anyResult in
             guard let typedResult =  anyResult as? T.Model else {
@@ -67,6 +72,11 @@ public class NetworkServiceMock: NetworkServiceProviding {
         return NetworkTaskMock()
     }
     
+    /// Will return an error to the current waiting request.
+    ///
+    /// - Parameters:
+    ///   - error: the error which gets passed to the caller
+    ///   - count: the count, how often the error accours. 1 by default
     public func returnError(with error: DBNetworkStackError, count: Int = 1) {
         for _ in 0...count {
             onErrorCallback?(error)
@@ -74,6 +84,11 @@ public class NetworkServiceMock: NetworkServiceProviding {
         onErrorCallback = nil
     }
     
+    /// Will return a sucessful request, by using the given data as a server response.
+    ///
+    /// - Parameters:
+    ///   - data: the mock response from the server. `Data()` by default
+    ///   - count: the yount how often the response gets triggerd. 1 by default
     public func returnSuccess(with data: Data = Data(), count: Int = 1) {
         for _ in 0...count {
             onSuccess?(data)
@@ -81,15 +96,18 @@ public class NetworkServiceMock: NetworkServiceProviding {
         onSuccess = nil
     }
     
+    /// Will return a sucessful request, by using the given type `T` as serialized result of a request.
+    ///
+    /// **Warning:** This will crash if type `T` does not match your expected ResponseType of your current request
+    ///
+    /// - Parameters:
+    ///   - data: the mock response from the server. `Data()` by default
+    ///   - count: the yount how often the response gets triggerd. 1 by default
     public func returnSucess<T>(with serializedResponse: T, count: Int = 1) {
         for _ in 0...count {
             onTypedSucess?(serializedResponse)
         }
         onSuccess = nil
         onTypedSucess = nil
-    }
-    
-    public func returnSucess<Resource: ResourceModeling>(with resource: Resource, data: Data, count: Int = 1) {
-        returnSucess(with: try! resource.parse(data))
     }
 }
