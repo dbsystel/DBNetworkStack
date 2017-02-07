@@ -80,18 +80,28 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///
     /// - Parameters:
     ///   - error: the error which gets passed to the caller
-    public func returnError(with error: DBNetworkStackError) {
-       onErrorCallback?(error)
+    ///   - count: the count, how often the error accours. 1 by default
+    public func returnError(with error: DBNetworkStackError, count: Int = 1) {
+        for _ in 0...count {
+            onErrorCallback?(error)
+        }
         onErrorCallback = nil
+        onSuccess = nil
+        onTypedSucess = nil
     }
     
     /// Will return a sucessful request, by using the given data as a server response.
     ///
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
-    public func returnSuccess(with data: Data = Data()) {
-        onSuccess?(data)
+    ///   - count: the count how often the response gets triggerd. 1 by default
+    public func returnSuccess(with data: Data = Data(), count: Int = 1) {
+        for _ in 0...count {
+            onSuccess?(data)
+        }
+        onErrorCallback = nil
         onSuccess = nil
+        onTypedSucess = nil
     }
     
     /// Will return a sucessful request, by using the given type `T` as serialized result of a request.
@@ -100,8 +110,12 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
-    public func returnSucess<T>(with serializedResponse: T) {
-        onTypedSucess?(serializedResponse)
+    ///   - count: the count how often the response gets triggerd. 1 by default
+    public func returnSucess<T>(with serializedResponse: T, count: Int = 1) {
+        for _ in 0...count {
+            onTypedSucess?(serializedResponse)
+        }
+        onErrorCallback = nil
         onSuccess = nil
         onTypedSucess = nil
     }
