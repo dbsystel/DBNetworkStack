@@ -36,7 +36,7 @@ class NetworkTaskMockTests: XCTestCase {
         task.cancel()
         
         //Then
-        XCTAssertEqual(task.state, .cancled)
+        XCTAssertEqual(task.state, .canceled)
     }
     
     func testResumed() {

@@ -45,7 +45,7 @@ class NetworkServiceMockTest: XCTestCase {
         XCTAssertEqual(networkServiceMock.requestCount, 2)
     }
     
-    func testReturnSucessWithData() {
+    func testReturnSuccessWithData() {
         //Given
         var capturedResult: Int?
         
@@ -59,7 +59,7 @@ class NetworkServiceMockTest: XCTestCase {
         XCTAssertEqual(capturedResult, 1)
     }
     
-    func testReturnSucessWithSerializedData() {
+    func testReturnSuccessWithSerializedData() {
         //Given
         var capturedResult: Int?
         
@@ -67,7 +67,7 @@ class NetworkServiceMockTest: XCTestCase {
         networkServiceMock.request(resource, onCompletion: { result in
             capturedResult = result
         }, onError: { _ in })
-        networkServiceMock.returnSucess(with: 10)
+        networkServiceMock.returnSuccess(with: 10)
         
         //Then
         XCTAssertEqual(capturedResult, 10)

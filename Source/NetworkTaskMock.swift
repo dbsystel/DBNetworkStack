@@ -28,7 +28,7 @@
 import Foundation
 
 public enum NetworkTaskMockState {
-    case cancled, resumed, suspended
+    case canceled, resumed, suspended
 }
 
 public class NetworkTaskMock: NetworkTaskRepresenting {
@@ -37,7 +37,7 @@ public class NetworkTaskMock: NetworkTaskRepresenting {
     public var state: NetworkTaskMockState?
     
     public func cancel() {
-        state = .cancled
+        state = .canceled
     }
     
     public func resume() {
