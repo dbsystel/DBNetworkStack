@@ -59,4 +59,19 @@ class NetworkRequestTest: XCTestCase {
         XCTAssertEqual(urlRequest.httpBody, body)
         XCTAssertEqual(urlRequest.allHTTPHeaderFields!, headerFields)
     }
+    
+    func testAssertOnPathebeginsWith() {
+        var hasError = false
+        let errorColusre: (String, StaticString, UInt) -> Void = { message, file, line in
+            hasError = true
+        }
+        //Given
+        let path = "/trains"
+        
+        //When
+        _ = NetworkRequest(path: path, baseURLKey: "", onIllegalArguments: errorColusre)
+        
+        //Then
+        XCTAssert(hasError)
+    }
 }
