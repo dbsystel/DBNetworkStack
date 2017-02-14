@@ -35,6 +35,7 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
     /**
      Fetches a resource asynchrony from remote location
      
+     - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
      - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
@@ -47,6 +48,16 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
 }
 
 extension NetworkServiceProviding {
+    /**
+     Fetches a resource asynchrony from remote location
+     
+     - parameter queue: The DispatchQueue to execute the completion and error block on. MainQueue by default.
+     - parameter resource: The resource you want to fetch.
+     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - returns: the request
+     */
     @discardableResult
     func request<T: ResourceModeling>(queue: DispatchQueue = .main, _ resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {

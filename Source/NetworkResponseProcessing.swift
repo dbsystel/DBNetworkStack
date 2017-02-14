@@ -72,6 +72,18 @@ extension NetworkResponseProcessing {
 }
 
 extension NetworkResponseProcessing {
+    
+    /// This parseses a `HTTPURLResponse` with a given resource into the result type of the resource or errors.
+    /// The result will be return via a blocks onCompletion/onError.
+    ///
+    /// - Parameters:
+    ///   - queue: The DispatchQueue to execute the completion and error block on.
+    ///   - response: the HTTPURLResponse one wants to parse.
+    ///   - resource: the resource.
+    ///   - data: the payload of the response.
+    ///   - error: optional error from net network.
+    ///   - onCompletion: completion block which gets called on the given `queue`.
+    ///   - onError: error block which gets called on the given `queue`.
     func processAsyncResponse<T: ResourceModeling>(queue: DispatchQueue, response: HTTPURLResponse?, resource: T, data: Data?,
                               error: Error?, onCompletion: @escaping (T.Model) -> Void, onError: @escaping (DBNetworkStackError) -> Void) {
         do {
