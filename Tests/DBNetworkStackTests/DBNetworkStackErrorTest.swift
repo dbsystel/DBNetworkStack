@@ -36,19 +36,24 @@ class DBNetworkStackErrorTest: XCTestCase {
         return HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
     }
     
+    private lazy var testData: Data = {
+        return "test_string".data(using: .utf8)!
+    }()
+    
     func testInit_WithHTTPStatusCode400() {
         //Given
-        let response = urlResponseWith(statusCode: 400)
+        let expectedResponse = urlResponseWith(statusCode: 400)
         
         //When
-        guard let error = DBNetworkStackError(response: response) else {
+        guard let error = DBNetworkStackError(response: expectedResponse, data: testData) else {
             return XCTFail()
         }
         
         //Then
         switch error {
-        case .clientError(let response):
-            XCTAssertEqual(response, response)
+        case .clientError(let response, let data):
+            XCTAssertEqual(response, expectedResponse)
+            XCTAssertEqual(data, testData)
         default:
             XCTFail()
         }
@@ -56,17 +61,18 @@ class DBNetworkStackErrorTest: XCTestCase {
     
     func testInit_WithHTTPStatusCode401() {
         //Given
-        let response = urlResponseWith(statusCode: 401)
+        let expectedResponse = urlResponseWith(statusCode: 401)
         
         //When
-        guard let error = DBNetworkStackError(response: response) else {
+        guard let error = DBNetworkStackError(response: expectedResponse, data: testData) else {
             return XCTFail()
         }
         
         //Then
         switch error {
-        case .unauthorized(let response):
-            XCTAssertEqual(response, response)
+        case .unauthorized(let response, let data):
+            XCTAssertEqual(response, expectedResponse)
+            XCTAssertEqual(data, testData)
         default:
             XCTFail()
         }
@@ -77,7 +83,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         let response = urlResponseWith(statusCode: 200)
         
         //When
-        let error = DBNetworkStackError(response: response)
+        let error = DBNetworkStackError(response: response, data: nil)
         
         //Then
         XCTAssertNil(error)
@@ -85,16 +91,17 @@ class DBNetworkStackErrorTest: XCTestCase {
     
     func testInit_WithHTTPStatusCode511() {
         //Given
-        let response = urlResponseWith(statusCode: 511)
+        let expectedResponse = urlResponseWith(statusCode: 511)
         //When
-        guard let error = DBNetworkStackError(response: response) else {
+        guard let error = DBNetworkStackError(response: expectedResponse, data: testData) else {
             return XCTFail()
         }
         
         //Then
         switch error {
-        case .serverError(let response):
-            XCTAssertEqual(response, response)
+        case .serverError(let response, let data):
+            XCTAssertEqual(response, expectedResponse)
+            XCTAssertEqual(data, testData)
         default:
             XCTFail()
         }
@@ -105,7 +112,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         let response = urlResponseWith(statusCode: 900)
         
         //When
-        let error = DBNetworkStackError(response: response)
+        let error = DBNetworkStackError(response: response, data: nil)
         
         //Then
         XCTAssertNil(error)
