@@ -72,7 +72,7 @@ extension NetworkResponseProcessing {
             
             throw DBNetworkStackError.requestError(error: error)
         }
-        if let responseError = DBNetworkStackError(response: response) {
+        if let responseError = DBNetworkStackError(response: response, data: data) {
             throw responseError
         }
         guard let data = data else {

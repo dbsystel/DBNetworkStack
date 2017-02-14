@@ -33,14 +33,14 @@ import Foundation
 public enum DBNetworkStackError: Error {
     case unknownError
     case cancelled
-    case unauthorized(response: HTTPURLResponse)
-    case clientError(response: HTTPURLResponse?)
+    case unauthorized(response: HTTPURLResponse, data: Data?)
+    case clientError(response: HTTPURLResponse?, data: Data?)
     case serializationError(description: String, data: Data?)
     case requestError(error: Error)
-    case serverError(response: HTTPURLResponse?)
+    case serverError(response: HTTPURLResponse?, data: Data?)
     case missingBaseURL
     
-    init?(response: HTTPURLResponse?) {
+    init?(response: HTTPURLResponse?, data: Data?) {
         guard let response = response else {
             return nil
         }
@@ -48,11 +48,11 @@ public enum DBNetworkStackError: Error {
         switch response.statusCode {
         case 200..<300: return nil
         case 401:
-            self = .unauthorized(response: response)
+            self = .unauthorized(response: response, data: data)
         case 400...451:
-            self = .clientError(response: response)
+            self = .clientError(response: response, data: data)
         case 500...511:
-            self = .serverError(response: response)
+            self = .serverError(response: response, data: data)
         default:
             return nil
         }
