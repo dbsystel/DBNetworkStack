@@ -65,24 +65,31 @@ extension DBNetworkStackError : CustomDebugStringConvertible {
     public var debugDescription: String {
         var result = ""
         
+        func appendData(result: inout String, data: Data?){
+            if let data = data, let string = String(data: data, encoding: .utf8) {
+                result.append("\n\tdata: \(string)")
+            }
+        }
+        
         switch self {
         case .unknownError:
             result = "Unknown error"
         case .cancelled:
             result = "Request cancelled"
-        case .unauthorized(let response):
+        case .unauthorized(let response, let data):
             result = "Authorization error: \(response)"
-        case .clientError(let response):
+            appendData(result: &result, data: data)
+        case .clientError(let response, let data):
             result = "Client error: \(response)"
+            appendData(result: &result, data: data)
         case .serializationError(let description, let data):
             result = "Serialization error: \(description)"
-            if let data = data, let string = String(data: data, encoding: .utf8) {
-                result.append("\n\tdata: \(string)")
-            }
+            appendData(result: &result, data: data)
         case .requestError(let error):
             result = "Request error: \(error)"
-        case .serverError(let response):
+        case .serverError(let response, let data):
             result = "Server error: \(response)"
+            appendData(result: &result, data: data)
         case .missingBaseURL:
             result = "Missing base url error"
         }
