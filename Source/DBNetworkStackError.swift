@@ -65,7 +65,7 @@ extension DBNetworkStackError : CustomDebugStringConvertible {
     public var debugDescription: String {
         var result = ""
         
-        func appendData(result: inout String, data: Data?){
+        func appendData(result: inout String, data: Data?) {
             if let data = data, let string = String(data: data, encoding: .utf8) {
                 result.append("\n\tdata: \(string)")
             }
