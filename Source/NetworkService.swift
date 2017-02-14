@@ -51,7 +51,8 @@ public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
         let baseURL = self.baseURL(with: resource)
         let reuqest = resource.request.urlRequest(with: baseURL)
         let dataTask = networkAccess.load(request: reuqest, callback: { data, response, error in
-            self.processAsyncResponse(queue: queue, response: response, resource: resource, data: data, error: error, onCompletion: onCompletion, onError: onError)
+            self.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,
+                                      error: error, onCompletion: onCompletion, onError: onError)
         })
         return dataTask
     }
