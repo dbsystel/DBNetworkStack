@@ -36,9 +36,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         return HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
     }
     
-    private lazy var testData: Data = {
-        return "test_string".data(using: .utf8)!
-    }()
+    private let testData: Data! = "test_string".data(using: .utf8)
     
     func testInit_WithHTTPStatusCode400() {
         //Given
@@ -117,4 +115,80 @@ class DBNetworkStackErrorTest: XCTestCase {
         //Then
         XCTAssertNil(error)
     }
+    
+    func testUnknownError_debug_description() {
+        //Given
+        let error: DBNetworkStackError = .unknownError
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssertEqual(debugDescription, "Unknown error")
+    }
+    
+    func testUnknownError_cancelled_description() {
+        //Given
+        let error: DBNetworkStackError = .cancelled
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssertEqual(debugDescription, "Request cancelled")
+    }
+
+    func testUnknownError_unauthorized_description() {
+        //Given
+        let response = HTTPURLResponse()
+        let data = "dataString".data(using: .utf8)
+        let error: DBNetworkStackError = .unauthorized(response: response, data: data)
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssert(debugDescription.hasPrefix("Authorization error: <NSHTTPURLResponse: "))
+        XCTAssert(debugDescription.hasSuffix("> { URL: (null) } { status code: 0, headers {\n} }, response: dataString"))
+    }
+    
+    func testUnknownError_clientError_description() {
+        //Given
+        let response = HTTPURLResponse()
+        let data = "dataString".data(using: .utf8)
+        let error: DBNetworkStackError = .clientError(response: response, data: data)
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssert(debugDescription.hasPrefix("Client error: <NSHTTPURLResponse: "))
+        XCTAssert(debugDescription.hasSuffix("> { URL: (null) } { status code: 0, headers {\n} }, response: dataString"))
+    }
+    
+    func testUnknownError_serializationError_description() {
+        //Given
+        let description = "Failed because..."
+        let data = "dataString".data(using: .utf8)
+        let error: DBNetworkStackError = .serializationError(description: description, data: data)
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssertEqual(debugDescription, "Serialization error: Failed because..., response: dataString")
+    }
+    
+    func testUnknownError_requestError_description() {
+        //Given
+        let underlayingError = NSError(domain: "domain", code: 0, userInfo: ["test": "test"])
+        let error: DBNetworkStackError = .requestError(error: underlayingError)
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssertEqual(debugDescription, "Request error: Error Domain=domain Code=0 \"(null)\" UserInfo={test=test}")
+    }
+
 }
