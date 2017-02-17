@@ -2,6 +2,7 @@ disabled_rules: # rule identifiers to exclude from running
     - trailing_whitespace
     - missing_docs
     - syntactic_sugar
+    - vertical_parameter_alignment
 opt_in_rules: # some rules are only opt-in
     - conditional_returns_on_newline
     - force_unwrapping
