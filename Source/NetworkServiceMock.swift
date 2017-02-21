@@ -27,6 +27,7 @@
 //
 
 import Foundation
+import Dispatch
 
 public class NetworkServiceMock: NetworkServiceProviding {
     private var onErrorCallback: ((DBNetworkStackError) -> Void)?
@@ -43,7 +44,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
     public var nextNetworkTask: NetworkTaskRepresenting?
 
     @discardableResult
-    public func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
+    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         lastRequest = resource.request
         requestCount += 1

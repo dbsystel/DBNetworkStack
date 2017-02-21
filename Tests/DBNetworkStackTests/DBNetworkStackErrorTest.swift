@@ -36,19 +36,22 @@ class DBNetworkStackErrorTest: XCTestCase {
         return HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
     }
     
+    private let testData: Data! = "test_string".data(using: .utf8)
+    
     func testInit_WithHTTPStatusCode400() {
         //Given
-        let response = urlResponseWith(statusCode: 400)
+        let expectedResponse = urlResponseWith(statusCode: 400)
         
         //When
-        guard let error = DBNetworkStackError(response: response) else {
+        guard let error = DBNetworkStackError(response: expectedResponse, data: testData) else {
             return XCTFail()
         }
         
         //Then
         switch error {
-        case .clientError(let response):
-            XCTAssertEqual(response, response)
+        case .clientError(let response, let data):
+            XCTAssertEqual(response, expectedResponse)
+            XCTAssertEqual(data, testData)
         default:
             XCTFail()
         }
@@ -56,17 +59,18 @@ class DBNetworkStackErrorTest: XCTestCase {
     
     func testInit_WithHTTPStatusCode401() {
         //Given
-        let response = urlResponseWith(statusCode: 401)
+        let expectedResponse = urlResponseWith(statusCode: 401)
         
         //When
-        guard let error = DBNetworkStackError(response: response) else {
+        guard let error = DBNetworkStackError(response: expectedResponse, data: testData) else {
             return XCTFail()
         }
         
         //Then
         switch error {
-        case .unauthorized(let response):
-            XCTAssertEqual(response, response)
+        case .unauthorized(let response, let data):
+            XCTAssertEqual(response, expectedResponse)
+            XCTAssertEqual(data, testData)
         default:
             XCTFail()
         }
@@ -77,7 +81,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         let response = urlResponseWith(statusCode: 200)
         
         //When
-        let error = DBNetworkStackError(response: response)
+        let error = DBNetworkStackError(response: response, data: nil)
         
         //Then
         XCTAssertNil(error)
@@ -85,16 +89,17 @@ class DBNetworkStackErrorTest: XCTestCase {
     
     func testInit_WithHTTPStatusCode511() {
         //Given
-        let response = urlResponseWith(statusCode: 511)
+        let expectedResponse = urlResponseWith(statusCode: 511)
         //When
-        guard let error = DBNetworkStackError(response: response) else {
+        guard let error = DBNetworkStackError(response: expectedResponse, data: testData) else {
             return XCTFail()
         }
         
         //Then
         switch error {
-        case .serverError(let response):
-            XCTAssertEqual(response, response)
+        case .serverError(let response, let data):
+            XCTAssertEqual(response, expectedResponse)
+            XCTAssertEqual(data, testData)
         default:
             XCTFail()
         }
@@ -105,9 +110,85 @@ class DBNetworkStackErrorTest: XCTestCase {
         let response = urlResponseWith(statusCode: 900)
         
         //When
-        let error = DBNetworkStackError(response: response)
+        let error = DBNetworkStackError(response: response, data: nil)
         
         //Then
         XCTAssertNil(error)
     }
+    
+    func testUnknownError_debug_description() {
+        //Given
+        let error: DBNetworkStackError = .unknownError
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssertEqual(debugDescription, "Unknown error")
+    }
+    
+    func testUnknownError_cancelled_description() {
+        //Given
+        let error: DBNetworkStackError = .cancelled
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssertEqual(debugDescription, "Request cancelled")
+    }
+
+    func testUnknownError_unauthorized_description() {
+        //Given
+        let response = HTTPURLResponse()
+        let data = "dataString".data(using: .utf8)
+        let error: DBNetworkStackError = .unauthorized(response: response, data: data)
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssert(debugDescription.hasPrefix("Authorization error: <NSHTTPURLResponse: "))
+        XCTAssert(debugDescription.hasSuffix("> { URL: (null) } { status code: 0, headers {\n} }, response: dataString"))
+    }
+    
+    func testUnknownError_clientError_description() {
+        //Given
+        let response = HTTPURLResponse()
+        let data = "dataString".data(using: .utf8)
+        let error: DBNetworkStackError = .clientError(response: response, data: data)
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssert(debugDescription.hasPrefix("Client error: <NSHTTPURLResponse: "))
+        XCTAssert(debugDescription.hasSuffix("> { URL: (null) } { status code: 0, headers {\n} }, response: dataString"))
+    }
+    
+    func testUnknownError_serializationError_description() {
+        //Given
+        let description = "Failed because..."
+        let data = "dataString".data(using: .utf8)
+        let error: DBNetworkStackError = .serializationError(description: description, data: data)
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssertEqual(debugDescription, "Serialization error: Failed because..., response: dataString")
+    }
+    
+    func testUnknownError_requestError_description() {
+        //Given
+        let underlayingError = NSError(domain: "domain", code: 0, userInfo: ["test": "test"])
+        let error: DBNetworkStackError = .requestError(error: underlayingError)
+        
+        //When
+        let debugDescription = error.debugDescription
+        
+        //Then
+        XCTAssertEqual(debugDescription, "Request error: Error Domain=domain Code=0 \"(null)\" UserInfo={test=test}")
+    }
+
 }

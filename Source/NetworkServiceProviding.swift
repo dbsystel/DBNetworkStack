@@ -35,6 +35,7 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
     /**
      Fetches a resource asynchrony from remote location
      
+     - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
      - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
@@ -42,74 +43,24 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
      - returns: the request
      */
     @discardableResult
-    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
+    func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting
 }
 
-public protocol NetworkResponseProcessing {
+extension NetworkServiceProviding {
     /**
-     Processes the results of an HTTPRequest and parses the result the matching Model type of the given resource.
+     Fetches a resource asynchrony from remote location
      
-     Great error handling should be implemented here as well.
+     - parameter queue: The DispatchQueue to execute the completion and error block on. MainQueue by default.
+     - parameter resource: The resource you want to fetch.
+     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - parameter response: response from the server. Could be nil
-     - parameter resource: The resource matching the response.
-     - parameter data: Returned data. Could be nil.
-     - parameter error: the return error. Could be nil.
-     
-     - returns: the parsed model object.
+     - returns: the request
      */
-    func process<T: ResourceModeling>(response: HTTPURLResponse?, resource: T, data: Data?, error: Error?) throws -> T.Model
-}
-
-extension NetworkResponseProcessing {
-    public func process<T: ResourceModeling>(response: HTTPURLResponse?, resource: T, data: Data?, error: Error?) throws -> T.Model {
-        if let error = error {
-            
-            if case URLError.cancelled = error {
-                throw DBNetworkStackError.cancelled
-            }
-            
-            throw DBNetworkStackError.requestError(error: error)
-        }
-        if let responseError = DBNetworkStackError(response: response) {
-            throw responseError
-        }
-        guard let data = data else {
-            throw DBNetworkStackError.serializationError(description: "No data to serialize revied from the server", data: nil)
-        }
-        do {
-            return try resource.parse(data)
-        } catch let error as CustomStringConvertible {
-            throw DBNetworkStackError.serializationError(description: error.description, data: data)
-        } catch {
-            throw DBNetworkStackError.serializationError(description: "Unknown serialization error", data: data)
-        }
+    @discardableResult
+    public func request<T: ResourceModeling>(queue: DispatchQueue = .main, _ resource: T, onCompletion: @escaping (T.Model) -> Void,
+                 onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
+        return request(queue: queue, resource: resource, onCompletion: onCompletion, onError: onError)
     }
-}
-
-extension NetworkResponseProcessing {
-    func processAsyncResponse<T: ResourceModeling>(response: HTTPURLResponse?, resource: T, data: Data?,
-                              error: Error?, onCompletion: @escaping (T.Model) -> Void, onError: @escaping (DBNetworkStackError) -> Void) {
-        do {
-            let parsed = try self.process(
-                response: response,
-                resource: resource,
-                data: data,
-                error: error
-            )
-            DispatchQueue.main.async {
-                onCompletion(parsed)
-            }
-        } catch let parsingError as DBNetworkStackError {
-            DispatchQueue.main.async {
-                return onError(parsingError)
-            }
-        } catch {
-            DispatchQueue.main.async {
-                return onError(.unknownError)
-            }
-        }
-    }
-    
 }

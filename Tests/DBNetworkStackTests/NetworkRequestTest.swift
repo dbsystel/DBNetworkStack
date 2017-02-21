@@ -57,6 +57,6 @@ class NetworkRequestTest: XCTestCase {
         XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.bahn.de/index.html?test1=1&test2=2")
         XCTAssertEqual(urlRequest.httpMethod, httpMethod.rawValue)
         XCTAssertEqual(urlRequest.httpBody, body)
-        XCTAssertEqual(urlRequest.allHTTPHeaderFields!, headerFields)
+        XCTAssertEqual(urlRequest.allHTTPHeaderFields ?? [:], headerFields)
     }
 }

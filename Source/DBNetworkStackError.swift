@@ -33,14 +33,14 @@ import Foundation
 public enum DBNetworkStackError: Error {
     case unknownError
     case cancelled
-    case unauthorized(response: HTTPURLResponse)
-    case clientError(response: HTTPURLResponse?)
+    case unauthorized(response: HTTPURLResponse, data: Data?)
+    case clientError(response: HTTPURLResponse?, data: Data?)
     case serializationError(description: String, data: Data?)
     case requestError(error: Error)
-    case serverError(response: HTTPURLResponse?)
+    case serverError(response: HTTPURLResponse?, data: Data?)
     case missingBaseURL
     
-    init?(response: HTTPURLResponse?) {
+    init?(response: HTTPURLResponse?, data: Data?) {
         guard let response = response else {
             return nil
         }
@@ -48,11 +48,11 @@ public enum DBNetworkStackError: Error {
         switch response.statusCode {
         case 200..<300: return nil
         case 401:
-            self = .unauthorized(response: response)
+            self = .unauthorized(response: response, data: data)
         case 400...451:
-            self = .clientError(response: response)
+            self = .clientError(response: response, data: data)
         case 500...511:
-            self = .serverError(response: response)
+            self = .serverError(response: response, data: data)
         default:
             return nil
         }
@@ -60,33 +60,38 @@ public enum DBNetworkStackError: Error {
     
 }
 
+extension String {
+    fileprivate func appendingContentsOf(data: Data?) -> String {
+        if let data = data, let string = String(data: data, encoding: .utf8) {
+            return self.appending(string)
+        }
+        return self
+    }
+}
+
 extension DBNetworkStackError : CustomDebugStringConvertible {
     
     public var debugDescription: String {
-        var result = ""
-        
         switch self {
         case .unknownError:
-            result = "Unknown error"
+            return "Unknown error"
         case .cancelled:
-            result = "Request cancelled"
-        case .unauthorized(let response):
-            result = "Authorization error: \(response)"
-        case .clientError(let response):
-            result = "Client error: \(response)"
-        case .serializationError(let description, let data):
-            result = "Serialization error: \(description)"
-            if let data = data, let string = String(data: data, encoding: .utf8) {
-                result.append("\n\tdata: \(string)")
+            return "Request cancelled"
+        case .unauthorized(let response, let data):
+            return "Authorization error: \(response), response: ".appendingContentsOf(data: data)
+        case .clientError(let response, let data):
+            if let response = response {
+                return "Client error: \((response)), response: ".appendingContentsOf(data: data)
             }
+            return "Client error, response: ".appendingContentsOf(data: data)
+        case .serializationError(let description, let data):
+            return "Serialization error: \(description), response: ".appendingContentsOf(data: data)
         case .requestError(let error):
-            result = "Request error: \(error)"
-        case .serverError(let response):
-            result = "Server error: \(response)"
+            return "Request error: \(error)"
+        case .serverError(let response, let data):
+            return "Server error: \(response), response: ".appendingContentsOf(data: data)
         case .missingBaseURL:
-            result = "Missing base url error"
+            return "Missing base url error"
         }
-        
-        return result
     }
 }
