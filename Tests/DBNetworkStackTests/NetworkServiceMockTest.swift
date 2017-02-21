@@ -88,7 +88,7 @@ class NetworkServiceMockTest: XCTestCase {
              XCTFail()
             return
         }
-        if case DBNetworkStackError.unknownError = error {
+        if case .unknownError = error {
             
         } else {
             XCTFail()
