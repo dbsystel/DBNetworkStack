@@ -27,8 +27,8 @@
 //
 
 import Foundation
+import Dispatch
 import DBNetworkStack
-
 
 class NetworkServiceMock: NetworkServiceProviding {
     private var onErrorCallback: ((DBNetworkStackError) -> Void)?
@@ -37,7 +37,7 @@ class NetworkServiceMock: NetworkServiceProviding {
     var requestCount: Int = 0
     var lastReuqest: NetworkRequestRepresening?
 
-    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
+    func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         lastReuqest = resource.request
         onSuccess = { data in
@@ -50,7 +50,6 @@ class NetworkServiceMock: NetworkServiceProviding {
         return NetworkTaskMock()
     }
     
-
     func returnError(error: DBNetworkStackError, count: Int = 1) {
         for _ in 0...count {
             onErrorCallback?(error)
