@@ -76,9 +76,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
         for _ in 0...count {
             onErrorCallback?(error)
         }
-        onErrorCallback = nil
-        onSuccess = nil
-        onTypedSuccess = nil
+       freeCapturedCallbacks()
     }
     
     /// Will return a successful request, by using the given data as a server response.
@@ -90,9 +88,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
         for _ in 0...count {
             onSuccess?(data)
         }
-        onErrorCallback = nil
-        onSuccess = nil
-        onTypedSuccess = nil
+        freeCapturedCallbacks()
     }
     
     /// Will return a successful request, by using the given type `T` as serialized result of a request.
@@ -106,8 +102,13 @@ public class NetworkServiceMock: NetworkServiceProviding {
         for _ in 0...count {
             onTypedSuccess?(serializedResponse)
         }
+        freeCapturedCallbacks()
+    }
+    
+    private func freeCapturedCallbacks() {
         onErrorCallback = nil
         onSuccess = nil
         onTypedSuccess = nil
     }
+    
 }
