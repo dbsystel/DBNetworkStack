@@ -51,7 +51,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         networkService.request(ressource, onCompletion: { _ in }, onError: { _ in })
         
         //Then
-        XCTAssertEqual(networkServiceMock.lastReuqest?.parameter?["key"] as? String, "1")
+        XCTAssertEqual(networkServiceMock.lastRequest?.parameter?["key"] as? String, "1")
     }
     
     func testAddHTTPHeaderToRequest() {
