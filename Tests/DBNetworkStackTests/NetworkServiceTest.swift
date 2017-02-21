@@ -169,11 +169,15 @@ class NetworkServiceTest: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    private lazy var testData: Data = {
+        return "test_string".data(using: .utf8)!
+    }()
+    
     func testRequest_withStatusCode401Response() {
         //Given
         let url: URL! = URL(string: "https://bahn.de")
-        let response = HTTPURLResponse(url: url, statusCode: 401, httpVersion: nil, headerFields: nil)
-        networkAccess.changeMock(data: nil, response: response, error: nil)
+        let expectedResponse = HTTPURLResponse(url: url, statusCode: 401, httpVersion: nil, headerFields: nil)
+        networkAccess.changeMock(data: testData, response: expectedResponse, error: nil)
         let expection = expectation(description: "testOnError")
         
         //When
@@ -181,8 +185,9 @@ class NetworkServiceTest: XCTestCase {
             }, onError: { resultError in
                 //Then
                 switch resultError {
-                case .unauthorized(let res):
-                    XCTAssertEqual(res, response)
+                case .unauthorized(let response, let data):
+                    XCTAssertEqual(response, expectedResponse)
+                    XCTAssertEqual(data, self.testData)
                     expection.fulfill()
                 default:
                     XCTFail()
