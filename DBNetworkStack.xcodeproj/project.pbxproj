@@ -50,6 +50,7 @@
 		C6C395961E0422AF00413AD2 /* ModifyRequestNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */; };
 		C6C86F531D910CE500D6E59E /* NetworkRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */; };
 		C6F235D51D7DA75000E628D8 /* URLSessionNetworkAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */; };
+		C6FE99961E51924000B02B17 /* NetworkResponseProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE99951E51924000B02B17 /* NetworkResponseProcessing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyRequestNetworkService.swift; sourceTree = "<group>"; };
 		C6C86F521D910CE500D6E59E /* NetworkRequestTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkRequestTest.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6F235D41D7DA75000E628D8 /* URLSessionNetworkAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = URLSessionNetworkAccess.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C6FE99951E51924000B02B17 /* NetworkResponseProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponseProcessing.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				C60BE67D1D6B2C46006B0364 /* NetworkServiceProviding.swift */,
+				C6FE99951E51924000B02B17 /* NetworkResponseProcessing.swift */,
 				C60425091D76F79F00FD3B38 /* NetworkService.swift */,
 				C6C395931E04212F00413AD2 /* ModifyRequestNetworkService.swift */,
 				C6461F011E01678100E0B081 /* RetryNetworkService.swift */,
@@ -410,6 +413,7 @@
 				C61348B91DACB4F2000F0583 /* ArrayResourceModeling.swift in Sources */,
 				C6C395941E04212F00413AD2 /* ModifyRequestNetworkService.swift in Sources */,
 				C60BE6931D6B2C46006B0364 /* NetworkRequest.swift in Sources */,
+				C6FE99961E51924000B02B17 /* NetworkResponseProcessing.swift in Sources */,
 				C60BE6911D6B2C46006B0364 /* JSONResource.swift in Sources */,
 				C60BE6901D6B2C46006B0364 /* Resource.swift in Sources */,
 				C60BE6921D6B2C46006B0364 /* JSONArrayResource.swift in Sources */,
