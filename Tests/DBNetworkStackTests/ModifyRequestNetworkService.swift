@@ -27,10 +27,12 @@
 //
 
 import XCTest
+import Foundation
 @testable import DBNetworkStack
 
 class ModifyRequestNetworkServiceTest: XCTestCase {
     
+    let url: URL! = URL(string: "bahn.de")
     var networkServiceMock: NetworkServiceMock!
     
     override func setUp() {
@@ -40,27 +42,27 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
     
     func testRequest_withModifedRequest() {
         //Given
-        let modification: Array<(NetworkRequestRepresening) -> NetworkRequestRepresening> = [ { request in
+        let modification: Array<(URLRequestConvertible) -> URLRequestConvertible> = [ { request in
             return request.added(parameter: ["key": "1"])
             } ]
         let networkService: NetworkServiceProviding = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
-        let request = NetworkRequest(path: "index", baseURLKey: "")
+        let request = URLRequest(path: "/trains", baseURL: url)
         let ressource = Resource<Int>(request: request, parse: { _ in return 1 })
         
         //When
         networkService.request(ressource, onCompletion: { _ in }, onError: { _ in })
         
         //Then
-        XCTAssertEqual(networkServiceMock.lastRequest?.parameter?["key"] as? String, "1")
+        XCTAssert(networkServiceMock.lastRequest?.asURLRequest().url?.absoluteString.contains("key=1") ?? false)
     }
     
     func testAddHTTPHeaderToRequest() {
         //Given
-        let request = NetworkRequest(path: "", baseURLKey: "")
+        let request = URLRequest(url: url)
         let header = ["header": "head"]
         
         //When
-        let newRequest = request.added(HTTPHeaderFields: header)
+        let newRequest = request.added(HTTPHeaderFields: header).asURLRequest()
         
         //Then
         XCTAssertEqual(newRequest.allHTTPHeaderFields?["header"], "head")

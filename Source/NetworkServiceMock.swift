@@ -39,7 +39,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
     /// Count of all started requests
     public var requestCount: Int = 0
     /// Last executed request
-    public var lastRequest: NetworkRequestRepresening?
+    public var lastRequest: URLRequestConvertible?
     /// Set this to hava a custom networktask
     public var nextNetworkTask: NetworkTaskRepresenting?
 

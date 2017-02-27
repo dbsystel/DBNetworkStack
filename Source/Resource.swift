@@ -32,10 +32,10 @@ import Foundation
  The type can be fetched via HTTP(s) and parsed into the coresponding model object.
  */
 public struct Resource<Model>: ResourceModeling {
-    public let request: NetworkRequestRepresening
+    public let request: URLRequestConvertible
     public let parse: (_ data: Data) throws -> Model
     
-    public init(request: NetworkRequestRepresening, parse: @escaping (Data) throws -> Model) {
+    public init(request: URLRequestConvertible, parse: @escaping (Data) throws -> Model) {
         self.request = request
         self.parse = parse
     }

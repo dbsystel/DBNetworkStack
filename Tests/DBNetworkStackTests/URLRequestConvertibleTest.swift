@@ -1,4 +1,3 @@
-
 //
 //  Copyright (C) 2017 Lukas Schmidt.
 //
@@ -72,7 +71,7 @@ class URLRequestConvertibleTest: XCTestCase {
     
     func testURLWithQueryParameter() {
         //Given
-        let url: URL! = URL(string: "http://bahn.de")
+        let url: URL! = URL(string: "http://bahn.de/train")
         let parameters: [String: Any] = ["query": 2, "test": true]
         
         //When

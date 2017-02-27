@@ -38,7 +38,6 @@ public enum DBNetworkStackError: Error {
     case serializationError(description: String, data: Data?)
     case requestError(error: Error)
     case serverError(response: HTTPURLResponse?, data: Data?)
-    case missingBaseURL
     
     init?(response: HTTPURLResponse?, data: Data?) {
         guard let response = response else {
@@ -90,8 +89,6 @@ extension DBNetworkStackError : CustomDebugStringConvertible {
             return "Request error: \(error)"
         case .serverError(let response, let data):
             return "Server error: \(response), response: ".appendingContentsOf(data: data)
-        case .missingBaseURL:
-            return "Missing base url error"
         }
     }
 }

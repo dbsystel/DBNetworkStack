@@ -32,7 +32,8 @@ import XCTest
 class JSONArrayResourceTest: XCTestCase {
     
     var resource: JSONArrayResource<Train> {
-        let request = NetworkRequest(path: "/trains", baseURLKey: "")
+        let url: URL! = URL(string: "bahn.de")
+        let request = URLRequest(path: "/trains", baseURL: url)
         return JSONArrayResource<Train>(request: request)
     }
     

@@ -22,7 +22,8 @@ class NetworkResponseProcessingTests: XCTestCase {
     
     func testCancelError() {
         // Given
-        let request = NetworkRequest(path: "", baseURLKey: "")
+        let url: URL! = URL(string: "bahn.de")
+        let request = URLRequest(path: "/trains", baseURL: url)
         let resource = Resource(request: request, parse: { _ in return 0 })
         let cancelledError = URLError(_nsError: NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: nil))
         
