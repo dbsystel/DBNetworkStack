@@ -54,7 +54,11 @@ class NetworkRequestTest: XCTestCase {
         //Then
         let urlRequest = request.urlRequest(with: baseURL)
         
-        XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.bahn.de/index.html?test1=1&test2=2")
+        let reuqestURL: URL! = urlRequest.url
+        let query = URLComponents(url: reuqestURL, resolvingAgainstBaseURL: true)?.queryItems
+        XCTAssertEqual(query?.count, 2)
+        XCTAssert(query?.contains(where: { $0.name == "test1" && $0.value == "1" }) ?? false)
+        XCTAssert(query?.contains(where: { $0.name == "test2" && $0.value == "2" }) ?? false)
         XCTAssertEqual(urlRequest.httpMethod, httpMethod.rawValue)
         XCTAssertEqual(urlRequest.httpBody, body)
         XCTAssertEqual(urlRequest.allHTTPHeaderFields ?? [:], headerFields)
