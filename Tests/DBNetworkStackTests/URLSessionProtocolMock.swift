@@ -33,7 +33,6 @@ class URLSessionProtocolMock: URLSessionProtocol {
     var request: URLRequest?
     var callback: ((Data?, URLResponse?, Error?) -> Void)?
     
-    
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         self.request = request
         self.callback = completionHandler

@@ -59,7 +59,7 @@ class RetryNetworkserviceTest: XCTestCase {
         }, onError: { _ in
             XCTFail()
         })
-        networkServiceMock.returnError(error: .unknownError, count: errorCount)
+        networkServiceMock.returnError(with: .unknownError, count: errorCount)
         
         //Then
         XCTAssertEqual(executedRetrys, numberOfRetries)
@@ -81,7 +81,7 @@ class RetryNetworkserviceTest: XCTestCase {
             XCTFail()
         }, onError: { _ in
         })
-        networkServiceMock.returnError(error: .unknownError, count: 3)
+        networkServiceMock.returnError(with: .unknownError, count: 3)
         
         //Then
         XCTAssertEqual(executedRetrys, 3)
@@ -105,7 +105,7 @@ class RetryNetworkserviceTest: XCTestCase {
         }, onError: { err in
            error = err
         })
-        networkServiceMock.returnError(error: .unknownError, count: 3)
+        networkServiceMock.returnError(with: .unknownError, count: 3)
         
         //Then
         XCTAssertNil(task)
