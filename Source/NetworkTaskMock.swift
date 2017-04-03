@@ -49,6 +49,6 @@ public class NetworkTaskMock: NetworkTaskRepresenting {
     }
     
     public var progress: Progress {
-        return Progress()
+        return Progress(totalUnitCount: 0)
     }
 }

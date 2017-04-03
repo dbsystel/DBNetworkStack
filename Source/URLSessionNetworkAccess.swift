@@ -34,7 +34,7 @@ extension URLSession: URLSessionProtocol {}
 
 extension URLSessionDataTask: NetworkTaskRepresenting {
     public var progress: Progress {
-        let totalBytesExpected = response?.expectedContentLength ?? NSURLSessionTransferSizeUnknown
+        let totalBytesExpected = response?.expectedContentLength ?? -1
         let progress = Progress(totalUnitCount: totalBytesExpected)
         progress.totalUnitCount = totalBytesExpected
         progress.completedUnitCount = countOfBytesReceived
