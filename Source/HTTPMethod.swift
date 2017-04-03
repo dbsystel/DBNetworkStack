@@ -26,6 +26,8 @@
 //
 
 import Foundation
+
+// swiftlint:disable identifier_name
 /**
  HTTP Methods
  
