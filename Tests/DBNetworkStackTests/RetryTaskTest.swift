@@ -139,12 +139,12 @@ class RetryTaskTest: XCTestCase {
     }
     
     func testShouldNotRetry() {
-        var cpaturedError: DBNetworkStackError?
+        var capturedError: DBNetworkStackError?
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
                                                             shouldRetry: { _ in return false}, onSuccess: { _ in
             
         }, onError: { error in
-            cpaturedError = error
+            capturedError = error
         }, retryAction: { _, _ in
             XCTFail()
             return NetworkTaskMock()
@@ -161,6 +161,6 @@ class RetryTaskTest: XCTestCase {
         onError = nil
         
         XCTAssertNil(weakTask)
-        XCTAssertNotNil(cpaturedError)
+        XCTAssertNotNil(capturedError)
     }
 }
