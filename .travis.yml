@@ -26,9 +26,6 @@ matrix:
       osx_image: xcode8.3
       language: objective-c
       env: "iOS"
-      before_install:
-        - export SNAPSHOT_FORCE_DELETE=1
-        - fastlane snapshot reset_simulators
       script:
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=iOS Simulator,name=iPhone SE,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage YES | xcpretty
       after_success:
@@ -37,18 +34,12 @@ matrix:
       osx_image: xcode8.3
       language: objective-c
       env: "watchOS"
-      before_install:
-        - export SNAPSHOT_FORCE_DELETE=1
-        - fastlane snapshot reset_simulators
       script:
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm,OS=latest' build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
     - os: osx
       osx_image: xcode8.3
       language: objective-c
       env: "tvOS"
-      before_install:
-        - export SNAPSHOT_FORCE_DELETE=1
-        - fastlane snapshot reset_simulators
       script:
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
     - os: osx
