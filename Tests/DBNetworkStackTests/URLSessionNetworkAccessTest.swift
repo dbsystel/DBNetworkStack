@@ -57,7 +57,7 @@ class URLSessionNetworkAccessTest: XCTestCase {
     }
     
     func testURLSession_MatchesTypeOfNetworkAccess() {
-        let _: NetworkAccessProviding = URLSession(configuration: .default)
+        _ = URLSession(configuration: .default) as NetworkAccessProviding
     }
     
     func test_URLSessionCreatsDataTask() {

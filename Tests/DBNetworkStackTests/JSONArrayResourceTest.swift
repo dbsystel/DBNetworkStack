@@ -50,7 +50,7 @@ class JSONArrayResourceTest: XCTestCase {
     func testResource_WithInvalidData() {
         //When
         do {
-            let _ = try resource.parse(Train.invalidJSONData)
+            _ = try resource.parse(Train.invalidJSONData)
             XCTFail()
         } catch {
             
@@ -60,7 +60,7 @@ class JSONArrayResourceTest: XCTestCase {
     func testResource_WithInvalidContainer() {
         //When
         do {
-            let _ = try resource.parse(Train.validJSONData)
+            _ = try resource.parse(Train.validJSONData)
             XCTFail()
         } catch {
         }

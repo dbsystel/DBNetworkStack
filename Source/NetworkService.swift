@@ -26,6 +26,7 @@
 //
 
 import Foundation
+import Dispatch
 
 /**
  `NetworkService` handles network request for resources by using a given `NetworkAccessProviding`
