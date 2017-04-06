@@ -34,8 +34,11 @@ matrix:
       osx_image: xcode8.3
       language: objective-c
       env: "watchOS"
+      before_install:
+        - export SNAPSHOT_FORCE_DELETE=1
+        - fastlane snapshot reset_simulators
       script:
-        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=watchOS Simulator,name=Apple Watch Series 2 - 38mm,OS=latest' build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm,OS=latest' build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
     - os: osx
       osx_image: xcode8.3
       language: objective-c
