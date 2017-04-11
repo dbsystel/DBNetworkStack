@@ -51,9 +51,9 @@ class RetryTaskTest: XCTestCase {
         //Given
         var successValue: Int?
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 1, idleTimeInterval: 1,
-                                                            shouldRetry: { err in return true}, onSuccess: { (t: Int) in
-            successValue = t
-        }, onError: { err in
+                                                            shouldRetry: { _ in return true}, onSuccess: { (value: Int) in
+            successValue = value
+        }, onError: { _ in
         }, retryAction: {sucess, _ in
             sucess(0)
             return NetworkTaskMock()
@@ -112,12 +112,12 @@ class RetryTaskTest: XCTestCase {
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
                                                             shouldRetry: { _ in return true}, onSuccess: { (_: Int) in
         }, onError: { _ in
-        }, retryAction: {a, b in
+        }, retryAction: { onSucess, onError in
             numerOfRertrys += 1
             if numerOfRertrys == 3 {
-                a(0)
+                onSucess(0)
             } else {
-                b(self.mockError)
+                onError(self.mockError)
             }
             
             return NetworkTaskMock()
@@ -139,12 +139,12 @@ class RetryTaskTest: XCTestCase {
     }
     
     func testShouldNotRetry() {
-        var error: DBNetworkStackError?
+        var capturedError: DBNetworkStackError?
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
-                                                            shouldRetry: { err in return false}, onSuccess: { _ in
+                                                            shouldRetry: { _ in return false}, onSuccess: { _ in
             
-        }, onError: { err in
-            error = err
+        }, onError: { error in
+            capturedError = error
         }, retryAction: { _, _ in
             XCTFail()
             return NetworkTaskMock()
@@ -161,7 +161,7 @@ class RetryTaskTest: XCTestCase {
         onError = nil
         
         XCTAssertNil(weakTask)
-        XCTAssertNotNil(error)
+        XCTAssertNotNil(capturedError)
     }
     
     func testResume() {

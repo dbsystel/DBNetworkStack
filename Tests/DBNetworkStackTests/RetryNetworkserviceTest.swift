@@ -92,7 +92,7 @@ class RetryNetworkserviceTest: XCTestCase {
     func testRetryRequest_shouldNotRetry() {
         //Given
         let shoudlRetry = false
-        var error: DBNetworkStackError?
+        var capturedError: DBNetworkStackError?
         
         //When
         weak var task: NetworkTaskRepresenting?
@@ -103,13 +103,13 @@ class RetryNetworkserviceTest: XCTestCase {
             block()
         }).request(resource, onCompletion: { _ in
             XCTFail()
-        }, onError: { err in
-           error = err
+        }, onError: { error in
+           capturedError = error
         })
         networkServiceMock.returnError(with: .unknownError, count: 3)
         
         //Then
         XCTAssertNil(task)
-        XCTAssertNotNil(error)
+        XCTAssertNotNil(capturedError)
     }
 }

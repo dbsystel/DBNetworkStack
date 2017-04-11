@@ -140,7 +140,7 @@ class DBNetworkStackErrorTest: XCTestCase {
 
     func testUnknownError_unauthorized_description() {
         //Given
-        let response = HTTPURLResponse()
+        let response: HTTPURLResponse! = HTTPURLResponse(url: url, statusCode: 0, httpVersion: "1.1", headerFields: nil)
         let data = "dataString".data(using: .utf8)
         let error: DBNetworkStackError = .unauthorized(response: response, data: data)
         
@@ -149,12 +149,12 @@ class DBNetworkStackErrorTest: XCTestCase {
         
         //Then
         XCTAssert(debugDescription.hasPrefix("Authorization error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("> { URL: (null) } { status code: 0, headers {\n} }, response: dataString"))
+        XCTAssert(debugDescription.hasSuffix("> { URL: https://bahn.de } { status code: 0, headers {\n} }, response: dataString"))
     }
     
     func testUnknownError_clientError_description() {
         //Given
-        let response = HTTPURLResponse()
+        let response: HTTPURLResponse! = HTTPURLResponse(url: url, statusCode: 0, httpVersion: "1.1", headerFields: nil)
         let data = "dataString".data(using: .utf8)
         let error: DBNetworkStackError = .clientError(response: response, data: data)
         
@@ -163,7 +163,7 @@ class DBNetworkStackErrorTest: XCTestCase {
         
         //Then
         XCTAssert(debugDescription.hasPrefix("Client error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("> { URL: (null) } { status code: 0, headers {\n} }, response: dataString"))
+        XCTAssert(debugDescription.hasSuffix("> { URL: https://bahn.de } { status code: 0, headers {\n} }, response: dataString"))
     }
     
     func testUnknownError_serializationError_description() {

@@ -88,7 +88,12 @@ extension DBNetworkStackError : CustomDebugStringConvertible {
         case .requestError(let error):
             return "Request error: \(error)"
         case .serverError(let response, let data):
-            return "Server error: \(response), response: ".appendingContentsOf(data: data)
+            if let response = response {
+                return "Server error: \(String(describing: response)), response: ".appendingContentsOf(data: data)
+            } else {
+                return "Server error: nil, response: ".appendingContentsOf(data: data)
+            }
+
         }
     }
 }
