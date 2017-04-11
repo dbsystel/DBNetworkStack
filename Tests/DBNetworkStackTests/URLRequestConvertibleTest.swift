@@ -37,7 +37,7 @@ class URLRequestConvertibleTest: XCTestCase {
         let url: URL! = URL(string: "http://bahn.de")
         
         //When
-        let _: URLRequestConvertible = URLRequest(url: url)
+        _ = URLRequest(url: url) as URLRequestConvertible
     }
     
     func testConvertToRequest() {
