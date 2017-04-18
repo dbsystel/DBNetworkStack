@@ -56,7 +56,7 @@ class NetworkServiceTest: XCTestCase {
     }
     
     override func setUp() {
-        networkService = NetworkService(networkAccess: networkAccess, endPoints: ["endPointTestKey": baseURL])
+        networkService = NetworkService(networkAccess: networkAccess)
     }
     
     func testRequest_withValidResponse() {

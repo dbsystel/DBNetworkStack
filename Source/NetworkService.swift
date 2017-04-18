@@ -40,7 +40,7 @@ public final class NetworkService: NetworkServiceProviding {
      - parameter networkAccess: provides basic access to the network.
      - parameter endPoints: map of baseURLKey -> baseURLs
      */
-    public init(networkAccess: NetworkAccessProviding, endPoints: Dictionary<String, URL>) {
+    public init(networkAccess: NetworkAccessProviding) {
         self.networkAccess = networkAccess
     }
     
