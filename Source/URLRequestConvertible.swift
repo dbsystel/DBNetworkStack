@@ -59,8 +59,8 @@ extension URLRequest {
 extension URL {
     func appendingURLQueryParameter(_ parameters: Dictionary<String, Any>?) -> URL {
         let urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true)
-        if let parameter = parameters, var urlComponents = urlComponents, !parameter.isEmpty {
-            let percentEncodedQuery = parameter.map({ value in
+        if let parameters = parameters, var urlComponents = urlComponents, !parameters.isEmpty {
+            let percentEncodedQuery = parameters.map({ value in
                 return "\(value.0)=\(value.1)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             }).flatMap { $0 }
             urlComponents.percentEncodedQuery = percentEncodedQuery.joined(separator: "&")
@@ -73,4 +73,5 @@ extension URL {
         
         return absoluteURL
     }
+
 }
