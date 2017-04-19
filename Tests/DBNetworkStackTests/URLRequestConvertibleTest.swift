@@ -52,7 +52,7 @@ class URLRequestConvertibleTest: XCTestCase {
         XCTAssertEqual(request, convertedRequest)
     }
     
-    func testCoustomInitializer() {
+    func testCustomInitializer() {
         //Given
         let path = "train"
         let url: URL! = URL(string: "http://bahn.de")
