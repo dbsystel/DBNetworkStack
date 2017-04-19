@@ -64,7 +64,12 @@ class URLRequestConvertibleTest: XCTestCase {
         let request = URLRequest(path: path, baseURL: url, HTTPMethod: .DELETE, parameters: parameters, body: body, allHTTPHeaderFields: httpHeaderFields)
         
         //Then
-        XCTAssertEqual(request.url?.absoluteString, "http://bahn.de/train?test=true&query=2")
+        let reuqestURL: URL! = request.url
+        let query = URLComponents(url: reuqestURL, resolvingAgainstBaseURL: true)?.queryItems
+        XCTAssertEqual(query?.count, 2)
+        XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "true" }) ?? false)
+        XCTAssert(query?.contains(where: { $0.name == "query" && $0.value == "2" }) ?? false)
+
         XCTAssertEqual(request.httpBody, body)
         XCTAssertEqual(request.allHTTPHeaderFields?["header"], "HeaderValue")
     }
@@ -78,6 +83,9 @@ class URLRequestConvertibleTest: XCTestCase {
         let urlWithParameter = url.appendingURLQueryParameter(parameters)
         
         //Then
-        XCTAssertEqual(urlWithParameter.absoluteString, "http://bahn.de/train?test=true&query=2")
+        let query = URLComponents(url: urlWithParameter, resolvingAgainstBaseURL: true)?.queryItems
+        XCTAssertEqual(query?.count, 2)
+        XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "true" }) ?? false)
+        XCTAssert(query?.contains(where: { $0.name == "query" && $0.value == "2" }) ?? false)
     }
 }
