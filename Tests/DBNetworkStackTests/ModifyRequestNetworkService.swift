@@ -67,4 +67,22 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         //Then
         XCTAssertEqual(newRequest.allHTTPHeaderFields?["header"], "head")
     }
+    
+    func testAddDuplicatedQueryToRequest() {
+        //Given
+        let url: URL! = URL(string: "bahn.de?test=test&bool=true")
+        let request = URLRequest(url: url)
+        
+        let parameters = ["test": "test2"]
+        
+        //When
+        let newRequest = request.added(parameter: parameters)
+        
+        //Then
+        let newURL: URL! = newRequest.asURLRequest().url
+        let query = URLComponents(url: newURL, resolvingAgainstBaseURL: true)?.queryItems
+        XCTAssertEqual(query?.count, 2)
+        XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "test2" }) ?? false)
+        XCTAssert(query?.contains(where: { $0.name == "bool" && $0.value == "true" }) ?? false)
+    }
 }

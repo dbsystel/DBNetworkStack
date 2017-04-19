@@ -78,8 +78,17 @@ public extension URLRequestConvertible {
     /// - Returns: a new `NetworkRequestRepresening`
     func added(parameter: [String: Any]) -> URLRequestConvertible {
         var request = asURLRequest()
-        let url = request.url?.appendingURLQueryParameter(parameter)
-        request.url = url
+        guard let url = request.url, let urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return self
+        }
+        var query: [String: Any] = [:]
+        urlComponent.queryItems?.forEach {
+            query[$0.name] = $0.value
+        }
+        let newQuery = query.merged(with: parameter)
+        
+        let newURL = request.url?.appendingURLQueryParameter(newQuery)
+        request.url = newURL
         
         return request
     }

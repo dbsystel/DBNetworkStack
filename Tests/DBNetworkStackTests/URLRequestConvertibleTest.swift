@@ -88,4 +88,5 @@ class URLRequestConvertibleTest: XCTestCase {
         XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "true" }) ?? false)
         XCTAssert(query?.contains(where: { $0.name == "query" && $0.value == "2" }) ?? false)
     }
+
 }
