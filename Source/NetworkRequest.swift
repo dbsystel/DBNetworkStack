@@ -55,6 +55,19 @@ public extension NetworkRequest {
     public init(path: String, baseURLKey: BaseURLKey,
                 HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, Any>? = nil,
                 body: Data? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil) {
+        self.init(path: path, baseURLKey: baseURLKey, HTTPMethod: HTTPMethod, parameter: parameter,
+                  allHTTPHeaderField: allHTTPHeaderField, onIllegalArguments: { message, file, line in
+                    fatalError(message, file: file, line: line)
+        })
+    }
+    
+    init(path: String, baseURLKey: BaseURLKey,
+         HTTPMethod: DBNetworkStack.HTTPMethod = .GET, parameter: Dictionary<String, Any>? = nil,
+         body: Data? = nil, allHTTPHeaderField: Dictionary<String, String>? = nil,
+         onIllegalArguments: (String, StaticString, UInt) -> Void) {
+        if path.characters.first == "/" {
+            onIllegalArguments("Your path starts with /. This is illegal", #file, #line)
+        }
         self.path = path
         self.baseURLKey = baseURLKey
         self.HTTPMethod = HTTPMethod
