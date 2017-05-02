@@ -36,12 +36,12 @@ import Foundation
  */
 public struct JSONArrayResource<ModelElement: JSONMappable>: JSONResourceModeling, ArrayResourceModeling {
     public typealias Element = ModelElement
-    public let request: NetworkRequestRepresening
+    public let request: URLRequestConvertible
     public var parse: (_ data: Data) throws -> Array<Element> {
         return parseFunction
     }
     
-    public init(request: NetworkRequestRepresening) {
+    public init(request: URLRequestConvertible) {
         self.request = request
     }
     

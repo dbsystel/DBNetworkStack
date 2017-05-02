@@ -46,7 +46,6 @@ extension URLSessionDataTask: NetworkTaskRepresenting {
         
         return progress
     }
-    
 }
 
 public protocol URLSessionProtocol: NetworkAccessProviding {

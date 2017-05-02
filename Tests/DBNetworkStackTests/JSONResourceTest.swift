@@ -31,7 +31,8 @@ import XCTest
 
 class JSONResourceTest: XCTestCase {
     var resource: JSONResource<Train> {
-        let request = NetworkRequest(path: "/train", baseURLKey: "")
+        let url: URL! = URL(string: "bahn.de")
+        let request = URLRequest(path: "/train", baseURL: url)
         return JSONResource<Train>(request: request)
     }
     

@@ -28,8 +28,9 @@ import XCTest
 
 class RetryNetworkserviceTest: XCTestCase {
     var networkServiceMock: NetworkServiceMock!
-    let request = NetworkRequest(path: "", baseURLKey: "")
     var resource: Resource<Int> {
+        let url: URL! = URL(string: "bahn.de")
+        let request = URLRequest(path: "/train", baseURL: url)
         return Resource(request: request, parse: { _ in return 1})
     }
     

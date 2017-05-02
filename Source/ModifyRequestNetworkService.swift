@@ -33,7 +33,7 @@ import Dispatch
 /// One could add auth tokens or API keys for specifics URLs.
 public final class ModifyRequestNetworkService: NetworkServiceProviding {
     
-    private let requestModifications: Array<(NetworkRequestRepresening) -> NetworkRequestRepresening>
+    private let requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>
     private let networkService: NetworkServiceProviding
     
     /// Creates an insatcne of `ModifyRequestNetworkService`.
@@ -41,7 +41,7 @@ public final class ModifyRequestNetworkService: NetworkServiceProviding {
     /// - Parameters:
     ///   - networkService: a networkservice.
     ///   - requestModifications: array of modifications to modify requests.
-    public init(networkService: NetworkServiceProviding, requestModifications: Array<(NetworkRequestRepresening) -> NetworkRequestRepresening>) {
+    public init(networkService: NetworkServiceProviding, requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>) {
         self.networkService = networkService
         self.requestModifications = requestModifications
     }
@@ -56,17 +56,19 @@ public final class ModifyRequestNetworkService: NetworkServiceProviding {
     }
 }
 
-public extension NetworkRequestRepresening {
+public extension URLRequestConvertible {
     
     /// Creates a new `NetworkRequestRepresening` with HTTPHeaderFields added into the new request.
     /// Keep in mind that this overrides header fields which are already contained.
     ///
     /// - Parameter HTTPHeaderFields: the header fileds to add to the request
     /// - Returns: a new `NetworkRequestRepresening`
-    func added(HTTPHeaderFields: [String: String]) -> NetworkRequestRepresening {
-        return NetworkRequest(path: path, baseURLKey: baseURLKey, HTTPMethod: HTTPMethod,
-                              parameter: parameter, body: body,
-                              allHTTPHeaderField: (allHTTPHeaderFields ?? [:]).merged(with: HTTPHeaderFields))
+    func added(HTTPHeaderFields: [String: String]) -> URLRequestConvertible {
+        var request = asURLRequest()
+        let headerFiels = (request.allHTTPHeaderFields ?? [:]).merged(with: HTTPHeaderFields)
+        request.allHTTPHeaderFields = headerFiels
+        
+        return request
     }
     
     /// Creates a new `NetworkRequestRepresening` with query parameters added into the new request.
@@ -74,10 +76,21 @@ public extension NetworkRequestRepresening {
     ///
     /// - Parameter parameter: the parameter to add to the request
     /// - Returns: a new `NetworkRequestRepresening`
-    func added(parameter: [String: Any]) -> NetworkRequestRepresening {
-        return NetworkRequest(path: path, baseURLKey: baseURLKey, HTTPMethod: HTTPMethod,
-                              parameter: (self.parameter ?? [:]).merged(with: parameter),
-                              body: body, allHTTPHeaderField: allHTTPHeaderFields)
+    func added(parameter: [String: Any]) -> URLRequestConvertible {
+        var request = asURLRequest()
+        guard let url = request.url, let urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return self
+        }
+        var query: [String: Any] = [:]
+        urlComponent.queryItems?.forEach {
+            query[$0.name] = $0.value
+        }
+        let newQuery = query.merged(with: parameter)
+        
+        let newURL = request.url?.appendingURLQueryParameter(newQuery)
+        request.url = newURL
+        
+        return request
     }
     
 }

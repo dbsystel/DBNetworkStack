@@ -31,9 +31,8 @@ import Dispatch
 /**
  `NetworkService` handles network request for resources by using a given `NetworkAccessProviding`
  */
-public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
+public final class NetworkService: NetworkServiceProviding {
     let networkAccess: NetworkAccessProviding
-    let endPoints: Dictionary<String, URL>
     
     /**
      Creates an `NetworkService` instance with a given networkAccess and a map of endPoints
@@ -41,17 +40,15 @@ public final class NetworkService: NetworkServiceProviding, BaseURLProviding {
      - parameter networkAccess: provides basic access to the network.
      - parameter endPoints: map of baseURLKey -> baseURLs
      */
-    public init(networkAccess: NetworkAccessProviding, endPoints: Dictionary<String, URL>) {
+    public init(networkAccess: NetworkAccessProviding) {
         self.networkAccess = networkAccess
-        self.endPoints = endPoints
     }
     
     @discardableResult
     public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
                         onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
-        let baseURL = self.baseURL(with: resource)
-        let reuqest = resource.request.urlRequest(with: baseURL)
-        let dataTask = networkAccess.load(request: reuqest, callback: { data, response, error in
+        let request = resource.request.asURLRequest()
+        let dataTask = networkAccess.load(request: request, callback: { data, response, error in
             self.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,
                                       error: error, onCompletion: onCompletion, onError: onError)
         })

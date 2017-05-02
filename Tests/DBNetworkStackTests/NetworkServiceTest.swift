@@ -29,14 +29,6 @@ import Foundation
 import XCTest
 @testable import DBNetworkStack
 
-enum TestEndPoints: BaseURLKey {
-    case endPoint
-    
-    var name: String {
-        return "endPointTestKey"
-    }
-}
-
 class NetworkServiceTest: XCTestCase {
     
     public static var allTests = {
@@ -59,12 +51,12 @@ class NetworkServiceTest: XCTestCase {
     let baseURL: URL! = URL(string: "//bahn.de")
     
     var resource: JSONResource<Train> {
-        let request = NetworkRequest(path:"train", baseURLKey: TestEndPoints.endPoint)
+        let request = URLRequest(path:"train", baseURL: baseURL)
         return JSONResource<Train>(request: request)
     }
     
     override func setUp() {
-        networkService = NetworkService(networkAccess: networkAccess, endPoints: ["endPointTestKey": baseURL])
+        networkService = NetworkService(networkAccess: networkAccess)
     }
     
     func testRequest_withValidResponse() {
@@ -158,7 +150,7 @@ class NetworkServiceTest: XCTestCase {
             }, onError: { resultError in
                 //Then
                 switch resultError {
-                case .requestError(let err):
+                case .requestError(_):
                     //XCTAssertEqual(err as NSError, error)
                     expection.fulfill()
                 default:
@@ -169,8 +161,8 @@ class NetworkServiceTest: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    private lazy var testData: Data = {
-        return "test_string".data(using: .utf8)!
+    private lazy var testData: Data! = {
+        return "test_string".data(using: .utf8)
     }()
     
     func testRequest_withStatusCode401Response() {

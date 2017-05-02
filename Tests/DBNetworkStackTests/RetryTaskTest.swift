@@ -163,4 +163,70 @@ class RetryTaskTest: XCTestCase {
         XCTAssertNil(weakTask)
         XCTAssertNotNil(capturedError)
     }
+    
+    func testResume() {
+        //Given
+        let taskMock = NetworkTaskMock()
+        let task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
+                                                            shouldRetry: { _ in return false}, onSuccess: { _ in
+                                                                
+        }, onError: { _ in
+        }, retryAction: { _, _ in
+            XCTFail()
+            return NetworkTaskMock()
+        }, dispatchRetry: { _, block in
+            block()
+        })
+        task?.originalTask = taskMock
+        
+        //When
+        task?.resume()
+        
+        //Then
+        XCTAssert(taskMock.state == .resumed)
+    }
+    
+    func testSuspend() {
+        //Given
+        let taskMock = NetworkTaskMock()
+        let task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
+                                                            shouldRetry: { _ in return false}, onSuccess: { _ in
+                                                                
+        }, onError: { _ in
+        }, retryAction: { _, _ in
+            XCTFail()
+            return NetworkTaskMock()
+        }, dispatchRetry: { _, block in
+            block()
+        })
+        task?.originalTask = taskMock
+        
+        //When
+        task?.suspend()
+        
+        //Then
+        XCTAssert(taskMock.state == .suspended)
+    }
+    
+    func testProgress() {
+        //Given
+        let taskMock = NetworkTaskMock()
+        let task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
+                                                            shouldRetry: { _ in return false}, onSuccess: { _ in
+                                                                
+        }, onError: { _ in
+        }, retryAction: { _, _ in
+            XCTFail()
+            return NetworkTaskMock()
+        }, dispatchRetry: { _, block in
+            block()
+        })
+        task?.originalTask = taskMock
+        
+        //When
+        task?.suspend()
+        
+        //Then
+        taskMock.progress
+    }
 }

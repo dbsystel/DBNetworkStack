@@ -39,7 +39,7 @@ public protocol ResourceModeling {
     /**
      The request to get the remote data payload
      */
-    var request: NetworkRequestRepresening { get }
+    var request: URLRequestConvertible { get }
     
     /**
      Parses data into given Model
