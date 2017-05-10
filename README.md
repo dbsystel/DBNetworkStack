@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/dbsystel/DBNetworkStack.svg?branch=develop)](https://travis-ci.org/dbsystel/DBNetworkStack)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
  [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+[![Version](https://img.shields.io/cocoapods/v/DBNetworkStack.svg?style=flat)](http://cocoapods.org/pods/DBNetworkStack)
 [![Swift Version](https://img.shields.io/badge/Swift-3.0--3.1-F16D39.svg?style=flat)](https://developer.apple.com/swift)
 [![Swift Version](https://img.shields.io/badge/Linux-3.1-4BC51D.svg?style=flat)](https://developer.apple.com/swift)
 [![codecov](https://codecov.io/gh/dbsystel/DBNetworkStack/branch/develop/graph/badge.svg)](https://codecov.io/gh/dbsystel/DBNetworkStack)
@@ -136,6 +137,11 @@ Specify the following in your `Cartfile`:
 ```ogdl
 github "dbsystel/dbnetworkstack" ~> 0.3
 ```
+
+### CocoaPods
+
+`pod "DBNetworkStack"`
+
 ## Contributing
 Feel free to submit a pull request with new features, improvements on tests or documentation and bug fixes. Keep in mind that we welcome code that is well tested and documented.
 
