@@ -61,7 +61,7 @@ class NetworkServiceTest: XCTestCase {
     
     func testRequest_withValidResponse() {
         //Given
-        networkAccess.changeMock(data: Train.validJSONData, response: nil, error: nil)
+        networkAccess.changeMock(data: Train.validJSONData, response: .defaultTestResponse, error: nil)
         let expection = expectation(description: "loadValidRequest")
         
         //When

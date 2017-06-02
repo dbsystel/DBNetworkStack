@@ -43,7 +43,7 @@ public protocol NetworkServiceProviding: NetworkResponseProcessing {
      - returns: the request
      */
     @discardableResult
-    func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
+    func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model, HTTPURLResponse) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting
 }
 
@@ -61,6 +61,22 @@ extension NetworkServiceProviding {
     @discardableResult
     public func request<T: ResourceModeling>(queue: DispatchQueue = .main, _ resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
-        return request(queue: queue, resource: resource, onCompletion: onCompletion, onError: onError)
+        return request(queue: queue, resource: resource, onCompletion: { model, _ in onCompletion(model) }, onError: onError)
+    }
+    
+    /**
+     Fetches a resource asynchrony from remote location
+     
+     - parameter queue: The DispatchQueue to execute the completion and error block on.
+     - parameter resource: The resource you want to fetch.
+     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - returns: the request
+     */
+    @discardableResult
+    func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
+                 onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
+        return request(queue: queue, resource: resource, onCompletion: { model, _ in onCompletion(model) }, onError: onError)
     }
 }

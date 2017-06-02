@@ -85,7 +85,7 @@ extension NetworkResponseProcessing {
     ///   - onCompletion: completion block which gets called on the given `queue`.
     ///   - onError: error block which gets called on the given `queue`.
     func processAsyncResponse<T: ResourceModeling>(queue: DispatchQueue, response: HTTPURLResponse?, resource: T, data: Data?,
-                              error: Error?, onCompletion: @escaping (T.Model) -> Void, onError: @escaping (DBNetworkStackError) -> Void) {
+                              error: Error?, onCompletion: @escaping (T.Model, HTTPURLResponse) -> Void, onError: @escaping (DBNetworkStackError) -> Void) {
         do {
             let parsed = try process(
                 response: response,
@@ -94,7 +94,7 @@ extension NetworkResponseProcessing {
                 error: error
             )
             queue.async {
-                onCompletion(parsed)
+                onCompletion(parsed, response!) //Is reposne never nil here??
             }
         } catch let parsingError as DBNetworkStackError {
             queue.async {

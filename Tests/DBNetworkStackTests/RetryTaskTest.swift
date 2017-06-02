@@ -27,6 +27,10 @@ import Foundation
 import XCTest
 @testable import DBNetworkStack
 
+extension HTTPURLResponse {
+    static let defaultTestResponse = HTTPURLResponse(url: URL(string: "bahn.de")!, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
+}
+
 class RetryTaskTest: XCTestCase {
     
     let mockError: DBNetworkStackError = .unknownError
@@ -51,11 +55,11 @@ class RetryTaskTest: XCTestCase {
         //Given
         var successValue: Int?
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 1, idleTimeInterval: 1,
-                                                            shouldRetry: { _ in return true}, onSuccess: { (value: Int) in
+                                                            shouldRetry: { _ in return true}, onSuccess: { (value: Int, _) in
             successValue = value
         }, onError: { _ in
         }, retryAction: {sucess, _ in
-            sucess(0)
+            sucess(0, .defaultTestResponse)
             return NetworkTaskMock()
         }, dispatchRetry: { _, block in
             block()
@@ -78,12 +82,12 @@ class RetryTaskTest: XCTestCase {
         //Given
         var numerOfRertrys = 0
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
-                                                            shouldRetry: { _ in return true}, onSuccess: { (_: Int) in
+                                                            shouldRetry: { _ in return true}, onSuccess: { (_: Int, _) in
         }, onError: { _ in
         }, retryAction: {success, error in
             numerOfRertrys += 1
             if numerOfRertrys == 3 {
-                success(0)
+                success(0, .defaultTestResponse)
             } else {
                error(self.mockError)
             }
@@ -110,12 +114,12 @@ class RetryTaskTest: XCTestCase {
     func testDontHoldReference_CancleTask() {
         var numerOfRertrys = 0
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
-                                                            shouldRetry: { _ in return true}, onSuccess: { (_: Int) in
+                                                            shouldRetry: { _ in return true}, onSuccess: { (_: Int, _) in
         }, onError: { _ in
         }, retryAction: { onSucess, onError in
             numerOfRertrys += 1
             if numerOfRertrys == 3 {
-                onSucess(0)
+                onSucess(0, .defaultTestResponse)
             } else {
                 onError(self.mockError)
             }
