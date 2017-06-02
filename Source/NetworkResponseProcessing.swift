@@ -94,7 +94,11 @@ extension NetworkResponseProcessing {
                 error: error
             )
             queue.async {
-                onCompletion(parsed, response!) //Is reposne never nil here??
+                if let response = response {
+                    onCompletion(parsed, response)
+                } else {
+                    onError(DBNetworkStackError.unknownError)
+                }
             }
         } catch let parsingError as DBNetworkStackError {
             queue.async {
