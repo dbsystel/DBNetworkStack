@@ -75,8 +75,8 @@ extension NetworkServiceProviding {
      - returns: the request
      */
     @discardableResult
-    func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
+    func request<T: ResourceModeling>(queue: DispatchQueue  = .main, resource: T, onCompletion: @escaping (T.Model, HTTPURLResponse) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
-        return request(queue: queue, resource: resource, onCompletion: { model, _ in onCompletion(model) }, onError: onError)
+        return request(queue: queue, resource: resource, onCompletion: onCompletion, onError: onError)
     }
 }

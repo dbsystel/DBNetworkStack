@@ -54,7 +54,8 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
     ///   - onError: closure which gets fired on error
     ///   - retryAction: closure which gets triggerd when retry starts
     ///   - dispatchRetry: location where to dispatch the retry action
-    init(maxmimumNumberOfRetries: Int, idleTimeInterval: TimeInterval, shouldRetry: @escaping (DBNetworkStackError) -> Bool, onSuccess: @escaping (T, HTTPURLResponse) -> Void,
+    init(maxmimumNumberOfRetries: Int, idleTimeInterval: TimeInterval, shouldRetry: @escaping (DBNetworkStackError) -> Bool,
+         onSuccess: @escaping (T, HTTPURLResponse) -> Void,
          onError: @escaping (DBNetworkStackError) -> Void,
          retryAction: @escaping (@escaping (T, HTTPURLResponse) -> Void, @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting,
          dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> Void) -> Void ) {
