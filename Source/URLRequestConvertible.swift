@@ -66,7 +66,7 @@ extension URL {
             urlComponents.percentEncodedQuery = percentEncodedQuery.joined(separator: "&")
             
             guard let absoluteURL = urlComponents.url else {
-                fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
+                fatalError("Error createing absolute URL from path: \(String(describing: path)), with baseURL: \(String(describing: baseURL))")
             }
             return absoluteURL
         }
