@@ -33,19 +33,6 @@ import Foundation
 extension URLSession: URLSessionProtocol {}
 
 extension URLSessionDataTask: NetworkTaskRepresenting {
-    public var progress: Progress {
-        #if os(Linux)
-            let SessionTransferSizeUnknown = URLSessionTransferSizeUnknown
-        #else
-            let SessionTransferSizeUnknown = NSURLSessionTransferSizeUnknown
-        #endif
-        let totalBytesExpected = response?.expectedContentLength ?? SessionTransferSizeUnknown
-        let progress = Progress(totalUnitCount: totalBytesExpected)
-        progress.totalUnitCount = totalBytesExpected
-        progress.completedUnitCount = countOfBytesReceived
-        
-        return progress
-    }
 }
 
 public protocol URLSessionProtocol: NetworkAccessProviding {

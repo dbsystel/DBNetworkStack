@@ -106,6 +106,7 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
         originalTask?.suspend()
     }
     
+    @available(iOS 11.0, OSX 10.13, watchOS 4.0, tvOS 11.0, *)
     var progress: Progress {
         guard let task = originalTask else {
             fatalError("OrginalTask has to be set")
