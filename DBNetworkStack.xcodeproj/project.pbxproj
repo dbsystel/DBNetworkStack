@@ -37,6 +37,8 @@
 		C65F087B1D757A3C00239CC1 /* JSONMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F087A1D757A3C00239CC1 /* JSONMappable.swift */; };
 		C6816E211D87C51C003B699A /* URLSessionNetworkAccessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */; };
 		C68FF1F51E1A64CB00A2513F /* Ressource+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */; };
+		C69188671EE6865E00BAD320 /* DecodableResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69188661EE6865E00BAD320 /* DecodableResource.swift */; };
+		C691886A1EE6897900BAD320 /* DecodableResoureTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69188681EE688F700BAD320 /* DecodableResoureTest.swift */; };
 		C699E0771D917501006FE7C6 /* DBNetworkStackErrorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C699E0761D917501006FE7C6 /* DBNetworkStackErrorTest.swift */; };
 		C6A5DED41D760CC900BC38B1 /* JSONResourceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED31D760CC900BC38B1 /* JSONResourceTest.swift */; };
 		C6A5DED61D760E5000BC38B1 /* NetworkAccessMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5DED51D760E5000BC38B1 /* NetworkAccessMock.swift */; };
@@ -94,6 +96,8 @@
 		C65F087A1D757A3C00239CC1 /* JSONMappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONMappable.swift; sourceTree = "<group>"; };
 		C6816E201D87C51C003B699A /* URLSessionNetworkAccessTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = URLSessionNetworkAccessTest.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ressource+Map.swift"; sourceTree = "<group>"; };
+		C69188661EE6865E00BAD320 /* DecodableResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResource.swift; sourceTree = "<group>"; };
+		C69188681EE688F700BAD320 /* DecodableResoureTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResoureTest.swift; sourceTree = "<group>"; };
 		C699E0761D917501006FE7C6 /* DBNetworkStackErrorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBNetworkStackErrorTest.swift; sourceTree = "<group>"; };
 		C6A5DED31D760CC900BC38B1 /* JSONResourceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = JSONResourceTest.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6A5DED51D760E5000BC38B1 /* NetworkAccessMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworkAccessMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -209,6 +213,7 @@
 				C61348B81DACB4F2000F0583 /* ArrayResourceModeling.swift */,
 				C60BE6801D6B2C46006B0364 /* Resource.swift */,
 				C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */,
+				C69188661EE6865E00BAD320 /* DecodableResource.swift */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				C6A5DED31D760CC900BC38B1 /* JSONResourceTest.swift */,
+				C69188681EE688F700BAD320 /* DecodableResoureTest.swift */,
 				C604250F1D78002400FD3B38 /* JSONArrayResourceTest.swift */,
 				C60425121D7803CA00FD3B38 /* ResourceTest.swift */,
 			);
@@ -409,6 +415,7 @@
 				C60BE6921D6B2C46006B0364 /* JSONArrayResource.swift in Sources */,
 				C6461F021E01678100E0B081 /* RetryNetworkService.swift in Sources */,
 				C61E778C1E49D8A900D55BB2 /* NetworkTaskMock.swift in Sources */,
+				C69188671EE6865E00BAD320 /* DecodableResource.swift in Sources */,
 				7C235E0B1DBF6E8500628DC9 /* DBNetworkStackError.swift in Sources */,
 				C65F087B1D757A3C00239CC1 /* JSONMappable.swift in Sources */,
 				C6C21A391F21F90A0004A7EB /* NetworkResponseProcessor.swift in Sources */,
@@ -440,6 +447,7 @@
 				7C653BC91E09325500199993 /* NetworkResponseProcessorTest.swift in Sources */,
 				C6461F081E0167FA00E0B081 /* RetryTaskTest.swift in Sources */,
 				C60425101D78002400FD3B38 /* JSONArrayResourceTest.swift in Sources */,
+				C691886A1EE6897900BAD320 /* DecodableResoureTest.swift in Sources */,
 				C6F7E30D1E49DAB300FA625F /* URLSessionProtocolMock.swift in Sources */,
 				C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */,
 				C6C395961E0422AF00413AD2 /* ModifyRequestNetworkService.swift in Sources */,
