@@ -31,6 +31,7 @@ import Foundation
  `ArrayResourceModeling` describes a remote resource of generic type structured in an array.
  The resource type can be fetched via HTTP(s) and parsed into the coresponding model object.
  */
+@available(*, deprecated, message: "Build generic functions/classes which use `ResourceModeling.Element == Array<T>`")
 public protocol ArrayResourceModeling: ResourceModeling {
     associatedtype Element
     associatedtype Model = Array<Element>

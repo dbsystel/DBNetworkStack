@@ -46,7 +46,14 @@ public extension ResourceModeling {
     /// Wrappes self into a `Resource` to hide away implementation details. This could be helpful when you think your typeinformation gets leaked.
     ///
     /// - Returns: the wrapped ressource
+    @available(*, deprecated, message: "Use `init<R: ResourceModeling>(resource: R)`")
     func wrapped() -> Resource<Model> {
         return Resource(request: request, parse: parse)
+    }
+}
+
+public extension Resource {
+    init<R: ResourceModeling>(resource: R) where Model == R.Model {
+        self = Resource(request: resource.request, parse: resource.parse)
     }
 }
