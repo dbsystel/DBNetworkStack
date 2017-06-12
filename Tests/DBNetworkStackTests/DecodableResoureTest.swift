@@ -25,10 +25,10 @@ import XCTest
 @testable import DBNetworkStack
 
 class DecodableResoureTest: XCTestCase {
-    var resource: DecodableResource<Train> {
+    var resource: Resource<Train> {
         let url: URL! = URL(string: "bahn.de")
         let request = URLRequest(path: "/train", baseURL: url)
-        return DecodableResource<Train>(request: request)
+        return Resource<Train>(request: request)
     }
     
     func testResource_withValidData() {

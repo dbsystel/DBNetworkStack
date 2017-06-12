@@ -22,23 +22,11 @@
 
 import Foundation
 
-/**
- `JSONResource` represents a network resource in JSON, which can be parsed into a Model Type.
- 
- The root JSON payload must be an object.
- 
- See `ResourceModeling` for more details.
- */
-public struct DecodableResource<Model: Decodable>: ResourceModeling {
-    public let request: URLRequestConvertible
-    public let parse: (_ data: Data) throws -> Model
-    
+extension Resource where Model: Decodable {
     public init(request: URLRequestConvertible) {
-        self.request = request
-        self.parse = { data in
+        self.init(request: request, parse: { data in
             let decoder = JSONDecoder()
             return try decoder.decode(Model.self, from: data)
-        }
-        
+        })
     }
 }
