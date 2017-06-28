@@ -22,10 +22,16 @@
 
 import Foundation
 
+public protocol Decoding {
+    func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
+}
+
+extension JSONDecoder: Decoding {}
+extension PropertyListDecoder: Decoding {}
+
 extension Resource where Model: Decodable {
-    public init(request: URLRequestConvertible) {
+    public init(request: URLRequestConvertible, decoder: Decoding) {
         self.init(request: request, parse: { data in
-            let decoder = JSONDecoder()
             return try decoder.decode(Model.self, from: data)
         })
     }
