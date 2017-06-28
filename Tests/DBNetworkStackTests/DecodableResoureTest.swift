@@ -28,7 +28,7 @@ class DecodableResoureTest: XCTestCase {
     var resource: Resource<Train> {
         let url: URL! = URL(string: "bahn.de")
         let request = URLRequest(path: "/train", baseURL: url)
-        return Resource<Train>(request: request)
+        return Resource<Train>(request: request, decoder: JSONDecoder())
     }
     
     func testResource_withValidData() {
