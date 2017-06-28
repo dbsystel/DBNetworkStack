@@ -26,11 +26,8 @@ First you have to create a service, by providing a network access. You can use N
 
 ```swift
 
-let url = NSURL(string: "https://httpbin.org")!
-let baseURLKey = "httpBin"
-
 let networkAccess = NSURLSession(configuration: .defaultSessionConfiguration())
-let networkService = NetworkService(networkAccess: networkAccess, endPoints: [baseURLKey: url])
+let networkService = NetworkService(networkAccess: networkAccess)
 
 ```
 
@@ -38,8 +35,9 @@ Create a resource with a request to fetch your data.
 
 ```swift
 
-let request = NetworkRequest(path: "/", baseURLKey: baseURLKey)
-let resource = Resource(request: request, parse: { String(data: $0, encoding: NSUTF8StringEncoding) })
+let url = URL(string: "https://httpbin.org")!
+let request = URLRequest(path: "/", baseURL: url)
+let resource = Resource(request: request, parse: { String(data: $0, encoding: .utf8) })
 
 ```
 Request your resource and handle the response
@@ -64,7 +62,9 @@ extension IPOrigin: JSONMappable {
     }
 }
 
-let request = NetworkRequest(path: "/ip", baseURLKey: baseURLKey)
+
+let url = URL(string: "https://httpbin.org")!
+let request = URLRequest(path: "/ip", baseURL: url)
 let resource = JSONResource<IPOrigin>(request: request)
 
 networkService.request(resource, onCompletion: { origin in
