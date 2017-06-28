@@ -35,8 +35,8 @@ Create a resource with a request to fetch your data.
 
 ```swift
 
-let url = URL(string: "https://httpbin.org/")!
-let request = URLRequest(url: url)
+let url = URL(string: "https://httpbin.org")!
+let request = URLRequest(path: "/", baseURL: url)
 let resource = Resource(request: request, parse: { String(data: $0, encoding: .utf8) })
 
 ```
@@ -62,8 +62,9 @@ extension IPOrigin: JSONMappable {
     }
 }
 
-let url = URL(string: "https://httpbin.org/ip")!
-let request = URLRequest(url: url)
+
+let url = URL(string: "https://httpbin.org")!
+let request = URLRequest(path: "/ip", baseURL: url)
 let resource = JSONResource<IPOrigin>(request: request)
 
 networkService.request(resource, onCompletion: { origin in
