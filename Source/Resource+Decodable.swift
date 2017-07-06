@@ -22,17 +22,14 @@
 
 import Foundation
 
-public protocol Decoding {
-    func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
-}
-
-extension JSONDecoder: Decoding {}
-extension PropertyListDecoder: Decoding {}
-
+@available(OSXApplicationExtension 10.12, iOSApplicationExtension 10.0, tvOSApplicationExtension 10.0, watchOSApplicationExtension 3.0, *)
 extension Resource where Model: Decodable {
-    public init(request: URLRequestConvertible, decoder: Decoding) {
-        self.init(request: request, parse: { data in
-            return try decoder.decode(Model.self, from: data)
-        })
+    ///
+    public init(request: URLRequestConvertible, parse: @escaping (Data) throws -> Model = {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            return try decoder.decode(Model.self, from: $0)
+        }) {
+        self.init(request: request, parse: parse)
     }
 }
