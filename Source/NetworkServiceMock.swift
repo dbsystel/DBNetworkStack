@@ -83,6 +83,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
+    ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
     ///   - count: the count how often the response gets triggerd. 1 by default
     public func returnSuccess(with data: Data = Data(), httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int = 1) {
         for _ in 0...count {
@@ -97,6 +98,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
+    ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
     ///   - count: the count how often the response gets triggerd. 1 by default
     public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int = 1) {
         for _ in 0...count {
