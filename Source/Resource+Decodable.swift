@@ -22,14 +22,9 @@
 
 import Foundation
 
-@available(OSXApplicationExtension 10.12, iOSApplicationExtension 10.0, tvOSApplicationExtension 10.0, watchOSApplicationExtension 3.0, *)
 extension Resource where Model: Decodable {
-    ///
-    public init(request: URLRequestConvertible, parse: @escaping (Data) throws -> Model = {
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            return try decoder.decode(Model.self, from: $0)
-        }) {
-        self.init(request: request, parse: parse)
+    
+    public init(request: URLRequestConvertible, decoder: JSONDecoder) {
+        self.init(request: request, parse: { try decoder.decode(Model.self, from: $0) })
     }
 }
