@@ -11,7 +11,7 @@ URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
 let networkAccess = URLSession(configuration: .default)
 let networkService = NetworkService(networkAccess: networkAccess)
 
-struct IPOrigin: Codable {
+struct IPOrigin: Decodable {
     let origin: String
 }
 
@@ -21,7 +21,7 @@ let request = URLRequest(path: "ip", baseURL: url)
 let resource = Resource<IPOrigin>(request: request, decoder: JSONDecoder())
 
 networkService.request(resource, onCompletion: { origin in
-    print(origin)
+        print(origin)
     }, onError: { error in
         print(error)
 })
