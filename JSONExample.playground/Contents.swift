@@ -11,22 +11,14 @@ URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
 let networkAccess = URLSession(configuration: .default)
 let networkService = NetworkService(networkAccess: networkAccess)
 
-struct IPOrigin {
-    let ipAdress: String
-}
-
-extension IPOrigin: JSONMappable {
-    init(object: Dictionary<String, Any>) throws {
-        guard let ipAdress = object["origin"] as? String else {
-            throw DBNetworkStackError.serializationError(description: "", data: nil)
-        }
-        self.ipAdress = ipAdress
-    }
+struct IPOrigin: Codable {
+    let origin: String
 }
 
 let url: URL! = URL(string: "https://www.httpbin.org")
 let request = URLRequest(path: "ip", baseURL: url)
-let resource = JSONResource<IPOrigin>(request: request)
+
+let resource = Resource<IPOrigin>(request: request, decoder: JSONDecoder())
 
 networkService.request(resource, onCompletion: { origin in
     print(origin)
