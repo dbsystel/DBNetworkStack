@@ -31,7 +31,7 @@ import Dispatch
 /**
  `NetworkServiceProviding` provides access to remote resources.
  */
-public protocol NetworkServiceProviding: NetworkResponseProcessing {
+public protocol NetworkServiceProviding {
     /**
      Fetches a resource asynchrony from remote location
      

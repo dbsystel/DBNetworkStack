@@ -9,11 +9,9 @@
 import XCTest
 @testable import DBNetworkStack
 
-fileprivate class NetworkResponseProcessor: NetworkResponseProcessing {}
-
 class NetworkResponseProcessingTests: XCTestCase {
     
-    var processor: NetworkResponseProcessing!
+    var processor: NetworkResponseProcessor!
     
     override func setUp() {
         super.setUp()
@@ -22,9 +20,7 @@ class NetworkResponseProcessingTests: XCTestCase {
     
     func testCancelError() {
         // Given
-        let url: URL! = URL(string: "bahn.de")
-        let request = URLRequest(path: "/trains", baseURL: url)
-        let resource = Resource(request: request, parse: { _ in return 0 })
+        let resource = Resource(request: URLRequest.defaultMock, parse: { _ in return 0 })
         let cancelledError = URLError(_nsError: NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: nil))
         
         // When
@@ -50,15 +46,13 @@ class NetworkResponseProcessingTests: XCTestCase {
     
     func testParseThrowsUnknownError() {
         // Given
-        let url: URL! = URL(string: "bahn.de")
-        let request = URLRequest(path: "/trains", baseURL: url)
-        let resource = Resource(request: request, parse: { _  -> Int in
+        let resource = Resource(request: URLRequest.defaultMock, parse: { _  -> Int in
             throw UnknownError() })
         let data: Data! = "Data".data(using: .utf8)
         
         // When
         do {
-            _ = try processor.process(response: nil, resource: resource, data: data, error: nil)
+            _ = try processor.process(response: .defaultMock, resource: resource, data: data, error: nil)
         } catch let error as DBNetworkStackError {
             // Then
             switch error {
@@ -72,5 +66,26 @@ class NetworkResponseProcessingTests: XCTestCase {
         } catch let error {
             XCTFail("Expected DBNetworkStackError (got \(type(of:error)))")
         }
+    }
+    
+    func testParseSucessFullWithNilResponse() {
+        //Given
+        let resource = Resource(request: URLRequest.defaultMock, parse: { _ in return 0 })
+        
+        //When
+        do {
+            _ = try processor.process(response: nil, resource: resource, data: Data(), error: nil)
+        } catch let error as DBNetworkStackError {
+            // Then
+            switch error {
+            case .unknownError: // Excpected
+                break
+            default:
+                XCTFail("Expected cancelled error (got \(error)")
+            }
+        } catch let error {
+            XCTFail("Expected DBNetworkStackError (got \(type(of:error)))")
+        }
+        
     }
 }

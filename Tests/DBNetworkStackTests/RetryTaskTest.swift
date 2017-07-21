@@ -27,10 +27,6 @@ import Foundation
 import XCTest
 @testable import DBNetworkStack
 
-extension HTTPURLResponse {
-    static let defaultTestResponse = HTTPURLResponse(url: URL(string: "bahn.de")!, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
-}
-
 class RetryTaskTest: XCTestCase {
     
     let mockError: DBNetworkStackError = .unknownError
@@ -59,7 +55,7 @@ class RetryTaskTest: XCTestCase {
             successValue = value
         }, onError: { _ in
         }, retryAction: {sucess, _ in
-            sucess(0, .defaultTestResponse)
+            sucess(0, .defaultMock)
             return NetworkTaskMock()
         }, dispatchRetry: { _, block in
             block()
@@ -87,7 +83,7 @@ class RetryTaskTest: XCTestCase {
         }, retryAction: {success, error in
             numerOfRertrys += 1
             if numerOfRertrys == 3 {
-                success(0, .defaultTestResponse)
+                success(0, .defaultMock)
             } else {
                error(self.mockError)
             }
@@ -119,7 +115,7 @@ class RetryTaskTest: XCTestCase {
         }, retryAction: { onSucess, onError in
             numerOfRertrys += 1
             if numerOfRertrys == 3 {
-                onSucess(0, .defaultTestResponse)
+                onSucess(0, .defaultMock)
             } else {
                 onError(self.mockError)
             }

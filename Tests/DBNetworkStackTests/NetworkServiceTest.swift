@@ -61,13 +61,13 @@ class NetworkServiceTest: XCTestCase {
     
     func testRequest_withValidResponse() {
         //Given
-        networkAccess.changeMock(data: Train.validJSONData, response: .defaultTestResponse, error: nil)
+        networkAccess.changeMock(data: Train.validJSONData, response: .defaultMock, error: nil)
         let expection = expectation(description: "loadValidRequest")
         
         //When
         networkService.request(resource: resource, onCompletion: { train, response in
             XCTAssertEqual(train.name, self.trainName)
-            XCTAssertEqual(response, .defaultTestResponse)
+            XCTAssertEqual(response, .defaultMock)
             expection.fulfill()
             }, onError: { _ in
                 XCTFail()
@@ -85,21 +85,27 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testNoData")
         
         //When
+        var capturedError: DBNetworkStackError?
         networkService.request(resource, onCompletion: { _ in
             XCTFail()
             }, onError: { error in
-                switch error {
-                case .serializationError(let description, let data):
-                    XCTAssertEqual("No data to serialize revied from the server", description)
-                    XCTAssertNil(data)
-                    expection.fulfill()
-                default:
-                    XCTFail()
-                }
+                capturedError = error
+                expection.fulfill()
         })
         
         //Then
         waitForExpectations(timeout: 1, handler: nil)
+        guard let error = capturedError else {
+            XCTFail()
+            return
+        }
+        switch error {
+        case .serializationError(let description, let data):
+            XCTAssertEqual("No data to serialize revied from the server", description)
+            XCTAssertNil(data)
+        default:
+            XCTFail()
+        }
     }
     
     func testInvalidData() {
