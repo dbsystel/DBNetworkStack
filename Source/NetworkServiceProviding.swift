@@ -47,7 +47,7 @@ public protocol NetworkServiceProviding {
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting
 }
 
-extension NetworkServiceProviding {
+public extension NetworkServiceProviding {
     /**
      Fetches a resource asynchrony from remote location
      
@@ -59,7 +59,7 @@ extension NetworkServiceProviding {
      - returns: the request
      */
     @discardableResult
-    public func request<T: ResourceModeling>(queue: DispatchQueue = .main, _ resource: T, onCompletion: @escaping (T.Model) -> Void,
+    func request<T: ResourceModeling>(queue: DispatchQueue = .main, _ resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         return request(queue: queue, resource: resource, onCompletion: { model, _ in onCompletion(model) }, onError: onError)
     }
