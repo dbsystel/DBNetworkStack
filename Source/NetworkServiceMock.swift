@@ -44,7 +44,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
     public var nextNetworkTask: NetworkTaskRepresenting?
 
     @discardableResult
-    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model, HTTPURLResponse) -> Void,
+    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         lastRequest = resource.request
         requestCount += 1
@@ -52,13 +52,13 @@ public class NetworkServiceMock: NetworkServiceProviding {
             guard let result = try? resource.parse(data) else {
                 fatalError("Could not parse data into matching result type")
             }
-            onCompletion(result, response)
+            onCompletionWithResponse(result, response)
         }
         onTypedSuccess = { anyResult, response in
             guard let typedResult =  anyResult as? T.Model else {
                 fatalError("Extected type of \(T.Model.self)")
             }
-            onCompletion(typedResult, response)
+            onCompletionWithResponse(typedResult, response)
         }
         onErrorCallback = { error in
             onError(error)

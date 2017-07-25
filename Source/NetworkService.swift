@@ -47,12 +47,12 @@ public final class NetworkService: NetworkServiceProviding {
     }
     
     @discardableResult
-    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model, HTTPURLResponse) -> Void,
+    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
                         onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         let request = resource.request.asURLRequest()
         let dataTask = networkAccess.load(request: request, callback: { data, response, error in
             self.networkResponseProcessor.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,
-                                      error: error, onCompletion: onCompletion, onError: onError)
+                                      error: error, onCompletion: onCompletionWithResponse, onError: onError)
         })
         return dataTask
     }

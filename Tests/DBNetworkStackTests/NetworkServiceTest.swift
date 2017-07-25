@@ -65,7 +65,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "loadValidRequest")
         
         //When
-        networkService.request(resource: resource, onCompletion: { train, response in
+        networkService.request(resource, onCompletionWithResponse: { train, response in
             XCTAssertEqual(train.name, self.trainName)
             XCTAssertEqual(response, .defaultMock)
             expection.fulfill()
