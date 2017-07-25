@@ -69,7 +69,8 @@ public final class RetryNetworkService: NetworkServiceProviding {
         }, dispatchRetry: { [weak self] disptachTime, block in
             self?.dispatchRetry(disptachTime, block)
         })
-        retryTask.originalTask = networkService.request(queue: queue, resource: resource, onCompletionWithResponse: onCompletionWithResponse, onError: retryTask.createOnError())
+        retryTask.originalTask = networkService.request(queue: queue, resource: resource,
+                                                        onCompletionWithResponse: onCompletionWithResponse, onError: retryTask.createOnError())
         
         return retryTask
     }
