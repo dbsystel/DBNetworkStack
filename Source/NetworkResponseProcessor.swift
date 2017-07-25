@@ -87,7 +87,7 @@ open class NetworkResponseProcessor {
                 }
             }
         } catch let parsingError {
-            let dbBetworkError: DBNetworkStackError! = parsingError as? DBNetworkStackError
+            let dbNetworkError: DBNetworkStackError! = parsingError as? DBNetworkStackError
             queue.async {
                 return onError(dbBetworkError)
             }
