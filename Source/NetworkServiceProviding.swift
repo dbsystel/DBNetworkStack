@@ -33,11 +33,11 @@ import Dispatch
  */
 public protocol NetworkServiceProviding {
     /**
-     Fetches a resource asynchrony from remote location
+     Fetches a resource asynchrony from remote location.
      
      - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
-     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
      - returns: the request
@@ -49,9 +49,20 @@ public protocol NetworkServiceProviding {
 
 public extension NetworkServiceProviding {
     /**
-     Fetches a resource asynchrony from remote location
+     Fetches a resource asynchrony from remote location. Completion and Error block will be called on the main thread.
      
-     - parameter queue: The DispatchQueue to execute the completion and error block on. MainQueue by default.
+     ```swift
+     
+     let networkService: NetworkServiceProviding = //
+     let resource: Ressource<String> = //
+     
+     networkService.request(resource, onCompletion: { htmlText in
+        print(htmlText)
+     }, onError: { error in
+        //Handle errors
+     })
+     ```
+     
      - parameter resource: The resource you want to fetch.
      - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
@@ -65,11 +76,10 @@ public extension NetworkServiceProviding {
     }
     
     /**
-     Fetches a resource asynchrony from remote location
+     Fetches a resource asynchrony from remote location. Completion and Error block will be called on the main thread.
      
-     - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
-     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
      - returns: the request
