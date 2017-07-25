@@ -47,6 +47,7 @@
 		C6F7E30D1E49DAB300FA625F /* URLSessionProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F7E30B1E49DAA600FA625F /* URLSessionProtocolMock.swift */; };
 		C6F7E3101E49DCBA00FA625F /* NetworkTaskMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F7E30E1E49DC4900FA625F /* NetworkTaskMockTests.swift */; };
 		C6FE99961E51924000B02B17 /* NetworkResponseProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FE99951E51924000B02B17 /* NetworkResponseProcessing.swift */; };
+		D3822F151F17C15F00F99E23 /* Resource+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3822F141F17C15E00F99E23 /* Resource+UIImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		C6F7E30B1E49DAA600FA625F /* URLSessionProtocolMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionProtocolMock.swift; sourceTree = "<group>"; };
 		C6F7E30E1E49DC4900FA625F /* NetworkTaskMockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTaskMockTests.swift; sourceTree = "<group>"; };
 		C6FE99951E51924000B02B17 /* NetworkResponseProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponseProcessing.swift; sourceTree = "<group>"; };
+		D3822F141F17C15E00F99E23 /* Resource+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Resource+UIImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 				C61348B81DACB4F2000F0583 /* ArrayResourceModeling.swift */,
 				C60BE6801D6B2C46006B0364 /* Resource.swift */,
 				C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */,
+				D3822F141F17C15E00F99E23 /* Resource+UIImage.swift */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C61348B91DACB4F2000F0583 /* ArrayResourceModeling.swift in Sources */,
+				D3822F151F17C15F00F99E23 /* Resource+UIImage.swift in Sources */,
 				C6C395941E04212F00413AD2 /* ModifyRequestNetworkService.swift in Sources */,
 				C6FE99961E51924000B02B17 /* NetworkResponseProcessing.swift in Sources */,
 				C60BE6911D6B2C46006B0364 /* JSONResource.swift in Sources */,
