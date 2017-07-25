@@ -22,11 +22,11 @@ The idea behind this project comes from this [talk.objc.io article](https://talk
 ## Basic Demo
 Lets say you want to fetch a ``html`` string.
 
-First you have to create a service, by providing a network access. You can use NSURLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```. In addition you need to register baseURLs endpoints for request mapping. This gives you the flexibility to change your endpoints very easily when your environment changes.
+First you have to create a service, by providing a network access. You can use URLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```.
 
 ```swift
 
-let networkAccess = NSURLSession(configuration: .defaultSessionConfiguration())
+let networkAccess = URLSession(configuration: .default)
 let networkService = NetworkService(networkAccess: networkAccess)
 
 ```
@@ -91,10 +91,10 @@ The following table shows all the protocols and their default implementations.
 
 | Protocol                         | Default Implementation |
 | -------------------------------- | ---------------------- |
-| ```NetworkAccessProviding```     | ```NSURLSession```     |
+| ```NetworkAccessProviding```     | ```URLSession```     |
 | ```NetworkServiceProviding```    | ```NetworkService```   |
 | ```NetworkRequestRepresenting``` | ```NetworkRequest```   |
-| ```NetworkTaskRepresenting```    | ```NSURLSessionTask``` |
+| ```NetworkTaskRepresenting```    | ```URLSessionTask``` |
 
 ## Composable Features
 
