@@ -59,9 +59,9 @@ public extension NetworkServiceProviding {
      - returns: the request
      */
     @discardableResult
-    func request<T: ResourceModeling>(queue: DispatchQueue = .main, _ resource: T, onCompletion: @escaping (T.Model) -> Void,
+    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
-        return request(queue: queue, resource: resource, onCompletion: { model, _ in onCompletion(model) }, onError: onError)
+        return request(queue: .main, resource: resource, onCompletion: { model, _ in onCompletion(model) }, onError: onError)
     }
     
     /**
@@ -75,8 +75,8 @@ public extension NetworkServiceProviding {
      - returns: the request
      */
     @discardableResult
-    func request<T: ResourceModeling>(queue: DispatchQueue  = .main, resource: T, onCompletion: @escaping (T.Model, HTTPURLResponse) -> Void,
+    func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model, HTTPURLResponse) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
-        return request(queue: queue, resource: resource, onCompletion: onCompletion, onError: onError)
+        return request(queue: .main, resource: resource, onCompletion: onCompletion, onError: onError)
     }
 }
