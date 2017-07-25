@@ -21,7 +21,7 @@ let request = URLRequest(path: "ip", baseURL: url)
 let resource = Resource<IPOrigin>(request: request, decoder: JSONDecoder())
 
 networkService.request(resource, onCompletion: { origin in
-        print(origin)
-    }, onError: { error in
-        print(error)
+    print(origin)
+}, onError: { error in
+    print(error)
 })
