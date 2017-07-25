@@ -45,7 +45,7 @@ Request your resource and handle the result
 networkService.request(resource, onCompletion: { htmlText in
     print(htmlText)
 }, onError: { error in
-        //Handle errors
+    //Handle errors
 })
 
 ```
