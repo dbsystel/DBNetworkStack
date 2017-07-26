@@ -158,7 +158,6 @@ class NetworkServiceTest: XCTestCase {
                 //Then
                 switch resultError {
                 case .requestError:
-                    //XCTAssertEqual(err as NSError, error)
                     expection.fulfill()
                 default:
                     XCTFail()
