@@ -40,7 +40,7 @@ let request = URLRequest(path: "/", baseURL: url)
 let resource = Resource(request: request, parse: { String(data: $0, encoding: .utf8) })
 
 ```
-Request your resource and handle the response
+Request your resource and handle the result
 ```swift
 networkService.request(resource, onCompletion: { htmlText in
     print(htmlText)
@@ -100,6 +100,17 @@ struct XMLResource<T : XMLMappable> : ResourceModeling {
 ```XMLMappable``` defines the protocol, response model objects must conform to. The model class conforming to this protocol is responsible to convert a generic representation of the model into it’s specialized form.
 ```XMLResource<T : XMLMappable>``` defines a resource based on a given ```XMLMappable``` model. The parse function is responsible of converting raw response data to a generic representation.
 
+## Accessing HTTPResponse
+
+Request your resource and handle the result & response. This is similar to just requesting a resulting model.
+```swift
+networkService.request(resource, onCompletionWithResponse: { htmlText, response in
+    print(htmlText)
+}, onError: { error in
+    //Handle errors
+})
+
+```
 
 ## Protocol oriented architecture / Exchangability
 
