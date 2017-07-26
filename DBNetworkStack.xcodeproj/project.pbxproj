@@ -202,6 +202,7 @@
 		C6E3AABE1EE7D19000EBDE63 /* Deprecated */ = {
 			isa = PBXGroup;
 			children = (
+				C60BE67C1D6B2C46006B0364 /* ResourceModeling.swift */,
 				C60BE6811D6B2C46006B0364 /* JSONResource.swift */,
 				C60BE6821D6B2C46006B0364 /* JSONArrayResource.swift */,
 				C65F087A1D757A3C00239CC1 /* JSONMappable.swift */,
@@ -215,7 +216,6 @@
 			isa = PBXGroup;
 			children = (
 				C6E3AABE1EE7D19000EBDE63 /* Deprecated */,
-				C60BE67C1D6B2C46006B0364 /* ResourceModeling.swift */,
 				C60BE6801D6B2C46006B0364 /* Resource.swift */,
 				C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */,
 				C69188661EE6865E00BAD320 /* Resource+Decodable.swift */,
