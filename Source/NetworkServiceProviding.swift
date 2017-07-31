@@ -33,7 +33,7 @@ import Dispatch
  */
 public protocol NetworkServiceProviding {
     /**
-     Fetches a resource asynchrony from remote location.
+     Fetches a resource asynchronously from remote location.
      
      - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
@@ -49,7 +49,7 @@ public protocol NetworkServiceProviding {
 
 public extension NetworkServiceProviding {
     /**
-     Fetches a resource asynchrony from remote location. Completion and Error block will be called on the main thread.
+     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
      
      ```swift
      
@@ -76,7 +76,7 @@ public extension NetworkServiceProviding {
     }
     
     /**
-     Fetches a resource asynchrony from remote location. Completion and Error block will be called on the main thread.
+     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
      
      - parameter resource: The resource you want to fetch.
      - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
