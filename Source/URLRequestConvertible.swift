@@ -42,6 +42,25 @@ extension URLRequest: URLRequestConvertible {
 }
 
 extension URLRequest {
+    
+    @available(*, deprecated, message: "Use the new initializer using [String:String]? as the parameters value")
+    init(path: String, baseURL: URL,
+                HTTPMethod: HTTPMethod = .GET, parameters: [String: Any]? = nil,
+                body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
+        let mappedParameters: [String:String]?
+        if let parameters = parameters {
+            var convertedParams = [String: String]()
+            for (key, value) in parameters {
+                convertedParams[key] = "\(value)"
+            }
+            mappedParameters = convertedParams
+        } else {
+            mappedParameters = nil
+        }
+        
+        self.init(path: path, baseURL: baseURL, HTTPMethod: HTTPMethod, parameters: mappedParameters, body: body, allHTTPHeaderFields: allHTTPHeaderFields)
+    }
+    
     public init(path: String, baseURL: URL,
                 HTTPMethod: HTTPMethod = .GET, parameters: [String: String]? = nil,
                 body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
@@ -64,15 +83,6 @@ extension URLRequest {
 }
 
 extension Array where Element == URLQueryItem {
-    func asDictionary() -> [String: String] {
-        var dictionary = [String: String]()
-        forEach { dictionary[$0.name] = $0.value }
-        return dictionary
-    }
-    
-    func names() -> [String] {
-        return map { $0.name }
-    }
     
     func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> [URLQueryItem] {
         var items = overrideExisting ? [URLQueryItem]() : self
@@ -128,7 +138,7 @@ extension URL {
     }
     
     func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> URL {
-        return modifyingComponents { (urlComponents) in
+        return modifyingComponents { urlComponents in
             let items = urlComponents.queryItems ?? [URLQueryItem]()
             urlComponents.queryItems = items.appending(queryItems: queryItems, overrideExisting: overrideExisting)
         }
@@ -139,7 +149,7 @@ extension URL {
     }
     
     func replacingAllQueryItems(with queryItems: [URLQueryItem]) -> URL {
-        return modifyingComponents { (urlComonents) in
+        return modifyingComponents { urlComonents in
             urlComonents.queryItems = queryItems
         }
     }

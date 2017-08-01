@@ -59,11 +59,11 @@ public final class ModifyRequestNetworkService: NetworkServiceProviding {
 
 public extension URLRequestConvertible {
     
-    /// Creates a new `NetworkRequestRepresening` with HTTPHeaderFields added into the new request.
+    /// Creates a new `URLRequestConvertible` with HTTPHeaderFields added into the new request.
     /// Keep in mind that this overrides header fields which are already contained.
     ///
     /// - Parameter HTTPHeaderFields: the header fileds to add to the request
-    /// - Returns: a new `NetworkRequestRepresening`
+    /// - Returns: a new `URLRequestConvertible`
     func added(HTTPHeaderFields: [String: String]) -> URLRequestConvertible {
         var request = asURLRequest()
         let headerFiels = (request.allHTTPHeaderFields ?? [:]).merged(with: HTTPHeaderFields)
@@ -72,11 +72,11 @@ public extension URLRequestConvertible {
         return request
     }
     
-    /// Creates a new `NetworkRequestRepresening` with query parameters added into the new request.
-    /// Keep in mind that this overrides parameters which are already contained.
+    /// Creates a new `URLRequestConvertible` with query items appended to the new request.
     ///
-    /// - Parameter parameter: the parameter to add to the request
-    /// - Returns: a new `NetworkRequestRepresening`
+    /// - Parameter queryItems: the query items to append to the request
+    /// - Parameter overrideExisting: if true existing items with the same name will be overridden
+    /// - Returns: a new `URLRequestConvertible`
     func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> URLRequestConvertible {
         var request = asURLRequest()
         guard let url = request.url else {
@@ -86,10 +86,19 @@ public extension URLRequestConvertible {
         return request
     }
     
+    /// Creates a new `URLRequestConvertible` with query parameters appended to the new request.
+    ///
+    /// - Parameter queryParameters: the parameters to append to the request
+    /// - Parameter overrideExisting: if true existing items with the same name will be overridden
+    /// - Returns: a new `URLRequestConvertible`
     func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> URLRequestConvertible {
         return appending(queryItems: queryParameters.asURLQueryItems() )
     }
     
+    /// Creates a new `URLRequestConvertible` with all existing query items replaced with new ones.
+    ///
+    /// - Parameter queryItems: the queryItems to add to the request
+    /// - Returns: a new `URLRequestConvertible`
     func replacingAllQueryItems(with queryItems: [URLQueryItem]) -> URLRequestConvertible {
         var request = asURLRequest()
         guard let url = request.url else {
@@ -99,6 +108,10 @@ public extension URLRequestConvertible {
         return request
     }
     
+    /// Creates a new `URLRequestConvertible` with all existing query items replaced with new ones.
+    ///
+    /// - Parameter parameters: the parameters to add to the request
+    /// - Returns: a new `URLRequestConvertible`
     func replacingAllQueryItems(with parameters: [String: String]) -> URLRequestConvertible {
         return replacingAllQueryItems(with: parameters.asURLQueryItems() )
     }

@@ -85,4 +85,21 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "test2" }) ?? false)
         XCTAssert(query?.contains(where: { $0.name == "bool" && $0.value == "true" }) ?? false)
     }
+    
+    func testReplaceAllQueryItemsFromRequest() {
+        //Given
+        let url: URL! = URL(string: "bahn.de?test=test&bool=true")
+        let request = URLRequest(url: url)
+        
+        let parameters = ["test5": "test2"]
+        
+        //When
+        let newRequest = request.replacingAllQueryItems(with: parameters)
+        
+        //Then
+        let newURL: URL! = newRequest.asURLRequest().url
+        let query = URLComponents(url: newURL, resolvingAgainstBaseURL: true)?.queryItems
+        XCTAssertEqual(query?.count, 1)
+        XCTAssert(query?.contains(where: { $0.name == "test5" && $0.value == "test2" }) ?? false)
+    }
 }
