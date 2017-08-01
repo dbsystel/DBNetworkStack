@@ -43,7 +43,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
     func testRequest_withModifedRequest() {
         //Given
         let modification: Array<(URLRequestConvertible) -> URLRequestConvertible> = [ { request in
-            return request.added(parameter: ["key": "1"])
+            return request.appending(queryParameters: ["key": "1"])
             } ]
         let networkService: NetworkServiceProviding = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
         let request = URLRequest(path: "/trains", baseURL: url)
@@ -76,7 +76,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         let parameters = ["test": "test2"]
         
         //When
-        let newRequest = request.added(parameter: parameters)
+        let newRequest = request.appending(queryParameters: parameters)
         
         //Then
         let newURL: URL! = newRequest.asURLRequest().url

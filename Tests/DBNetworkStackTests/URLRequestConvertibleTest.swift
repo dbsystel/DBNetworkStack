@@ -56,7 +56,7 @@ class URLRequestConvertibleTest: XCTestCase {
         //Given
         let path = "train"
         let url: URL! = URL(string: "http://bahn.de")
-        let parameters: [String: Any] = ["query": 2, "test": true]
+        let parameters = ["query": "2", "test": "true"]
         let body: Data! = "Hallo".data(using: .utf8)
         let httpHeaderFields = ["header": "HeaderValue"]
         
@@ -77,10 +77,10 @@ class URLRequestConvertibleTest: XCTestCase {
     func testURLWithQueryParameter() {
         //Given
         let url: URL! = URL(string: "http://bahn.de/train")
-        let parameters: [String: Any] = ["query": 2, "test": true]
+        let parameters = ["query": "2", "test": "true"]
         
         //When
-        let urlWithParameter = url.appendingURLQueryParameter(parameters)
+        let urlWithParameter = url.replacingAllQueryParameters(with: parameters)
         
         //Then
         let query = URLComponents(url: urlWithParameter, resolvingAgainstBaseURL: true)?.queryItems

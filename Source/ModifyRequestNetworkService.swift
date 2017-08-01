@@ -77,23 +77,31 @@ public extension URLRequestConvertible {
     ///
     /// - Parameter parameter: the parameter to add to the request
     /// - Returns: a new `NetworkRequestRepresening`
-    func added(parameter: [String: Any]) -> URLRequestConvertible {
+    func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> URLRequestConvertible {
         var request = asURLRequest()
-        guard let url = request.url, let urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+        guard let url = request.url else {
             return self
         }
-        var query: [String: Any] = [:]
-        urlComponent.queryItems?.forEach {
-            query[$0.name] = $0.value
-        }
-        let newQuery = query.merged(with: parameter)
-        
-        let newURL = request.url?.appendingURLQueryParameter(newQuery)
-        request.url = newURL
-        
+        request.url = url.appending(queryItems: queryItems)
         return request
     }
     
+    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> URLRequestConvertible {
+        return appending(queryItems: queryParameters.asURLQueryItems() )
+    }
+    
+    func replacingAllQueryItems(with queryItems: [URLQueryItem]) -> URLRequestConvertible {
+        var request = asURLRequest()
+        guard let url = request.url else {
+            return self
+        }
+        request.url = url.replacingAllQueryItems(with: queryItems)
+        return request
+    }
+    
+    func replacingAllQueryItems(with parameters: [String: String]) -> URLRequestConvertible {
+        return replacingAllQueryItems(with: parameters.asURLQueryItems() )
+    }
 }
 
 extension Dictionary {

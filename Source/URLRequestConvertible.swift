@@ -43,35 +43,108 @@ extension URLRequest: URLRequestConvertible {
 
 extension URLRequest {
     public init(path: String, baseURL: URL,
-                HTTPMethod: HTTPMethod = .GET, parameters: Dictionary<String, Any>? = nil,
+                HTTPMethod: HTTPMethod = .GET, parameters: [String: String]? = nil,
                 body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
         guard let url = URL(string: path, relativeTo: baseURL) else {
             fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
         }
-        let urlWithParameter = url.appendingURLQueryParameter(parameters)
-        self.init(url: urlWithParameter)
+        
+        let urlWithParameters: URL
+        if let parameters = parameters {
+            urlWithParameters = url.appending(queryParameters: parameters)
+        } else {
+            urlWithParameters = url
+        }
+        
+        self.init(url: urlWithParameters)
         self.httpBody = body
         self.httpMethod = HTTPMethod.rawValue
         self.allHTTPHeaderFields = allHTTPHeaderFields
     }
 }
 
-extension URL {
-    func appendingURLQueryParameter(_ parameters: Dictionary<String, Any>?) -> URL {
-        let urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true)
-        if let parameters = parameters, var urlComponents = urlComponents, !parameters.isEmpty {
-            let percentEncodedQuery = parameters.map({ value in
-                return "\(value.0)=\(value.1)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            }).flatMap { $0 }
-            urlComponents.percentEncodedQuery = percentEncodedQuery.joined(separator: "&")
-            
-            guard let absoluteURL = urlComponents.url else {
-                fatalError("Error createing absolute URL from path: \(String(describing: path)), with baseURL: \(String(describing: baseURL))")
+extension Array where Element == URLQueryItem {
+    func asDictionary() -> [String: String] {
+        var dictionary = [String: String]()
+        forEach { dictionary[$0.name] = $0.value }
+        return dictionary
+    }
+    
+    func names() -> [String] {
+        return map { $0.name }
+    }
+    
+    func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> [URLQueryItem] {
+        var items = overrideExisting ? [URLQueryItem]() : self
+        
+        var itemsToAppend = queryItems
+        
+        if overrideExisting {
+            for item in self {
+                var itemFound = false
+                for (index, value) in itemsToAppend.enumerated() {
+                    if value.name == item.name {
+                        itemFound = true
+                        items.append(value)
+                        itemsToAppend.remove(at: index)
+                        break
+                    }
+                }
+                if itemFound == false {
+                    items.append(item)
+                }
             }
-            return absoluteURL
         }
         
+        items.append(contentsOf: itemsToAppend)
+        
+        return items
+    }
+    
+    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> [URLQueryItem] {
+        return appending(queryItems: queryParameters.asURLQueryItems(), overrideExisting: overrideExisting)
+    }
+}
+
+extension Dictionary where Key == String, Value == String {
+    func asURLQueryItems() -> [URLQueryItem] {
+        return map { URLQueryItem(name: $0.0, value: $0.1) }
+    }
+}
+
+extension URL {
+    
+    func modifyingComponents(using block:(inout URLComponents) -> Void) -> URL {
+        guard var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true) else {
+            fatalError("Could not create url components from \(self.absoluteString)")
+        }
+        
+        block(&urlComponents)
+        
+        guard let absoluteURL = urlComponents.url else {
+            fatalError("Error creating absolute URL from path: \(path), with baseURL: \(baseURL?.absoluteString)")
+        }
         return absoluteURL
     }
-
+    
+    func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> URL {
+        return modifyingComponents { (urlComponents) in
+            let items = urlComponents.queryItems ?? [URLQueryItem]()
+            urlComponents.queryItems = items.appending(queryItems: queryItems, overrideExisting: overrideExisting)
+        }
+    }
+    
+    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> URL {
+        return appending(queryItems: queryParameters.asURLQueryItems(), overrideExisting: overrideExisting)
+    }
+    
+    func replacingAllQueryItems(with queryItems: [URLQueryItem]) -> URL {
+        return modifyingComponents { (urlComonents) in
+            urlComonents.queryItems = queryItems
+        }
+    }
+    
+    func replacingAllQueryParameters(with queryParameters: [String: String]) -> URL {
+        return replacingAllQueryItems(with: queryParameters.asURLQueryItems())
+    }
 }
