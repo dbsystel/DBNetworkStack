@@ -56,7 +56,7 @@ class RetryNetworkserviceTest: XCTestCase {
                                    idleTimeInterval: 0, shouldRetry: { _ in return true}, dispatchRetry: { _, block in
             executedRetrys += 1
             block()
-        }).request(resource, onCompletion: { _ in
+        }).request(resource, onCompletionWithResponse: { _, _ in
         }, onError: { _ in
             XCTFail()
         })

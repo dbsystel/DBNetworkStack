@@ -46,13 +46,14 @@ public final class ModifyRequestNetworkService: NetworkServiceProviding {
         self.requestModifications = requestModifications
     }
     
-    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
+    @discardableResult
+    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
                         onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         let request = requestModifications.reduce(resource.request, { request, modify in
             return modify(request)
         })
         let newResource = Resource(request: request, parse: resource.parse)
-        return networkService.request(queue: queue, newResource, onCompletion: onCompletion, onError: onError)
+        return networkService.request(queue: queue, resource: newResource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
     }
 }
 

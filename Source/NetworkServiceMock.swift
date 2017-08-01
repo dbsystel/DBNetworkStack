@@ -31,8 +31,8 @@ import Dispatch
 
 public class NetworkServiceMock: NetworkServiceProviding {
     private var onErrorCallback: ((DBNetworkStackError) -> Void)?
-    private var onSuccess: ((Data) -> Void)?
-    private var onTypedSuccess: ((Any) -> Void)?
+    private var onSuccess: ((Data, HTTPURLResponse) -> Void)?
+    private var onTypedSuccess: ((Any, HTTPURLResponse) -> Void)?
     
     public init() {}
     
@@ -44,21 +44,21 @@ public class NetworkServiceMock: NetworkServiceProviding {
     public var nextNetworkTask: NetworkTaskRepresenting?
 
     @discardableResult
-    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
+    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         lastRequest = resource.request
         requestCount += 1
-        onSuccess = { data in
+        onSuccess = { data, response in
             guard let result = try? resource.parse(data) else {
                 fatalError("Could not parse data into matching result type")
             }
-            onCompletion(result)
+            onCompletionWithResponse(result, response)
         }
-        onTypedSuccess = { anyResult in
+        onTypedSuccess = { anyResult, response in
             guard let typedResult =  anyResult as? T.Model else {
                 fatalError("Extected type of \(T.Model.self)")
             }
-            onCompletion(typedResult)
+            onCompletionWithResponse(typedResult, response)
         }
         onErrorCallback = { error in
             onError(error)
@@ -83,10 +83,11 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
+    ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
     ///   - count: the count how often the response gets triggerd. 1 by default
-    public func returnSuccess(with data: Data = Data(), count: Int = 1) {
+    public func returnSuccess(with data: Data = Data(), httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int = 1) {
         for _ in 0...count {
-            onSuccess?(data)
+            onSuccess?(data, httpResponse)
         }
         releaseCapturedCallbacks()
     }
@@ -97,10 +98,11 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
+    ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
     ///   - count: the count how often the response gets triggerd. 1 by default
-    public func returnSuccess<T>(with serializedResponse: T, count: Int = 1) {
+    public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int = 1) {
         for _ in 0...count {
-            onTypedSuccess?(serializedResponse)
+            onTypedSuccess?(serializedResponse, httpResponse)
         }
         releaseCapturedCallbacks()
     }

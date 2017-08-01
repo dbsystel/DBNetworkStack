@@ -61,12 +61,13 @@ class NetworkServiceTest: XCTestCase {
     
     func testRequest_withValidResponse() {
         //Given
-        networkAccess.changeMock(data: Train.validJSONData, response: nil, error: nil)
+        networkAccess.changeMock(data: Train.validJSONData, response: .defaultMock, error: nil)
         let expection = expectation(description: "loadValidRequest")
         
         //When
-        networkService.request(resource, onCompletion: { train in
+        networkService.request(resource, onCompletionWithResponse: { train, response in
             XCTAssertEqual(train.name, self.trainName)
+            XCTAssertEqual(response, .defaultMock)
             expection.fulfill()
             }, onError: { _ in
                 XCTFail()
@@ -84,21 +85,27 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testNoData")
         
         //When
+        var capturedError: DBNetworkStackError?
         networkService.request(resource, onCompletion: { _ in
             XCTFail()
             }, onError: { error in
-                switch error {
-                case .serializationError(let description, let data):
-                    XCTAssertEqual("No data to serialize revied from the server", description)
-                    XCTAssertNil(data)
-                    expection.fulfill()
-                default:
-                    XCTFail()
-                }
+                capturedError = error
+                expection.fulfill()
         })
         
         //Then
         waitForExpectations(timeout: 1, handler: nil)
+        guard let error = capturedError else {
+            XCTFail()
+            return
+        }
+        switch error {
+        case .serializationError(let description, let data):
+            XCTAssertEqual("No data to serialize revied from the server", description)
+            XCTAssertNil(data)
+        default:
+            XCTFail()
+        }
     }
     
     func testInvalidData() {
@@ -150,8 +157,7 @@ class NetworkServiceTest: XCTestCase {
             }, onError: { resultError in
                 //Then
                 switch resultError {
-                case .requestError(_):
-                    //XCTAssertEqual(err as NSError, error)
+                case .requestError:
                     expection.fulfill()
                 default:
                     XCTFail()

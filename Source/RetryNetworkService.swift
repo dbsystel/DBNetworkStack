@@ -61,15 +61,16 @@ public final class RetryNetworkService: NetworkServiceProviding {
     }
     
     @discardableResult
-    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
+    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
                         onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         let retryTask = RetryNetworkTask(maxmimumNumberOfRetries: numberOfRetries, idleTimeInterval: idleTimeInterval, shouldRetry: shouldRetry,
-                                  onSuccess: onCompletion, onError: onError, retryAction: { completion, error in
-                                    return self.networkService.request(queue: queue, resource, onCompletion: completion, onError: error)
+                                  onSuccess: onCompletionWithResponse, onError: onError, retryAction: { completion, error in
+                                    return self.networkService.request(queue: queue, resource: resource, onCompletionWithResponse: completion, onError: error)
         }, dispatchRetry: { [weak self] disptachTime, block in
             self?.dispatchRetry(disptachTime, block)
         })
-        retryTask.originalTask = networkService.request(resource, onCompletion: onCompletion, onError: retryTask.createOnError())
+        retryTask.originalTask = networkService.request(queue: queue, resource: resource,
+                                                        onCompletionWithResponse: onCompletionWithResponse, onError: retryTask.createOnError())
         
         return retryTask
     }
