@@ -52,6 +52,28 @@ class URLRequestConvertibleTest: XCTestCase {
         XCTAssertEqual(request, convertedRequest)
     }
     
+    func testDeprecatedCustomInitializer() {
+        //Given
+        let path = "train"
+        let url: URL! = URL(string: "http://bahn.de")
+        let parameters: [String: Any] = ["query": 2, "test": true]
+        let body: Data! = "Hallo".data(using: .utf8)
+        let httpHeaderFields = ["header": "HeaderValue"]
+        
+        //When
+        let request = URLRequest(path: path, baseURL: url, HTTPMethod: .DELETE, parameters: parameters, body: body, allHTTPHeaderFields: httpHeaderFields)
+        
+        //Then
+        let reuqestURL: URL! = request.url
+        let query = URLComponents(url: reuqestURL, resolvingAgainstBaseURL: true)?.queryItems
+        XCTAssertEqual(query?.count, 2)
+        XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "true" }) ?? false)
+        XCTAssert(query?.contains(where: { $0.name == "query" && $0.value == "2" }) ?? false)
+        
+        XCTAssertEqual(request.httpBody, body)
+        XCTAssertEqual(request.allHTTPHeaderFields?["header"], "HeaderValue")
+    }
+    
     func testCustomInitializer() {
         //Given
         let path = "train"
