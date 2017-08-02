@@ -89,13 +89,11 @@ extension Array where Element == URLQueryItem {
         if overrideExisting {
             for item in self {
                 var itemFound = false
-                for (index, value) in itemsToAppend.enumerated() {
-                    if value.name == item.name {
-                        itemFound = true
-                        items.append(value)
-                        itemsToAppend.remove(at: index)
-                        break
-                    }
+                for (index, value) in itemsToAppend.enumerated() where value.name == item.name {
+                    itemFound = true
+                    items.append(value)
+                    itemsToAppend.remove(at: index)
+                    break
                 }
                 if itemFound == false {
                     items.append(item)
