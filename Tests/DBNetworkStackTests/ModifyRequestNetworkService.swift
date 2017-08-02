@@ -43,7 +43,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
     func testRequest_withModifedRequest() {
         //Given
         let modification: Array<(URLRequestConvertible) -> URLRequestConvertible> = [ { request in
-            return request.added(parameter: ["key": "1"])
+            return request.appending(queryParameters: ["key": "1"])
             } ]
         let networkService: NetworkServiceProviding = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
         let request = URLRequest(path: "/trains", baseURL: url)
@@ -76,7 +76,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         let parameters = ["test": "test2"]
         
         //When
-        let newRequest = request.added(parameter: parameters)
+        let newRequest = request.appending(queryParameters: parameters)
         
         //Then
         let newURL: URL! = newRequest.asURLRequest().url
@@ -84,5 +84,22 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         XCTAssertEqual(query?.count, 2)
         XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "test2" }) ?? false)
         XCTAssert(query?.contains(where: { $0.name == "bool" && $0.value == "true" }) ?? false)
+    }
+    
+    func testReplaceAllQueryItemsFromRequest() {
+        //Given
+        let url: URL! = URL(string: "bahn.de?test=test&bool=true")
+        let request = URLRequest(url: url)
+        
+        let parameters = ["test5": "test2"]
+        
+        //When
+        let newRequest = request.replacingAllQueryItems(with: parameters)
+        
+        //Then
+        let newURL: URL! = newRequest.asURLRequest().url
+        let query = URLComponents(url: newURL, resolvingAgainstBaseURL: true)?.queryItems
+        XCTAssertEqual(query?.count, 1)
+        XCTAssert(query?.contains(where: { $0.name == "test5" && $0.value == "test2" }) ?? false)
     }
 }
