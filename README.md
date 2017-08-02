@@ -78,7 +78,7 @@ networkService.request(resource, onCompletion: { origin in
 
 Request your resource and handle the result & response. This is similar to just requesting a resulting model.
 ```swift
-networkService.request(resource, onCompletionWithResponse: { (htmlText: String, response: HTTPURLResponse) in
+networkService.request(resource, onCompletionWithResponse: { htmlText, response in
     print(htmlText)
     print(response)
 }, onError: { error in
