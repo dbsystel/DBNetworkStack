@@ -30,7 +30,7 @@ import Foundation
 /**
  `DBNetworkStackError` provides a collection of error types which can occur during execution.
  */
-public enum DBNetworkStackError: Error {
+public enum NetworkError: Error {
     case unknownError
     case cancelled
     case unauthorized(response: HTTPURLResponse, data: Data?)
@@ -68,7 +68,7 @@ extension String {
     }
 }
 
-extension DBNetworkStackError : CustomDebugStringConvertible {
+extension NetworkError: CustomDebugStringConvertible {
     
     public var debugDescription: String {
         switch self {
