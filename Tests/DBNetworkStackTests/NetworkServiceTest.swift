@@ -50,9 +50,9 @@ class NetworkServiceTest: XCTestCase {
     let trainName = "ICE"
     let baseURL: URL! = URL(string: "//bahn.de")
     
-    var resource: JSONResource<Train> {
+    var resource: Resource<Train> {
         let request = URLRequest(path:"train", baseURL: baseURL)
-        return JSONResource<Train>(request: request)
+        return Resource(resource: JSONResource<Train>(request: request))
     }
     
     override func setUp() {

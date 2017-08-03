@@ -70,7 +70,7 @@ class ResourceTest: XCTestCase {
         let arrayResource = JSONArrayResource<Train>(request: request)
         
         //When
-        let ressource = arrayResource.wrapped()
+        let ressource = Resource(resource: arrayResource)
         
         XCTAssert(ressource is Resource<Array<Train>>)
     }

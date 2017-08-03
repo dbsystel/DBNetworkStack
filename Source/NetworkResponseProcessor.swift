@@ -36,7 +36,7 @@ open class NetworkResponseProcessor {
      
      - returns: the parsed model object.
      */
-    func process<T: ResourceModeling>(response: HTTPURLResponse?, resource: T, data: Data?, error: Error?) throws -> T.Model {
+    func process<Result>(response: HTTPURLResponse?, resource: Resource<Result>, data: Data?, error: Error?) throws -> Result {
         if let error = error {
             if case URLError.cancelled = error {
                 throw DBNetworkStackError.cancelled
@@ -70,8 +70,8 @@ open class NetworkResponseProcessor {
     ///   - error: optional error from net network.
     ///   - onCompletion: completion block which gets called on the given `queue`.
     ///   - onError: error block which gets called on the given `queue`.
-    func processAsyncResponse<T: ResourceModeling>(queue: DispatchQueue, response: HTTPURLResponse?, resource: T, data: Data?,
-                              error: Error?, onCompletion: @escaping (T.Model, HTTPURLResponse) -> Void, onError: @escaping (DBNetworkStackError) -> Void) {
+    func processAsyncResponse<Result>(queue: DispatchQueue, response: HTTPURLResponse?, resource: Resource<Result>, data: Data?,
+                              error: Error?, onCompletion: @escaping (Result, HTTPURLResponse) -> Void, onError: @escaping (DBNetworkStackError) -> Void) {
         do {
             let parsed = try process(
                 response: response,
