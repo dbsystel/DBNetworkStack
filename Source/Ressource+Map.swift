@@ -26,17 +26,15 @@
 //  Created by Lukas Schmidt on 02.01.17.
 //
 
-import Foundation
-
-extension ResourceModeling {
+extension Resource {
     
-    /// Maps a resource result to a different ressource. This is useful when you have result of R which contains T and your API request a resource of T,
+    /// Maps a resource result to a different resource. This is useful when you have result of R which contains T and your API request a resource of T,
     ///
-    /// - Parameter transform: transforms the original result of the ressource
+    /// - Parameter transform: transforms the original result of the resource
     /// - Returns: the transformed resource
-    public func map<T>(transform: @escaping (Model) -> (T)) -> Resource<T> {
-        return Resource(request: request, parse: { data in
-            return transform(try self.parse(data))
+    public func map<T>(transform: @escaping (Model) throws -> (T)) -> Resource<T> {
+        return Resource<T>(request: request, parse: { data in
+            return try transform(try self.parse(data))
         })
     }
 }
