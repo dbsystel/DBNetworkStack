@@ -1,5 +1,5 @@
 //
-//  DBNetworkStackError.swift
+//  NetworkError.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -28,7 +28,7 @@
 import Foundation
 
 /**
- `DBNetworkStackError` provides a collection of error types which can occur during execution.
+ `NetworkError` provides a collection of error types which can occur during execution.
  */
 public enum NetworkError: Error {
     case unknownError

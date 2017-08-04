@@ -27,7 +27,7 @@ class NetworkResponseProcessingTests: XCTestCase {
         var result: Int? = nil
         do {
             result = try processor.process(response: nil, resource: resource, data: nil, error: cancelledError)
-        } catch let error as DBNetworkStackError {
+        } catch let error as NetworkError {
             // Then
             switch error {
             case .cancelled: // Excpected
@@ -36,7 +36,7 @@ class NetworkResponseProcessingTests: XCTestCase {
                 XCTFail("Expected cancelled error (got \(error)")
             }
         } catch let error {
-            XCTFail("Expected DBNetworkStackError (got \(type(of:error)))")
+            XCTFail("Expected NetworkError (got \(type(of:error)))")
         }
         
         XCTAssertNil(result, "Expected processing to fail")
@@ -53,7 +53,7 @@ class NetworkResponseProcessingTests: XCTestCase {
         // When
         do {
             _ = try processor.process(response: .defaultMock, resource: resource, data: data, error: nil)
-        } catch let error as DBNetworkStackError {
+        } catch let error as NetworkError {
             // Then
             switch error {
             case .serializationError(let description, let recievedData): // Excpected
@@ -64,7 +64,7 @@ class NetworkResponseProcessingTests: XCTestCase {
                 XCTFail("Expected cancelled error (got \(error)")
             }
         } catch let error {
-            XCTFail("Expected DBNetworkStackError (got \(type(of:error)))")
+            XCTFail("Expected NetworkError (got \(type(of:error)))")
         }
     }
     
@@ -75,7 +75,7 @@ class NetworkResponseProcessingTests: XCTestCase {
         //When
         do {
             _ = try processor.process(response: nil, resource: resource, data: Data(), error: nil)
-        } catch let error as DBNetworkStackError {
+        } catch let error as NetworkError {
             // Then
             switch error {
             case .unknownError: // Excpected
@@ -84,7 +84,7 @@ class NetworkResponseProcessingTests: XCTestCase {
                 XCTFail("Expected cancelled error (got \(error)")
             }
         } catch let error {
-            XCTFail("Expected DBNetworkStackError (got \(type(of:error)))")
+            XCTFail("Expected NetworkError (got \(type(of:error)))")
         }
         
     }

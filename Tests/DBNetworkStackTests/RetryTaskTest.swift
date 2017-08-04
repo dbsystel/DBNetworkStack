@@ -29,7 +29,7 @@ import XCTest
 
 class RetryTaskTest: XCTestCase {
     
-    let mockError: DBNetworkStackError = .unknownError
+    let mockError: NetworkError = .unknownError
     
     func testDontHoldReference_withoutCreatingErrorClosure() {
         //Given
@@ -139,7 +139,7 @@ class RetryTaskTest: XCTestCase {
     }
     
     func testShouldNotRetry() {
-        var capturedError: DBNetworkStackError?
+        var capturedError: NetworkError?
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
                                                             shouldRetry: { _ in return false}, onSuccess: { _ in
             

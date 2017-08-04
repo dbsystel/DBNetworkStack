@@ -85,7 +85,7 @@ class NetworkServiceTest: XCTestCase {
         let expection = expectation(description: "testNoData")
         
         //When
-        var capturedError: DBNetworkStackError?
+        var capturedError: NetworkError?
         networkService.request(resource, onCompletion: { _ in
             XCTFail()
             }, onError: { error in
@@ -135,7 +135,7 @@ class NetworkServiceTest: XCTestCase {
         //When
         networkService.request(resource, onCompletion: { _ in
             XCTFail()
-        }, onError: { (error: DBNetworkStackError) in
+        }, onError: { (error: NetworkError) in
                 if case .serializationError(_, _) = error {
                     expection.fulfill()
                 } else {

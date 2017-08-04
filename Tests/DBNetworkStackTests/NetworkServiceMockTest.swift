@@ -75,7 +75,7 @@ class NetworkServiceMockTest: XCTestCase {
     
     func testReturnError() {
         //Given
-        var capturedError: DBNetworkStackError?
+        var capturedError: NetworkError?
         
         //When
         networkServiceMock.request(resource, onCompletion: { _ in }, onError: { error in
