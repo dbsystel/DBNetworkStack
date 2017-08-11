@@ -37,11 +37,11 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
     var originalTask: NetworkTaskRepresenting?
     
     private var numberOfRetriesLeft: Int
-    private let onSuccess: ((T) -> Void)
+    private let onSuccess: ((T, HTTPURLResponse) -> Void)
     private let onError: ((DBNetworkStackError) -> Void)
     private var isCaneled = false
     
-    private let retryAction: (@escaping (T) -> Void, @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting
+    private let retryAction: (@escaping (T, HTTPURLResponse) -> Void, @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void
     
     /// Creates an instance of `RetryNetworkTaks`
@@ -54,9 +54,10 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
     ///   - onError: closure which gets fired on error
     ///   - retryAction: closure which gets triggerd when retry starts
     ///   - dispatchRetry: location where to dispatch the retry action
-    init(maxmimumNumberOfRetries: Int, idleTimeInterval: TimeInterval, shouldRetry: @escaping (DBNetworkStackError) -> Bool, onSuccess: @escaping (T) -> Void,
+    init(maxmimumNumberOfRetries: Int, idleTimeInterval: TimeInterval, shouldRetry: @escaping (DBNetworkStackError) -> Bool,
+         onSuccess: @escaping (T, HTTPURLResponse) -> Void,
          onError: @escaping (DBNetworkStackError) -> Void,
-         retryAction: @escaping (@escaping (T) -> Void, @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting,
+         retryAction: @escaping (@escaping (T, HTTPURLResponse) -> Void, @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting,
          dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> Void) -> Void ) {
         
         self.maxmimumNumberOfRetries = maxmimumNumberOfRetries

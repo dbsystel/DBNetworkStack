@@ -40,7 +40,7 @@ let request = URLRequest(path: "/", baseURL: url)
 let resource = Resource(request: request, parse: { String(data: $0, encoding: .utf8) })
 
 ```
-Request your resource and handle the response
+Request your resource and handle the result
 ```swift
 networkService.request(resource, onCompletion: { htmlText in
     print(htmlText)
@@ -68,9 +68,9 @@ networkService.request(resource, onCompletion: { origin in
 })
 ```
 
-## Extendability
-The following example outlines how to extend DBNetworkStack to support the imaginary type `XMLDocument`:
+## Accessing HTTPResponse
 
+Request your resource and handle the result & response. This is similar to just requesting a resulting model.
 ```swift
 extension Resource where Model: XMLDocument {
     public init(request: URLRequestConvertible) {
@@ -79,11 +79,13 @@ extension Resource where Model: XMLDocument {
 }
 ```
 
+## Extendability
+The following example outlines how to extend DBNetworkStack to support the imaginary type `XMLDocument`:
+
 You are now able to call:
 ```swift
 let xmlDocument = Resource<XMLDocument>(request: someRequest)
 ```
-
 
 ## Protocol oriented architecture / Exchangability
 
@@ -93,7 +95,7 @@ The following table shows all the protocols and their default implementations.
 | -------------------------------- | ---------------------- |
 | ```NetworkAccessProviding```     | ```URLSession```     |
 | ```NetworkServiceProviding```    | ```NetworkService```   |
-| ```NetworkRequestRepresenting``` | ```NetworkRequest```   |
+| ```URLRequestConvertible```  | ```URLRequest```   |
 | ```NetworkTaskRepresenting```    | ```URLSessionTask``` |
 
 ## Composable Features
@@ -118,7 +120,7 @@ The following table shows all the protocols and their default implementations.
 Specify the following in your `Cartfile`:
 
 ```ogdl
-github "dbsystel/dbnetworkstack" ~> 0.5
+github "dbsystel/dbnetworkstack" ~> 0.6
 ```
 
 ### CocoaPods
