@@ -46,7 +46,7 @@ matrix:
       script:
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
     - os: osx
-      osx_image: xcode8.3
+      osx_image: xcode9
       language: objective-c
       env: "SPM, Carthage, CocoaPods"
       script:
