@@ -9,7 +9,7 @@ mkdir docs;
 # generate docs
 jazzy \
 --clean \
---author "Lukas Schmidt, Christian Himmelsbach" \
+--author "DBSystel" \
 --github_url https://github.com/dbsystel/DBNetworkStack \
 --module DBNetworkStack \
 --output docs \
