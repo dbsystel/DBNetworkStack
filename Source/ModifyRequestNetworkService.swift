@@ -46,23 +46,24 @@ public final class ModifyRequestNetworkService: NetworkServiceProviding {
         self.requestModifications = requestModifications
     }
     
-    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletion: @escaping (T.Model) -> Void,
+    @discardableResult
+    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
                         onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
         let request = requestModifications.reduce(resource.request, { request, modify in
             return modify(request)
         })
         let newResource = Resource(request: request, parse: resource.parse)
-        return networkService.request(queue: queue, newResource, onCompletion: onCompletion, onError: onError)
+        return networkService.request(queue: queue, resource: newResource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
     }
 }
 
 public extension URLRequestConvertible {
     
-    /// Creates a new `NetworkRequestRepresening` with HTTPHeaderFields added into the new request.
+    /// Creates a new `URLRequestConvertible` with HTTPHeaderFields added into the new request.
     /// Keep in mind that this overrides header fields which are already contained.
     ///
     /// - Parameter HTTPHeaderFields: the header fileds to add to the request
-    /// - Returns: a new `NetworkRequestRepresening`
+    /// - Returns: a new `URLRequestConvertible`
     func added(HTTPHeaderFields: [String: String]) -> URLRequestConvertible {
         var request = asURLRequest()
         let headerFiels = (request.allHTTPHeaderFields ?? [:]).merged(with: HTTPHeaderFields)
@@ -71,28 +72,49 @@ public extension URLRequestConvertible {
         return request
     }
     
-    /// Creates a new `NetworkRequestRepresening` with query parameters added into the new request.
-    /// Keep in mind that this overrides parameters which are already contained.
+    /// Creates a new `URLRequestConvertible` with query items appended to the new request.
     ///
-    /// - Parameter parameter: the parameter to add to the request
-    /// - Returns: a new `NetworkRequestRepresening`
-    func added(parameter: [String: Any]) -> URLRequestConvertible {
+    /// - Parameter queryItems: the query items to append to the request
+    /// - Parameter overrideExisting: if true existing items with the same name will be overridden
+    /// - Returns: a new `URLRequestConvertible`
+    func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> URLRequestConvertible {
         var request = asURLRequest()
-        guard let url = request.url, let urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+        guard let url = request.url else {
             return self
         }
-        var query: [String: Any] = [:]
-        urlComponent.queryItems?.forEach {
-            query[$0.name] = $0.value
-        }
-        let newQuery = query.merged(with: parameter)
-        
-        let newURL = request.url?.appendingURLQueryParameter(newQuery)
-        request.url = newURL
-        
+        request.url = url.appending(queryItems: queryItems)
         return request
     }
     
+    /// Creates a new `URLRequestConvertible` with query parameters appended to the new request.
+    ///
+    /// - Parameter queryParameters: the parameters to append to the request
+    /// - Parameter overrideExisting: if true existing items with the same name will be overridden
+    /// - Returns: a new `URLRequestConvertible`
+    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> URLRequestConvertible {
+        return appending(queryItems: queryParameters.asURLQueryItems() )
+    }
+    
+    /// Creates a new `URLRequestConvertible` with all existing query items replaced with new ones.
+    ///
+    /// - Parameter queryItems: the queryItems to add to the request
+    /// - Returns: a new `URLRequestConvertible`
+    func replacingAllQueryItems(with queryItems: [URLQueryItem]) -> URLRequestConvertible {
+        var request = asURLRequest()
+        guard let url = request.url else {
+            return self
+        }
+        request.url = url.replacingAllQueryItems(with: queryItems)
+        return request
+    }
+    
+    /// Creates a new `URLRequestConvertible` with all existing query items replaced with new ones.
+    ///
+    /// - Parameter parameters: the parameters to add to the request
+    /// - Returns: a new `URLRequestConvertible`
+    func replacingAllQueryItems(with parameters: [String: String]) -> URLRequestConvertible {
+        return replacingAllQueryItems(with: parameters.asURLQueryItems() )
+    }
 }
 
 extension Dictionary {

@@ -30,6 +30,7 @@ import Foundation
  `ResourceModeling` describes a remote resource of generic type.
  The type can be fetched via HTTP(s) and parsed into the coresponding model object.
  */
+@available(*, deprecated, message: "Use `Resource<T> to compose a custom Resource`")
 public protocol ResourceModeling {
     /**
      Model object which coresponds to the remote resource
