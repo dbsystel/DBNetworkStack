@@ -33,12 +33,6 @@ matrix:
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=iOS Simulator,name=iPhone SE,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage YES | xcpretty
       after_success:
         - bash <(curl -s https://codecov.io/bash)
-      deploy:
-        provider: pages
-        skip_cleanup: true
-        github_token: $GITHUB_TOKEN
-        on:
-          branch: feature/documentation-managment
     - os: osx
       osx_image: xcode8.3
       language: objective-c
