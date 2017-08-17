@@ -27,27 +27,19 @@
 
 import Foundation
 
-extension URLSessionDataTask: NetworkTaskRepresenting {
-    public var progress: Progress {
-        #if os(Linux)
-            let SessionTransferSizeUnknown = URLSessionTransferSizeUnknown
-        #else
-            let SessionTransferSizeUnknown = NSURLSessionTransferSizeUnknown
-        #endif
-        let totalBytesExpected = response?.expectedContentLength ?? SessionTransferSizeUnknown
-        let progress = Progress(totalUnitCount: totalBytesExpected)
-        progress.totalUnitCount = totalBytesExpected
-        progress.completedUnitCount = countOfBytesReceived
-        
-        return progress
-    }
-}
-
 /**
  Adds conformens to `NetworkAccessProviding`. `URLSession` can now be used as a networkprovider.
  */
-public extension URLSession {
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
+extension URLSession: NetworkAccessProviding {
+    /**
+     Fetches a resource asynchrony from remote location.
+     
+     - parameter request: The resource you want to fetch.
+     - parameter callback: Callback which gets called when the request finishes.
+     
+     - returns: the running network task
+     */
+    public func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
         let task = dataTask(with: request, completionHandler: { data, response, error in
             callback(data, response as? HTTPURLResponse, error)
         })
