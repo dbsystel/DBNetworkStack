@@ -27,11 +27,6 @@
 
 import Foundation
 
-/**
- Adds conformens to `NetworkAccessProviding`. `URLSession` can now be used as a networkprovider.
- */
-extension URLSession: URLSessionProtocol {}
-
 extension URLSessionDataTask: NetworkTaskRepresenting {
     public var progress: Progress {
         #if os(Linux)
@@ -48,13 +43,10 @@ extension URLSessionDataTask: NetworkTaskRepresenting {
     }
 }
 
-public protocol URLSessionProtocol: NetworkAccessProviding {
-    
-     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-    
-}
-
-public extension URLSessionProtocol {
+/**
+ Adds conformens to `NetworkAccessProviding`. `URLSession` can now be used as a networkprovider.
+ */
+public extension URLSession {
     func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
         let task = dataTask(with: request, completionHandler: { data, response, error in
             callback(data, response as? HTTPURLResponse, error)
