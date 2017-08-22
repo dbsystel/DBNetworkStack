@@ -23,7 +23,7 @@
 import Foundation
 import Dispatch
 
-open class NetworkResponseProcessor {
+final class NetworkResponseProcessor {
     /**
      Processes the results of an HTTPRequest and parses the result the matching Model type of the given resource.
      

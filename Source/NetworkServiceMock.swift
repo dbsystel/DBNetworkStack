@@ -29,7 +29,25 @@
 import Foundation
 import Dispatch
 
-public class NetworkServiceMock: NetworkServiceProviding {
+/**
+ Mocks a `NetworkServiceProviding`. You can configure expected results or errors to have a fully functional mock.
+ 
+ ```swift
+ //Given
+ let networkServiceMock = NetworkServiceMock()
+ let resource: Ressource<String> = //
+ 
+ //When
+ // Your test code
+ networkService.returnSuccess(with: "Sucess")
+ 
+ //Then
+ //Test your expectations
+ 
+ 
+ ```
+ */
+public final class NetworkServiceMock: NetworkServiceProviding {
     private var onErrorCallback: ((DBNetworkStackError) -> Void)?
     private var onSuccess: ((Data, HTTPURLResponse) -> Void)?
     private var onTypedSuccess: ((Any, HTTPURLResponse) -> Void)?
@@ -43,6 +61,27 @@ public class NetworkServiceMock: NetworkServiceProviding {
     /// Set this to hava a custom networktask
     public var nextNetworkTask: NetworkTaskRepresenting?
 
+    /**
+     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
+     
+     ```swift
+     
+     let networkService: NetworkServiceProviding = //
+     let resource: Ressource<String> = //
+     
+     networkService.request(resource, onCompletion: { htmlText in
+     print(htmlText)
+     }, onError: { error in
+     //Handle errors
+     })
+     ```
+     
+     - parameter resource: The resource you want to fetch.
+     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - returns: the request
+     */
     @discardableResult
     public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
                  onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
