@@ -1,12 +1,12 @@
 # DBNetworkStack
 
 [![Build Status](https://travis-ci.org/dbsystel/DBNetworkStack.svg?branch=develop)](https://travis-ci.org/dbsystel/DBNetworkStack)
+[![codebeat badge](https://codebeat.co/badges/e438e768-249d-4e9f-8dd8-32928537740e)](https://codebeat.co/projects/github-com-dbsystel-dbnetworkstack-develop)
+[![codecov](https://codecov.io/gh/dbsystel/DBNetworkStack/branch/develop/graph/badge.svg)](https://codecov.io/gh/dbsystel/DBNetworkStack)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
- [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 [![Version](https://img.shields.io/cocoapods/v/DBNetworkStack.svg?style=flat)](http://cocoapods.org/pods/DBNetworkStack)
 [![Swift Version](https://img.shields.io/badge/Swift-3.0--3.1-F16D39.svg?style=flat)](https://developer.apple.com/swift)
-[![Swift Version](https://img.shields.io/badge/Linux-3.1-4BC51D.svg?style=flat)](https://developer.apple.com/swift)
-[![codecov](https://codecov.io/gh/dbsystel/DBNetworkStack/branch/develop/graph/badge.svg)](https://codecov.io/gh/dbsystel/DBNetworkStack)
 
 |           | Main Features                  |
 | --------- | ------------------------------ |
