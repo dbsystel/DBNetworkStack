@@ -29,11 +29,48 @@ import Foundation
 import Dispatch
 
 /**
- `NetworkServiceProviding` provides access to remote resources.
+ `NetworkServiceProviding` provides access to remote resources. It should be used as an abstraction for all outgoing network resource.
+ 
+ 
+ **Abstract different layers**
+ 
+Builing layerd network abstraction can be very easy, when all layers conform to `NetworkServiceProviding`.
+ By doing so composing different features inot a layerd system becomes very easy.
+ 
+ **Example**
+ ```swift
+ //Baselayer, which executes network calls
+ let networkService: NetworkServiceProviding = NetworkService(networkAccess: URLSession(configuration: .default))
+ 
+ //Imaginary CachedNetworkService, which is able to look up cached resources
+ let cachedNetworkService: NetworkServiceProviding = CachedNetworkService(networkService: networkService)
+ 
+ //Add Auth tokens to each request
+ let autheticationNetworkService = ModifyRequestNetworkService(networkService: cachedNetworkService, requestModifications: [{ $0.addAuth() }])
+ ```
+ 
+ - note: `NetworkServiceProviding` is good extension point for adding support for other async concpets like Result types, feature/promise, etc.
  */
 public protocol NetworkServiceProviding {
     /**
      Fetches a resource asynchronously from remote location.
+     
+     **Example**
+     ```swift
+     
+     let networkService: NetworkServiceProviding = //
+     let resource: Ressource<String> = //
+     
+     networkService.request(resource, onCompletionWithResponse: { htmlText, response in
+        print(htmlText)
+     }, onError: { error in
+        //Handle errors
+     })
+     ```
+     
+     - note: Use convience methods if you are only intrested in the result.
+     
+     - note: Use convience methods if completion block should be allways called on the main queue.
      
      - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
@@ -51,6 +88,7 @@ public extension NetworkServiceProviding {
     /**
      Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
      
+     **Example**
      ```swift
      
      let networkService: NetworkServiceProviding = //
@@ -63,7 +101,7 @@ public extension NetworkServiceProviding {
      })
      ```
      
-     - parameter resource: The resource you want to fetch.
+     - parameter resource: The element you want to fetch. It matches the type of your resource.
      - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
@@ -78,7 +116,20 @@ public extension NetworkServiceProviding {
     /**
      Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
      
-     - parameter resource: The resource you want to fetch.
+     **Example**
+     ```swift
+     
+     let networkService: NetworkServiceProviding = //
+     let resource: Ressource<String> = //
+     
+     networkService.request(resource, onCompletionWithResponse: { htmlText, response in
+        print(htmlText)
+     }, onError: { error in
+        //Handle errors
+     })
+     ```
+     
+     - parameter resource: The element you want to fetch. It matches the type of your resource.
      - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
