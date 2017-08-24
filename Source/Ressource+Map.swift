@@ -26,8 +26,6 @@
 //  Created by Lukas Schmidt on 02.01.17.
 //
 
-import Foundation
-
 extension ResourceModeling {
     
     /// Maps a resource result to a different ressource. This is useful when you have result of R which contains T and your API request a resource of T,

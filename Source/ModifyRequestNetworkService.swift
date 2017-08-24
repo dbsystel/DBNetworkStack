@@ -29,8 +29,12 @@
 import Foundation
 import Dispatch
 
-/// `ModifyRequestNetworkService` can be composed with a networkService to modify all outgoing requests.
-/// One could add auth tokens or API keys for specifics URLs.
+/**
+`ModifyRequestNetworkService` can be composed with a networkService to modify all outgoing requests.
+One could add auth tokens or API keys for specifics URLs.
+ 
+  - seealso: `NetworkServiceProviding`
+ */
 public final class ModifyRequestNetworkService: NetworkServiceProviding {
     
     private let requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>

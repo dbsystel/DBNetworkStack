@@ -29,7 +29,9 @@ import Foundation
 import Dispatch
 
 /**
- `NetworkService` handles network request for resources by using a given `NetworkAccessProviding`
+ `NetworkService` handles network request for resources.
+ 
+ - seealso: `NetworkServiceProviding`
  */
 public final class NetworkService: NetworkServiceProviding {
     let networkAccess: NetworkAccessProviding

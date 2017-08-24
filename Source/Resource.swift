@@ -25,16 +25,25 @@
 //  Created by Lukas Schmidt on 21.07.16.
 //
 
-import Foundation
-
 /**
  `Resource` describes a remote resource of generic type.
  The type can be fetched via HTTP(s) and parsed into the coresponding model object.
  */
 public struct Resource<Model>: ResourceModeling {
+    /**
+     The request to get the remote data payload
+     */
     public let request: URLRequestConvertible
+    /**
+     Parses data into given Model
+     */
     public let parse: (_ data: Data) throws -> Model
     
+    /// Creates a type safe resource, which can be used to fetch it with `NetworkServiceProviding`
+    ///
+    /// - Parameters:
+    ///   - request: The request to get the remote data payload
+    ///   - parse: Parses data fetched with the request into given Model
     public init(request: URLRequestConvertible, parse: @escaping (Data) throws -> Model) {
         self.request = request
         self.parse = parse
