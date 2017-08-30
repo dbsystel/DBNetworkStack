@@ -168,15 +168,15 @@ class NetworkErrorTest: XCTestCase {
     
     func testUnknownError_serializationError_description() {
         //Given
-        let description = "Failed because..."
+        let nserror = NSError(domain: "TestError", code: 0, userInfo: nil)
         let data = "dataString".data(using: .utf8)
-        let error: NetworkError = .serializationError(description: description, data: data)
+        let error: NetworkError = .serializationError(error: nserror, data: data)
         
         //When
         let debugDescription = error.debugDescription
         
         //Then
-        XCTAssertEqual(debugDescription, "Serialization error: Failed because..., response: dataString")
+        XCTAssertEqual(debugDescription, "Serialization error: Error Domain=TestError Code=0 \"(null)\", response: dataString")
     }
     
     func testUnknownError_requestError_description() {

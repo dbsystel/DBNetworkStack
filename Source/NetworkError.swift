@@ -35,7 +35,7 @@ public enum NetworkError: Error {
     case cancelled
     case unauthorized(response: HTTPURLResponse, data: Data?)
     case clientError(response: HTTPURLResponse?, data: Data?)
-    case serializationError(description: String, data: Data?)
+    case serializationError(error: Error, data: Data?)
     case requestError(error: Error)
     case serverError(response: HTTPURLResponse?, data: Data?)
     

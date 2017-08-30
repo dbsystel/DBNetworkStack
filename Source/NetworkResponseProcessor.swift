@@ -48,14 +48,12 @@ open class NetworkResponseProcessor {
             throw responseError
         }
         guard let data = data else {
-            throw NetworkError.serializationError(description: "No data to serialize revied from the server", data: nil)
+            throw NetworkError.serverError(response: response, data: nil)
         }
         do {
             return try resource.parse(data)
-        } catch let error as CustomStringConvertible {
-            throw NetworkError.serializationError(description: error.description, data: data)
-        } catch {
-            throw NetworkError.serializationError(description: "Unknown serialization error", data: data)
+        } catch let error {
+            throw NetworkError.serializationError(error: error, data: data)
         }
     }
     

@@ -100,8 +100,8 @@ class NetworkServiceTest: XCTestCase {
             return
         }
         switch error {
-        case .serializationError(let description, let data):
-            XCTAssertEqual("No data to serialize revied from the server", description)
+        case .serverError(let response, let data):
+            XCTAssertNil(response)
             XCTAssertNil(data)
         default:
             XCTFail()

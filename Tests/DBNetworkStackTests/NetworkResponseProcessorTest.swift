@@ -47,7 +47,7 @@ class NetworkResponseProcessingTests: XCTestCase {
     func testParseThrowsUnknownError() {
         // Given
         let resource = Resource(request: URLRequest.defaultMock, parse: { _  -> Int in
-            throw UnknownError() })
+            throw NetworkError.unknownError })
         let data: Data! = "Data".data(using: .utf8)
         
         // When
@@ -56,8 +56,14 @@ class NetworkResponseProcessingTests: XCTestCase {
         } catch let error as NetworkError {
             // Then
             switch error {
-            case .serializationError(let description, let recievedData): // Excpected
-                XCTAssertEqual(description, "Unknown serialization error")
+            case .serializationError(let error, let recievedData): // Excpected
+                switch error as? NetworkError {
+                case .unknownError?:
+                    XCTAssert(true)
+                default:
+                    XCTFail()
+                }
+                
                 XCTAssertEqual(recievedData, data)
                 break
             default:
