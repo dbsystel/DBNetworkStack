@@ -30,7 +30,7 @@ import Foundation
 import Dispatch
 
 public class NetworkServiceMock: NetworkServiceProviding {
-    private var onErrorCallback: ((DBNetworkStackError) -> Void)?
+    private var onErrorCallback: ((NetworkError) -> Void)?
     private var onSuccess: ((Data, HTTPURLResponse) -> Void)?
     private var onTypedSuccess: ((Any, HTTPURLResponse) -> Void)?
     
@@ -45,7 +45,8 @@ public class NetworkServiceMock: NetworkServiceProviding {
 
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                 onError: @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting {
+                 onError: @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting {
+
         lastRequest = resource.request
         requestCount += 1
         onSuccess = { data, response in
@@ -72,7 +73,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
     /// - Parameters:
     ///   - error: the error which gets passed to the caller
     ///   - count: the count, how often the error accours. 1 by default
-    public func returnError(with error: DBNetworkStackError, count: Int = 1) {
+    public func returnError(with error: NetworkError, count: Int = 1) {
         for _ in 0...count {
             onErrorCallback?(error)
         }
