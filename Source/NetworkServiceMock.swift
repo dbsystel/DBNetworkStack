@@ -44,8 +44,9 @@ public class NetworkServiceMock: NetworkServiceProviding {
     public var nextNetworkTask: NetworkTaskRepresenting?
 
     @discardableResult
-    public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
+    public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
                  onError: @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting {
+
         lastRequest = resource.request
         requestCount += 1
         onSuccess = { data, response in
@@ -55,8 +56,8 @@ public class NetworkServiceMock: NetworkServiceProviding {
             onCompletionWithResponse(result, response)
         }
         onTypedSuccess = { anyResult, response in
-            guard let typedResult =  anyResult as? T.Model else {
-                fatalError("Extected type of \(T.Model.self)")
+            guard let typedResult = anyResult as? Result else {
+                fatalError("Extected type of \(Result.self) but got \(anyResult.self)")
             }
             onCompletionWithResponse(typedResult, response)
         }
