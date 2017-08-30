@@ -92,7 +92,7 @@ class RetryNetworkserviceTest: XCTestCase {
     func testRetryRequest_shouldNotRetry() {
         //Given
         let shoudlRetry = false
-        var capturedError: DBNetworkStackError?
+        var capturedError: NetworkError?
         
         //When
         weak var task: NetworkTaskRepresenting?

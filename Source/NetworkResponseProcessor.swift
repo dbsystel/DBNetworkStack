@@ -36,26 +36,24 @@ open class NetworkResponseProcessor {
      
      - returns: the parsed model object.
      */
-    func process<T: ResourceModeling>(response: HTTPURLResponse?, resource: T, data: Data?, error: Error?) throws -> T.Model {
+    func process<Result>(response: HTTPURLResponse?, resource: Resource<Result>, data: Data?, error: Error?) throws -> Result {
         if let error = error {
             if case URLError.cancelled = error {
-                throw DBNetworkStackError.cancelled
+                throw NetworkError.cancelled
             }
             
-            throw DBNetworkStackError.requestError(error: error)
+            throw NetworkError.requestError(error: error)
         }
-        if let responseError = DBNetworkStackError(response: response, data: data) {
+        if let responseError = NetworkError(response: response, data: data) {
             throw responseError
         }
         guard let data = data else {
-            throw DBNetworkStackError.serializationError(description: "No data to serialize revied from the server", data: nil)
+            throw NetworkError.serverError(response: response, data: nil)
         }
         do {
             return try resource.parse(data)
-        } catch let error as CustomStringConvertible {
-            throw DBNetworkStackError.serializationError(description: error.description, data: data)
-        } catch {
-            throw DBNetworkStackError.serializationError(description: "Unknown serialization error", data: data)
+        } catch let error {
+            throw NetworkError.serializationError(error: error, data: data)
         }
     }
     
@@ -70,8 +68,8 @@ open class NetworkResponseProcessor {
     ///   - error: optional error from net network.
     ///   - onCompletion: completion block which gets called on the given `queue`.
     ///   - onError: error block which gets called on the given `queue`.
-    func processAsyncResponse<T: ResourceModeling>(queue: DispatchQueue, response: HTTPURLResponse?, resource: T, data: Data?,
-                              error: Error?, onCompletion: @escaping (T.Model, HTTPURLResponse) -> Void, onError: @escaping (DBNetworkStackError) -> Void) {
+    func processAsyncResponse<Result>(queue: DispatchQueue, response: HTTPURLResponse?, resource: Resource<Result>, data: Data?,
+                              error: Error?, onCompletion: @escaping (Result, HTTPURLResponse) -> Void, onError: @escaping (NetworkError) -> Void) {
         do {
             let parsed = try process(
                 response: response,
@@ -83,11 +81,11 @@ open class NetworkResponseProcessor {
                 if let response = response {
                     onCompletion(parsed, response)
                 } else {
-                    onError(DBNetworkStackError.unknownError)
+                    onError(NetworkError.unknownError)
                 }
             }
         } catch let parsingError {
-            let dbNetworkError: DBNetworkStackError! = parsingError as? DBNetworkStackError
+            let dbNetworkError: NetworkError! = parsingError as? NetworkError
             queue.async {
                 return onError(dbNetworkError)
             }

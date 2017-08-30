@@ -1,5 +1,5 @@
 //
-//  DBNetworkStackError.swift
+//  NetworkError.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -28,14 +28,14 @@
 import Foundation
 
 /**
- `DBNetworkStackError` provides a collection of error types which can occur during execution.
+ `NetworkError` provides a collection of error types which can occur during execution.
  */
-public enum DBNetworkStackError: Error {
+public enum NetworkError: Error {
     case unknownError
     case cancelled
     case unauthorized(response: HTTPURLResponse, data: Data?)
     case clientError(response: HTTPURLResponse?, data: Data?)
-    case serializationError(description: String, data: Data?)
+    case serializationError(error: Error, data: Data?)
     case requestError(error: Error)
     case serverError(response: HTTPURLResponse?, data: Data?)
     
@@ -68,7 +68,7 @@ extension String {
     }
 }
 
-extension DBNetworkStackError : CustomDebugStringConvertible {
+extension NetworkError: CustomDebugStringConvertible {
     
     public var debugDescription: String {
         switch self {
