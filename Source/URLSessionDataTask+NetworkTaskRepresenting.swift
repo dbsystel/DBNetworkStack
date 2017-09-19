@@ -1,6 +1,4 @@
 //
-//  URLSessionNetworkAccess.swift
-//
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
@@ -22,15 +20,8 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 05.09.16.
-//
 
 import Foundation
-
-/**
- Adds conformens to `NetworkAccessProviding`. `URLSession` can now be used as a networkprovider.
- */
-extension URLSession: URLSessionProtocol {}
 
 extension URLSessionDataTask: NetworkTaskRepresenting {
     public var progress: Progress {
@@ -45,23 +36,5 @@ extension URLSessionDataTask: NetworkTaskRepresenting {
         progress.completedUnitCount = countOfBytesReceived
         
         return progress
-    }
-}
-
-public protocol URLSessionProtocol: NetworkAccessProviding {
-    
-     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-    
-}
-
-public extension URLSessionProtocol {
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
-        let task = dataTask(with: request, completionHandler: { data, response, error in
-            callback(data, response as? HTTPURLResponse, error)
-        })
-        
-        task.resume()
-        
-        return task
     }
 }

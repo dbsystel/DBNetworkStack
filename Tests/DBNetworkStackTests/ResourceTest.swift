@@ -30,7 +30,7 @@ import XCTest
 @testable import DBNetworkStack
 
 class ResourceTest: XCTestCase {
-    let request = URLRequest(path: "/trains", baseURL: URL(string: "bahn.de")!)
+    let request = URLRequest(path: "/trains", baseURL: .defaultMock)
     
     static var allTests = {
         return [

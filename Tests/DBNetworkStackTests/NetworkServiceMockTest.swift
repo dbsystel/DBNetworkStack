@@ -30,7 +30,7 @@ class NetworkServiceMockTest: XCTestCase {
     
     var networkServiceMock: NetworkServiceMock!
     
-    let resource = Resource<Int>(request: URLRequest(path: "/trains", baseURL: URL(string: "bahn.de")!), parse: { _ in return 1 })
+    let resource = Resource<Int>(request: URLRequest(path: "/trains", baseURL: .defaultMock), parse: { _ in return 1 })
     
     override func setUp() {
         networkServiceMock = NetworkServiceMock()
