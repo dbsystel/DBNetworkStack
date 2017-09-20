@@ -17,13 +17,13 @@ matrix:
       script:
         - swift test --verbose
     - os: osx
-      osx_image: xcode8.3
+      osx_image: xcode9
       language: objective-c
       env: "macOS"
       script:
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=OS X' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
     - os: osx
-      osx_image: xcode8.3
+      osx_image: xcode9
       language: objective-c
       env: "iOS"
       script:
@@ -31,22 +31,19 @@ matrix:
       after_success:
         - bash <(curl -s https://codecov.io/bash)
     - os: osx
-      osx_image: xcode8.3
+      osx_image: xcode9
       language: objective-c
       env: "watchOS"
-      before_install:
-        - export SNAPSHOT_FORCE_DELETE=1
-        - fastlane snapshot reset_simulators
       script:
-        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=watchOS Simulator,name=Apple Watch - 38mm,OS=latest' build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=watchOS Simulator,name=Apple Watch Series 2 - 38mm' build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
     - os: osx
-      osx_image: xcode8.3
+      osx_image: xcode9
       language: objective-c
       env: "tvOS"
       script:
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
     - os: osx
-      osx_image: xcode8.3
+      osx_image: xcode9
       language: objective-c
       env: "SPM, Carthage, CocoaPods"
       script:

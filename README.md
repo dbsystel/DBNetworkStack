@@ -11,7 +11,7 @@
 |           | Main Features                  |
 | --------- | ------------------------------ |
 | 🛡        | Typed network resources        |
-| &#127968; | Protocol oriented architecture |
+| &#127968; | Value oriented architecture |
 | 🔀        | Exchangeable implementations   |
 | 🚄        | Extendable API                 |
 | 🎹        | Composable Features            |
@@ -45,32 +45,26 @@ Request your resource and handle the result
 networkService.request(resource, onCompletion: { htmlText in
     print(htmlText)
 }, onError: { error in
-        //Handle errors
+    //Handle errors
 })
 
 ```
 
-## JSON Mapping Demo
+## Loade types conforming to `Decodable`
 ```swift
-struct IPOrigin {
-    let ipAddress: String
+struct IPOrigin: Decodable {
+    let origin: String
 }
 
-extension IPOrigin: JSONMappable {
-    init(object: Dictionary<String, AnyObject>) throws {
-       /// Do your mapping
-    }
-}
+let url: URL! = URL(string: "https://www.httpbin.org")
+let request = URLRequest(path: "ip", baseURL: url)
 
-
-let url = URL(string: "https://httpbin.org")!
-let request = URLRequest(path: "/ip", baseURL: url)
-let resource = JSONResource<IPOrigin>(request: request)
+let resource = Resource<IPOrigin>(request: request, decoder: JSONDecoder())
 
 networkService.request(resource, onCompletion: { origin in
     print(origin)
 }, onError: { error in
-        //Handle errors
+    //Handle errors
 })
 ```
 
@@ -78,13 +72,19 @@ networkService.request(resource, onCompletion: { origin in
 
 Request your resource and handle the result & response. This is similar to just requesting a resulting model.
 ```swift
-networkService.request(resource, onCompletionWithResponse: { htmlText, response in
-    print(htmlText)
-    print(response)
-}, onError: { error in
-    //Handle errors
-})
+extension Resource where Model: XMLDocument {
+    public init(request: URLRequestConvertible) {
+        self.init(request: request, parse: { try XMLDocument(data: $0 })
+    }
+}
+```
 
+## Extendability
+The following example outlines how to extend DBNetworkStack to support the imaginary type `XMLDocument`:
+
+You are now able to call:
+```swift
+let xmlDocument = Resource<XMLDocument>(request: someRequest)
 ```
 
 ## Protocol oriented architecture / Exchangability
@@ -95,7 +95,7 @@ The following table shows all the protocols and their default implementations.
 | -------------------------------- | ---------------------- |
 | ```NetworkAccessProviding```     | ```URLSession```     |
 | ```NetworkServiceProviding```    | ```NetworkService```   |
-| ```NetworkRequestRepresenting``` | ```NetworkRequest```   |
+| ```URLRequestConvertible```  | ```URLRequest```   |
 | ```NetworkTaskRepresenting```    | ```URLSessionTask``` |
 
 ## Composable Features
@@ -108,8 +108,8 @@ The following table shows all the protocols and their default implementations.
 ## Requirements
 
 - iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 8.0+
-- Swift 3.0
+- Xcode 9.0+
+- Swift 3.2/Swift4.0
 
 ## Installation
 

@@ -33,6 +33,7 @@ import Foundation
  
  See `ResourceModeling` for more details.
  */
+@available(*, deprecated, message: "Use `Resource<Decodeable>`")
 public struct JSONResource<Model: JSONMappable>: JSONResourceModeling {
     public let request: URLRequestConvertible
     public var parse: (_ data: Data) throws -> Model {

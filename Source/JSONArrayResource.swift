@@ -34,6 +34,7 @@ import Foundation
  
  See `ResourceModeling` for more details.
  */
+@available(*, deprecated, message: "Use `Resource<[Decodeable]>`")
 public struct JSONArrayResource<ModelElement: JSONMappable>: JSONResourceModeling {
     public typealias Element = ModelElement
     public let request: URLRequestConvertible

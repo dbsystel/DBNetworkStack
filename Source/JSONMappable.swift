@@ -32,6 +32,7 @@ import Foundation
  
  `JSONMappable` can be used to get an object from JSON
  */
+@available(*, deprecated, message: "Use Swift 4 `Codeable`")
 public protocol JSONMappable {
     
     /**

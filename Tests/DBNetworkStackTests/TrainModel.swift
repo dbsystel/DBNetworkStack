@@ -28,7 +28,7 @@
 import Foundation
 import DBNetworkStack
 
-struct Train {
+struct Train: Decodable {
     let name: String
 }
 
