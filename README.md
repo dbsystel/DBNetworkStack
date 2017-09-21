@@ -6,7 +6,6 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 [![Version](https://img.shields.io/cocoapods/v/DBNetworkStack.svg?style=flat)](http://cocoapods.org/pods/DBNetworkStack)
-[![Swift Version](https://img.shields.io/badge/Swift-3.0--3.1-F16D39.svg?style=flat)](https://developer.apple.com/swift)
 
 |           | Main Features                  |
 | --------- | ------------------------------ |
@@ -79,14 +78,6 @@ extension Resource where Model: XMLDocument {
 }
 ```
 
-## Extendability
-The following example outlines how to extend DBNetworkStack to support the imaginary type `XMLDocument`:
-
-You are now able to call:
-```swift
-let xmlDocument = Resource<XMLDocument>(request: someRequest)
-```
-
 ## Protocol oriented architecture / Exchangability
 
 The following table shows all the protocols and their default implementations.
@@ -120,7 +111,7 @@ The following table shows all the protocols and their default implementations.
 Specify the following in your `Cartfile`:
 
 ```ogdl
-github "dbsystel/dbnetworkstack" ~> 0.6
+github "dbsystel/dbnetworkstack" ~> 0.7
 ```
 
 ### CocoaPods
