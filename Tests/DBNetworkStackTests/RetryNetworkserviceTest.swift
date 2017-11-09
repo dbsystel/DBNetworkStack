@@ -47,7 +47,7 @@ class RetryNetworkserviceTest: XCTestCase {
     func testRetryRequest_shouldRetry() {
         //Given
         let errorCount = 2
-        let numberOfRetries = 3
+        let numberOfRetries = 2
         var executedRetrys = 0
         
         //When

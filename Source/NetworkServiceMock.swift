@@ -74,7 +74,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///   - error: the error which gets passed to the caller
     ///   - count: the count, how often the error accours. 1 by default
     public func returnError(with error: NetworkError, count: Int = 1) {
-        for _ in 0...count {
+        for _ in 0..<count {
             onErrorCallback?(error)
         }
        releaseCapturedCallbacks()
@@ -87,7 +87,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
     ///   - count: the count how often the response gets triggerd. 1 by default
     public func returnSuccess(with data: Data = Data(), httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int = 1) {
-        for _ in 0...count {
+        for _ in 0..<count {
             onSuccess?(data, httpResponse)
         }
         releaseCapturedCallbacks()
@@ -102,7 +102,7 @@ public class NetworkServiceMock: NetworkServiceProviding {
     ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
     ///   - count: the count how often the response gets triggerd. 1 by default
     public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int = 1) {
-        for _ in 0...count {
+        for _ in 0..<count {
             onTypedSuccess?(serializedResponse, httpResponse)
         }
         releaseCapturedCallbacks()
