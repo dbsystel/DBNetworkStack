@@ -21,10 +21,9 @@ matrix:
       language: objective-c
       env: "macOS"
       script:
-        - carthage bootstrap
-        - set -o pipefail && xcodebuild -scheme DBNetworkStackSourcing -destination "platform=tvOS Simulator,name=Apple TV 1080p" test | xcpretty
-        - set -o pipefail && xcodebuild -scheme DBNetworkStackSourcing -destination "platform=watchOS Simulator,name=Apple Watch - 38mm" build | xcpretty
-        - set -o pipefail && xcodebuild -scheme DBNetworkStackSourcing -destination "platform=iOS Simulator,name=iPhone SE" test | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=tvOS Simulator,name=Apple TV 1080p" test | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=watchOS Simulator,name=Apple Watch - 38mm" build | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=iOS Simulator,name=iPhone SE" test | xcpretty
         - swift test & pod spec lint & carthage build --no-skip-current
       after_success:
         - bash <(curl -s https://codecov.io/bash)
