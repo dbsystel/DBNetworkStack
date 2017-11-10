@@ -21,7 +21,7 @@ matrix:
       language: objective-c
       env: "macOS"
       script:
-        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=tvOS Simulator,name=OS X" test | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=macOS" test | xcpretty
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=tvOS Simulator,name=Apple TV" test | xcpretty
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=watchOS Simulator,name=Apple Watch - 38mm" build | xcpretty
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=iOS Simulator,name=iPhone SE" test | xcpretty
