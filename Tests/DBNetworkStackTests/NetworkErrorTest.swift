@@ -149,7 +149,7 @@ class NetworkErrorTest: XCTestCase {
         
         //Then
         XCTAssert(debugDescription.hasPrefix("Authorization error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("> { URL: https://bahn.de } { Status Code: 0, Headers {\n} }, response: dataString"))
+        XCTAssert(debugDescription.hasSuffix("response: dataString"))
     }
     
     func testUnknownError_clientError_description() {
@@ -163,7 +163,7 @@ class NetworkErrorTest: XCTestCase {
         
         //Then
         XCTAssert(debugDescription.hasPrefix("Client error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("> { URL: https://bahn.de } { Status Code: 0, Headers {\n} }, response: dataString"))
+        XCTAssert(debugDescription.hasSuffix("response: dataString"))
     }
     
     func testUnknownError_serializationError_description() {
