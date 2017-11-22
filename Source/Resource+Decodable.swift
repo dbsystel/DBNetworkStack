@@ -24,6 +24,12 @@ import Foundation
 
 extension Resource where Model: Decodable {
     
+    /// Creates an instace of Ressource where the result type is `Decodable` and
+    /// can be decoded with the given decoder
+    ///
+    /// - Parameters:
+    ///   - request: The request to get the remote data payload
+    ///   - decoder: a decoder which can decode the payload into the model type
     public init(request: URLRequestConvertible, decoder: JSONDecoder) {
         self.init(request: request, parse: { try decoder.decode(Model.self, from: $0) })
     }

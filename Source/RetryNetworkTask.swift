@@ -77,7 +77,6 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
      
      - return: the onError closure for a network request.
      */
-    ///
     func createOnError() -> (NetworkError) -> Void {
         return { error in
             if self.shouldRetry(error), self.numberOfRetriesLeft > 0 {

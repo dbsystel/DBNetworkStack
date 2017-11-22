@@ -23,5 +23,4 @@
 
 import Foundation
 
-extension URLSessionDataTask: NetworkTaskRepresenting {
-}
+extension URLSessionDataTask: NetworkTaskRepresenting { }

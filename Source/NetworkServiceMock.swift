@@ -19,12 +19,6 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 //  DEALINGS IN THE SOFTWARE.
 //
-//
-//  NetworkServiceMock.swift
-//  DBNetworkStack
-//
-//  Created by Lukas Schmidt on 14.12.16.
-//
 
 import Foundation
 import Dispatch
@@ -57,7 +51,7 @@ public final class NetworkServiceMock: NetworkServiceProviding {
     public var requestCount: Int = 0
     /// Last executed request
     public var lastRequest: URLRequestConvertible?
-    /// Set this to hava a custom networktask
+    /// Set this to hava a custom networktask returned by the mock
     public var nextNetworkTask: NetworkTaskRepresenting?
 
     /**

@@ -70,6 +70,7 @@ extension String {
 
 extension NetworkError: CustomDebugStringConvertible {
     
+    /// Details description of the error.
     public var debugDescription: String {
         switch self {
         case .unknownError:
