@@ -31,11 +31,10 @@ import Dispatch
 /**
  `NetworkServiceProviding` provides access to remote resources. It should be used as an abstraction for all outgoing network resource.
  
- 
  **Abstract different layers**
  
 Builing layerd network abstraction can be very easy, when all layers conform to `NetworkServiceProviding`.
- By doing so composing different features inot a layerd system becomes very easy.
+ By doing so composing different features into a layerd system becomes very easy.
  
  **Example**
  ```swift
@@ -46,7 +45,7 @@ Builing layerd network abstraction can be very easy, when all layers conform to 
  let cachedNetworkService: NetworkServiceProviding = CachedNetworkService(networkService: networkService)
  
  //Add Auth tokens to each request
- let autheticationNetworkService = ModifyRequestNetworkService(networkService: cachedNetworkService, requestModifications: [{ $0.addAuth() }])
+ let autheticationNetworkService = ModifyRequestNetworkService(networkService: cachedNetworkService, requestModifications: [{ $0.addAuthetication() }])
  ```
  
  - note: `NetworkServiceProviding` is good extension point for adding support for other async concpets like Result types, feature/promise, etc.
@@ -54,6 +53,7 @@ Builing layerd network abstraction can be very easy, when all layers conform to 
 public protocol NetworkServiceProviding {
     /**
      Fetches a resource asynchronously from remote location.
+     One can specify a queue where completeion or error block is called.
      
      **Example**
      ```swift
@@ -68,16 +68,16 @@ public protocol NetworkServiceProviding {
      })
      ```
      
-     - note: Use convience methods if you are only intrested in the result.
+     - note: Use convience methods if you are not intrested in the `HTTPURLResponse`.
      
-     - note: Use convience methods if completion block should be allways called on the main queue.
+     - note: Use convience methods if completion/error block should be allways called on the main queue.
      
      - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
      - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - returns: the request
+     - returns: a running network task
      */
     @discardableResult
     func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
@@ -86,7 +86,7 @@ public protocol NetworkServiceProviding {
 
 public extension NetworkServiceProviding {
     /**
-     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
+     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main queue.
      
      **Example**
      ```swift
@@ -105,7 +105,7 @@ public extension NetworkServiceProviding {
      - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - returns: the request
+     - returns: a running network task
      */
     @discardableResult
     func request<T: ResourceModeling>(_ resource: T, onCompletion: @escaping (T.Model) -> Void,
@@ -133,7 +133,7 @@ public extension NetworkServiceProviding {
      - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - returns: the request
+     - returns: a running network task
      */
     @discardableResult
     func request<T: ResourceModeling>(_ resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,

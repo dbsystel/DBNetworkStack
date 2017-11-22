@@ -29,19 +29,18 @@ import Foundation
 import Dispatch
 
 /**
- `NetworkService` handles network request for resources.
+ `NetworkService` executes network request with resources. It uses a `NetworkAccessProviding` to send requests to the network.
  
  - seealso: `NetworkServiceProviding`
  */
 public final class NetworkService: NetworkServiceProviding {
-    let networkAccess: NetworkAccessProviding
-    let networkResponseProcessor: NetworkResponseProcessor
+    private let networkAccess: NetworkAccessProviding
+    private let networkResponseProcessor: NetworkResponseProcessor
     
     /**
-     Creates an `NetworkService` instance with a given networkAccess and a map of endPoints
+     Creates an `NetworkService` instance with a given networkAccess.
      
-     - parameter networkAccess: provides basic access to the network.
-     - parameter endPoints: map of baseURLKey -> baseURLs
+     - parameter networkAccess: provides access to the network.
      */
     public init(networkAccess: NetworkAccessProviding) {
         self.networkAccess = networkAccess
@@ -49,7 +48,7 @@ public final class NetworkService: NetworkServiceProviding {
     }
     
     /**
-     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
+     Fetches a resource asynchronously from remote location
      
      ```swift
      
@@ -57,9 +56,9 @@ public final class NetworkService: NetworkServiceProviding {
      let resource: Ressource<String> = //
      
      networkService.request(resource, onCompletion: { htmlText in
-     print(htmlText)
+        print(htmlText)
      }, onError: { error in
-     //Handle errors
+        /Handle errors
      })
      ```
      
@@ -67,7 +66,7 @@ public final class NetworkService: NetworkServiceProviding {
      - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - returns: the request
+     - returns: a running network task
      */
     @discardableResult
     public func request<T: ResourceModeling>(queue: DispatchQueue, resource: T, onCompletionWithResponse: @escaping (T.Model, HTTPURLResponse) -> Void,
