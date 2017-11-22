@@ -19,17 +19,12 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 //  DEALINGS IN THE SOFTWARE.
 //
-//
 
-extension Resource {
+import Foundation
+
+extension Resource where Model: Decodable {
     
-    /// Maps a resource result to a different resource. This is useful when you have result of R which contains T and your API request a resource of T,
-    ///
-    /// - Parameter transform: transforms the original result of the resource
-    /// - Returns: the transformed resource
-    public func map<T>(transform: @escaping (Model) throws -> (T)) -> Resource<T> {
-        return Resource<T>(request: request, parse: { data in
-            return try transform(try self.parse(data))
-        })
+    public init(request: URLRequestConvertible, decoder: JSONDecoder) {
+        self.init(request: request, parse: { try decoder.decode(Model.self, from: $0) })
     }
 }

@@ -1,17 +1,16 @@
 # DBNetworkStack
 
 [![Build Status](https://travis-ci.org/dbsystel/DBNetworkStack.svg?branch=develop)](https://travis-ci.org/dbsystel/DBNetworkStack)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
- [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
-[![Version](https://img.shields.io/cocoapods/v/DBNetworkStack.svg?style=flat)](http://cocoapods.org/pods/DBNetworkStack)
-[![Swift Version](https://img.shields.io/badge/Swift-3.0--3.1-F16D39.svg?style=flat)](https://developer.apple.com/swift)
-[![Swift Version](https://img.shields.io/badge/Linux-3.1-4BC51D.svg?style=flat)](https://developer.apple.com/swift)
+[![codebeat badge](https://codebeat.co/badges/e438e768-249d-4e9f-8dd8-32928537740e)](https://codebeat.co/projects/github-com-dbsystel-dbnetworkstack-develop)
 [![codecov](https://codecov.io/gh/dbsystel/DBNetworkStack/branch/develop/graph/badge.svg)](https://codecov.io/gh/dbsystel/DBNetworkStack)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+[![Version](https://img.shields.io/cocoapods/v/DBNetworkStack.svg?style=flat)](http://cocoapods.org/pods/DBNetworkStack)
 
 |           | Main Features                  |
 | --------- | ------------------------------ |
 | 🛡        | Typed network resources        |
-| &#127968; | Protocol oriented architecture |
+| &#127968; | Value oriented architecture |
 | 🔀        | Exchangeable implementations   |
 | 🚄        | Extendable API                 |
 | 🎹        | Composable Features            |
@@ -46,32 +45,26 @@ Request your resource and handle the result
 networkService.request(resource, onCompletion: { htmlText in
     print(htmlText)
 }, onError: { error in
-        //Handle errors
+    //Handle errors
 })
 
 ```
 
-## JSON Mapping Demo
+## Loade types conforming to `Decodable`
 ```swift
-struct IPOrigin {
-    let ipAddress: String
+struct IPOrigin: Decodable {
+    let origin: String
 }
 
-extension IPOrigin: JSONMappable {
-    init(object: Dictionary<String, AnyObject>) throws {
-       /// Do your mapping
-    }
-}
+let url: URL! = URL(string: "https://www.httpbin.org")
+let request = URLRequest(path: "ip", baseURL: url)
 
-
-let url = URL(string: "https://httpbin.org")!
-let request = URLRequest(path: "/ip", baseURL: url)
-let resource = JSONResource<IPOrigin>(request: request)
+let resource = Resource<IPOrigin>(request: request, decoder: JSONDecoder())
 
 networkService.request(resource, onCompletion: { origin in
     print(origin)
 }, onError: { error in
-        //Handle errors
+    //Handle errors
 })
 ```
 
@@ -79,13 +72,11 @@ networkService.request(resource, onCompletion: { origin in
 
 Request your resource and handle the result & response. This is similar to just requesting a resulting model.
 ```swift
-networkService.request(resource, onCompletionWithResponse: { htmlText, response in
-    print(htmlText)
-    print(response)
-}, onError: { error in
-    //Handle errors
-})
-
+extension Resource where Model: XMLDocument {
+    public init(request: URLRequestConvertible) {
+        self.init(request: request, parse: { try XMLDocument(data: $0 })
+    }
+}
 ```
 
 ## Protocol oriented architecture / Exchangability
@@ -96,7 +87,7 @@ The following table shows all the protocols and their default implementations.
 | -------------------------------- | ---------------------- |
 | ```NetworkAccessProviding```     | ```URLSession```     |
 | ```NetworkServiceProviding```    | ```NetworkService```   |
-| ```NetworkRequestRepresenting``` | ```NetworkRequest```   |
+| ```URLRequestConvertible```  | ```URLRequest```   |
 | ```NetworkTaskRepresenting```    | ```URLSessionTask``` |
 
 ## Composable Features
@@ -109,8 +100,8 @@ The following table shows all the protocols and their default implementations.
 ## Requirements
 
 - iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 8.0+
-- Swift 3.0
+- Xcode 9.0+
+- Swift 3.2/Swift4.0
 
 ## Installation
 
@@ -121,7 +112,7 @@ The following table shows all the protocols and their default implementations.
 Specify the following in your `Cartfile`:
 
 ```ogdl
-github "dbsystel/dbnetworkstack" ~> 0.6
+github "dbsystel/dbnetworkstack" ~> 0.7
 ```
 
 ### CocoaPods

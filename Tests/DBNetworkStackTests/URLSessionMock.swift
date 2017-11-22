@@ -1,6 +1,4 @@
 //
-//  JSONListResource.swift
-//
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
@@ -22,31 +20,35 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 27.07.16.
-//
-
 import Foundation
 
-/**
- `JSONResource` represents a network resource in JSON, which can be parsed into an array of Model Types.
- 
- The root JSON payload must be an array.
- 
- See `ResourceModeling` for more details.
- */
-@available(*, deprecated, message: "Use `Resource<[Decodeable]>`")
-public struct JSONArrayResource<ModelElement: JSONMappable>: JSONResourceModeling {
-    public typealias Element = ModelElement
-    public let request: URLRequestConvertible
-    public var parse: (_ data: Data) throws -> Array<Element> {
-        return parseFunction
+class URLSessionDataTaskMock: URLSessionDataTask {
+    var didResume = false
+    
+    override init() {
     }
     
-    public init(request: URLRequestConvertible) {
-        self.request = request
+    override func resume() {
+        didResume = true
+    }
+}
+
+class URLSessionMock: URLSession {
+    
+    var lastOutgoingRequest: URLRequest?
+    var currentDataTask: URLSessionDataTaskMock!
+    
+    private var completeRequest: ((Data?, URLResponse?, Error?) -> Void)?
+    
+    override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        lastOutgoingRequest = request
+        currentDataTask = URLSessionDataTaskMock()
+        completeRequest = completionHandler
+        return currentDataTask
     }
     
-    public func parse(_ jsonPayload: Array<Dictionary<String, AnyObject>>) throws -> Array<Element> {
-        return try Array<Element>(JSONArray: jsonPayload)
+    func completeWith(data: Data?, response: URLResponse?, error: Error?) {
+        completeRequest?(data, response, error)
+        completeRequest = nil
     }
 }

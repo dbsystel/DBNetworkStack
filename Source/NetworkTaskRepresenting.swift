@@ -49,5 +49,6 @@ public protocol NetworkTaskRepresenting: class {
     /**
      Contains the current progress of a running task.
      */
+    @available(iOS 11.0, OSX 10.13, watchOS 4.0, tvOS 11.0, *)
     var progress: Progress { get }
 }

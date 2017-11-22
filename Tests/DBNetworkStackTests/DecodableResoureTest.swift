@@ -1,5 +1,5 @@
 //
-//  Copyright (C) 2016 Lukas Schmidt.
+//  Copyright (C) 2017 Lukas Schmidt.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a 
 //  copy of this software and associated documentation files (the "Software"), 
@@ -19,26 +19,42 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 //  DEALINGS IN THE SOFTWARE.
 //
-//
-//  URLSessionProtocolMock.swift
-//  DBNetworkStack
-//
-//  Created by Lukas Schmidt on 16.12.16.
-//
 
 import Foundation
+import XCTest
 @testable import DBNetworkStack
 
-class URLSessionProtocolMock: URLSessionProtocol {
-    var request: URLRequest?
-    var callback: ((Data?, URLResponse?, Error?) -> Void)?
-    
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        self.request = request
-        self.callback = completionHandler
-        
-        let url: URL! = URL(string: "http://bahn.de")
-        return URLSession(configuration: .default).dataTask(with: url)
+class DecodableResoureTest: XCTestCase {
+    var resource: Resource<Train> {
+        let url: URL! = URL(string: "bahn.de")
+        let request = URLRequest(path: "/train", baseURL: url)
+        return Resource<Train>(request: request, decoder: JSONDecoder())
     }
-
+    
+    func testResource_withValidData() {
+        //When
+        let fetchedTrain = try? resource.parse(Train.validJSONData)
+        
+        //Then
+        XCTAssertEqual(fetchedTrain?.name, "ICE")
+    }
+    
+    func testResource_withMAppedResult() {
+        //When
+        let nameResource = resource.map { $0.name }
+        let fetchedTrainName = try? nameResource.parse(Train.validJSONData)
+        
+        //Then
+        XCTAssertEqual(fetchedTrainName, "ICE")
+    }
+    
+    func testResource_WithInvalidData() {
+        //When
+        do {
+            _ = try resource.parse(Train.invalidJSONData)
+            XCTFail()
+        } catch {
+        }
+    }
+    
 }

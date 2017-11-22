@@ -33,15 +33,15 @@ import Dispatch
 class RetryNetworkTask<T> : NetworkTaskRepresenting {
     private let maxmimumNumberOfRetries: Int
     private let idleTimeInterval: TimeInterval
-    private let shouldRetry: (DBNetworkStackError) -> Bool
+    private let shouldRetry: (NetworkError) -> Bool
     var originalTask: NetworkTaskRepresenting?
     
     private var numberOfRetriesLeft: Int
     private let onSuccess: ((T, HTTPURLResponse) -> Void)
-    private let onError: ((DBNetworkStackError) -> Void)
+    private let onError: ((NetworkError) -> Void)
     private var isCaneled = false
     
-    private let retryAction: (@escaping (T, HTTPURLResponse) -> Void, @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting
+    private let retryAction: (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void
     
     /// Creates an instance of `RetryNetworkTaks`
@@ -54,10 +54,10 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
     ///   - onError: closure which gets fired on error
     ///   - retryAction: closure which gets triggerd when retry starts
     ///   - dispatchRetry: location where to dispatch the retry action
-    init(maxmimumNumberOfRetries: Int, idleTimeInterval: TimeInterval, shouldRetry: @escaping (DBNetworkStackError) -> Bool,
+    init(maxmimumNumberOfRetries: Int, idleTimeInterval: TimeInterval, shouldRetry: @escaping (NetworkError) -> Bool,
          onSuccess: @escaping (T, HTTPURLResponse) -> Void,
-         onError: @escaping (DBNetworkStackError) -> Void,
-         retryAction: @escaping (@escaping (T, HTTPURLResponse) -> Void, @escaping (DBNetworkStackError) -> Void) -> NetworkTaskRepresenting,
+         onError: @escaping (NetworkError) -> Void,
+         retryAction: @escaping (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting,
          dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> Void) -> Void ) {
         
         self.maxmimumNumberOfRetries = maxmimumNumberOfRetries
@@ -78,7 +78,7 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
      - return: the onError closure for a network request.
      */
     ///
-    func createOnError() -> (DBNetworkStackError) -> Void {
+    func createOnError() -> (NetworkError) -> Void {
         return { error in
             if self.shouldRetry(error), self.numberOfRetriesLeft > 0 {
                 guard !self.isCaneled else {
@@ -107,6 +107,7 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
         originalTask?.suspend()
     }
     
+    @available(iOS 11.0, OSX 10.13, watchOS 4.0, tvOS 11.0, *)
     var progress: Progress {
         guard let task = originalTask else {
             fatalError("OrginalTask has to be set")

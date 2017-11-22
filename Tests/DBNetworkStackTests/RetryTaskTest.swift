@@ -29,12 +29,12 @@ import XCTest
 
 class RetryTaskTest: XCTestCase {
     
-    let mockError: DBNetworkStackError = .unknownError
+    let mockError: NetworkError = .unknownError
     
     func testDontHoldReference_withoutCreatingErrorClosure() {
         //Given
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 1, idleTimeInterval: 1,
-            shouldRetry: { _ in return true}, onSuccess: { _ in }, onError: { _ in }, retryAction: { _, _ in
+                                                            shouldRetry: { _ in return true}, onSuccess: { _, _  in }, onError: { _ in }, retryAction: { _, _ in
             return NetworkTaskMock()
         }, dispatchRetry: { _, _ in
         })
@@ -139,9 +139,9 @@ class RetryTaskTest: XCTestCase {
     }
     
     func testShouldNotRetry() {
-        var capturedError: DBNetworkStackError?
+        var capturedError: NetworkError?
         var task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
-                                                            shouldRetry: { _ in return false}, onSuccess: { _ in
+                                                            shouldRetry: { _ in return false}, onSuccess: { _, _  in
             
         }, onError: { error in
             capturedError = error
@@ -168,7 +168,7 @@ class RetryTaskTest: XCTestCase {
         //Given
         let taskMock = NetworkTaskMock()
         let task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
-                                                            shouldRetry: { _ in return false}, onSuccess: { _ in
+                                                            shouldRetry: { _ in return false}, onSuccess: { _, _  in
                                                                 
         }, onError: { _ in
         }, retryAction: { _, _ in
@@ -190,7 +190,7 @@ class RetryTaskTest: XCTestCase {
         //Given
         let taskMock = NetworkTaskMock()
         let task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
-                                                            shouldRetry: { _ in return false}, onSuccess: { _ in
+                                                            shouldRetry: { _ in return false}, onSuccess: { _, _  in
                                                                 
         }, onError: { _ in
         }, retryAction: { _, _ in
@@ -212,7 +212,7 @@ class RetryTaskTest: XCTestCase {
         //Given
         let taskMock = NetworkTaskMock()
         let task: RetryNetworkTask<Int>? = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
-                                                            shouldRetry: { _ in return false}, onSuccess: { _ in
+                                                            shouldRetry: { _ in return false}, onSuccess: { _, _  in
                                                                 
         }, onError: { _ in
         }, retryAction: { _, _ in

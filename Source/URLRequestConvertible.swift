@@ -131,7 +131,7 @@ extension URL {
         block(&urlComponents)
         
         guard let absoluteURL = urlComponents.url else {
-            fatalError("Error creating absolute URL from path: \(path), with baseURL: \(baseURL?.absoluteString)")
+            fatalError("Error creating absolute URL from path: \(path), with baseURL: \(baseURL?.absoluteString ?? "No BaseURL found")")
         }
         return absoluteURL
     }

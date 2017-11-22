@@ -30,7 +30,7 @@ class NetworkServiceMockTest: XCTestCase {
     
     var networkServiceMock: NetworkServiceMock!
     
-    let resource = Resource<Int>(request: URLRequest(path: "/trains", baseURL: URL(string: "bahn.de")!), parse: { _ in return 1 })
+    let resource = Resource<Int>(request: URLRequest(path: "/trains", baseURL: .defaultMock), parse: { _ in return 1 })
     
     override func setUp() {
         networkServiceMock = NetworkServiceMock()
@@ -48,51 +48,56 @@ class NetworkServiceMockTest: XCTestCase {
     func testReturnSuccessWithData() {
         //Given
         var capturedResult: Int?
+        var executionCount: Int = 0
         
         //When
         networkServiceMock.request(resource, onCompletion: { result in
             capturedResult = result
+            executionCount += 1
         }, onError: { _ in })
         networkServiceMock.returnSuccess()
         
         //Then
         XCTAssertEqual(capturedResult, 1)
+        XCTAssertEqual(executionCount, 1)
     }
     
     func testReturnSuccessWithSerializedData() {
         //Given
         var capturedResult: Int?
+        var executionCount: Int = 0
         
         //When
         networkServiceMock.request(resource, onCompletion: { result in
             capturedResult = result
+            executionCount += 1
         }, onError: { _ in })
         networkServiceMock.returnSuccess(with: 10)
         
         //Then
         XCTAssertEqual(capturedResult, 10)
+        XCTAssertEqual(executionCount, 1)
     }
     
     func testReturnError() {
         //Given
-        var capturedError: DBNetworkStackError?
+        var capturedError: NetworkError?
+        var executionCount: Int = 0
         
         //When
         networkServiceMock.request(resource, onCompletion: { _ in }, onError: { error in
             capturedError = error
+            executionCount += 1
         })
         networkServiceMock.returnError(with: .unknownError)
         
         //Then
-        guard let error = capturedError else {
-             XCTFail()
-            return
-        }
-        if case .unknownError = error {
+        if let error = capturedError, case .unknownError = error {
             
         } else {
-            XCTFail()
+            XCTFail("Wrong error type")
         }
+        XCTAssertEqual(executionCount, 1)
     }
     
 }

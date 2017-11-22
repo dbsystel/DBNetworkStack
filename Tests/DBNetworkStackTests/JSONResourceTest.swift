@@ -30,10 +30,10 @@ import XCTest
 @testable import DBNetworkStack
 
 class JSONResourceTest: XCTestCase {
-    var resource: JSONResource<Train> {
+    var resource: Resource<Train> {
         let url: URL! = URL(string: "bahn.de")
         let request = URLRequest(path: "/train", baseURL: url)
-        return JSONResource<Train>(request: request)
+        return Resource(resource: JSONResource(request: request))
     }
     
     func testResource_withValidData() {

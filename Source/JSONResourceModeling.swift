@@ -31,6 +31,7 @@ import Foundation
  
  It speciefies a JSON Container from which the model is parsed and a `parse` function to transform the container into the given Model.
  */
+@available(*, deprecated, message: "Use `DecodableResource`")
 public protocol JSONResourceModeling: ResourceModeling {
     /** 
      The JSON container format represented as an foundation object

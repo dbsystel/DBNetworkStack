@@ -1,5 +1,5 @@
 //
-//  ArrayResourceModeling.swift
+//  URLSessionNetworkAccess.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,17 +22,30 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 11.10.16.
+//  Created by Lukas Schmidt on 05.09.16.
 //
 
 import Foundation
 
 /**
- `ArrayResourceModeling` describes a remote resource of generic type structured in an array.
- The resource type can be fetched via HTTP(s) and parsed into the coresponding model object.
+ Adds conformens to `NetworkAccessProviding`. `URLSession` can now be used as a networkprovider.
  */
-@available(*, deprecated, message: "Build generic functions/classes which use `ResourceModeling.Element == Array<T>`")
-public protocol ArrayResourceModeling: ResourceModeling {
-    associatedtype Element
-    associatedtype Model = Array<Element>
+extension URLSession: NetworkAccessProviding {
+    /**
+     Fetches a resource asynchrony from remote location.
+     
+     - parameter request: The resource you want to fetch.
+     - parameter callback: Callback which gets called when the request finishes.
+     
+     - returns: the running network task
+     */
+    public func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
+        let task = dataTask(with: request, completionHandler: { data, response, error in
+            callback(data, response as? HTTPURLResponse, error)
+        })
+        
+        task.resume()
+        
+        return task
+    }
 }

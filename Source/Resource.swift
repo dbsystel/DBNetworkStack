@@ -27,12 +27,9 @@
 
 /**
  `Resource` describes a remote resource of generic type.
- The type can be fetched via HTTP(s) and parsed into the coresponding model object.
+ The type can be fetched via HTTP(S) and parsed into the coresponding model object.
  */
-public struct Resource<Model>: ResourceModeling {
-    /**
-     The request to get the remote data payload
-     */
+public struct Resource<Model> {
     public let request: URLRequestConvertible
     /**
      Parses data into given Model
@@ -47,16 +44,6 @@ public struct Resource<Model>: ResourceModeling {
     public init(request: URLRequestConvertible, parse: @escaping (Data) throws -> Model) {
         self.request = request
         self.parse = parse
-    }
-}
-
-public extension ResourceModeling {
-    /// Wrappes self into a `Resource` to hide away implementation details. This could be helpful when you think your typeinformation gets leaked.
-    ///
-    /// - Returns: the wrapped ressource
-    @available(*, deprecated, message: "Use `init<R: ResourceModeling>(resource: R)`")
-    func wrapped() -> Resource<Model> {
-        return Resource(request: request, parse: parse)
     }
 }
 
