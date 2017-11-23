@@ -27,16 +27,13 @@
 
 import Foundation
 import XCTest
-@testable import DBNetworkStack
+import DBNetworkStack
 
 class ResourceTest: XCTestCase {
-    let request = URLRequest(path: "/trains", baseURL: .defaultMock)
     
     static var allTests = {
         return [
-            ("testResource", testResource),
-            ("testResourceWithInvalidData", testResourceWithInvalidData),
-            ("testCreateRessourceFromOtherRessource", testCreateRessourceFromOtherRessource)
+            ("testResource", testResource)
         ]
     }()
     
@@ -44,7 +41,7 @@ class ResourceTest: XCTestCase {
         //Given
         let validData: Data! = "ICE".data(using: .utf8)
 
-        let resource = Resource<String?>(request: request, parse: { String(data: $0, encoding: .utf8) })
+        let resource = Resource<String?>(request: URLRequest.defaultMock, parse: { String(data: $0, encoding: .utf8) })
         
         //When
         let name = try? resource.parse(validData)
@@ -52,26 +49,5 @@ class ResourceTest: XCTestCase {
         //Then
         XCTAssertEqual(name ?? nil, "ICE")
     }
-    
-    func testResourceWithInvalidData() {
-        //Given
-        let data = Data()
-        let resource = JSONResource<Train>(request: request)
-        
-        //When
-        do {
-            _ = try resource.parse(data)
-            XCTFail()
-        } catch { }
-    }
-    
-    func testCreateRessourceFromOtherRessource() {
-        //Given
-        let arrayResource = JSONArrayResource<Train>(request: request)
-        
-        //When
-        let ressource = Resource(resource: arrayResource)
-        
-        XCTAssert(ressource is Resource<Array<Train>>)
-    }
+
 }

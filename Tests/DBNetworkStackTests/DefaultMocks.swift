@@ -23,7 +23,7 @@
 import Foundation
 
 extension URL {
-    static let defaultMock: URL = URL(string: "bahn.de")!
+    static let defaultMock: URL! = URL(string: "bahn.de")
 }
 
 extension URLRequest {

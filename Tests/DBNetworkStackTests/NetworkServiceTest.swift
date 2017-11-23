@@ -31,18 +31,6 @@ import XCTest
 
 class NetworkServiceTest: XCTestCase {
     
-    public static var allTests = {
-        return [
-            ("testRequest_withValidResponse", testRequest_withValidResponse)
-            //            ,
-            //            ("testNoData", testNoData),
-            //            ("testInvalidData", testInvalidData),
-            //            ("testInvalidJSONKeyData", testInvalidJSONKeyData),
-            //            ("testOnError", testOnError),
-            //            ("testOnStatusCodeError", testOnStatusCodeError)
-        ]
-    }()
-    
     var networkService: NetworkServiceProviding!
     
     var networkAccess = NetworkAccessMock()
@@ -52,7 +40,7 @@ class NetworkServiceTest: XCTestCase {
     
     var resource: Resource<Train> {
         let request = URLRequest(path:"train", baseURL: baseURL)
-        return Resource(resource: JSONResource<Train>(request: request))
+        return Resource(request: request, decoder: JSONDecoder())
     }
     
     override func setUp() {
@@ -70,7 +58,7 @@ class NetworkServiceTest: XCTestCase {
             XCTAssertEqual(response, .defaultMock)
             expection.fulfill()
             }, onError: { _ in
-                XCTFail()
+                XCTFail("Should not call error block")
         })
         
         waitForExpectations(timeout: 1, handler: nil)
@@ -87,7 +75,7 @@ class NetworkServiceTest: XCTestCase {
         //When
         var capturedError: NetworkError?
         networkService.request(resource, onCompletion: { _ in
-            XCTFail()
+            XCTFail("Should not call success block")
             }, onError: { error in
                 capturedError = error
                 expection.fulfill()
@@ -95,36 +83,14 @@ class NetworkServiceTest: XCTestCase {
         
         //Then
         waitForExpectations(timeout: 1, handler: nil)
-        guard let error = capturedError else {
-            XCTFail()
-            return
-        }
-        switch error {
-        case .serverError(let response, let data):
+        
+        switch capturedError {
+        case .serverError(let response, let data)?:
             XCTAssertNil(response)
             XCTAssertNil(data)
         default:
-            XCTFail()
+            XCTFail("Expect serverError")
         }
-    }
-    
-    func testInvalidData() {
-        //Given
-        networkAccess.changeMock(data: Train.invalidJSONData, response: nil, error: nil)
-        
-        //When
-        let expection = expectation(description: "testInvalidData")
-        networkService.request(resource, onCompletion: { _ in
-            XCTFail()
-            }, onError: { error in
-                if case .serializationError(_, _) = error {
-                    expection.fulfill()
-                } else {
-                    XCTFail()
-                }
-        })
-        
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testRequest_withFailingSerialization() {
@@ -134,12 +100,12 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         networkService.request(resource, onCompletion: { _ in
-            XCTFail()
+            XCTFail("Should not call success block")
         }, onError: { (error: NetworkError) in
                 if case .serializationError(_, _) = error {
                     expection.fulfill()
                 } else {
-                    XCTFail()
+                    XCTFail("Expects serializationError")
                 }
         })
         
@@ -160,7 +126,7 @@ class NetworkServiceTest: XCTestCase {
                 case .requestError:
                     expection.fulfill()
                 default:
-                    XCTFail()
+                    XCTFail("Expects requestError")
                 }
         })
         
@@ -188,7 +154,7 @@ class NetworkServiceTest: XCTestCase {
                     XCTAssertEqual(data, self.testData)
                     expection.fulfill()
                 default:
-                    XCTFail()
+                    XCTFail("Expects unauthorized")
                 }
         })
         
