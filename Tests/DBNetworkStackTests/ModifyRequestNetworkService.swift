@@ -45,7 +45,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         let modification: Array<(URLRequestConvertible) -> URLRequestConvertible> = [ { request in
             return request.appending(queryParameters: ["key": "1"])
             } ]
-        let networkService: NetworkServiceProviding = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
+        let networkService: NetworkService = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
         let request = URLRequest(path: "/trains", baseURL: url)
         let ressource = Resource<Int>(request: request, parse: { _ in return 1 })
         

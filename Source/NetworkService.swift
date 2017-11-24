@@ -22,39 +22,71 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 31.08.16.
+//  Created by Lukas Schmidt on 21.07.16.
 //
 
 import Foundation
 import Dispatch
 
 /**
- `NetworkService` handles network request for resources by using a given `NetworkAccessProviding`
+ `NetworkService` provides access to remote resources.
  */
-public final class NetworkService: NetworkServiceProviding {
-    let networkAccess: NetworkAccess
-    let networkResponseProcessor: NetworkResponseProcessor
+public protocol NetworkService {
+    /**
+     Fetches a resource asynchronously from remote location.
+     
+     - parameter queue: The DispatchQueue to execute the completion and error block on.
+     - parameter resource: The resource you want to fetch.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - returns: the request
+     */
+    @discardableResult
+    func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+                 onError: @escaping (NetworkError) -> Void) -> NetworkTask
+}
+
+public extension NetworkService {
+    /**
+     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
+     
+     ```swift
+     
+     let networkService: NetworkService = //
+     let resource: Ressource<String> = //
+     
+     networkService.request(resource, onCompletion: { htmlText in
+        print(htmlText)
+     }, onError: { error in
+        //Handle errors
+     })
+     ```
+     
+     - parameter resource: The resource you want to fetch.
+     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - returns: the request
+     */
+    @discardableResult
+    func request<Result>(_ resource: Resource<Result>, onCompletion: @escaping (Result) -> Void,
+                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+        return request(queue: .main, resource: resource, onCompletionWithResponse: { model, _ in onCompletion(model) }, onError: onError)
+    }
     
     /**
-     Creates an `NetworkService` instance with a given networkAccess and a map of endPoints
+     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
      
-     - parameter networkAccess: provides basic access to the network.
-     - parameter endPoints: map of baseURLKey -> baseURLs
+     - parameter resource: The resource you want to fetch.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - returns: the request
      */
-    public init(networkAccess: NetworkAccess) {
-        self.networkAccess = networkAccess
-        self.networkResponseProcessor = NetworkResponseProcessor()
-    }
-    
     @discardableResult
-    public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTask {
-        let request = resource.request.asURLRequest()
-        let dataTask = networkAccess.load(request: request, callback: { data, response, error in
-            self.networkResponseProcessor.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,
-                                      error: error, onCompletion: onCompletionWithResponse, onError: onError)
-        })
-        return dataTask
+    func request<Result>(_ resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+        return request(queue: .main, resource: resource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
     }
-    
 }

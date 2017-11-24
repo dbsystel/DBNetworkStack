@@ -29,7 +29,7 @@
 import Foundation
 import Dispatch
 
-public class NetworkServiceMock: NetworkServiceProviding {
+public class NetworkServiceMock: NetworkService {
     private var onErrorCallback: ((NetworkError) -> Void)?
     private var onSuccess: ((Data, HTTPURLResponse) -> Void)?
     private var onTypedSuccess: ((Any, HTTPURLResponse) -> Void)?

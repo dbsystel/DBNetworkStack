@@ -33,8 +33,8 @@ import Dispatch
  `RetryNetworkService` can request resource. When a request fails with a given condtion it can retry the request after a given time interval.
  The count of retry attemps can be configured as well.
  */
-public final class RetryNetworkService: NetworkServiceProviding {
-    private let networkService: NetworkServiceProviding
+public final class RetryNetworkService: NetworkService {
+    private let networkService: NetworkService
     private let numberOfRetries: Int
     private let idleTimeInterval: TimeInterval
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void
@@ -48,7 +48,7 @@ public final class RetryNetworkService: NetworkServiceProviding {
     ///   - idleTimeInterval: time between error and retry
     ///   - shouldRetry: closure which evaluated if error should be retry
     ///   - dispatchRetry: closure where to dispatch the waiting
-    public init(networkService: NetworkServiceProviding, numberOfRetries: Int,
+    public init(networkService: NetworkService, numberOfRetries: Int,
                 idleTimeInterval: TimeInterval, shouldRetry: @escaping (NetworkError) -> Bool,
                 dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void = { deadline, execute in
             DispatchQueue.global(qos: .utility).asyncAfter(deadline: deadline, execute: execute)
