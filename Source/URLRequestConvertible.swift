@@ -106,9 +106,6 @@ extension Array where Element == URLQueryItem {
         return items
     }
     
-    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> [URLQueryItem] {
-        return appending(queryItems: queryParameters.asURLQueryItems(), overrideExisting: overrideExisting)
-    }
 }
 
 extension Dictionary where Key == String, Value == String {
