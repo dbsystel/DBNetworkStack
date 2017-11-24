@@ -32,7 +32,7 @@ import Dispatch
  `NetworkService` handles network request for resources by using a given `NetworkAccessProviding`
  */
 public final class NetworkService: NetworkServiceProviding {
-    let networkAccess: NetworkAccessProviding
+    let networkAccess: NetworkAccess
     let networkResponseProcessor: NetworkResponseProcessor
     
     /**
@@ -41,14 +41,14 @@ public final class NetworkService: NetworkServiceProviding {
      - parameter networkAccess: provides basic access to the network.
      - parameter endPoints: map of baseURLKey -> baseURLs
      */
-    public init(networkAccess: NetworkAccessProviding) {
+    public init(networkAccess: NetworkAccess) {
         self.networkAccess = networkAccess
         self.networkResponseProcessor = NetworkResponseProcessor()
     }
     
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting {
+                        onError: @escaping (NetworkError) -> Void) -> NetworkTask {
         let request = resource.request.asURLRequest()
         let dataTask = networkAccess.load(request: request, callback: { data, response, error in
             self.networkResponseProcessor.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,

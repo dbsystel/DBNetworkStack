@@ -1,4 +1,6 @@
 //
+//  URLSessionNetworkAccess.swift
+//
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
@@ -20,8 +22,30 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
+//  Created by Lukas Schmidt on 05.09.16.
+//
 
 import Foundation
 
-extension URLSessionDataTask: NetworkTaskRepresenting {
+/**
+ Adds conformens to `NetworkAccessProviding`. `URLSession` can now be used as a networkprovider.
+ */
+extension URLSession: NetworkAccess {
+    /**
+     Fetches a resource asynchrony from remote location.
+     
+     - parameter request: The resource you want to fetch.
+     - parameter callback: Callback which gets called when the request finishes.
+     
+     - returns: the running network task
+     */
+    public func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTask {
+        let task = dataTask(with: request, completionHandler: { data, response, error in
+            callback(data, response as? HTTPURLResponse, error)
+        })
+        
+        task.resume()
+        
+        return task
+    }
 }

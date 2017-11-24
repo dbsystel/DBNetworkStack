@@ -28,14 +28,14 @@
 import Foundation
 import DBNetworkStack
 
-class NetworkAccessMock: NetworkAccessProviding {
+class NetworkAccessMock: NetworkAccess {
     fileprivate(set) var data: Data?
     fileprivate(set) var response: HTTPURLResponse?
     fileprivate(set) var error: NSError?
     
     fileprivate(set) var request: URLRequest?
     
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
+    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTask {
         self.request = request
         
         callback(data, response, error)

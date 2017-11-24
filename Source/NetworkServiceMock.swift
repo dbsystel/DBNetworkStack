@@ -41,11 +41,11 @@ public class NetworkServiceMock: NetworkServiceProviding {
     /// Last executed request
     public var lastRequest: URLRequestConvertible?
     /// Set this to hava a custom networktask
-    public var nextNetworkTask: NetworkTaskRepresenting?
+    public var nextNetworkTask: NetworkTask?
 
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                 onError: @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting {
+                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
 
         lastRequest = resource.request
         requestCount += 1

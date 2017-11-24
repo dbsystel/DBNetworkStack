@@ -31,7 +31,7 @@ public enum NetworkTaskMockState {
     case canceled, resumed, suspended
 }
 
-public class NetworkTaskMock: NetworkTaskRepresenting {
+public class NetworkTaskMock: NetworkTask {
     
     public init() {}
     public var state: NetworkTaskMockState?
