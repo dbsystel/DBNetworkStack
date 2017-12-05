@@ -49,7 +49,7 @@ networkService.request(resource, onCompletion: { htmlText in
 
 ```
 
-## Loade types conforming to Swift-`Decodable`
+## Load types conforming to Swift-`Decodable`
 ```swift
 struct IPOrigin: Decodable {
     let origin: String
