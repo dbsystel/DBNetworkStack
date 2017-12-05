@@ -82,19 +82,3 @@ public extension URLRequestConvertible {
         return replacingAllQueryItems(with: parameters.asURLQueryItems() )
     }
 }
-
-//extension Dictionary {
-//    /// Creates a new `Dictionary` with all key and their values merged. Keep in mind that this overrides all keys/values which are already contained.
-//    ///
-//    /// - Parameter HTTPHeaderFields: the header fileds to add to the request
-//    /// - Returns: a new `NetworkRequestRepresening`
-//    func merged(with dictionary: Dictionary<Key, Value>) -> Dictionary<Key, Value> {
-//        var copySelf = self
-//        for (key, value) in dictionary {
-//            copySelf[key] = value
-//        }
-//
-//        return copySelf
-//    }
-//}
-
