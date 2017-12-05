@@ -55,7 +55,7 @@ public protocol NetworkServiceProviding {
      ```swift
      
      let networkService: NetworkServiceProviding = //
-     let resource: Ressource<String> = //
+     let resource: Resource<String> = //
      
      networkService.request(resource, onCompletionWithResponse: { htmlText, response in
         print(htmlText)
@@ -88,7 +88,7 @@ public extension NetworkServiceProviding {
      ```swift
      
      let networkService: NetworkServiceProviding = //
-     let resource: Ressource<String> = //
+     let resource: Resource<String> = //
      
      networkService.request(resource, onCompletion: { htmlText in
         print(htmlText)
@@ -116,7 +116,7 @@ public extension NetworkServiceProviding {
      ```swift
      
      let networkService: NetworkServiceProviding = //
-     let resource: Ressource<String> = //
+     let resource: Resource<String> = //
      
      networkService.request(resource, onCompletionWithResponse: { htmlText, response in
         print(htmlText)

@@ -42,10 +42,10 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
             } ]
         let networkService: NetworkServiceProviding = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
         let request = URLRequest(path: "/trains", baseURL: url)
-        let ressource = Resource<Int>(request: request, parse: { _ in return 1 })
+        let resource = Resource<Int>(request: request, parse: { _ in return 1 })
         
         //When
-        networkService.request(ressource, onCompletion: { _ in }, onError: { _ in })
+        networkService.request(resource, onCompletion: { _ in }, onError: { _ in })
         
         //Then
         XCTAssert(networkServiceMock.lastRequest?.asURLRequest().url?.absoluteString.contains("key=1") ?? false)

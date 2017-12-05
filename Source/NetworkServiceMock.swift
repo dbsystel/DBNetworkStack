@@ -29,7 +29,7 @@ import Dispatch
  ```swift
  //Given
  let networkServiceMock = NetworkServiceMock()
- let resource: Ressource<String> = //
+ let resource: Resource<String> = //
  
  //When
  // Your test code
@@ -60,7 +60,7 @@ public final class NetworkServiceMock: NetworkServiceProviding {
      ```swift
      
      let networkService: NetworkServiceProviding = //
-     let resource: Ressource<String> = //
+     let resource: Resource<String> = //
      
      networkService.request(resource, onCompletion: { htmlText in
      print(htmlText)

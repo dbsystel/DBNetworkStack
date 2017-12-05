@@ -32,7 +32,7 @@ class ResourceTest: XCTestCase {
         return [
             ("testResource", testResource),
             ("testResourceWithInvalidData", testResourceWithInvalidData),
-            ("testCreateRessourceFromOtherRessource", testCreateRessourceFromOtherRessource)
+            ("testCreateResourceFromOtherResource", testCreateResourceFromOtherResource)
         ]
     }()
     
@@ -61,13 +61,13 @@ class ResourceTest: XCTestCase {
         } catch { }
     }
     
-    func testCreateRessourceFromOtherRessource() {
+    func testCreateResourceFromOtherResource() {
         //Given
         let arrayResource = JSONArrayResource<Train>(request: request)
         
         //When
-        let ressource = Resource(resource: arrayResource)
+        let resource = Resource(resource: arrayResource)
         
-        XCTAssert(ressource is Resource<Array<Train>>)
+        XCTAssert(resource is Resource<Array<Train>>)
     }
 }

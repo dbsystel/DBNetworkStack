@@ -25,7 +25,7 @@ import Foundation
 
 extension Resource where Model: Decodable {
     
-    /// Creates an instace of Ressource where the result type is `Decodable` and
+    /// Creates an instace of Resource where the result type is `Decodable` and
     /// can be decoded with the given decoder
     ///
     /// - Parameters:

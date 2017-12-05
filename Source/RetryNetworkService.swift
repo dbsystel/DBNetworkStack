@@ -61,7 +61,7 @@ public final class RetryNetworkService: NetworkServiceProviding {
      ```swift
      
      let networkService: NetworkServiceProviding = //
-     let resource: Ressource<String> = //
+     let resource: Resource<String> = //
      
      networkService.request(resource, onCompletion: { htmlText in
      print(htmlText)
