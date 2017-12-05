@@ -58,7 +58,7 @@ class RetryNetworkserviceTest: XCTestCase {
             block()
         }).request(resource, onCompletionWithResponse: { _, _ in
         }, onError: { _ in
-            XCTFail()
+            XCTFail("Expects to not call error block")
         })
         networkServiceMock.returnError(with: .unknownError, count: errorCount)
         
@@ -79,8 +79,9 @@ class RetryNetworkserviceTest: XCTestCase {
             executedRetrys += 1
             block()
         }).request(resource, onCompletion: { _ in
-            XCTFail()
+             XCTFail("Expects to not call completion block")
         }, onError: { _ in
+            XCTFail("Expects to not call error block")
         })
         networkServiceMock.returnError(with: .unknownError, count: 3)
         
@@ -99,10 +100,10 @@ class RetryNetworkserviceTest: XCTestCase {
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
                                    idleTimeInterval: 0, shouldRetry: { _ in return shoudlRetry },
                                    dispatchRetry: { _, block in
-            XCTFail()
+            XCTFail("Expects to not retry")
             block()
         }).request(resource, onCompletion: { _ in
-            XCTFail()
+            XCTFail("Expects to not call completion block")
         }, onError: { error in
            capturedError = error
         })

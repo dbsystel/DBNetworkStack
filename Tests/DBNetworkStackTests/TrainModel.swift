@@ -32,30 +32,20 @@ struct Train: Decodable {
     let name: String
 }
 
-extension Train: JSONMappable {
-    init(object: Dictionary<String, Any>) throws {
-        if let name = object["name"] as? String {
-            self.name = name
-        } else {
-            throw NSError(domain: "", code: 0, userInfo: nil)
-        }
-    }
-}
-
 extension Train {
     static var validJSONData: Data! {
-        return "{ \"name\": \"ICE\"}".data(using: String.Encoding.utf8)
+        return "{ \"name\": \"ICE\"}".data(using: .utf8)
     }
     
     static var invalidJSONData: Data! {
-        return "{ name: \"ICE\"}".data(using: String.Encoding.utf8)
+        return "{ name: \"ICE\"}".data(using: .utf8)
     }
     
     static var JSONDataWithInvalidKey: Data! {
-        return "{ \"namee\": \"ICE\"}".data(using: String.Encoding.utf8)
+        return "{ \"namee\": \"ICE\"}".data(using: .utf8)
     }
     
     static var validJSONArrayData: Data! {
-        return "[{ \"name\": \"ICE\"}, { \"name\": \"IC\"}, { \"name\": \"TGV\"}]".data(using: String.Encoding.utf8)
+        return "[{ \"name\": \"ICE\"}, { \"name\": \"IC\"}, { \"name\": \"TGV\"}]".data(using: .utf8)
     }
 }

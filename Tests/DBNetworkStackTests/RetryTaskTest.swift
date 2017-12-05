@@ -146,7 +146,7 @@ class RetryTaskTest: XCTestCase {
         }, onError: { error in
             capturedError = error
         }, retryAction: { _, _ in
-            XCTFail()
+            XCTFail("Expects not to retry")
             return NetworkTaskMock()
         }, dispatchRetry: { _, block in
             block()
@@ -172,7 +172,7 @@ class RetryTaskTest: XCTestCase {
                                                                 
         }, onError: { _ in
         }, retryAction: { _, _ in
-            XCTFail()
+            XCTFail("Expects not to retry")
             return NetworkTaskMock()
         }, dispatchRetry: { _, block in
             block()
@@ -194,7 +194,7 @@ class RetryTaskTest: XCTestCase {
                                                                 
         }, onError: { _ in
         }, retryAction: { _, _ in
-            XCTFail()
+            XCTFail("Expects not to retry")
             return NetworkTaskMock()
         }, dispatchRetry: { _, block in
             block()
@@ -216,7 +216,7 @@ class RetryTaskTest: XCTestCase {
                                                                 
         }, onError: { _ in
         }, retryAction: { _, _ in
-            XCTFail()
+            XCTFail("Expects not to retry")
             return NetworkTaskMock()
         }, dispatchRetry: { _, block in
             block()
