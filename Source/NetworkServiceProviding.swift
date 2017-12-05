@@ -98,7 +98,7 @@ public extension NetworkServiceProviding {
      ```
      
      - parameter resource: The element you want to fetch. It matches the type of your resource.
-     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onCompletion: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
      - returns: a running network task

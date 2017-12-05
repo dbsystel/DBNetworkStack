@@ -70,7 +70,7 @@ public final class NetworkServiceMock: NetworkServiceProviding {
      ```
      
      - parameter resource: The resource you want to fetch.
-     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onCompletion: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
      - returns: the request
