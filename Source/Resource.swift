@@ -42,9 +42,3 @@ public struct Resource<Model> {
         self.parse = parse
     }
 }
-
-public extension Resource {
-    init<R: ResourceModeling>(resource: R) where Model == R.Model {
-        self = Resource(request: resource.request, parse: resource.parse)
-    }
-}

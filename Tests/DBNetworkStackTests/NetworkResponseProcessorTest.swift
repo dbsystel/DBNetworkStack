@@ -76,7 +76,7 @@ class NetworkResponseProcessingTests: XCTestCase {
                 case .unknownError?:
                     XCTAssert(true)
                 default:
-                    XCTFail()
+                    XCTFail("Expects unknownError")
                 }
                 
                 XCTAssertEqual(recievedData, data)

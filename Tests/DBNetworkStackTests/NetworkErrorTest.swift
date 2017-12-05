@@ -39,17 +39,15 @@ class NetworkErrorTest: XCTestCase {
         let expectedResponse = urlResponseWith(statusCode: 400)
         
         //When
-        guard let error = NetworkError(response: expectedResponse, data: testData) else {
-            return XCTFail()
-        }
+         let error = NetworkError(response: expectedResponse, data: testData)
         
         //Then
         switch error {
-        case .clientError(let response, let data):
+        case .clientError(let response, let data)?:
             XCTAssertEqual(response, expectedResponse)
             XCTAssertEqual(data, testData)
         default:
-            XCTFail()
+            XCTFail("Expects clientError")
         }
     }
     
@@ -58,17 +56,15 @@ class NetworkErrorTest: XCTestCase {
         let expectedResponse = urlResponseWith(statusCode: 401)
         
         //When
-        guard let error = NetworkError(response: expectedResponse, data: testData) else {
-            return XCTFail()
-        }
+        let error = NetworkError(response: expectedResponse, data: testData)
         
         //Then
         switch error {
-        case .unauthorized(let response, let data):
+        case .unauthorized(let response, let data)?:
             XCTAssertEqual(response, expectedResponse)
             XCTAssertEqual(data, testData)
         default:
-            XCTFail()
+            XCTFail("Expects unauthorized")
         }
     }
     
@@ -86,18 +82,17 @@ class NetworkErrorTest: XCTestCase {
     func testInit_WithHTTPStatusCode511() {
         //Given
         let expectedResponse = urlResponseWith(statusCode: 511)
+        
         //When
-        guard let error = NetworkError(response: expectedResponse, data: testData) else {
-            return XCTFail()
-        }
+        let error = NetworkError(response: expectedResponse, data: testData)
         
         //Then
         switch error {
-        case .serverError(let response, let data):
+        case .serverError(let response, let data)?:
             XCTAssertEqual(response, expectedResponse)
             XCTAssertEqual(data, testData)
         default:
-            XCTFail()
+            XCTFail("Expects serverError")
         }
     }
     
