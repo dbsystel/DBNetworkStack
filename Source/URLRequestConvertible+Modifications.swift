@@ -32,7 +32,7 @@ public extension URLRequestConvertible {
     /// - Returns: a new `URLRequestConvertible`
     func added(HTTPHeaderFields: [String: String]) -> URLRequestConvertible {
         var request = asURLRequest()
-        let headerFiels = (request.allHTTPHeaderFields ?? [:]).merging(HTTPHeaderFields, uniquingKeysWith: {_, newValue in newValue })
+        let headerFiels = (request.allHTTPHeaderFields ?? [:]).merging(HTTPHeaderFields, uniquingKeysWith: { $1 })
         request.allHTTPHeaderFields = headerFiels
         
         return request
