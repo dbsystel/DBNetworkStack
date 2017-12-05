@@ -48,13 +48,12 @@ class DecodableResoureTest: XCTestCase {
         XCTAssertEqual(fetchedTrainName, "ICE")
     }
     
-    func testResource_WithInvalidData() {
+    func testResource_WithInvalidData() throws {
         //When
         do {
             _ = try resource.parse(Train.invalidJSONData)
-            XCTFail()
-        } catch {
-        }
+            XCTFail("Expected method to throws")
+        } catch { }
     }
     
 }

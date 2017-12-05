@@ -43,21 +43,6 @@ extension URLRequest: URLRequestConvertible {
 
 extension URLRequest {
     
-    @available(*, deprecated, message: "Use the new initializer using [String:String]? as the parameters value")
-    init(path: String, baseURL: URL,
-                HTTPMethod: HTTPMethod = .GET, parameters: [String: Any]? = nil,
-                body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
-        let mappedParameters: [String: String]? = parameters.map {
-            var convertedParams = [String: String]()
-            for (key, value) in $0 {
-                convertedParams[key] = "\(value)"
-            }
-            return convertedParams
-        }
-        
-        self.init(path: path, baseURL: baseURL, HTTPMethod: HTTPMethod, parameters: mappedParameters, body: body, allHTTPHeaderFields: allHTTPHeaderFields)
-    }
-    
     public init(path: String, baseURL: URL,
                 HTTPMethod: HTTPMethod = .GET, parameters: [String: String]? = nil,
                 body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
@@ -106,9 +91,6 @@ extension Array where Element == URLQueryItem {
         return items
     }
     
-    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> [URLQueryItem] {
-        return appending(queryItems: queryParameters.asURLQueryItems(), overrideExisting: overrideExisting)
-    }
 }
 
 extension Dictionary where Key == String, Value == String {
