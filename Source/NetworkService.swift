@@ -25,29 +25,56 @@ import Foundation
 import Dispatch
 
 /**
- `NetworkService` executes network request with resources. It uses a `NetworkAccessProviding` to send requests to the network.
- 
- - seealso: `NetworkServiceProviding`
+ `NetworkService` provides access to remote resources.
  */
-public final class NetworkService: NetworkServiceProviding {
-    private let networkAccess: NetworkAccessProviding
-    private let networkResponseProcessor: NetworkResponseProcessor
-    
+public protocol NetworkService {
     /**
-     Creates an `NetworkService` instance with a given networkAccess.
+     Fetches a resource asynchronously from remote location.
      
-     - parameter networkAccess: provides access to the network.
+     - parameter queue: The DispatchQueue to execute the completion and error block on.
+     - parameter resource: The resource you want to fetch.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - returns: the request
      */
-    public init(networkAccess: NetworkAccessProviding) {
-        self.networkAccess = networkAccess
-        self.networkResponseProcessor = NetworkResponseProcessor()
+    @discardableResult
+    func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+                 onError: @escaping (NetworkError) -> Void) -> NetworkTask
+}
+
+public extension NetworkService {
+    /**
+     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
+     
+     ```swift
+     
+     let networkService: NetworkService = //
+     let resource: Ressource<String> = //
+     
+     networkService.request(resource, onCompletion: { htmlText in
+        print(htmlText)
+     }, onError: { error in
+        //Handle errors
+     })
+     ```
+     
+     - parameter resource: The resource you want to fetch.
+     - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - returns: the request
+     */
+    @discardableResult
+    func request<Result>(_ resource: Resource<Result>, onCompletion: @escaping (Result) -> Void,
+                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+        return request(queue: .main, resource: resource, onCompletionWithResponse: { model, _ in onCompletion(model) }, onError: onError)
     }
     
     /**
      Fetches a resource asynchronously from remote location
      
      ```swift
-     
      let networkService: NetworkServiceProviding = //
      let resource: Resource<String> = //
      
@@ -65,14 +92,8 @@ public final class NetworkService: NetworkServiceProviding {
      - returns: a running network task
      */
     @discardableResult
-    public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting {
-        let request = resource.request.asURLRequest()
-        let dataTask = networkAccess.load(request: request, callback: { data, response, error in
-            self.networkResponseProcessor.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,
-                                      error: error, onCompletion: onCompletionWithResponse, onError: onError)
-        })
-        return dataTask
+    func request<Result>(_ resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+        return request(queue: .main, resource: resource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
     }
-    
 }

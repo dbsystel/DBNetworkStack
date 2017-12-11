@@ -26,7 +26,7 @@ import Foundation
 /**
  Adds conformens to `NetworkAccessProviding`. `URLSession` can now be used as a networkprovider.
  */
-extension URLSession: NetworkAccessProviding {
+extension URLSession: NetworkAccess {
     /**
      Fetches a resource asynchrony from remote location.
      
@@ -35,7 +35,7 @@ extension URLSession: NetworkAccessProviding {
      
      - returns: the running network task
      */
-    public func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
+    public func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTask {
         let task = dataTask(with: request, completionHandler: { data, response, error in
             callback(data, response as? HTTPURLResponse, error)
         })

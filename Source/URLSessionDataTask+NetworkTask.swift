@@ -23,28 +23,4 @@
 
 import Foundation
 
-/**
- `NetworkTaskRepresenting` is a task which runs async to fetch data.
-  */
-public protocol NetworkTaskRepresenting: class {
-    /**
-     Cancels a task.
-     */
-    func cancel()
-    
-    /**
-     Resumes a task.
-     */
-    func resume()
-    
-    /**
-     Suspends a task.
-     */
-    func suspend()
-    
-    /**
-     Contains the current progress of a running task.
-     */
-    @available(iOS 11.0, OSX 10.13, watchOS 4.0, tvOS 11.0, *)
-    var progress: Progress { get }
-}
+extension URLSessionDataTask: NetworkTask { }

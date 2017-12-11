@@ -1,6 +1,8 @@
 //
-//  Copyright (C) 2017 DB Systel GmbH.
-//  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
+//  BasicNetworkService.swift
+//
+//  Copyright (C) 2016 DB Systel GmbH.
+//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -20,39 +22,39 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
+//  Created by Lukas Schmidt on 31.08.16.
+//
 
 import Foundation
 import Dispatch
 
 /**
- `ModifyRequestNetworkService` can be composed with a networkService to modify all outgoing requests.
- One could add auth tokens or API keys for specifics URLs.
- 
- - note: Requests can only be modified syncronously.
- - seealso: `NetworkService`
+ `BasicNetworkService` handles network request for resources by using a given `NetworkAccessProviding`
  */
-public final class ModifyRequestNetworkService: NetworkService {
+public final class BasicNetworkService: NetworkService {
+    let networkAccess: NetworkAccess
+    let networkResponseProcessor: NetworkResponseProcessor
     
-    private let requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>
-    private let networkService: NetworkService
-    
-    /// Creates an insatcne of `ModifyRequestNetworkService`.
-    ///
-    /// - Parameters:
-    ///   - networkService: a networkservice.
-    ///   - requestModifications: array of modifications to modify requests.
-    public init(networkService: NetworkService, requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>) {
-        self.networkService = networkService
-        self.requestModifications = requestModifications
+    /**
+     Creates an `BasicNetworkService` instance with a given networkAccess and a map of endPoints
+     
+     - parameter networkAccess: provides basic access to the network.
+     - parameter endPoints: map of baseURLKey -> baseURLs
+     */
+    public init(networkAccess: NetworkAccess) {
+        self.networkAccess = networkAccess
+        self.networkResponseProcessor = NetworkResponseProcessor()
     }
     
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
                         onError: @escaping (NetworkError) -> Void) -> NetworkTask {
-        let request = requestModifications.reduce(resource.request, { request, modify in
-            return modify(request)
+        let request = resource.request.asURLRequest()
+        let dataTask = networkAccess.load(request: request, callback: { data, response, error in
+            self.networkResponseProcessor.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,
+                                      error: error, onCompletion: onCompletionWithResponse, onError: onError)
         })
-        let newResource = Resource(request: request, parse: resource.parse)
-        return networkService.request(queue: queue, resource: newResource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
+        return dataTask
     }
+    
 }

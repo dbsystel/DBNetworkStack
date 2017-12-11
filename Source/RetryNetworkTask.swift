@@ -25,18 +25,18 @@ import Foundation
 import Dispatch
 
 /// A NetworkTaskRepresenting which can be used together with `RetryNetworkService` to keep a task alife to repeat the task after a given time
-class RetryNetworkTask<T> : NetworkTaskRepresenting {
+class RetryNetworkTask<T> : NetworkTask {
     private let maxmimumNumberOfRetries: Int
     private let idleTimeInterval: TimeInterval
     private let shouldRetry: (NetworkError) -> Bool
-    var originalTask: NetworkTaskRepresenting?
+    var originalTask: NetworkTask?
     
     private var numberOfRetriesLeft: Int
     private let onSuccess: ((T, HTTPURLResponse) -> Void)
     private let onError: ((NetworkError) -> Void)
     private var isCaneled = false
     
-    private let retryAction: (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting
+    private let retryAction: (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTask
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void
     
     /// Creates an instance of `RetryNetworkTaks`
@@ -52,7 +52,7 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
     init(maxmimumNumberOfRetries: Int, idleTimeInterval: TimeInterval, shouldRetry: @escaping (NetworkError) -> Bool,
          onSuccess: @escaping (T, HTTPURLResponse) -> Void,
          onError: @escaping (NetworkError) -> Void,
-         retryAction: @escaping (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting,
+         retryAction: @escaping (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTask,
          dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> Void) -> Void ) {
         
         self.maxmimumNumberOfRetries = maxmimumNumberOfRetries

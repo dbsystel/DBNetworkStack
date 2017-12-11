@@ -41,7 +41,7 @@ import Dispatch
  
  ```
  */
-public final class NetworkServiceMock: NetworkServiceProviding {
+public final class NetworkServiceMock: NetworkService {
     private var onErrorCallback: ((NetworkError) -> Void)?
     private var onSuccess: ((Data, HTTPURLResponse) -> Void)?
     private var onTypedSuccess: ((Any, HTTPURLResponse) -> Void)?
@@ -53,7 +53,7 @@ public final class NetworkServiceMock: NetworkServiceProviding {
     /// Last executed request
     public var lastRequest: URLRequestConvertible?
     /// Set this to hava a custom networktask returned by the mock
-    public var nextNetworkTask: NetworkTaskRepresenting?
+    public var nextNetworkTask: NetworkTask?
 
     /**
      Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
@@ -78,7 +78,7 @@ public final class NetworkServiceMock: NetworkServiceProviding {
      */
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                 onError: @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting {
+                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
 
         lastRequest = resource.request
         requestCount += 1
