@@ -51,7 +51,7 @@ class RetryNetworkserviceTest: XCTestCase {
         var executedRetrys = 0
         
         //When
-        weak var task: NetworkTaskRepresenting?
+        weak var task: NetworkTask?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: numberOfRetries,
                                    idleTimeInterval: 0, shouldRetry: { _ in return true}, dispatchRetry: { _, block in
             executedRetrys += 1
@@ -72,7 +72,7 @@ class RetryNetworkserviceTest: XCTestCase {
         var executedRetrys = 0
         
         //When
-        weak var task: NetworkTaskRepresenting?
+        weak var task: NetworkTask?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
                                    idleTimeInterval: 0, shouldRetry: { _ in return true},
                                    dispatchRetry: { _, block in
@@ -96,7 +96,7 @@ class RetryNetworkserviceTest: XCTestCase {
         var capturedError: NetworkError?
         
         //When
-        weak var task: NetworkTaskRepresenting?
+        weak var task: NetworkTask?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
                                    idleTimeInterval: 0, shouldRetry: { _ in return shoudlRetry },
                                    dispatchRetry: { _, block in

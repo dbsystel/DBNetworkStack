@@ -31,24 +31,24 @@ import Dispatch
 
 /// `ModifyRequestNetworkService` can be composed with a networkService to modify all outgoing requests.
 /// One could add auth tokens or API keys for specifics URLs.
-public final class ModifyRequestNetworkService: NetworkServiceProviding {
+public final class ModifyRequestNetworkService: NetworkService {
     
     private let requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>
-    private let networkService: NetworkServiceProviding
+    private let networkService: NetworkService
     
     /// Creates an insatcne of `ModifyRequestNetworkService`.
     ///
     /// - Parameters:
     ///   - networkService: a networkservice.
     ///   - requestModifications: array of modifications to modify requests.
-    public init(networkService: NetworkServiceProviding, requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>) {
+    public init(networkService: NetworkService, requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>) {
         self.networkService = networkService
         self.requestModifications = requestModifications
     }
     
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting {
+                        onError: @escaping (NetworkError) -> Void) -> NetworkTask {
         let request = requestModifications.reduce(resource.request, { request, modify in
             return modify(request)
         })

@@ -1,5 +1,5 @@
 //
-//  NetworkTaskRepresenting.swift
+//  NetworkAccessProviding.swift
 //
 //  Copyright (C) 2016 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
@@ -22,33 +22,23 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 22.08.16.
+//  Created by Lukas Schmidt on 31.08.16.
 //
 
 import Foundation
 
 /**
- `NetworkTaskRepresenting` is a task which runs async to fetch data.
-  */
-public protocol NetworkTaskRepresenting: class {
+ `NetworkAccessProviding` provides access to the network.
+ */
+public protocol NetworkAccess {
     /**
-     Cancels a task.
+     Fetches a resource asynchrony from remote location.
+     
+     - parameter request: The resource you want to fetch.
+     - parameter callback: Callback which gets called when the request finishes.
+     
+     - returns: the running network task
      */
-    func cancel()
-    
-    /**
-     Resumes a task.
-     */
-    func resume()
-    
-    /**
-     Suspends a task.
-     */
-    func suspend()
-    
-    /**
-     Contains the current progress of a running task.
-     */
-    @available(iOS 11.0, OSX 10.13, watchOS 4.0, tvOS 11.0, *)
-    var progress: Progress { get }
+    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTask
+
 }

@@ -21,12 +21,12 @@ The idea behind this project comes from this [talk.objc.io article](https://talk
 ## Basic Demo
 Lets say you want to fetch a ``html`` string.
 
-First you have to create a service, by providing a network access. You can use URLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```.
+First you have to create a service, by providing a network access. You can use URLSession out of the box or provide your own custom solution by implementing  ```NetworkAccess```.
 
 ```swift
 
 let networkAccess = URLSession(configuration: .default)
-let networkService = NetworkService(networkAccess: networkAccess)
+let networkService = BasicNetworkService(networkAccess: networkAccess)
 
 ```
 
@@ -49,7 +49,7 @@ networkService.request(resource, onCompletion: { htmlText in
 
 ```
 
-## Loade types conforming to `Decodable`
+## Load types conforming to Swift-`Decodable`
 ```swift
 struct IPOrigin: Decodable {
     let origin: String
@@ -84,10 +84,10 @@ The following table shows all the protocols and their default implementations.
 
 | Protocol                         | Default Implementation |
 | -------------------------------- | ---------------------- |
-| ```NetworkAccessProviding```     | ```URLSession```     |
-| ```NetworkServiceProviding```    | ```NetworkService```   |
+| ```NetworkAccess```     | ```URLSession```     |
+| ```NetworkService```    | ```BasicNetworkService```   |
 | ```URLRequestConvertible```  | ```URLRequest```   |
-| ```NetworkTaskRepresenting```    | ```URLSessionTask``` |
+| ```NetworkTask```    | ```URLSessionTask``` |
 
 ## Composable Features
 

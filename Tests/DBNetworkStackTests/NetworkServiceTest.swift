@@ -31,7 +31,7 @@ import XCTest
 
 class NetworkServiceTest: XCTestCase {
     
-    var networkService: NetworkServiceProviding!
+    var networkService: NetworkService!
     
     var networkAccess = NetworkAccessMock()
     
@@ -44,7 +44,7 @@ class NetworkServiceTest: XCTestCase {
     }
     
     override func setUp() {
-        networkService = NetworkService(networkAccess: networkAccess)
+        networkService = BasicNetworkService(networkAccess: networkAccess)
     }
     
     func testRequest_withValidResponse() {
