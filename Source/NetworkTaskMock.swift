@@ -1,7 +1,5 @@
 //
-//  NetworkTaskMock.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
+//  Copyright (C) 2017 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -21,8 +19,6 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
-//
-//  Created by Christian Himmelsbach on 29.09.16.
 //
 
 import Foundation

@@ -1,5 +1,5 @@
 //
-//  Copyright (C) 2016 DB Systel GmbH.
+//  Copyright (C) 2017 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -23,5 +23,4 @@
 
 import Foundation
 
-extension URLSessionDataTask: NetworkTask {
-}
+extension URLSessionDataTask: NetworkTask { }

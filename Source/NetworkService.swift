@@ -1,8 +1,6 @@
 //
-//  NetworkService.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
-//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
+//  Copyright (C) 2017 DB Systel GmbH.
+//  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -21,8 +19,6 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
-//
-//  Created by Lukas Schmidt on 21.07.16.
 //
 
 import Foundation
@@ -76,13 +72,24 @@ public extension NetworkService {
     }
     
     /**
-     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
+     Fetches a resource asynchronously from remote location
+     
+     ```swift
+     let networkService: NetworkServiceProviding = //
+     let resource: Resource<String> = //
+     
+     networkService.request(resource, onCompletion: { htmlText in
+        print(htmlText)
+     }, onError: { error in
+        /Handle errors
+     })
+     ```
      
      - parameter resource: The resource you want to fetch.
-     - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onCompletion: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - returns: the request
+     - returns: a running network task
      */
     @discardableResult
     func request<Result>(_ resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
