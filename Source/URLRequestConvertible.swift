@@ -42,6 +42,15 @@ extension URLRequest: URLRequestConvertible {
 
 extension URLRequest {
     
+    /// Convience initializer for easy request creation.
+    ///
+    /// - Parameters:
+    ///   - path: path to the resource
+    ///   - baseURL: the base url of the resource
+    ///   - HTTPMethod: the HTTP method for the request
+    ///   - parameters: url parameters for the request
+    ///   - body: body data payload
+    ///   - allHTTPHeaderFields: HTTP request header fields
     public init(path: String, baseURL: URL,
                 HTTPMethod: HTTPMethod = .GET, parameters: [String: String]? = nil,
                 body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {

@@ -23,17 +23,23 @@
 
 import Foundation
 
-/**
- `NetworkError` provides a collection of error types which can occur during execution.
- */
+/// `NetworkError` provides a collection of error types which can occur during execution.
 public enum NetworkError: Error {
+    /// The error is unkonw
     case unknownError
+    /// The request was canelled before it finished
     case cancelled
+    /// Missing authorization for the request (HTTP Error 401)
     case unauthorized(response: HTTPURLResponse, data: Data?)
+    /// Invalid payload was send to the server (HTTP Error 400...451)
     case clientError(response: HTTPURLResponse?, data: Data?)
-    case serializationError(error: Error, data: Data?)
-    case requestError(error: Error)
+    /// Error on the server (HTTP Error 500...511)
     case serverError(response: HTTPURLResponse?, data: Data?)
+    /// Parsing the body into expected type failed.
+    case serializationError(error: Error, data: Data?)
+    /// Complete request failed.
+    case requestError(error: Error)
+    
     
     init?(response: HTTPURLResponse?, data: Data?) {
         guard let response = response else {
@@ -90,7 +96,6 @@ extension NetworkError: CustomDebugStringConvertible {
             } else {
                 return "Server error: nil, response: ".appendingContentsOf(data: data)
             }
-
         }
     }
 }
