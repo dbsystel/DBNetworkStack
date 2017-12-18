@@ -46,6 +46,7 @@ public final class NetworkServiceMock: NetworkService {
     private var onSuccess: ((Data, HTTPURLResponse) -> Void)?
     private var onTypedSuccess: ((Any, HTTPURLResponse) -> Void)?
     
+    // Creates an instace of `NetworkServiceMock`
     public init() {}
     
     /// Count of all started requests

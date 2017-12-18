@@ -46,6 +46,16 @@ public final class BasicNetworkService: NetworkService {
         self.networkResponseProcessor = NetworkResponseProcessor()
     }
     
+    /**
+     Fetches a resource asynchronously from remote location.
+     
+     - parameter queue: The DispatchQueue to execute the completion and error block on.
+     - parameter resource: The resource you want to fetch.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     
+     - returns: the request
+     */
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
                         onError: @escaping (NetworkError) -> Void) -> NetworkTask {

@@ -23,27 +23,36 @@
 
 import Foundation
 
-public enum NetworkTaskMockState {
-    case canceled, resumed, suspended
-}
-
+/// Mock implementation for `NetworkTask`.
 public class NetworkTaskMock: NetworkTask {
     
-    public init() {}
-    public var state: NetworkTaskMockState?
+    /// Mock state of the network task
+    public enum State {
+        case canceled, resumed, suspended
+    }
     
+    /// Creates an `NetworkTaskMock` instance
+    public init() {}
+    
+    /// State of the network taks. Can be used to assert.
+    public private(set) var state: State?
+    
+    /// Cancle the request. Sets state to cancled.
     public func cancel() {
         state = .canceled
     }
     
+    /// Resumes the request. Sets state to resumed.
     public func resume() {
         state = .resumed
     }
     
+    /// Suspends the request. Sets state to suspended.
     public func suspend() {
         state = .suspended
     }
     
+    /// Mock progress with constant value `0`
     public var progress: Progress {
         return Progress(totalUnitCount: 0)
     }
