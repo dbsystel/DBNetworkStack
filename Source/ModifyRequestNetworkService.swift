@@ -28,6 +28,7 @@ import Dispatch
  `ModifyRequestNetworkService` can be composed with a networkService to modify all outgoing requests.
  One could add auth tokens or API keys for specifics URLs.
  
+ **Example**:
  ```swift
  let networkService: NetworkService = //
  let modifyRequestNetworkService = ModifyRequestNetworkService(networkService: networkService, requestModifications: [ { request in
@@ -59,6 +60,7 @@ public final class ModifyRequestNetworkService: NetworkService {
      Once execution is finished either the completion block or the error block gets called.
      You can decide on which queue these blocks get called.
      
+     **Example**:
      ```swift
      let networkService: NetworkService = //
      let resource: Ressource<String> = //

@@ -31,10 +31,13 @@ import Dispatch
 /**
  `BasicNetworkService` handles network request for resources by using a given `NetworkAccessProviding`.
  
+ **Example**:
  ```swift
  // Just use an URLSession for the networkAccess.
  let basicNetworkService: NetworkService = BasicNetworkService(networkAccess: URLSession(configuration: .default))
  ```
+ 
+ - seealso: `NetworkService`
  */
 public final class BasicNetworkService: NetworkService {
     let networkAccess: NetworkAccess
@@ -57,6 +60,7 @@ public final class BasicNetworkService: NetworkService {
      Once execution is finished either the completion block or the error block gets called.
      You can decide on which queue these blocks get called.
      
+     **Example**:
      ```swift
      let networkService: NetworkService = //
      let resource: Ressource<String> = //

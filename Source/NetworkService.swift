@@ -27,7 +27,8 @@ import Dispatch
 /**
  `NetworkService` provides access to remote resources.
  
-  - seealso: `BasicNetworkService`
+ - seealso: `BasicNetworkService`
+ - seealso: `NetworkServiceMock`
  */
 public protocol NetworkService {
     /**
@@ -36,6 +37,7 @@ public protocol NetworkService {
      Once execution is finished either the completion block or the error block gets called.
      You can decide on which queue these blocks get called.
      
+     **Example**:
      ```swift
      let networkService: NetworkService = //
      let resource: Ressource<String> = //
@@ -66,6 +68,7 @@ public extension NetworkService {
      Once execution is finished either the completion block or the error block gets called.
      These blocks are called on the main queue.
      
+     **Example**:
      ```swift
      let networkService: NetworkService = //
      let resource: Ressource<String> = //
@@ -95,6 +98,7 @@ public extension NetworkService {
      Once execution is finished either the completion block or the error block gets called.
      These blocks are called on the main queue.
      
+     **Example**:
      ```swift
      let networkService: NetworkService = //
      let resource: Resource<String> = //

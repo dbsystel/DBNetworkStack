@@ -27,6 +27,7 @@ import Dispatch
 /**
  Mocks a `NetworkServiceProviding`. You can configure expected results or errors to have a fully functional mock.
  
+ **Example**:
  ```swift
  //Given
  let networkServiceMock = NetworkServiceMock()
@@ -40,6 +41,8 @@ import Dispatch
  //Test your expectations
  
  ```
+ 
+ - seealso: `NetworkService`
  */
 public final class NetworkServiceMock: NetworkService {
     private var onErrorCallback: ((NetworkError) -> Void)?
@@ -62,6 +65,7 @@ public final class NetworkServiceMock: NetworkService {
      Once execution is finished either the completion block or the error block gets called.
      You can decide on which queue these blocks get called.
      
+     **Example**:
      ```swift
      let networkService: NetworkService = //
      let resource: Ressource<String> = //

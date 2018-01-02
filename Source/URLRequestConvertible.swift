@@ -51,6 +51,8 @@ extension URLRequest {
     ///   - parameters: url parameters for the request
     ///   - body: body data payload
     ///   - allHTTPHeaderFields: HTTP request header fields
+    ///
+    /// - Important: path must not start with a `/`
     public init(path: String, baseURL: URL,
                 HTTPMethod: HTTPMethod = .GET, parameters: [String: String]? = nil,
                 body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {

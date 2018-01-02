@@ -27,6 +27,8 @@ import Dispatch
 /**
  `RetryNetworkService` can request resource. When a request fails with a given condtion it can retry the request after a given time interval.
  The count of retry attemps can be configured as well.
+ 
+ - seealso: `NetworkService`
  */
 public final class RetryNetworkService: NetworkService {
     private let networkService: NetworkService
@@ -61,6 +63,7 @@ public final class RetryNetworkService: NetworkService {
      Once execution is finished either the completion block or the error block gets called.
      You can decide on which queue these blocks get called.
      
+     **Example**:
      ```swift
      let networkService: NetworkService = //
      let resource: Ressource<String> = //
