@@ -37,7 +37,7 @@ public class NetworkTaskMock: NetworkTask {
     /// State of the network taks. Can be used to assert.
     public private(set) var state: State?
     
-    /// Cancle the request. Sets state to cancled.
+    /// Cancel the request. Sets state to cancled.
     public func cancel() {
         state = .canceled
     }

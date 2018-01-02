@@ -27,7 +27,7 @@ import Foundation
 public enum NetworkError: Error {
     /// The error is unkonw
     case unknownError
-    /// The request was canelled before it finished
+    /// The request was cancelled before it finished
     case cancelled
     /// Missing authorization for the request (HTTP Error 401)
     case unauthorized(response: HTTPURLResponse, data: Data?)

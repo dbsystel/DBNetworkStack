@@ -66,7 +66,7 @@ public final class RetryNetworkService: NetworkService {
      **Example**:
      ```swift
      let networkService: NetworkService = //
-     let resource: Ressource<String> = //
+     let resource: Resource<String> = //
      
      networkService.request(queue: .main, resource: resource, onCompletionWithResponse: { htmlText, response in
         print(htmlText, response)
@@ -77,8 +77,8 @@ public final class RetryNetworkService: NetworkService {
      
      - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
-     - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
-     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and transforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or transforming fails.
      
      - returns: a running network task
      */
