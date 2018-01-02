@@ -32,7 +32,9 @@
 		C6461F021E01678100E0B081 /* RetryNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F011E01678100E0B081 /* RetryNetworkService.swift */; };
 		C6461F051E0167C900E0B081 /* RetryNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */; };
 		C6461F081E0167FA00E0B081 /* RetryTaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */; };
-		C68FF1F51E1A64CB00A2513F /* Ressource+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */; };
+		C66C7B961FE96CD0009B8C78 /* Resource+Inspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66C7B951FE96CD0009B8C78 /* Resource+Inspect.swift */; };
+		C66C7B991FE96F26009B8C78 /* ResourceInspectTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66C7B971FE96EA8009B8C78 /* ResourceInspectTest.swift */; };
+		C68FF1F51E1A64CB00A2513F /* Resource+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68FF1F41E1A64CB00A2513F /* Resource+Map.swift */; };
 		C69188671EE6865E00BAD320 /* Resource+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69188661EE6865E00BAD320 /* Resource+Decodable.swift */; };
 		C691886A1EE6897900BAD320 /* DecodableResoureTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69188681EE688F700BAD320 /* DecodableResoureTest.swift */; };
 		C699E0771D917501006FE7C6 /* NetworkErrorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C699E0761D917501006FE7C6 /* NetworkErrorTest.swift */; };
@@ -84,7 +86,9 @@
 		C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryNetworkTask.swift; sourceTree = "<group>"; };
 		C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryTaskTest.swift; sourceTree = "<group>"; };
 		C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
-		C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ressource+Map.swift"; sourceTree = "<group>"; };
+		C66C7B951FE96CD0009B8C78 /* Resource+Inspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Inspect.swift"; sourceTree = "<group>"; };
+		C66C7B971FE96EA8009B8C78 /* ResourceInspectTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceInspectTest.swift; sourceTree = "<group>"; };
+		C68FF1F41E1A64CB00A2513F /* Resource+Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Resource+Map.swift"; sourceTree = "<group>"; };
 		C69188661EE6865E00BAD320 /* Resource+Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Decodable.swift"; sourceTree = "<group>"; };
 		C69188681EE688F700BAD320 /* DecodableResoureTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResoureTest.swift; sourceTree = "<group>"; };
 		C699E0761D917501006FE7C6 /* NetworkErrorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkErrorTest.swift; sourceTree = "<group>"; };
@@ -193,8 +197,9 @@
 			isa = PBXGroup;
 			children = (
 				C60BE6801D6B2C46006B0364 /* Resource.swift */,
-				C68FF1F41E1A64CB00A2513F /* Ressource+Map.swift */,
+				C68FF1F41E1A64CB00A2513F /* Resource+Map.swift */,
 				C69188661EE6865E00BAD320 /* Resource+Decodable.swift */,
+				C66C7B951FE96CD0009B8C78 /* Resource+Inspect.swift */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			children = (
 				C69188681EE688F700BAD320 /* DecodableResoureTest.swift */,
 				C60425121D7803CA00FD3B38 /* ResourceTest.swift */,
+				C66C7B971FE96EA8009B8C78 /* ResourceInspectTest.swift */,
 			);
 			name = RessourceTests;
 			sourceTree = "<group>";
@@ -390,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C62925AE1FC5900000607AEA /* URLRequestConvertible+Modifications.swift in Sources */,
+				C66C7B961FE96CD0009B8C78 /* Resource+Inspect.swift in Sources */,
 				C6C395941E04212F00413AD2 /* ModifyRequestNetworkService.swift in Sources */,
 				C622A7961E5C7F6500BB3D17 /* URLRequestConvertible.swift in Sources */,
 				C60BE6901D6B2C46006B0364 /* Resource.swift in Sources */,
@@ -401,7 +408,7 @@
 				C6F235D51D7DA75000E628D8 /* URLSession+NetworkAccess.swift in Sources */,
 				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
 				C6E429721F70ECFF004121F1 /* URLSessionDataTask+NetworkTask.swift in Sources */,
-				C68FF1F51E1A64CB00A2513F /* Ressource+Map.swift in Sources */,
+				C68FF1F51E1A64CB00A2513F /* Resource+Map.swift in Sources */,
 				C604250A1D76F79F00FD3B38 /* BasicNetworkService.swift in Sources */,
 				C6461F051E0167C900E0B081 /* RetryNetworkTask.swift in Sources */,
 				C60BE6AD1D6B3E81006B0364 /* NetworkTask.swift in Sources */,
@@ -425,6 +432,7 @@
 				7C653BC91E09325500199993 /* NetworkResponseProcessorTest.swift in Sources */,
 				C6461F081E0167FA00E0B081 /* RetryTaskTest.swift in Sources */,
 				C691886A1EE6897900BAD320 /* DecodableResoureTest.swift in Sources */,
+				C66C7B991FE96F26009B8C78 /* ResourceInspectTest.swift in Sources */,
 				C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */,
 				C6C395961E0422AF00413AD2 /* ModifyRequestNetworkService.swift in Sources */,
 				C6F7E3101E49DCBA00FA625F /* NetworkTaskMockTests.swift in Sources */,
