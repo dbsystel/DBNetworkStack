@@ -21,14 +21,22 @@
 //
 
 extension Resource {
-    
-    /// This lets on inspect the data payload before it gets parsed.
-    ///
-    /// - Parameter inspector: closure which gets passed the data
-    /// - Returns: a new Resource which get instepcted before parsing
-    public func inspectData(with inspector: @escaping (Data) throws -> Void) -> Resource<Model> {
+    /**
+     This lets one inspect the data payload before data gets parsed.
+     
+     ```swift
+     let resource: Resource<Train> = //
+     resource.inspectData({ data in
+        print(String(bytes: data, encoding: .utf8))
+     }
+     ```
+     
+     - parameter inspector: closure which gets passed the data
+     - returns: a new resource which gets instepcted before parsing
+     */
+    public func inspectData(_ inspector: @escaping (Data) -> Void) -> Resource<Model> {
         return Resource(request: request, parse: { data in
-            try inspector(data)
+            inspector(data)
             return try self.parse(data)
         })
     }

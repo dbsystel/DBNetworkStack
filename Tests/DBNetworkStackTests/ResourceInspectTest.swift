@@ -35,7 +35,7 @@ final class ResourceInspectTest: XCTestCase {
         })
         
         //When
-        let inspectedResource = resource.inspectData(with: { data in
+        let inspectedResource = resource.inspectData({ data in
             capturedInspectedData = data
         })
         let result = try? inspectedResource.parse(data)
