@@ -13,7 +13,6 @@ jazzy \
 --github_url https://github.com/dbsystel/DBNetworkStack \
 --module DBNetworkStack \
 --output docs \
---no-download-badge
 
 # go to the out directory and create a *new* Git repo
 cd docs

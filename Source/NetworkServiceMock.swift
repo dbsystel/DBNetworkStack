@@ -51,6 +51,7 @@ struct NetworkServiceMockCallback {
 /**
  Mocks a `NetworkServiceProviding`. You can configure expected results or errors to have a fully functional mock.
  
+ **Example**:
  ```swift
  //Given
  let networkServiceMock = NetworkServiceMock()
@@ -64,6 +65,8 @@ struct NetworkServiceMockCallback {
  //Test your expectations
  
  ```
+ 
+ - seealso: `NetworkService`
  */
 public final class NetworkServiceMock: NetworkService {
     /// Count of all started requests
@@ -75,28 +78,33 @@ public final class NetworkServiceMock: NetworkService {
     
     private var callbacks: NetworkServiceMockCallback?
     
+    /// Creates an instace of `NetworkServiceMock`
     public init() {}
 
     /**
-     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
+     Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+     Execution happens on no specific queue. It dependes on the network access which queue is used.
+     Once execution is finished either the completion block or the error block gets called.
+     You can decide on which queue these blocks get called.
      
+     **Example**:
      ```swift
-     
-     let networkService: NetworkServiceProviding = //
+     let networkService: NetworkService = //
      let resource: Resource<String> = //
      
-     networkService.request(resource, onCompletion: { htmlText in
-     print(htmlText)
+     networkService.request(queue: .main, resource: resource, onCompletionWithResponse: { htmlText, response in
+        print(htmlText, response)
      }, onError: { error in
-     //Handle errors
+        // Handle errors
      })
      ```
      
+     - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
-     - parameter onCompletion: Callback which gets called when fetching and tranforming into model succeeds.
-     - parameter onError: Callback which gets called when fetching or tranforming fails.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and transforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or transforming fails.
      
-     - returns: the request
+     - returns: a running network task
      */
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,

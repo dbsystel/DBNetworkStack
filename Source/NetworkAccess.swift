@@ -23,18 +23,15 @@
 
 import Foundation
 
-/**
- `NetworkAccessProviding` provides access to the network.
- */
+/// `NetworkAccessProviding` provides access to the network.
 public protocol NetworkAccess {
-    /**
-     Fetches a request asynchrony from remote location.
-     
-     - parameter request: The request you want to fetch.
-     - parameter callback: Callback which gets called when the request finishes.
-     
-     - returns: the running network task
-     */
+    
+    /// Fetches a request asynchrony from remote location.
+    ///
+    /// - Parameters:
+    ///   - request: The request one wants to fetch.
+    ///   - callback: Callback which gets called when the request finishes.
+    /// - Returns: the running network task
     func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTask
 
 }

@@ -26,6 +26,7 @@
  The type can be fetched via HTTP(S) and parsed into the coresponding model object.
  */
 public struct Resource<Model> {
+    /// The request to fetch the resource remote payload
     public let request: URLRequestConvertible
     /**
      Parses data into given Model
