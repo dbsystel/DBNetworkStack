@@ -56,22 +56,25 @@ public final class RetryNetworkService: NetworkService {
     }
     
     /**
-     Fetches a resource asynchronously from remote location.
+     Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+     Execution happens on no specific queue. It dependes on the network access which queue is used.
+     Once execution is finished either the completion block or the error block gets called.
+     You can decide on which queue these blocks get called.
      
      ```swift
+     let networkService: NetworkService = //
+     let resource: Ressource<String> = //
      
-     let networkService: NetworkServiceProviding = //
-     let resource: Resource<String> = //
-     
-     networkService.request(resource, onCompletion: { htmlText in
-     print(htmlText)
+     networkService.request(queue: .main, resource: resource, onCompletionWithResponse: { htmlText, response in
+        print(htmlText, response)
      }, onError: { error in
-     //Handle errors
+        // Handle errors
      })
      ```
      
+     - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
-     - parameter onCompletion: Callback which gets called when fetching and tranforming into model succeeds.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
      - returns: a running network task

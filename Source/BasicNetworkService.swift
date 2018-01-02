@@ -29,7 +29,12 @@ import Foundation
 import Dispatch
 
 /**
- `BasicNetworkService` handles network request for resources by using a given `NetworkAccessProviding`
+ `BasicNetworkService` handles network request for resources by using a given `NetworkAccessProviding`.
+ 
+ ```swift
+ // Just use an URLSession for the networkAccess.
+ let basicNetworkService: NetworkService = BasicNetworkService(networkAccess: URLSession(configuration: .default))
+ ```
  */
 public final class BasicNetworkService: NetworkService {
     let networkAccess: NetworkAccess
@@ -47,14 +52,28 @@ public final class BasicNetworkService: NetworkService {
     }
     
     /**
-     Fetches a resource asynchronously from remote location.
+     Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+     Execution happens on no specific queue. It dependes on the network access which queue is used.
+     Once execution is finished either the completion block or the error block gets called.
+     You can decide on which queue these blocks get called.
+     
+     ```swift
+     let networkService: NetworkService = //
+     let resource: Ressource<String> = //
+     
+     networkService.request(queue: .main, resource: resource, onCompletionWithResponse: { htmlText, response in
+        print(htmlText, response)
+     }, onError: { error in
+        // Handle errors
+     })
+     ```
      
      - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
      - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - returns: the request
+     - returns: a running network task
      */
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,

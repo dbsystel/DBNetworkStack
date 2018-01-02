@@ -26,17 +26,33 @@ import Dispatch
 
 /**
  `NetworkService` provides access to remote resources.
+ 
+  - seealso: `BasicNetworkService`
  */
 public protocol NetworkService {
     /**
-     Fetches a resource asynchronously from remote location.
+     Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+     Execution happens on no specific queue. It dependes on the network access which queue is used.
+     Once execution is finished either the completion block or the error block gets called.
+     You can decide on which queue these blocks get called.
+     
+     ```swift
+     let networkService: NetworkService = //
+     let resource: Ressource<String> = //
+     
+     networkService.request(queue: .main, resource: resource, onCompletionWithResponse: { htmlText, response in
+        print(htmlText, response)
+     }, onError: { error in
+        // Handle errors
+     })
+     ```
      
      - parameter queue: The DispatchQueue to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
      - parameter onCompletionWithResponse: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - returns: the request
+     - returns: a running network task
      */
     @discardableResult
     func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
@@ -45,17 +61,19 @@ public protocol NetworkService {
 
 public extension NetworkService {
     /**
-     Fetches a resource asynchronously from remote location. Completion and Error block will be called on the main thread.
+     Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+     Execution happens on no specific queue. It dependes on the network access which queue is used.
+     Once execution is finished either the completion block or the error block gets called.
+     These blocks are called on the main queue.
      
      ```swift
-     
      let networkService: NetworkService = //
      let resource: Ressource<String> = //
      
      networkService.request(resource, onCompletion: { htmlText in
         print(htmlText)
      }, onError: { error in
-        //Handle errors
+        // Handle errors
      })
      ```
      
@@ -63,7 +81,7 @@ public extension NetworkService {
      - parameter onComplition: Callback which gets called when fetching and tranforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or tranforming fails.
      
-     - returns: the request
+     - returns: a running network task
      */
     @discardableResult
     func request<Result>(_ resource: Resource<Result>, onCompletion: @escaping (Result) -> Void,
@@ -72,16 +90,19 @@ public extension NetworkService {
     }
     
     /**
-     Fetches a resource asynchronously from remote location
+     Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+     Execution happens on no specific queue. It dependes on the network access which queue is used.
+     Once execution is finished either the completion block or the error block gets called.
+     These blocks are called on the main queue.
      
      ```swift
-     let networkService: NetworkServiceProviding = //
+     let networkService: NetworkService = //
      let resource: Resource<String> = //
      
-     networkService.request(resource, onCompletion: { htmlText in
-        print(htmlText)
+     networkService.request(resource, onCompletionWithResponse: { htmlText, httpResponse in
+        print(htmlText, httpResponse)
      }, onError: { error in
-        /Handle errors
+        // Handle errors
      })
      ```
      
