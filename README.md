@@ -70,13 +70,13 @@ networkService.request(resource, onCompletion: { origin in
 
 ## Accessing HTTPResponse
 
-Request your resource and handle the result & response. This is similar to just requesting a resulting model.
+Request your resource and handle the result & http response. This is similar to just requesting a resulting model.
 ```swift
-extension Resource where Model: XMLDocument {
-    public init(request: URLRequestConvertible) {
-        self.init(request: request, parse: { try XMLDocument(data: $0 })
-    }
-}
+networkService.request(resource, onCompletionWithResponse: { origin, response in
+    print(origin, response)
+}, onError: { error in
+    //Handle errors
+})
 ```
 
 ## Protocol oriented architecture / Exchangability
