@@ -57,7 +57,7 @@ extension URLRequest {
                 HTTPMethod: HTTPMethod = .GET, parameters: [String: String]? = nil,
                 body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
         guard let url = URL(string: path, relativeTo: baseURL) else {
-            fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
+            fatalError("Error creating absolute URL from path: \(path), with baseURL: \(baseURL)")
         }
         
         let urlWithParameters: URL
