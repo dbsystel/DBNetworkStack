@@ -112,7 +112,7 @@ The following table shows all the protocols and their default implementations.
 Specify the following in your `Cartfile`:
 
 ```ogdl
-github "dbsystel/dbnetworkstack" ~> 0.7
+github "dbsystel/dbnetworkstack" ~> 1.0
 ```
 
 ### CocoaPods
