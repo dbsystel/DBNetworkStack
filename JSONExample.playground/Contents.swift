@@ -9,7 +9,7 @@ URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
 
 //Prepare NetworkAccess & NetworkService
 let networkAccess = URLSession(configuration: .default)
-let networkService = NetworkService(networkAccess: networkAccess)
+let networkService = BasicNetworkService(networkAccess: networkAccess)
 
 struct IPOrigin: Decodable {
     let origin: String
