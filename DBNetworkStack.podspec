@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "DBNetworkStack"
-  s.version      = "0.7"
+  s.version      = "1.0.0"
   s.summary      = "DBNetworkStack is a network abstraction for fetching request and mapping them to model objects."
 
   # This description is used to generate tags and improve search results.
