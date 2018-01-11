@@ -25,7 +25,7 @@ import Foundation
 import Dispatch
 
 /**
- `BasicNetworkService` handles network request for resources by using a given `NetworkAccessProviding`.
+ `BasicNetworkService` handles network request for resources by using a given `NetworkAccess`.
  
  **Example**:
  ```swift

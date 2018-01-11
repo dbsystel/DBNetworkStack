@@ -26,7 +26,7 @@
 		C61E778C1E49D8A900D55BB2 /* NetworkTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9FD1D9D66A600620563 /* NetworkTaskMock.swift */; };
 		C622A7961E5C7F6500BB3D17 /* URLRequestConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622A7951E5C7F6500BB3D17 /* URLRequestConvertible.swift */; };
 		C62925AE1FC5900000607AEA /* URLRequestConvertible+Modifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62925AD1FC5900000607AEA /* URLRequestConvertible+Modifications.swift */; };
-		C6363D8F1F4ED1500052E9BD /* URLSession+NetworkAccessProvidingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessProvidingTest.swift */; };
+		C6363D8F1F4ED1500052E9BD /* URLSession+NetworkAccessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessTest.swift */; };
 		C6363D901F4ED1950052E9BD /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6363D8B1F4ED0840052E9BD /* URLSessionMock.swift */; };
 		C6363D911F4ED2030052E9BD /* DefaultMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C21A3A1F21FD150004A7EB /* DefaultMocks.swift */; };
 		C6461F021E01678100E0B081 /* RetryNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F011E01678100E0B081 /* RetryNetworkService.swift */; };
@@ -81,7 +81,7 @@
 		C622A7951E5C7F6500BB3D17 /* URLRequestConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestConvertible.swift; sourceTree = "<group>"; };
 		C62925AD1FC5900000607AEA /* URLRequestConvertible+Modifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequestConvertible+Modifications.swift"; sourceTree = "<group>"; };
 		C6363D8B1F4ED0840052E9BD /* URLSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
-		C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessProvidingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkAccessProvidingTest.swift"; sourceTree = "<group>"; };
+		C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkAccessTest.swift"; sourceTree = "<group>"; };
 		C6461F011E01678100E0B081 /* RetryNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryNetworkService.swift; sourceTree = "<group>"; };
 		C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryNetworkTask.swift; sourceTree = "<group>"; };
 		C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryTaskTest.swift; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 				C699E0761D917501006FE7C6 /* NetworkErrorTest.swift */,
 				7C653BC81E09325500199993 /* NetworkResponseProcessorTest.swift */,
 				C60FF0F11E5C94AC00818031 /* URLRequestConvertibleTest.swift */,
-				C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessProvidingTest.swift */,
+				C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessTest.swift */,
 			);
 			name = Tests;
 			path = Tests/DBNetworkStackTests;
@@ -426,7 +426,7 @@
 				C699E0771D917501006FE7C6 /* NetworkErrorTest.swift in Sources */,
 				C6A5DED61D760E5000BC38B1 /* NetworkAccessMock.swift in Sources */,
 				C60425131D7803CA00FD3B38 /* ResourceTest.swift in Sources */,
-				C6363D8F1F4ED1500052E9BD /* URLSession+NetworkAccessProvidingTest.swift in Sources */,
+				C6363D8F1F4ED1500052E9BD /* URLSession+NetworkAccessTest.swift in Sources */,
 				C61E77891E49A57A00D55BB2 /* NetworkServiceMockTest.swift in Sources */,
 				C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */,
 				7C653BC91E09325500199993 /* NetworkResponseProcessorTest.swift in Sources */,

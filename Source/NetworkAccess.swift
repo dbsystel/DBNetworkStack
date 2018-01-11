@@ -23,7 +23,7 @@
 
 import Foundation
 
-/// `NetworkAccessProviding` provides access to the network.
+/// `NetworkAccess` provides access to the network.
 public protocol NetworkAccess {
     
     /// Fetches a request asynchrony from remote location.

@@ -49,7 +49,7 @@ struct NetworkServiceMockCallback {
 }
 
 /**
- Mocks a `NetworkServiceProviding`. You can configure expected results or errors to have a fully functional mock.
+ Mocks a `NetworkService`. You can configure expected results or errors to have a fully functional mock.
  
  **Example**:
  ```swift

@@ -33,7 +33,7 @@ public struct Resource<Model> {
      */
     public let parse: (_ data: Data) throws -> Model
     
-    /// Creates a type safe resource, which can be used to fetch it with `NetworkServiceProviding`
+    /// Creates a type safe resource, which can be used to fetch it with `NetworkService`
     ///
     /// - Parameters:
     ///   - request: The request to get the remote data payload

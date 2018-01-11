@@ -24,7 +24,7 @@
 import XCTest
 import DBNetworkStack
 
-class URLSessionNetworkAccessProvidingTest: XCTestCase {
+class URLSessionNetworkAccessTest: XCTestCase {
     
     var urlSessionMock: URLSessionMock!
     

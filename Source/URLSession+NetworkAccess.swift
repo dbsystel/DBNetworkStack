@@ -23,9 +23,7 @@
 
 import Foundation
 
-/**
- Adds conformens to `NetworkAccessProviding`. `URLSession` can now be used as a networkprovider.
- */
+/// Adds conformens to `NetworkAccess`. `URLSession` can be used as a network access.
 extension URLSession: NetworkAccess {
     /**
      Fetches a resource asynchrony from remote location.
