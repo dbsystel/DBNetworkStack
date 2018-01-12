@@ -24,13 +24,20 @@
 /**
  `Resource` describes a remote resource of generic type.
  The type can be fetched via HTTP(S) and parsed into the coresponding model object.
+ 
+ **Example**:
+ ```swift
+ let request: URLRequest = //
+ let resource: Resource<String> = Resource(request: request, parse: { data in
+    String(data: data, encoding: .utf8)
+ })
+ ```
  */
 public struct Resource<Model> {
     /// The request to fetch the resource remote payload
     public let request: URLRequestConvertible
-    /**
-     Parses data into given Model
-     */
+    
+    /// Parses data into given model.
     public let parse: (_ data: Data) throws -> Model
     
     /// Creates a type safe resource, which can be used to fetch it with `NetworkService`

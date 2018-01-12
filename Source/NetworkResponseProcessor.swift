@@ -62,7 +62,7 @@ final class NetworkResponseProcessor {
     /// The result will be return via a blocks onCompletion/onError.
     ///
     /// - Parameters:
-    ///   - queue: The DispatchQueue to execute the completion and error block on.
+    ///   - queue: The `DispatchQueue` to execute the completion and error block on.
     ///   - response: the HTTPURLResponse one wants to parse.
     ///   - resource: the resource.
     ///   - data: the payload of the response.

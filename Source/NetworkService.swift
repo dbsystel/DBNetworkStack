@@ -35,7 +35,7 @@ public protocol NetworkService {
      Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
      Execution happens on no specific queue. It dependes on the network access which queue is used.
      Once execution is finished either the completion block or the error block gets called.
-     You can decide on which queue these blocks get called.
+     You decide on which queue these blocks get executed.
      
      **Example**:
      ```swift
@@ -49,7 +49,7 @@ public protocol NetworkService {
      })
      ```
      
-     - parameter queue: The DispatchQueue to execute the completion and error block on.
+     - parameter queue: The `DispatchQueue` to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
      - parameter onCompletionWithResponse: Callback which gets called when fetching and transforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or transforming fails.

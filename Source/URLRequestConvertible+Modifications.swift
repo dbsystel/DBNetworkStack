@@ -41,7 +41,7 @@ public extension URLRequestConvertible {
     /// Creates a new `URLRequestConvertible` with query items appended to the new request.
     ///
     /// - Parameter queryItems: the query items to append to the request
-    /// - Parameter overrideExisting: if true existing items with the same name will be overridden
+    /// - Parameter overrideExisting: if `true existing items with the same name will be overridden
     /// - Returns: a new `URLRequestConvertible`
     func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> URLRequestConvertible {
         var request = asURLRequest()
@@ -55,7 +55,7 @@ public extension URLRequestConvertible {
     /// Creates a new `URLRequestConvertible` with query parameters appended to the new request.
     ///
     /// - Parameter queryParameters: the parameters to append to the request
-    /// - Parameter overrideExisting: if true existing items with the same name will be overridden
+    /// - Parameter overrideExisting: if `true existing items with the same name will be overridden
     /// - Returns: a new `URLRequestConvertible`
     func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> URLRequestConvertible {
         return appending(queryItems: queryParameters.asURLQueryItems() )
@@ -63,7 +63,7 @@ public extension URLRequestConvertible {
     
     /// Creates a new `URLRequestConvertible` with all existing query items replaced with new ones.
     ///
-    /// - Parameter queryItems: the queryItems to add to the request
+    /// - Parameter queryItems: the query items to add to the request
     /// - Returns: a new `URLRequestConvertible`
     func replacingAllQueryItems(with queryItems: [URLQueryItem]) -> URLRequestConvertible {
         var request = asURLRequest()

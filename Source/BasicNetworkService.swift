@@ -40,10 +40,9 @@ public final class BasicNetworkService: NetworkService {
     let networkResponseProcessor: NetworkResponseProcessor
     
     /**
-     Creates an `BasicNetworkService` instance with a given networkAccess and a map of endPoints
+     Creates an `BasicNetworkService` instance with a given network access to execute requests on.
      
      - parameter networkAccess: provides basic access to the network.
-     - parameter endPoints: map of baseURLKey -> baseURLs
      */
     public init(networkAccess: NetworkAccess) {
         self.networkAccess = networkAccess
@@ -54,7 +53,7 @@ public final class BasicNetworkService: NetworkService {
      Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
      Execution happens on no specific queue. It dependes on the network access which queue is used.
      Once execution is finished either the completion block or the error block gets called.
-     You can decide on which queue these blocks get called.
+     You decide on which queue these blocks get executed.
      
      **Example**:
      ```swift
@@ -68,7 +67,7 @@ public final class BasicNetworkService: NetworkService {
      })
      ```
      
-     - parameter queue: The DispatchQueue to execute the completion and error block on.
+     - parameter queue: The `DispatchQueue` to execute the completion and error block on.
      - parameter resource: The resource you want to fetch.
      - parameter onCompletionWithResponse: Callback which gets called when fetching and transforming into model succeeds.
      - parameter onError: Callback which gets called when fetching or transforming fails.

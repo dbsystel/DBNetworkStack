@@ -26,7 +26,7 @@ extension Resource {
      
      ```swift
      let resource: Resource<Train> = //
-     resource.inspectData({ data in
+     resource.inspectData { data in
         print(String(bytes: data, encoding: .utf8))
      }
      ```
