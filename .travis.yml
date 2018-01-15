@@ -20,6 +20,7 @@ matrix:
       osx_image: xcode9.2
       language: objective-c
       env: "macOS"
+      skip-cleanup: true
       before_install:
         - gem install jazzy
       script:
