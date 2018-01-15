@@ -1,7 +1,5 @@
 //
-//  NetworkServiceMock.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
+//  Copyright (C) 2017 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -22,20 +20,18 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 30.08.16.
-//
 
 import Foundation
 import DBNetworkStack
 
-class NetworkAccessMock: NetworkAccessProviding {
+class NetworkAccessMock: NetworkAccess {
     fileprivate(set) var data: Data?
     fileprivate(set) var response: HTTPURLResponse?
     fileprivate(set) var error: NSError?
     
     fileprivate(set) var request: URLRequest?
     
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTaskRepresenting {
+    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTask {
         self.request = request
         
         callback(data, response, error)

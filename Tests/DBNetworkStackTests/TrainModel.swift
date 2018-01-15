@@ -1,7 +1,5 @@
 //
-//  TrainModel.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
+//  Copyright (C) 2017 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -22,8 +20,6 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 31.08.16.
-//
 
 import Foundation
 import DBNetworkStack
@@ -32,30 +28,20 @@ struct Train: Decodable {
     let name: String
 }
 
-extension Train: JSONMappable {
-    init(object: Dictionary<String, Any>) throws {
-        if let name = object["name"] as? String {
-            self.name = name
-        } else {
-            throw NSError(domain: "", code: 0, userInfo: nil)
-        }
-    }
-}
-
 extension Train {
     static var validJSONData: Data! {
-        return "{ \"name\": \"ICE\"}".data(using: String.Encoding.utf8)
+        return "{ \"name\": \"ICE\"}".data(using: .utf8)
     }
     
     static var invalidJSONData: Data! {
-        return "{ name: \"ICE\"}".data(using: String.Encoding.utf8)
+        return "{ name: \"ICE\"}".data(using: .utf8)
     }
     
     static var JSONDataWithInvalidKey: Data! {
-        return "{ \"namee\": \"ICE\"}".data(using: String.Encoding.utf8)
+        return "{ \"namee\": \"ICE\"}".data(using: .utf8)
     }
     
     static var validJSONArrayData: Data! {
-        return "[{ \"name\": \"ICE\"}, { \"name\": \"IC\"}, { \"name\": \"TGV\"}]".data(using: String.Encoding.utf8)
+        return "[{ \"name\": \"ICE\"}, { \"name\": \"IC\"}, { \"name\": \"TGV\"}]".data(using: .utf8)
     }
 }

@@ -25,36 +25,28 @@ import Foundation
 import Dispatch
 
 /**
- `RetryNetworkService` can request resource. When a request fails with a given condtion it can retry the request after a given time interval.
- The count of retry attemps can be configured as well.
+ `BasicNetworkService` handles network request for resources by using a given `NetworkAccess`.
+ 
+ **Example**:
+ ```swift
+ // Just use an URLSession for the networkAccess.
+ let basicNetworkService: NetworkService = BasicNetworkService(networkAccess: URLSession(configuration: .default))
+ ```
  
  - seealso: `NetworkService`
  */
-public final class RetryNetworkService: NetworkService {
-    private let networkService: NetworkService
-    private let numberOfRetries: Int
-    private let idleTimeInterval: TimeInterval
-    private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void
-    private let shouldRetry: (NetworkError) -> Bool
+public final class BasicNetworkService: NetworkService {
+    let networkAccess: NetworkAccess
+    let networkResponseProcessor: NetworkResponseProcessor
     
-    /// Creates an instance of `RetryNetworkService`
-    ///
-    /// - Parameters:
-    ///   - networkService: a networkservice
-    ///   - numberOfRetries: the number of retrys before final error
-    ///   - idleTimeInterval: time between error and retry
-    ///   - shouldRetry: closure which evaluated if error should be retry
-    ///   - dispatchRetry: closure where to dispatch the waiting
-    public init(networkService: NetworkService, numberOfRetries: Int,
-                idleTimeInterval: TimeInterval, shouldRetry: @escaping (NetworkError) -> Bool,
-                dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void = { deadline, execute in
-            DispatchQueue.global(qos: .utility).asyncAfter(deadline: deadline, execute: execute)
-        }) {
-        self.networkService = networkService
-        self.numberOfRetries = numberOfRetries
-        self.idleTimeInterval = idleTimeInterval
-        self.shouldRetry = shouldRetry
-        self.dispatchRetry = dispatchRetry
+    /**
+     Creates an `BasicNetworkService` instance with a given network access to execute requests on.
+     
+     - parameter networkAccess: provides basic access to the network.
+     */
+    public init(networkAccess: NetworkAccess) {
+        self.networkAccess = networkAccess
+        self.networkResponseProcessor = NetworkResponseProcessor()
     }
     
     /**
@@ -85,16 +77,12 @@ public final class RetryNetworkService: NetworkService {
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
                         onError: @escaping (NetworkError) -> Void) -> NetworkTask {
-        let retryTask = RetryNetworkTask(maxmimumNumberOfRetries: numberOfRetries, idleTimeInterval: idleTimeInterval, shouldRetry: shouldRetry,
-                                  onSuccess: onCompletionWithResponse, onError: onError, retryAction: { completion, error in
-                                    return self.networkService.request(queue: queue, resource: resource, onCompletionWithResponse: completion, onError: error)
-        }, dispatchRetry: { [weak self] disptachTime, block in
-            self?.dispatchRetry(disptachTime, block)
+        let request = resource.request.asURLRequest()
+        let dataTask = networkAccess.load(request: request, callback: { data, response, error in
+            self.networkResponseProcessor.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,
+                                      error: error, onCompletion: onCompletionWithResponse, onError: onError)
         })
-        retryTask.originalTask = networkService.request(queue: queue, resource: resource,
-                                                        onCompletionWithResponse: onCompletionWithResponse, onError: retryTask.createOnError())
-        
-        return retryTask
+        return dataTask
     }
     
 }

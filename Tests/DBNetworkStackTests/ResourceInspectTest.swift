@@ -1,6 +1,5 @@
 //
-//  Copyright (C) 2017 DB Systel GmbH.
-//  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
+//  Copyright (C) DB Systel GmbH.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a 
 //  copy of this software and associated documentation files (the "Software"), 
@@ -21,40 +20,30 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
 import XCTest
-@testable import DBNetworkStack
+import DBNetworkStack
 
-class DecodableResoureTest: XCTestCase {
-    var resource: Resource<Train> {
-        let url: URL! = URL(string: "bahn.de")
-        let request = URLRequest(path: "/train", baseURL: url)
-        return Resource<Train>(request: request, decoder: JSONDecoder())
-    }
-    
-    func testResource_withValidData() {
+final class ResourceInspectTest: XCTestCase {
+    func testInspect() {
+        //Given
+        let data = Data()
+        var capuredParsingData: Data?
+        var capturedInspectedData: Data?
+        let resource = Resource<Int>(request: URLRequest.defaultMock, parse: { data in
+            capuredParsingData = data
+            return 1
+        })
+        
         //When
-        let fetchedTrain = try? resource.parse(Train.validJSONData)
+        let inspectedResource = resource.inspectData({ data in
+            capturedInspectedData = data
+        })
+        let result = try? inspectedResource.parse(data)
         
         //Then
-        XCTAssertEqual(fetchedTrain?.name, "ICE")
+        XCTAssertNotNil(result)
+        XCTAssertEqual(capuredParsingData, capturedInspectedData)
+        XCTAssertEqual(data, capturedInspectedData)
+        XCTAssertEqual(capuredParsingData, data)
     }
-    
-    func testResource_withMAppedResult() {
-        //When
-        let nameResource = resource.map { $0.name }
-        let fetchedTrainName = try? nameResource.parse(Train.validJSONData)
-        
-        //Then
-        XCTAssertEqual(fetchedTrainName, "ICE")
-    }
-    
-    func testResource_WithInvalidData() throws {
-        //When
-        do {
-            _ = try resource.parse(Train.invalidJSONData)
-            XCTFail("Expected method to throws")
-        } catch { }
-    }
-    
 }

@@ -1,133 +1,91 @@
 //
-//  Copyright (C) 2016 Lukas Schmidt.
+//  Copyright (C) 2017 DB Systel GmbH.
+//  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
-//  Permission is hereby granted, free of charge, to any person obtaining a 
-//  copy of this software and associated documentation files (the "Software"), 
-//  to deal in the Software without restriction, including without limitation 
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-//  and/or sell copies of the Software, and to permit persons to whom the 
+//  Permission is hereby granted, free of charge, to any person obtaining a
+//  copy of this software and associated documentation files (the "Software"),
+//  to deal in the Software without restriction, including without limitation
+//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+//  and/or sell copies of the Software, and to permit persons to whom the
 //  Software is furnished to do so, subject to the following conditions:
 //
-//  The above copyright notice and this permission notice shall be included in 
+//  The above copyright notice and this permission notice shall be included in
 //  all copies or substantial portions of the Software.
 //
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
-//
-//
-//  ModifyRequestNetworkService.swift
-//  DBNetworkStack
-//
-//  Created by Lukas Schmidt on 16.12.16.
 //
 
 import Foundation
 import Dispatch
 
-/// `ModifyRequestNetworkService` can be composed with a networkService to modify all outgoing requests.
-/// One could add auth tokens or API keys for specifics URLs.
-public final class ModifyRequestNetworkService: NetworkServiceProviding {
+/**
+ `ModifyRequestNetworkService` can be composed with a network service to modify all outgoing requests.
+ One could add auth tokens or API keys for specifics URLs.
+ 
+ **Example**:
+ ```swift
+ let networkService: NetworkService = //
+ let modifyRequestNetworkService = ModifyRequestNetworkService(networkService: networkService, requestModifications: [ { request in
+    return request.added(HTTPHeaderFields: ["API-Key": "SecretKey"])
+ }])
+ ```
+ 
+ - note: Requests can only be modified syncronously.
+ - seealso: `NetworkService`
+ */
+public final class ModifyRequestNetworkService: NetworkService {
     
     private let requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>
-    private let networkService: NetworkServiceProviding
+    private let networkService: NetworkService
     
     /// Creates an insatcne of `ModifyRequestNetworkService`.
     ///
     /// - Parameters:
     ///   - networkService: a networkservice.
     ///   - requestModifications: array of modifications to modify requests.
-    public init(networkService: NetworkServiceProviding, requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>) {
+    public init(networkService: NetworkService, requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>) {
         self.networkService = networkService
         self.requestModifications = requestModifications
     }
     
+    /**
+     Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+     Execution happens on no specific queue. It dependes on the network access which queue is used.
+     Once execution is finished either the completion block or the error block gets called.
+     You decide on which queue these blocks get executed.
+     
+     **Example**:
+     ```swift
+     let networkService: NetworkService = //
+     let resource: Resource<String> = //
+     
+     networkService.request(queue: .main, resource: resource, onCompletionWithResponse: { htmlText, response in
+        print(htmlText, response)
+     }, onError: { error in
+        // Handle errors
+     })
+     ```
+     
+     - parameter queue: The `DispatchQueue` to execute the completion and error block on.
+     - parameter resource: The resource you want to fetch.
+     - parameter onCompletionWithResponse: Callback which gets called when fetching and transforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or transforming fails.
+     
+     - returns: a running network task
+     */
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting {
+                        onError: @escaping (NetworkError) -> Void) -> NetworkTask {
         let request = requestModifications.reduce(resource.request, { request, modify in
             return modify(request)
         })
         let newResource = Resource(request: request, parse: resource.parse)
         return networkService.request(queue: queue, resource: newResource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
-    }
-}
-
-public extension URLRequestConvertible {
-    
-    /// Creates a new `URLRequestConvertible` with HTTPHeaderFields added into the new request.
-    /// Keep in mind that this overrides header fields which are already contained.
-    ///
-    /// - Parameter HTTPHeaderFields: the header fileds to add to the request
-    /// - Returns: a new `URLRequestConvertible`
-    func added(HTTPHeaderFields: [String: String]) -> URLRequestConvertible {
-        var request = asURLRequest()
-        let headerFiels = (request.allHTTPHeaderFields ?? [:]).merged(with: HTTPHeaderFields)
-        request.allHTTPHeaderFields = headerFiels
-        
-        return request
-    }
-    
-    /// Creates a new `URLRequestConvertible` with query items appended to the new request.
-    ///
-    /// - Parameter queryItems: the query items to append to the request
-    /// - Parameter overrideExisting: if true existing items with the same name will be overridden
-    /// - Returns: a new `URLRequestConvertible`
-    func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> URLRequestConvertible {
-        var request = asURLRequest()
-        guard let url = request.url else {
-            return self
-        }
-        request.url = url.appending(queryItems: queryItems)
-        return request
-    }
-    
-    /// Creates a new `URLRequestConvertible` with query parameters appended to the new request.
-    ///
-    /// - Parameter queryParameters: the parameters to append to the request
-    /// - Parameter overrideExisting: if true existing items with the same name will be overridden
-    /// - Returns: a new `URLRequestConvertible`
-    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> URLRequestConvertible {
-        return appending(queryItems: queryParameters.asURLQueryItems() )
-    }
-    
-    /// Creates a new `URLRequestConvertible` with all existing query items replaced with new ones.
-    ///
-    /// - Parameter queryItems: the queryItems to add to the request
-    /// - Returns: a new `URLRequestConvertible`
-    func replacingAllQueryItems(with queryItems: [URLQueryItem]) -> URLRequestConvertible {
-        var request = asURLRequest()
-        guard let url = request.url else {
-            return self
-        }
-        request.url = url.replacingAllQueryItems(with: queryItems)
-        return request
-    }
-    
-    /// Creates a new `URLRequestConvertible` with all existing query items replaced with new ones.
-    ///
-    /// - Parameter parameters: the parameters to add to the request
-    /// - Returns: a new `URLRequestConvertible`
-    func replacingAllQueryItems(with parameters: [String: String]) -> URLRequestConvertible {
-        return replacingAllQueryItems(with: parameters.asURLQueryItems() )
-    }
-}
-
-extension Dictionary {
-    /// Creates a new `Dictionary` with all key and their values merged. Keep in mind that this overrides all keys/values which are already contained.
-    ///
-    /// - Parameter HTTPHeaderFields: the header fileds to add to the request
-    /// - Returns: a new `NetworkRequestRepresening`
-    func merged(with dictionary: Dictionary<Key, Value>) -> Dictionary<Key, Value> {
-        var copySelf = self
-        for (key, value) in dictionary {
-            copySelf[key] = value
-        }
-        
-        return copySelf
     }
 }

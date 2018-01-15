@@ -1,5 +1,5 @@
 //
-//  Copyright (C) 2017 Lukas Schmidt.
+//  Copyright (C) DB Systel GmbH.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a 
 //  copy of this software and associated documentation files (the "Software"), 
@@ -19,22 +19,26 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 //  DEALINGS IN THE SOFTWARE.
 //
-//
-//  Ressource+Map.swift
-//  DBNetworkStack
-//
-//  Created by Lukas Schmidt on 02.01.17.
-//
 
 extension Resource {
-    
-    /// Maps a resource result to a different resource. This is useful when you have result of R which contains T and your API request a resource of T,
-    ///
-    /// - Parameter transform: transforms the original result of the resource
-    /// - Returns: the transformed resource
-    public func map<T>(transform: @escaping (Model) throws -> (T)) -> Resource<T> {
-        return Resource<T>(request: request, parse: { data in
-            return try transform(try self.parse(data))
+    /**
+     This lets one inspect the data payload before data gets parsed.
+     
+     ```swift
+     let resource: Resource<Train> = //
+     resource.inspectData { data in
+        print(String(bytes: data, encoding: .utf8))
+     }
+     ```
+     
+     - parameter inspector: closure which gets passed the data
+     - returns: a new resource which gets instepcted before parsing
+     */
+    public func inspectData(_ inspector: @escaping (Data) -> Void) -> Resource<Model> {
+        return Resource(request: request, parse: { data in
+            inspector(data)
+            return try self.parse(data)
         })
     }
+
 }

@@ -1,8 +1,6 @@
 //
-//  NetworkErrorTest.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
-//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
+//  Copyright (C) 2017 DB Systel GmbH.
+//  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -21,8 +19,6 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
-//
-//  Created by Lukas Schmidt on 20.09.16.
 //
 
 import Foundation
@@ -43,17 +39,15 @@ class NetworkErrorTest: XCTestCase {
         let expectedResponse = urlResponseWith(statusCode: 400)
         
         //When
-        guard let error = NetworkError(response: expectedResponse, data: testData) else {
-            return XCTFail()
-        }
+         let error = NetworkError(response: expectedResponse, data: testData)
         
         //Then
         switch error {
-        case .clientError(let response, let data):
+        case .clientError(let response, let data)?:
             XCTAssertEqual(response, expectedResponse)
             XCTAssertEqual(data, testData)
         default:
-            XCTFail()
+            XCTFail("Expects clientError")
         }
     }
     
@@ -62,17 +56,15 @@ class NetworkErrorTest: XCTestCase {
         let expectedResponse = urlResponseWith(statusCode: 401)
         
         //When
-        guard let error = NetworkError(response: expectedResponse, data: testData) else {
-            return XCTFail()
-        }
+        let error = NetworkError(response: expectedResponse, data: testData)
         
         //Then
         switch error {
-        case .unauthorized(let response, let data):
+        case .unauthorized(let response, let data)?:
             XCTAssertEqual(response, expectedResponse)
             XCTAssertEqual(data, testData)
         default:
-            XCTFail()
+            XCTFail("Expects unauthorized")
         }
     }
     
@@ -90,18 +82,17 @@ class NetworkErrorTest: XCTestCase {
     func testInit_WithHTTPStatusCode511() {
         //Given
         let expectedResponse = urlResponseWith(statusCode: 511)
+        
         //When
-        guard let error = NetworkError(response: expectedResponse, data: testData) else {
-            return XCTFail()
-        }
+        let error = NetworkError(response: expectedResponse, data: testData)
         
         //Then
         switch error {
-        case .serverError(let response, let data):
+        case .serverError(let response, let data)?:
             XCTAssertEqual(response, expectedResponse)
             XCTAssertEqual(data, testData)
         default:
-            XCTFail()
+            XCTFail("Expects serverError")
         }
     }
     
@@ -149,7 +140,7 @@ class NetworkErrorTest: XCTestCase {
         
         //Then
         XCTAssert(debugDescription.hasPrefix("Authorization error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("> { URL: https://bahn.de } { status code: 0, headers {\n} }, response: dataString"))
+        XCTAssert(debugDescription.hasSuffix("response: dataString"))
     }
     
     func testUnknownError_clientError_description() {
@@ -163,7 +154,7 @@ class NetworkErrorTest: XCTestCase {
         
         //Then
         XCTAssert(debugDescription.hasPrefix("Client error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("> { URL: https://bahn.de } { status code: 0, headers {\n} }, response: dataString"))
+        XCTAssert(debugDescription.hasSuffix("response: dataString"))
     }
     
     func testUnknownError_serializationError_description() {

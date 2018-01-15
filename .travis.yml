@@ -9,42 +9,32 @@ matrix:
       before_install:
         - wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import -
         - cd ..
-        - export SWIFT_VERSION=swift-4.0-RELEASE
-        - wget https://swift.org/builds/swift-3.1-release/ubuntu1404/$SWIFT_VERSION/$SWIFT_VERSION-ubuntu14.04.tar.gz
+        - export SWIFT_VERSION=swift-4.0.3-RELEASE
+        - wget https://swift.org/builds/swift-4.0.3-release/ubuntu1404/$SWIFT_VERSION/$SWIFT_VERSION-ubuntu14.04.tar.gz
         - tar xzf $SWIFT_VERSION-ubuntu14.04.tar.gz
         - export PATH="${PWD}/${SWIFT_VERSION}-ubuntu14.04/usr/bin:${PATH}"
         - cd DBNetworkStack
       script:
         - swift test --verbose
     - os: osx
-      osx_image: xcode9
+      osx_image: xcode9.2
       language: objective-c
       env: "macOS"
+      before_install:
+        - gem install jazzy
       script:
-        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=OS X' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
-    - os: osx
-      osx_image: xcode9
-      language: objective-c
-      env: "iOS"
-      script:
-        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=iOS Simulator,name=iPhone SE,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage YES | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=macOS" test | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=tvOS Simulator,name=Apple TV" test | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=watchOS Simulator,name=Apple Watch - 38mm" build | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=iOS Simulator,name=iPhone SE" test | xcpretty
+        - swift test & pod spec lint --allow-warnings & carthage build --no-skip-current
+        - jazzy --clean --author "DBSystel" --github_url https://github.com/dbsystel/DBNetworkStack --module DBNetworkStack --output docs
       after_success:
         - bash <(curl -s https://codecov.io/bash)
-    - os: osx
-      osx_image: xcode9
-      language: objective-c
-      env: "watchOS"
-      script:
-        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=watchOS Simulator,name=Apple Watch Series 2 - 38mm' build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
-    - os: osx
-      osx_image: xcode9
-      language: objective-c
-      env: "tvOS"
-      script:
-        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=latest' test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -enableCodeCoverage NO | xcpretty
-    - os: osx
-      osx_image: xcode9
-      language: objective-c
-      env: "SPM, Carthage, CocoaPods"
-      script:
-        - swift test & pod spec lint & carthage build --no-skip-current
+      deploy:
+        provider: pages
+        local_dir: ${TRAVIS_BUILD_DIR}/docs
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        on:
+          branch: master

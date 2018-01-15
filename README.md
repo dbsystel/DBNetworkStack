@@ -15,18 +15,19 @@
 | 🚄        | Extendable API                 |
 | 🎹        | Composable Features            |
 | &#9989;   | Fully unit tested              |
+| 📕   | [Documented here](https://dbsystel.github.io/DBNetworkStack/)             |
 
 The idea behind this project comes from this [talk.objc.io article](https://talk.objc.io/episodes/S01E01-networking).
 
 ## Basic Demo
 Lets say you want to fetch a ``html`` string.
 
-First you have to create a service, by providing a network access. You can use URLSession out of the box or provide your own custom solution by implementing  ```NetworkAccessProviding```.
+First you have to create a service, by providing a network access. You can use URLSession out of the box or provide your own custom solution by implementing  ```NetworkAccess```.
 
 ```swift
 
 let networkAccess = URLSession(configuration: .default)
-let networkService = NetworkService(networkAccess: networkAccess)
+let networkService = BasicNetworkService(networkAccess: networkAccess)
 
 ```
 
@@ -49,7 +50,7 @@ networkService.request(resource, onCompletion: { htmlText in
 
 ```
 
-## Loade types conforming to `Decodable`
+## Load types conforming to Swift-`Decodable`
 ```swift
 struct IPOrigin: Decodable {
     let origin: String
@@ -69,13 +70,13 @@ networkService.request(resource, onCompletion: { origin in
 
 ## Accessing HTTPResponse
 
-Request your resource and handle the result & response. This is similar to just requesting a resulting model.
+Request your resource and handle the result & http response. This is similar to just requesting a resulting model.
 ```swift
-extension Resource where Model: XMLDocument {
-    public init(request: URLRequestConvertible) {
-        self.init(request: request, parse: { try XMLDocument(data: $0 })
-    }
-}
+networkService.request(resource, onCompletionWithResponse: { origin, response in
+    print(origin, response)
+}, onError: { error in
+    //Handle errors
+})
 ```
 
 ## Protocol oriented architecture / Exchangability
@@ -84,10 +85,10 @@ The following table shows all the protocols and their default implementations.
 
 | Protocol                         | Default Implementation |
 | -------------------------------- | ---------------------- |
-| ```NetworkAccessProviding```     | ```URLSession```     |
-| ```NetworkServiceProviding```    | ```NetworkService```   |
+| ```NetworkAccess```     | ```URLSession```     |
+| ```NetworkService```    | ```BasicNetworkService```   |
 | ```URLRequestConvertible```  | ```URLRequest```   |
-| ```NetworkTaskRepresenting```    | ```URLSessionTask``` |
+| ```NetworkTask```    | ```URLSessionTask``` |
 
 ## Composable Features
 
@@ -111,7 +112,7 @@ The following table shows all the protocols and their default implementations.
 Specify the following in your `Cartfile`:
 
 ```ogdl
-github "dbsystel/dbnetworkstack" ~> 0.7
+github "dbsystel/dbnetworkstack" ~> 1.0
 ```
 
 ### CocoaPods

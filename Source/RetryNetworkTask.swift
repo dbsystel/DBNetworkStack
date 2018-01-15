@@ -1,5 +1,6 @@
 //
-//  Copyright (C) 2016 Lukas Schmidt.
+//  Copyright (C) 2017 DB Systel GmbH.
+//    DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a 
 //  copy of this software and associated documentation files (the "Software"), 
@@ -19,29 +20,23 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 //  DEALINGS IN THE SOFTWARE.
 //
-//
-//  RetryNetworkTask.swift
-//  DBNetworkStack
-//
-//  Created by Lukas Schmidt on 14.12.16.
-//
 
 import Foundation
 import Dispatch
 
 /// A NetworkTaskRepresenting which can be used together with `RetryNetworkService` to keep a task alife to repeat the task after a given time
-class RetryNetworkTask<T> : NetworkTaskRepresenting {
+class RetryNetworkTask<T> : NetworkTask {
     private let maxmimumNumberOfRetries: Int
     private let idleTimeInterval: TimeInterval
     private let shouldRetry: (NetworkError) -> Bool
-    var originalTask: NetworkTaskRepresenting?
+    var originalTask: NetworkTask?
     
     private var numberOfRetriesLeft: Int
     private let onSuccess: ((T, HTTPURLResponse) -> Void)
     private let onError: ((NetworkError) -> Void)
     private var isCaneled = false
     
-    private let retryAction: (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting
+    private let retryAction: (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTask
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void
     
     /// Creates an instance of `RetryNetworkTaks`
@@ -57,7 +52,7 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
     init(maxmimumNumberOfRetries: Int, idleTimeInterval: TimeInterval, shouldRetry: @escaping (NetworkError) -> Bool,
          onSuccess: @escaping (T, HTTPURLResponse) -> Void,
          onError: @escaping (NetworkError) -> Void,
-         retryAction: @escaping (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTaskRepresenting,
+         retryAction: @escaping (@escaping (T, HTTPURLResponse) -> Void, @escaping (NetworkError) -> Void) -> NetworkTask,
          dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> Void) -> Void ) {
         
         self.maxmimumNumberOfRetries = maxmimumNumberOfRetries
@@ -77,7 +72,6 @@ class RetryNetworkTask<T> : NetworkTaskRepresenting {
      
      - return: the onError closure for a network request.
      */
-    ///
     func createOnError() -> (NetworkError) -> Void {
         return { error in
             if self.shouldRetry(error), self.numberOfRetriesLeft > 0 {

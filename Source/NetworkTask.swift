@@ -1,7 +1,5 @@
 //
-//  JSONResource.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
+//  Copyright (C) 2017 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -22,29 +20,31 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 22.07.16.
-//
 
 import Foundation
+
 /**
- `JSONResource` represents a network resource in JSON, which can be parsed into a Model Type.
- 
- The root JSON payload must be an object.
- 
- See `ResourceModeling` for more details.
- */
-@available(*, deprecated, message: "Use `Resource<Decodeable>`")
-public struct JSONResource<Model: JSONMappable>: JSONResourceModeling {
-    public let request: URLRequestConvertible
-    public var parse: (_ data: Data) throws -> Model {
-        return parseFunction
-    }
+ `NetworkTaskRepresenting` is a task which runs async to fetch data.
+  */
+public protocol NetworkTask: class {
+    /**
+     Cancels a task.
+     */
+    func cancel()
     
-    public init(request: URLRequestConvertible) {
-        self.request = request
-    }
+    /**
+     Resumes a task.
+     */
+    func resume()
     
-    public func parse(_ jsonPayload: Dictionary<String, AnyObject>) throws -> Model {
-        return try Model(object: jsonPayload)
-    }
+    /**
+     Suspends a task.
+     */
+    func suspend()
+    
+    /**
+     Contains the current progress of a running task.
+     */
+    @available(iOS 11.0, OSX 10.13, watchOS 4.0, tvOS 11.0, *)
+    var progress: Progress { get }
 }

@@ -1,7 +1,5 @@
 //
-//  JSONArrayResourceTest.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
+//  Copyright (C) 2017 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -22,48 +20,8 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 01.09.16.
-//
 
 import Foundation
-import XCTest
-@testable import DBNetworkStack
 
-class JSONArrayResourceTest: XCTestCase {
-    
-    var resource: JSONArrayResource<Train> {
-        let url: URL! = URL(string: "bahn.de")
-        let request = URLRequest(path: "/trains", baseURL: url)
-        return JSONArrayResource<Train>(request: request)
-    }
-    
-    func testResource_withValidData() {
-        //When
-        let fetchedTrains = try? resource.parse(Train.validJSONArrayData)
-        
-        //Then
-        XCTAssertNotNil(fetchedTrains)
-        XCTAssertEqual(fetchedTrains?.count, 3)
-        XCTAssertEqual(fetchedTrains?.first?.name, "ICE")
-        XCTAssertEqual(fetchedTrains?.last?.name, "TGV")
-    }
-    
-    func testResource_WithInvalidData() {
-        //When
-        do {
-            _ = try resource.parse(Train.invalidJSONData)
-            XCTFail()
-        } catch {
-            
-        }
-    }
-    
-    func testResource_WithInvalidContainer() {
-        //When
-        do {
-            _ = try resource.parse(Train.validJSONData)
-            XCTFail()
-        } catch {
-        }
-    }
-}
+/// URLSessionDataTask conforms to NetworkTask
+extension URLSessionDataTask: NetworkTask { }

@@ -1,41 +1,40 @@
 //
-//  Copyright (C) 2017 Lukas Schmidt.
+//  Copyright (C) 2017 DB Systel GmbH.
+//  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
-//  Permission is hereby granted, free of charge, to any person obtaining a 
-//  copy of this software and associated documentation files (the "Software"), 
-//  to deal in the Software without restriction, including without limitation 
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-//  and/or sell copies of the Software, and to permit persons to whom the 
+//  Permission is hereby granted, free of charge, to any person obtaining a
+//  copy of this software and associated documentation files (the "Software"),
+//  to deal in the Software without restriction, including without limitation
+//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+//  and/or sell copies of the Software, and to permit persons to whom the
 //  Software is furnished to do so, subject to the following conditions:
 //
-//  The above copyright notice and this permission notice shall be included in 
+//  The above copyright notice and this permission notice shall be included in
 //  all copies or substantial portions of the Software.
 //
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
-//
-//
-//  URLRequestConvertible.swift
-//  DBNetworkStack
-//
-//  Created by Lukas Schmidt on 21.02.17.
 //
 
 import Foundation
 
+/// An abstraction for types which can be represented as an URLRequest
 public protocol URLRequestConvertible {
-    /// Returns a URL request
+    /// Converts self into an `URLRequest`
     ///
     /// - returns: A URL request.
     func asURLRequest() -> URLRequest
 }
 
 extension URLRequest: URLRequestConvertible {
+    /// Converts self into an `URLRequest`
+    ///
+    /// - returns: A URL request.
     public func asURLRequest() -> URLRequest {
         return self
     }
@@ -43,26 +42,22 @@ extension URLRequest: URLRequestConvertible {
 
 extension URLRequest {
     
-    @available(*, deprecated, message: "Use the new initializer using [String:String]? as the parameters value")
-    init(path: String, baseURL: URL,
-                HTTPMethod: HTTPMethod = .GET, parameters: [String: Any]? = nil,
-                body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
-        let mappedParameters: [String: String]? = parameters.map {
-            var convertedParams = [String: String]()
-            for (key, value) in $0 {
-                convertedParams[key] = "\(value)"
-            }
-            return convertedParams
-        }
-        
-        self.init(path: path, baseURL: baseURL, HTTPMethod: HTTPMethod, parameters: mappedParameters, body: body, allHTTPHeaderFields: allHTTPHeaderFields)
-    }
-    
+    /// Convience initializer for easy request creation.
+    ///
+    /// - Parameters:
+    ///   - path: path to the resource.
+    ///   - baseURL: the base url of the resource.
+    ///   - HTTPMethod: the HTTP method for the request. Defaults to `.GET`
+    ///   - parameters: url parameters for the request. Defaults to `nil`
+    ///   - body: body data payload. Defaults to `nil`
+    ///   - allHTTPHeaderFields: HTTP request header fields. Defaults to `nil`
+    ///
+    /// - Important: path must not start with a `/`
     public init(path: String, baseURL: URL,
                 HTTPMethod: HTTPMethod = .GET, parameters: [String: String]? = nil,
                 body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
         guard let url = URL(string: path, relativeTo: baseURL) else {
-            fatalError("Error createing absolute URL from path: \(path), with baseURL: \(baseURL)")
+            fatalError("Error creating absolute URL from path: \(path), with baseURL: \(baseURL)")
         }
         
         let urlWithParameters: URL
@@ -106,9 +101,6 @@ extension Array where Element == URLQueryItem {
         return items
     }
     
-    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> [URLQueryItem] {
-        return appending(queryItems: queryParameters.asURLQueryItems(), overrideExisting: overrideExisting)
-    }
 }
 
 extension Dictionary where Key == String, Value == String {

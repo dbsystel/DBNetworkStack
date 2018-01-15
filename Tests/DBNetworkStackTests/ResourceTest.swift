@@ -1,8 +1,6 @@
 //
-//  ResourceTest.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
-//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
+//  Copyright (C) 2017 DB Systel GmbH.
+//  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -22,29 +20,18 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 01.09.16.
-//
 
 import Foundation
 import XCTest
-@testable import DBNetworkStack
+import DBNetworkStack
 
 class ResourceTest: XCTestCase {
-    let request = URLRequest(path: "/trains", baseURL: .defaultMock)
-    
-    static var allTests = {
-        return [
-            ("testResource", testResource),
-            ("testResourceWithInvalidData", testResourceWithInvalidData),
-            ("testCreateRessourceFromOtherRessource", testCreateRessourceFromOtherRessource)
-        ]
-    }()
     
     func testResource() {
         //Given
         let validData: Data! = "ICE".data(using: .utf8)
 
-        let resource = Resource<String?>(request: request, parse: { String(data: $0, encoding: .utf8) })
+        let resource = Resource<String?>(request: URLRequest.defaultMock, parse: { String(data: $0, encoding: .utf8) })
         
         //When
         let name = try? resource.parse(validData)
@@ -53,25 +40,4 @@ class ResourceTest: XCTestCase {
         XCTAssertEqual(name ?? nil, "ICE")
     }
     
-    func testResourceWithInvalidData() {
-        //Given
-        let data = Data()
-        let resource = JSONResource<Train>(request: request)
-        
-        //When
-        do {
-            _ = try resource.parse(data)
-            XCTFail()
-        } catch { }
-    }
-    
-    func testCreateRessourceFromOtherRessource() {
-        //Given
-        let arrayResource = JSONArrayResource<Train>(request: request)
-        
-        //When
-        let ressource = Resource(resource: arrayResource)
-        
-        XCTAssert(ressource is Resource<Array<Train>>)
-    }
 }

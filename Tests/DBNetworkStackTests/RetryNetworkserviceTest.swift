@@ -1,26 +1,24 @@
 //
-//  RetryNetworkserviceTest.swift
-//  BFACore
+//  Copyright (C) 2017 DB Systel GmbH.
+//  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
-//	Legal Notice! DB Systel GmbH proprietary License!
+//  Permission is hereby granted, free of charge, to any person obtaining a
+//  copy of this software and associated documentation files (the "Software"),
+//  to deal in the Software without restriction, including without limitation
+//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+//  and/or sell copies of the Software, and to permit persons to whom the
+//  Software is furnished to do so, subject to the following conditions:
 //
-//	Copyright (C) 2015 DB Systel GmbH
-//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
-
-//	This code is protected by copyright law and is the exclusive property of
-//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
-
-//	Consent to use ("licence") shall be granted solely on the basis of a
-//	written licence agreement signed by the customer and DB Systel GmbH. Any
-//	other use, in particular copying, redistribution, publication or
-//	modification of this code without written permission of DB Systel GmbH is
-//	expressly prohibited.
-
-//	In the event of any permitted copying, redistribution or publication of
-//	this code, no changes in or deletion of author attribution, trademark
-//	legend or copyright notice shall be made.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
 //
-//  Created by Lukas Schmidt on 30.11.16.
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//  DEALINGS IN THE SOFTWARE.
 //
 
 import XCTest
@@ -47,18 +45,18 @@ class RetryNetworkserviceTest: XCTestCase {
     func testRetryRequest_shouldRetry() {
         //Given
         let errorCount = 2
-        let numberOfRetries = 3
+        let numberOfRetries = 2
         var executedRetrys = 0
         
         //When
-        weak var task: NetworkTaskRepresenting?
+        weak var task: NetworkTask?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: numberOfRetries,
                                    idleTimeInterval: 0, shouldRetry: { _ in return true}, dispatchRetry: { _, block in
             executedRetrys += 1
             block()
         }).request(resource, onCompletionWithResponse: { _, _ in
         }, onError: { _ in
-            XCTFail()
+            XCTFail("Expects to not call error block")
         })
         networkServiceMock.returnError(with: .unknownError, count: errorCount)
         
@@ -72,15 +70,16 @@ class RetryNetworkserviceTest: XCTestCase {
         var executedRetrys = 0
         
         //When
-        weak var task: NetworkTaskRepresenting?
+        weak var task: NetworkTask?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
                                    idleTimeInterval: 0, shouldRetry: { _ in return true},
                                    dispatchRetry: { _, block in
             executedRetrys += 1
             block()
         }).request(resource, onCompletion: { _ in
-            XCTFail()
+             XCTFail("Expects to not call completion block")
         }, onError: { _ in
+            XCTFail("Expects to not call error block")
         })
         networkServiceMock.returnError(with: .unknownError, count: 3)
         
@@ -95,14 +94,14 @@ class RetryNetworkserviceTest: XCTestCase {
         var capturedError: NetworkError?
         
         //When
-        weak var task: NetworkTaskRepresenting?
+        weak var task: NetworkTask?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
                                    idleTimeInterval: 0, shouldRetry: { _ in return shoudlRetry },
                                    dispatchRetry: { _, block in
-            XCTFail()
+            XCTFail("Expects to not retry")
             block()
         }).request(resource, onCompletion: { _ in
-            XCTFail()
+            XCTFail("Expects to not call completion block")
         }, onError: { error in
            capturedError = error
         })

@@ -1,7 +1,5 @@
 //
-//  NetworkTaskMock.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
+//  Copyright (C) 2017 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -22,32 +20,39 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Christian Himmelsbach on 29.09.16.
-//
 
 import Foundation
 
-public enum NetworkTaskMockState {
-    case canceled, resumed, suspended
-}
-
-public class NetworkTaskMock: NetworkTaskRepresenting {
+/// Mock implementation for `NetworkTask`.
+public class NetworkTaskMock: NetworkTask {
     
+    /// Mock state of the network task
+    public enum State {
+        case canceled, resumed, suspended
+    }
+    
+    /// Creates an `NetworkTaskMock` instance
     public init() {}
-    public var state: NetworkTaskMockState?
     
+    /// State of the network taks. Can be used to assert.
+    public private(set) var state: State?
+    
+    /// Cancel the request. Sets state to cancled.
     public func cancel() {
         state = .canceled
     }
     
+    /// Resumes the request. Sets state to resumed.
     public func resume() {
         state = .resumed
     }
     
+    /// Suspends the request. Sets state to suspended.
     public func suspend() {
         state = .suspended
     }
     
+    /// Mock progress with constant value `0`
     public var progress: Progress {
         return Progress(totalUnitCount: 0)
     }
