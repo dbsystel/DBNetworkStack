@@ -40,7 +40,7 @@ public enum NetworkError: Error {
     /// Complete request failed.
     case requestError(error: Error)
     
-    public init?(response: HTTPURLResponse?, data: Data?) {
+    init?(response: HTTPURLResponse?, data: Data?) {
         guard let response = response else {
             return nil
         }
