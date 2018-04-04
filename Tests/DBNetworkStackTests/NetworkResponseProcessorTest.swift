@@ -51,7 +51,7 @@ class NetworkResponseProcessingTests: XCTestCase {
                 XCTFail("Expected cancelled error (got \(error)")
             }
         } catch let error {
-            XCTFail("Expected NetworkError (got \(type(of:error)))")
+            XCTFail("Expected NetworkError (got \(type(of: error)))")
         }
         
         XCTAssertNil(result, "Expected processing to fail")
@@ -80,12 +80,11 @@ class NetworkResponseProcessingTests: XCTestCase {
                 }
                 
                 XCTAssertEqual(recievedData, data)
-                break
             default:
                 XCTFail("Expected cancelled error (got \(error)")
             }
         } catch let error {
-            XCTFail("Expected NetworkError (got \(type(of:error)))")
+            XCTFail("Expected NetworkError (got \(type(of: error)))")
         }
     }
     
@@ -105,7 +104,7 @@ class NetworkResponseProcessingTests: XCTestCase {
                 XCTFail("Expected cancelled error (got \(error)")
             }
         } catch let error {
-            XCTFail("Expected NetworkError (got \(type(of:error)))")
+            XCTFail("Expected NetworkError (got \(type(of: error)))")
         }
         
     }
