@@ -126,7 +126,7 @@ public final class NetworkServiceMock: NetworkService {
     /// - Parameters:
     ///   - error: the error which gets passed to the caller
     public func returnError(with error: NetworkError) {
-        returnError(with: error, count: 1)
+        callbacks.removeFirst().onErrorCallback?(error)
     }
     
     /// Will return an error to the current waiting request.
@@ -138,7 +138,7 @@ public final class NetworkServiceMock: NetworkService {
     public func returnError(with error: NetworkError, count: Int) {
         (0..<count).forEach { _ in
             precondition(!callbacks.isEmpty, "There is no request left to return an error for.")
-            callbacks.removeFirst().onErrorCallback?(error)
+            returnError(with: error)
         }
     }
     
@@ -148,7 +148,7 @@ public final class NetworkServiceMock: NetworkService {
     ///   - data: the mock response from the server. `Data()` by default
     ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
     public func returnSuccess(with data: Data = Data(), httpResponse: HTTPURLResponse = HTTPURLResponse()) {
-        returnSuccess(with: data, httpResponse: httpResponse, count: 1)
+        callbacks.removeFirst().onSuccess?(data, httpResponse)
     }
     
     /// Will return a successful request, by using the given data as a server response.
@@ -161,7 +161,7 @@ public final class NetworkServiceMock: NetworkService {
     public func returnSuccess(with data: Data = Data(), httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int) {
         (0..<count).forEach { _ in
             precondition(!callbacks.isEmpty, "There is no request left to return a success for.")
-            callbacks.removeFirst().onSuccess?(data, httpResponse)
+            returnSuccess(with: data, httpResponse: httpResponse)
         }
     }
     
@@ -173,7 +173,7 @@ public final class NetworkServiceMock: NetworkService {
     ///   - data: the mock response from the server. `Data()` by default
     ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
     public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse()) {
-        returnSuccess(with: serializedResponse, httpResponse: httpResponse, count: 1)
+        callbacks.removeFirst().onTypedSuccess?(serializedResponse, httpResponse)
     }
     
     /// Will return a successful request, by using the given type `T` as serialized result of a request.
@@ -188,7 +188,7 @@ public final class NetworkServiceMock: NetworkService {
     public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int) {
         (0..<count).forEach { _ in
             precondition(!callbacks.isEmpty, "There is no request left to return a typed success for.")
-            callbacks.removeFirst().onTypedSuccess?(serializedResponse, httpResponse)
+            returnSuccess(with: serializedResponse, httpResponse: httpResponse)
         }
     }
     
