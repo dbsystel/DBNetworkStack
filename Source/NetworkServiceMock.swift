@@ -145,9 +145,9 @@ public final class NetworkServiceMock: NetworkService {
     /// Will return a successful request, by using the given data as a server response.
     ///
     /// - Parameters:
-    ///   - data: the mock response from the server. `Data()` by default
+    ///   - data: the mock response from the server.
     ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
-    public func returnSuccess(with data: Data = Data(), httpResponse: HTTPURLResponse = HTTPURLResponse()) {
+    public func returnSuccess(with data: Data, httpResponse: HTTPURLResponse = HTTPURLResponse()) {
         callbacks.removeFirst().onSuccess?(data, httpResponse)
     }
     
@@ -158,7 +158,7 @@ public final class NetworkServiceMock: NetworkService {
     ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
     ///   - count: the count how often the response gets triggerd.
     @available(*, deprecated, message: "Use returnSuccess without count parameter instead. Multiple calls can be done manually.")
-    public func returnSuccess(with data: Data = Data(), httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int) {
+    public func returnSuccess(with data: Data = Data(), httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int = 1) {
         (0..<count).forEach { _ in
             precondition(!callbacks.isEmpty, "There is no request left to return a success for.")
             returnSuccess(with: data, httpResponse: httpResponse)
