@@ -59,7 +59,6 @@ class NetworkServiceMockTest: XCTestCase {
         XCTAssertEqual(capturedResult, 1)
         XCTAssertEqual(executionCount, 1)
     }
-    
 
     func testCorrectOrderOfReturnSuccessWithDataForMultipleRequests() {
         //Given
@@ -67,12 +66,12 @@ class NetworkServiceMockTest: XCTestCase {
         var called2First = false
 
         //When
-        networkServiceMock.request(resource, onCompletion: { result in
+        networkServiceMock.request(resource, onCompletion: { _ in
             if !called2First {
                 called1First = true
             }
         }, onError: { _ in })
-        networkServiceMock.request(resource, onCompletion: { result in
+        networkServiceMock.request(resource, onCompletion: { _ in
             if !called1First {
                 called2First = true
             }
@@ -91,9 +90,9 @@ class NetworkServiceMockTest: XCTestCase {
         var executionCount2: Int = 0
 
         //When
-        networkServiceMock.request(resource, onCompletion: { result in
+        networkServiceMock.request(resource, onCompletion: { _ in
             executionCount1 += 1
-            self.networkServiceMock.request(self.resource, onCompletion: { result in
+            self.networkServiceMock.request(self.resource, onCompletion: { _ in
                 executionCount2 += 1
             }, onError: { _ in })
         }, onError: { _ in })
@@ -167,9 +166,9 @@ class NetworkServiceMockTest: XCTestCase {
         var executionCount2: Int = 0
         
         //When
-        networkServiceMock.request(resource, onCompletion: { result in
+        networkServiceMock.request(resource, onCompletion: { _ in
             executionCount1 += 1
-            self.networkServiceMock.request(self.resource, onCompletion: { result in
+            self.networkServiceMock.request(self.resource, onCompletion: { _ in
                 executionCount2 += 1
             }, onError: { _ in })
         }, onError: { _ in })
