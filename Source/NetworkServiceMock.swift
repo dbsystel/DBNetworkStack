@@ -59,8 +59,41 @@ struct NetworkServiceMockCallback {
  
  //When
  // Your test code
+ networkService.request(
+    resource,
+    onCompletion: { string in /*...*/ },
+    onError: { error in /*...*/ }
+ )
  networkService.returnSuccess(with: "Sucess")
  
+ //Then
+ //Test your expectations
+ 
+ ```
+
+ It is possible to start multiple requests at a time. All requests and responses (or errors) are processed in order they have been called. So, everything is serial.
+
+ **Example**:
+ ```swift
+ //Given
+ let networkServiceMock = NetworkServiceMock()
+ let resource: Resource<String> = //
+ 
+ //When
+ networkService.request(
+    resource,
+    onCompletion: { string in /* Success */ },
+    onError: { error in /*...*/ }
+ )
+ networkService.request(
+    resource,
+    onCompletion: { string in /*...*/ },
+    onError: { error in /*. cancel error .*/ }
+ )
+
+ networkService.returnSuccess(with: "Sucess")
+ networkService.returnError(with: .cancelled)
+
  //Then
  //Test your expectations
  
