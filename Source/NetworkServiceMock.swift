@@ -49,7 +49,8 @@ struct NetworkServiceMockCallback {
 }
 
 /**
- Mocks a `NetworkService`. You can configure expected results or errors to have a fully functional mock.
+ Mocks a `NetworkService`.
+ You can configure expected results or errors to have a fully functional mock.
  
  **Example**:
  ```swift
@@ -58,7 +59,6 @@ struct NetworkServiceMockCallback {
  let resource: Resource<String> = //
  
  //When
- // Your test code
  networkService.request(
     resource,
     onCompletion: { string in /*...*/ },
@@ -71,7 +71,9 @@ struct NetworkServiceMockCallback {
  
  ```
 
- It is possible to start multiple requests at a time. All requests and responses (or errors) are processed in order they have been called. So, everything is serial.
+ It is possible to start multiple requests at a time.
+ All requests and responses (or errors) are processed
+ in order they have been called. So, everything is serial.
 
  **Example**:
  ```swift
