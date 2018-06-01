@@ -162,6 +162,30 @@ class RetryTaskTest: XCTestCase {
         XCTAssertNotNil(capturedError)
     }
     
+    func testShouldNotWhenMaximumNumberOfRetrys() {
+        var retryCount = 0
+        let task: RetryNetworkTask<Int> = RetryNetworkTask(maxmimumNumberOfRetries: 3, idleTimeInterval: 0.3,
+                                                            shouldRetry: { _ in return true }, onSuccess: { _, _  in
+                                                                
+        }, onError: { _ in
+            
+        }, retryAction: { _, _ in
+            retryCount += 1
+            return NetworkTaskMock()
+        }, dispatchRetry: { _, block in
+            block()
+        })
+        
+        let onError = task.createOnError()
+        
+        onError(.unknownError)
+        onError(.unknownError)
+        onError(.unknownError)
+        onError(.unknownError)
+        
+        XCTAssertEqual(retryCount, 3)
+    }
+    
     func testResume() {
         //Given
         let taskMock = NetworkTaskMock()
