@@ -49,7 +49,8 @@ struct NetworkServiceMockCallback {
 }
 
 /**
- Mocks a `NetworkService`. You can configure expected results or errors to have a fully functional mock.
+ Mocks a `NetworkService`.
+ You can configure expected results or errors to have a fully functional mock.
  
  **Example**:
  ```swift
@@ -58,9 +59,43 @@ struct NetworkServiceMockCallback {
  let resource: Resource<String> = //
  
  //When
- // Your test code
+ networkService.request(
+    resource,
+    onCompletion: { string in /*...*/ },
+    onError: { error in /*...*/ }
+ )
  networkService.returnSuccess(with: "Sucess")
  
+ //Then
+ //Test your expectations
+ 
+ ```
+
+ It is possible to start multiple requests at a time.
+ All requests and responses (or errors) are processed
+ in order they have been called. So, everything is serial.
+
+ **Example**:
+ ```swift
+ //Given
+ let networkServiceMock = NetworkServiceMock()
+ let resource: Resource<String> = //
+ 
+ //When
+ networkService.request(
+    resource,
+    onCompletion: { string in /* Success */ },
+    onError: { error in /*...*/ }
+ )
+ networkService.request(
+    resource,
+    onCompletion: { string in /*...*/ },
+    onError: { error in /*. cancel error .*/ }
+ )
+
+ networkService.returnSuccess(with: "Sucess")
+ networkService.returnError(with: .cancelled)
+
  //Then
  //Test your expectations
  
@@ -76,11 +111,11 @@ public final class NetworkServiceMock: NetworkService {
     /// Set this to hava a custom networktask returned by the mock
     public var nextNetworkTask: NetworkTask?
     
-    private var callbacks: NetworkServiceMockCallback?
+    private var callbacks: [NetworkServiceMockCallback] = []
     
     /// Creates an instace of `NetworkServiceMock`
     public init() {}
-
+    
     /**
      Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
      Execution happens on no specific queue. It dependes on the network access which queue is used.
@@ -93,9 +128,9 @@ public final class NetworkServiceMock: NetworkService {
      let resource: Resource<String> = //
      
      networkService.request(queue: .main, resource: resource, onCompletionWithResponse: { htmlText, response in
-        print(htmlText, response)
+     print(htmlText, response)
      }, onError: { error in
-        // Handle errors
+     // Handle errors
      })
      ```
      
@@ -108,11 +143,15 @@ public final class NetworkServiceMock: NetworkService {
      */
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
-
+                                onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+        
         lastRequest = resource.request
         requestCount += 1
-        callbacks = NetworkServiceMockCallback(resource: resource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
+        callbacks.append(NetworkServiceMockCallback(
+            resource: resource,
+            onCompletionWithResponse: onCompletionWithResponse,
+            onError: onError
+        ))
         
         return nextNetworkTask ?? NetworkTaskMock()
     }
@@ -121,12 +160,30 @@ public final class NetworkServiceMock: NetworkService {
     ///
     /// - Parameters:
     ///   - error: the error which gets passed to the caller
-    ///   - count: the count, how often the error accours. 1 by default
-    public func returnError(with error: NetworkError, count: Int = 1) {
-        for _ in 0..<count {
-            callbacks?.onErrorCallback?(error)
+    public func returnError(with error: NetworkError) {
+        callbacks.removeFirst().onErrorCallback?(error)
+    }
+    
+    /// Will return an error to the current waiting request.
+    ///
+    /// - Parameters:
+    ///   - error: the error which gets passed to the caller
+    ///   - count: the count, how often the error occours.
+    @available(*, deprecated, message: "Use returnError without count parameter instead. Multiple calls can be done manually.")
+    public func returnError(with error: NetworkError, count: Int) {
+        (0..<count).forEach { _ in
+            precondition(!callbacks.isEmpty, "There is no request left to return an error for.")
+            returnError(with: error)
         }
-        callbacks = nil
+    }
+    
+    /// Will return a successful request, by using the given data as a server response.
+    ///
+    /// - Parameters:
+    ///   - data: the mock response from the server.
+    ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
+    public func returnSuccess(with data: Data, httpResponse: HTTPURLResponse = HTTPURLResponse()) {
+        callbacks.removeFirst().onSuccess?(data, httpResponse)
     }
     
     /// Will return a successful request, by using the given data as a server response.
@@ -134,12 +191,13 @@ public final class NetworkServiceMock: NetworkService {
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
     ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
-    ///   - count: the count how often the response gets triggerd. 1 by default
+    ///   - count: the count how often the response gets triggerd.
+    @available(*, deprecated, message: "Use returnSuccess without count parameter instead. Multiple calls can be done manually.")
     public func returnSuccess(with data: Data = Data(), httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int = 1) {
-        for _ in 0..<count {
-            callbacks?.onSuccess?(data, httpResponse)
+        (0..<count).forEach { _ in
+            precondition(!callbacks.isEmpty, "There is no request left to return a success for.")
+            returnSuccess(with: data, httpResponse: httpResponse)
         }
-        callbacks = nil
     }
     
     /// Will return a successful request, by using the given type `T` as serialized result of a request.
@@ -149,12 +207,24 @@ public final class NetworkServiceMock: NetworkService {
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
     ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
-    ///   - count: the count how often the response gets triggerd. 1 by default
-    public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int = 1) {
-        for _ in 0..<count {
-            callbacks?.onTypedSuccess?(serializedResponse, httpResponse)
+    public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse()) {
+        callbacks.removeFirst().onTypedSuccess?(serializedResponse, httpResponse)
+    }
+    
+    /// Will return a successful request, by using the given type `T` as serialized result of a request.
+    ///
+    /// **Warning:** This will crash if type `T` does not match your expected ResponseType of your current request
+    ///
+    /// - Parameters:
+    ///   - data: the mock response from the server. `Data()` by default
+    ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
+    ///   - count: the count how often the response gets triggerd.
+    @available(*, deprecated, message: "Use returnSuccess without count parameter instead. Multiple calls can be done manually.")
+    public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse(), count: Int) {
+        (0..<count).forEach { _ in
+            precondition(!callbacks.isEmpty, "There is no request left to return a typed success for.")
+            returnSuccess(with: serializedResponse, httpResponse: httpResponse)
         }
-        callbacks = nil
     }
     
 }
