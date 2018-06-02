@@ -25,7 +25,8 @@ import Foundation
 import Dispatch
 
 /// A NetworkTaskRepresenting which can be used together with `RetryNetworkService` to keep a task alife to repeat the task after a given time
-final class RetryNetworkTask<T> : NetworkTask {
+final class RetryNetworkTask<T>: NetworkTask {
+
     private let maxmimumNumberOfRetries: Int
     private let idleTimeInterval: TimeInterval
     private let shouldRetry: (NetworkError) -> Bool

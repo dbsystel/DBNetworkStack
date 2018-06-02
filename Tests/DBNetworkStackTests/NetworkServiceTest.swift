@@ -35,7 +35,7 @@ class NetworkServiceTest: XCTestCase {
     let baseURL: URL! = URL(string: "//bahn.de")
     
     var resource: Resource<Train> {
-        let request = URLRequest(path:"train", baseURL: baseURL)
+        let request = URLRequest(path: "train", baseURL: baseURL)
         return Resource(request: request, decoder: JSONDecoder())
     }
     
