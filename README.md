@@ -36,7 +36,7 @@ Create a resource with a request to fetch your data.
 ```swift
 
 let url = URL(string: "https://httpbin.org")!
-let request = URLRequest(path: "/", baseURL: url)
+let request = URLRequest(path: "/", baseURL: url, HTTPMethod: .GET)
 let resource = Resource(request: request, parse: { String(data: $0, encoding: .utf8) })
 
 ```
