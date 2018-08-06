@@ -85,8 +85,8 @@ final class NetworkResponseProcessor {
                     onError(NetworkError.unknownError)
                 }
             }
-        } catch let parsingError {
-            let dbNetworkError: NetworkError! = parsingError as? NetworkError
+        } catch let genericError {
+            let dbNetworkError: NetworkError! = genericError as? NetworkError
             queue.async {
                 return onError(dbNetworkError)
             }
