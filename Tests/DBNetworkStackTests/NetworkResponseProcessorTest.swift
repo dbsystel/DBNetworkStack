@@ -39,7 +39,7 @@ class NetworkResponseProcessingTests: XCTestCase {
         let cancelledError = URLError(_nsError: NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: nil))
         
         // When
-        var result: Int? = nil
+        var result: Int?
         do {
             result = try processor.process(response: nil, resource: resource, data: nil, error: cancelledError)
         } catch let error as NetworkError {
