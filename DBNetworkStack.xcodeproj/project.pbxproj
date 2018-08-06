@@ -30,8 +30,8 @@
 		C6363D901F4ED1950052E9BD /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6363D8B1F4ED0840052E9BD /* URLSessionMock.swift */; };
 		C6363D911F4ED2030052E9BD /* DefaultMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C21A3A1F21FD150004A7EB /* DefaultMocks.swift */; };
 		C6461F021E01678100E0B081 /* RetryNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F011E01678100E0B081 /* RetryNetworkService.swift */; };
-		C6461F051E0167C900E0B081 /* RetryNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */; };
-		C6461F081E0167FA00E0B081 /* RetryTaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */; };
+		C65AA9A221185F68007529BF /* ContainerNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65AA9A121185F68007529BF /* ContainerNetworkTask.swift */; };
+		C65AA9A52118723F007529BF /* ContainerNetworkTaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65AA9A321187234007529BF /* ContainerNetworkTaskTest.swift */; };
 		C66C7B961FE96CD0009B8C78 /* Resource+Inspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66C7B951FE96CD0009B8C78 /* Resource+Inspect.swift */; };
 		C66C7B991FE96F26009B8C78 /* ResourceInspectTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66C7B971FE96EA8009B8C78 /* ResourceInspectTest.swift */; };
 		C68FF1F51E1A64CB00A2513F /* Resource+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68FF1F41E1A64CB00A2513F /* Resource+Map.swift */; };
@@ -83,9 +83,9 @@
 		C6363D8B1F4ED0840052E9BD /* URLSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
 		C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkAccessTest.swift"; sourceTree = "<group>"; };
 		C6461F011E01678100E0B081 /* RetryNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryNetworkService.swift; sourceTree = "<group>"; };
-		C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryNetworkTask.swift; sourceTree = "<group>"; };
-		C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryTaskTest.swift; sourceTree = "<group>"; };
 		C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
+		C65AA9A121185F68007529BF /* ContainerNetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNetworkTask.swift; sourceTree = "<group>"; };
+		C65AA9A321187234007529BF /* ContainerNetworkTaskTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNetworkTaskTest.swift; sourceTree = "<group>"; };
 		C66C7B951FE96CD0009B8C78 /* Resource+Inspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Inspect.swift"; sourceTree = "<group>"; };
 		C66C7B971FE96EA8009B8C78 /* ResourceInspectTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceInspectTest.swift; sourceTree = "<group>"; };
 		C68FF1F41E1A64CB00A2513F /* Resource+Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Resource+Map.swift"; sourceTree = "<group>"; };
@@ -164,7 +164,6 @@
 				C6A5DED21D760C9E00BC38B1 /* Mocks */,
 				C6E5A4D51E2FBDDD00F966DB /* NetworkServiceTests */,
 				C6E5A4D61E2FBE0000F966DB /* RessourceTests */,
-				C6461F061E0167FA00E0B081 /* RetryTaskTest.swift */,
 				C6F7E30E1E49DC4900FA625F /* NetworkTaskMockTests.swift */,
 				C699E0761D917501006FE7C6 /* NetworkErrorTest.swift */,
 				7C653BC81E09325500199993 /* NetworkResponseProcessorTest.swift */,
@@ -232,7 +231,7 @@
 				C6E429711F70ECFF004121F1 /* URLSessionDataTask+NetworkTask.swift */,
 				7C40B9FD1D9D66A600620563 /* NetworkTaskMock.swift */,
 				C60BE6AC1D6B3E81006B0364 /* NetworkTask.swift */,
-				C6461F041E0167C900E0B081 /* RetryNetworkTask.swift */,
+				C65AA9A121185F68007529BF /* ContainerNetworkTask.swift */,
 			);
 			name = NetworkTask;
 			sourceTree = "<group>";
@@ -260,6 +259,7 @@
 		C6E5A4D61E2FBE0000F966DB /* RessourceTests */ = {
 			isa = PBXGroup;
 			children = (
+				C65AA9A321187234007529BF /* ContainerNetworkTaskTest.swift */,
 				C69188681EE688F700BAD320 /* DecodableResoureTest.swift */,
 				C60425121D7803CA00FD3B38 /* ResourceTest.swift */,
 				C66C7B971FE96EA8009B8C78 /* ResourceInspectTest.swift */,
@@ -408,9 +408,9 @@
 				C6F235D51D7DA75000E628D8 /* URLSession+NetworkAccess.swift in Sources */,
 				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
 				C6E429721F70ECFF004121F1 /* URLSessionDataTask+NetworkTask.swift in Sources */,
+				C65AA9A221185F68007529BF /* ContainerNetworkTask.swift in Sources */,
 				C68FF1F51E1A64CB00A2513F /* Resource+Map.swift in Sources */,
 				C604250A1D76F79F00FD3B38 /* BasicNetworkService.swift in Sources */,
-				C6461F051E0167C900E0B081 /* RetryNetworkTask.swift in Sources */,
 				C60BE6AD1D6B3E81006B0364 /* NetworkTask.swift in Sources */,
 				C60425081D76F6F400FD3B38 /* NetworkAccess.swift in Sources */,
 				C61E77871E48CAFE00D55BB2 /* NetworkServiceMock.swift in Sources */,
@@ -428,9 +428,9 @@
 				C60425131D7803CA00FD3B38 /* ResourceTest.swift in Sources */,
 				C6363D8F1F4ED1500052E9BD /* URLSession+NetworkAccessTest.swift in Sources */,
 				C61E77891E49A57A00D55BB2 /* NetworkServiceMockTest.swift in Sources */,
+				C65AA9A52118723F007529BF /* ContainerNetworkTaskTest.swift in Sources */,
 				C6A5DEDA1D76A06000BC38B1 /* TrainModel.swift in Sources */,
 				7C653BC91E09325500199993 /* NetworkResponseProcessorTest.swift in Sources */,
-				C6461F081E0167FA00E0B081 /* RetryTaskTest.swift in Sources */,
 				C691886A1EE6897900BAD320 /* DecodableResoureTest.swift in Sources */,
 				C66C7B991FE96F26009B8C78 /* ResourceInspectTest.swift in Sources */,
 				C60BE6A31D6B3807006B0364 /* NetworkServiceTest.swift in Sources */,
