@@ -30,27 +30,38 @@ public final class ContainerNetworkTask: NetworkTask {
     
     // MARK: - Init
     
-    public init() {
-        
-    }
+    /// Creates an `ContainerNetworkTask` instance
+    public init() { }
     
     // MARK: - Override
     
     // MARK: - Protocol NetworkTask
     
+    /**
+     Resumes a task.
+     */
     public func resume() {
         underlyingTask?.resume()
     }
     
+    /**
+     Cancels the userlying task.
+     */
     public func cancel() {
         isCanceled = true
         underlyingTask?.cancel()
     }
     
+    /**
+     Suspends a task.
+     */
     public func suspend() {
         underlyingTask?.suspend()
     }
     
+    /**
+     Contains the current progress of a running task.
+     */
     @available(iOS 11.0, OSX 10.13, watchOS 4.0, tvOS 11.0, *)
     public var progress: Progress {
         guard let task = underlyingTask else {
@@ -61,9 +72,12 @@ public final class ContainerNetworkTask: NetworkTask {
     
     // MARK: - Public
     
+    /// The underlying task
     public var underlyingTask: NetworkTask?
     
     // MARK: - Private
     
+    /// Falg if the request is canceld. Can be used to stop
+    /// cancle following request in the chain.
     public private(set) var isCanceled = false
 }
