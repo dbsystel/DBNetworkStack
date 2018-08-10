@@ -45,6 +45,8 @@
 		C6C395961E0422AF00413AD2 /* ModifyRequestNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */; };
 		C6E429721F70ECFF004121F1 /* URLSessionDataTask+NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E429711F70ECFF004121F1 /* URLSessionDataTask+NetworkTask.swift */; };
 		C6F235D51D7DA75000E628D8 /* URLSession+NetworkAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F235D41D7DA75000E628D8 /* URLSession+NetworkAccess.swift */; };
+		C6F3A3FF211D665300BF0086 /* URL+StaticStringInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F3A3FE211D665300BF0086 /* URL+StaticStringInit.swift */; };
+		C6F3A402211D732C00BF0086 /* URL+StaticStringInitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F3A400211D732500BF0086 /* URL+StaticStringInitTest.swift */; };
 		C6F7E3101E49DCBA00FA625F /* NetworkTaskMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F7E30E1E49DC4900FA625F /* NetworkTaskMockTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +102,8 @@
 		C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyRequestNetworkService.swift; sourceTree = "<group>"; };
 		C6E429711F70ECFF004121F1 /* URLSessionDataTask+NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionDataTask+NetworkTask.swift"; sourceTree = "<group>"; };
 		C6F235D41D7DA75000E628D8 /* URLSession+NetworkAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "URLSession+NetworkAccess.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C6F3A3FE211D665300BF0086 /* URL+StaticStringInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+StaticStringInit.swift"; sourceTree = "<group>"; };
+		C6F3A400211D732500BF0086 /* URL+StaticStringInitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+StaticStringInitTest.swift"; sourceTree = "<group>"; };
 		C6F7E30E1E49DC4900FA625F /* NetworkTaskMockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTaskMockTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,6 +174,7 @@
 				7C653BC81E09325500199993 /* NetworkResponseProcessorTest.swift */,
 				C60FF0F11E5C94AC00818031 /* URLRequestConvertibleTest.swift */,
 				C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessTest.swift */,
+				C6F3A400211D732500BF0086 /* URL+StaticStringInitTest.swift */,
 			);
 			name = Tests;
 			path = Tests/DBNetworkStackTests;
@@ -222,6 +227,7 @@
 			children = (
 				C622A7951E5C7F6500BB3D17 /* URLRequestConvertible.swift */,
 				C62925AD1FC5900000607AEA /* URLRequestConvertible+Modifications.swift */,
+				C6F3A3FE211D665300BF0086 /* URL+StaticStringInit.swift */,
 			);
 			name = NetworkRequest;
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 				C69188671EE6865E00BAD320 /* Resource+Decodable.swift in Sources */,
 				7C235E0B1DBF6E8500628DC9 /* NetworkError.swift in Sources */,
 				C6C21A391F21F90A0004A7EB /* NetworkResponseProcessor.swift in Sources */,
+				C6F3A3FF211D665300BF0086 /* URL+StaticStringInit.swift in Sources */,
 				C6F235D51D7DA75000E628D8 /* URLSession+NetworkAccess.swift in Sources */,
 				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
 				C6E429721F70ECFF004121F1 /* URLSessionDataTask+NetworkTask.swift in Sources */,
@@ -438,6 +445,7 @@
 				C6F7E3101E49DCBA00FA625F /* NetworkTaskMockTests.swift in Sources */,
 				C61E778B1E49B53700D55BB2 /* RetryNetworkserviceTest.swift in Sources */,
 				C60FF0F31E5C94CD00818031 /* URLRequestConvertibleTest.swift in Sources */,
+				C6F3A402211D732C00BF0086 /* URL+StaticStringInitTest.swift in Sources */,
 				C6363D911F4ED2030052E9BD /* DefaultMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
