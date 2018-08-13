@@ -92,8 +92,10 @@ public final class RetryNetworkService: NetworkService {
                                          resource: resource,
                                          onCompletionWithResponse: onCompletionWithResponse,
                                          onError: onError)
-        containerTask.underlyingTask = networkService.request(queue: queue, resource: resource,
-                                                        onCompletionWithResponse: onCompletionWithResponse, onError: retryOnError)
+        containerTask.underlyingTask = networkService.request(queue: queue,
+                                                        resource: resource,
+                                                        onCompletionWithResponse: onCompletionWithResponse,
+                                                        onError: retryOnError)
         
         return containerTask
     }
@@ -117,9 +119,9 @@ public final class RetryNetworkService: NetworkService {
                                                         onCompletionWithResponse: onCompletionWithResponse,
                                                         onError: onError)
                     containerTask.underlyingTask = self.networkService.request(queue: queue,
-                                                                               resource: resource,
-                                                                               onCompletionWithResponse: onCompletionWithResponse,
-                                                                               onError: newOnError)
+                                                                            resource: resource,
+                                                                            onCompletionWithResponse: onCompletionWithResponse,
+                                                                            onError: newOnError)
                 })
             } else {
                 onError(error)

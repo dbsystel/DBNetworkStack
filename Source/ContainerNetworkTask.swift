@@ -24,13 +24,15 @@
 import Foundation
 
 /// A task which contains another task which can be updated in fligh.
-/// Use this task to build machasnims which need to fetch requests during the orginal reuqets.
+/// Use this task to compose a chain of requests during the original request.
 /// An oAuth Flow would be a good example for this.
+///
+/// - Note: Take look at `RetryNetworkService` to see how to use it in detail.
 public final class ContainerNetworkTask: NetworkTask {
     
     // MARK: - Init
     
-    /// Creates an `ContainerNetworkTask` instance
+    /// Creates a `ContainerNetworkTask` instance.
     public init() { }
     
     // MARK: - Override
@@ -45,7 +47,7 @@ public final class ContainerNetworkTask: NetworkTask {
     }
     
     /**
-     Cancels the userlying task.
+     Cancels the underlying task.
      */
     public func cancel() {
         isCanceled = true
@@ -74,10 +76,8 @@ public final class ContainerNetworkTask: NetworkTask {
     
     /// The underlying task
     public var underlyingTask: NetworkTask?
-    
-    // MARK: - Private
-    
-    /// Falg if the request is canceld. Can be used to stop
-    /// cancle following request in the chain.
+        
+    /// Indicates if the request has been canceled.
+    /// When composing multiple requests this flag must be respected.
     public private(set) var isCanceled = false
 }
