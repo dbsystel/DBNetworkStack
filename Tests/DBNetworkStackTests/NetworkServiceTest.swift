@@ -32,10 +32,9 @@ class NetworkServiceTest: XCTestCase {
     var networkAccess = NetworkAccessMock()
     
     let trainName = "ICE"
-    let baseURL: URL! = URL(string: "//bahn.de")
     
     var resource: Resource<Train> {
-        let request = URLRequest(path: "train", baseURL: baseURL)
+        let request = URLRequest(path: "train", baseURL: .defaultMock)
         return Resource(request: request, decoder: JSONDecoder())
     }
     
@@ -60,7 +59,7 @@ class NetworkServiceTest: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
         
         //Then
-        XCTAssertEqual(networkAccess.request?.url?.absoluteString, "//bahn.de/train")
+        XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
     }
 
     func testRequest_withNoDataResponse() {
@@ -135,8 +134,7 @@ class NetworkServiceTest: XCTestCase {
     
     func testRequest_withStatusCode401Response() {
         //Given
-        let url: URL! = URL(string: "https://bahn.de")
-        let expectedResponse = HTTPURLResponse(url: url, statusCode: 401, httpVersion: nil, headerFields: nil)
+        let expectedResponse = HTTPURLResponse(url: .defaultMock, statusCode: 401, httpVersion: nil, headerFields: nil)
         networkAccess.changeMock(data: testData, response: expectedResponse, error: nil)
         let expection = expectation(description: "testOnError")
         
