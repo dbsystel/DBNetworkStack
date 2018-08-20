@@ -27,7 +27,7 @@ import Foundation
 /**
  HTTP Methods
  
- See https://tools.ietf.org/html/rfc7231#section-4.3
+ See [IETF document](https://tools.ietf.org/html/rfc7231#section-4.3)
  */
 public enum HTTPMethod: String {
     case GET
