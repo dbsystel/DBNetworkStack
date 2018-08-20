@@ -45,6 +45,7 @@ public protocol NetworkTask: class {
     /**
      Contains the current progress of a running task.
      */
+    @available(*, deprecated, message: "Progress is no longer supported and will be removed in version 2.0")
     @available(iOS 11.0, OSX 10.13, watchOS 4.0, tvOS 11.0, *)
     var progress: Progress { get }
 }
