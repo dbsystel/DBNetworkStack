@@ -86,16 +86,20 @@ public final class RetryNetworkService: NetworkService {
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
                         onError: @escaping (NetworkError) -> Void) -> NetworkTask {
         let containerTask = ContainerNetworkTask()
-        let retryOnError = customOnError(containerTask: containerTask,
-                                         numberOfRetriesLeft: numberOfRetries,
-                                         queue: queue,
-                                         resource: resource,
-                                         onCompletionWithResponse: onCompletionWithResponse,
-                                         onError: onError)
-        containerTask.underlyingTask = networkService.request(queue: queue,
-                                                        resource: resource,
-                                                        onCompletionWithResponse: onCompletionWithResponse,
-                                                        onError: retryOnError)
+        let retryOnError = customOnError(
+            containerTask: containerTask,
+            numberOfRetriesLeft: numberOfRetries,
+            queue: queue,
+            resource: resource,
+            onCompletionWithResponse: onCompletionWithResponse,
+            onError: onError
+        )
+        containerTask.underlyingTask = networkService.request(
+            queue: queue,
+            resource: resource,
+            onCompletionWithResponse: onCompletionWithResponse,
+            onError: retryOnError
+        )
         
         return containerTask
     }
@@ -112,16 +116,21 @@ public final class RetryNetworkService: NetworkService {
                     return
                 }
                 self.dispatchRetry(.now() + self.idleTimeInterval, {
-                    let newOnError = self.customOnError(containerTask: containerTask,
-                                                        numberOfRetriesLeft: numberOfRetriesLeft - 1,
-                                                        queue: queue,
-                                                        resource: resource,
-                                                        onCompletionWithResponse: onCompletionWithResponse,
-                                                        onError: onError)
-                    containerTask.underlyingTask = self.networkService.request(queue: queue,
-                                                                            resource: resource,
-                                                                            onCompletionWithResponse: onCompletionWithResponse,
-                                                                            onError: newOnError)
+                    let newOnError = self.customOnError(
+                        containerTask: containerTask,
+                        numberOfRetriesLeft: numberOfRetriesLeft - 1,
+                        queue: queue,
+                        resource: resource,
+                        onCompletionWithResponse: onCompletionWithResponse,
+                        onError: onError
+                    )
+                    
+                    containerTask.underlyingTask = self.networkService.request(
+                        queue: queue,
+                        resource: resource,
+                        onCompletionWithResponse: onCompletionWithResponse,
+                        onError: newOnError
+                    )
                 })
             } else {
                 onError(error)
