@@ -35,7 +35,7 @@ Create a resource with a request to fetch your data.
 
 ```swift
 
-let url = URL(string: "https://httpbin.org")!
+let url = URL(staticString: "https://httpbin.org")
 let request = URLRequest(path: "/", baseURL: url, HTTPMethod: .GET)
 let resource = Resource(request: request, parse: { String(data: $0, encoding: .utf8) })
 
@@ -56,7 +56,7 @@ struct IPOrigin: Decodable {
     let origin: String
 }
 
-let url: URL! = URL(string: "https://www.httpbin.org")
+let url = URL(staticString: "https://www.httpbin.org")
 let request = URLRequest(path: "ip", baseURL: url)
 
 let resource = Resource<IPOrigin>(request: request, decoder: JSONDecoder())
@@ -112,7 +112,7 @@ The following table shows all the protocols and their default implementations.
 Specify the following in your `Cartfile`:
 
 ```ogdl
-github "dbsystel/dbnetworkstack" ~> 1.1
+github "dbsystel/dbnetworkstack" ~> 1.2
 ```
 
 ### CocoaPods

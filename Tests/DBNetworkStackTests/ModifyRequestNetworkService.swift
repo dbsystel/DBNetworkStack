@@ -27,7 +27,6 @@ import Foundation
 
 class ModifyRequestNetworkServiceTest: XCTestCase {
     
-    let url: URL! = URL(string: "bahn.de")
     var networkServiceMock: NetworkServiceMock!
     
     override func setUp() {
@@ -41,7 +40,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
             return request.appending(queryParameters: ["key": "1"])
             } ]
         let networkService: NetworkService = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
-        let request = URLRequest(path: "/trains", baseURL: url)
+        let request = URLRequest(path: "/trains", baseURL: .defaultMock)
         let resource = Resource<Int>(request: request, parse: { _ in return 1 })
         
         //When
@@ -53,7 +52,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
     
     func testAddHTTPHeaderToRequest() {
         //Given
-        let request = URLRequest(url: url)
+        let request = URLRequest(url: .defaultMock)
         let header = ["header": "head"]
         
         //When
@@ -65,7 +64,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
     
     func testAddDuplicatedQueryToRequest() {
         //Given
-        let url: URL! = URL(string: "bahn.de?test=test&bool=true")
+        let url = URL(staticString: "bahn.de?test=test&bool=true")
         let request = URLRequest(url: url)
         
         let parameters = ["test": "test2"]
@@ -83,7 +82,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
     
     func testReplaceAllQueryItemsFromRequest() {
         //Given
-        let url: URL! = URL(string: "bahn.de?test=test&bool=true")
+        let url = URL(staticString: "bahn.de?test=test&bool=true")
         let request = URLRequest(url: url)
         
         let parameters = ["test5": "test2"]

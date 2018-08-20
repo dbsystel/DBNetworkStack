@@ -10,7 +10,7 @@ let networkAccess = URLSession(configuration: .default)
 let networkService = BasicNetworkService(networkAccess: networkAccess)
 
 //Create a Resource with a given URLRequest and parsing
-let url: URL! = URL(string: "https://bahn.de")
+let url = URL(staticString: "https://bahn.de")
 let request = URLRequest(path: "p/view/index.shtml", baseURL: url)
 let resource = Resource(request: request, parse: { String(data: $0, encoding: .utf8) })
 

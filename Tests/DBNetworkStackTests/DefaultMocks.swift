@@ -24,11 +24,11 @@
 import Foundation
 
 extension URL {
-    static let defaultMock: URL! = URL(string: "bahn.de")
+    static let defaultMock = URL(staticString: "https://bahn.de")
 }
 
 extension URLRequest {
-    static let defaultMock: URLRequest = URLRequest(url: .defaultMock)
+    static let defaultMock = URLRequest(url: .defaultMock)
 }
 
 extension HTTPURLResponse {
