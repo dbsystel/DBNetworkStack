@@ -68,6 +68,28 @@ class RetryNetworkserviceTest: XCTestCase {
         XCTAssertNil(task)
     }
     
+    func testRetryRequestWhenCanceld_shouldNotRetry() {
+        //Given
+        let retryService = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 2,
+                                               idleTimeInterval: 0, shouldRetry: { _ in return true }, dispatchRetry: { _, block in
+                                                XCTFail("Expects to not call error block")
+                                                block()
+        })
+        weak var task = retryService.request(resource, onCompletion: { _ in
+            XCTFail("Expects to not call error block")
+        }, onError: { _ in
+            XCTFail("Expects to not call error block")
+        })
+        
+        //When
+       
+        task?.cancel()
+        networkServiceMock.returnError(with: .unknownError)
+        
+        //Then
+        XCTAssertNil(task)
+    }
+    
     func testRetryRequest_moreErrorsThenRetryAttemps() {
         //Given
         var executedRetrys = 0
