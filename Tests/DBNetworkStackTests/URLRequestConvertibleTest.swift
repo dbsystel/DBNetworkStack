@@ -28,17 +28,13 @@ import XCTest
 class URLRequestConvertibleTest: XCTestCase {
    
     func test_should_compile() {
-        //Given
-        let url: URL! = URL(string: "http://bahn.de")
-        
         //When
-        _ = URLRequest(url: url) as URLRequestConvertible
+        _ = URLRequest(url: .defaultMock) as URLRequestConvertible
     }
     
     func testConvertToRequest() {
         //Given
-        let url: URL! = URL(string: "http://bahn.de")
-        let request = URLRequest(url: url)
+        let request = URLRequest(url: .defaultMock)
         
         //When
         let convertedRequest = request.asURLRequest()
@@ -50,13 +46,12 @@ class URLRequestConvertibleTest: XCTestCase {
     func testCustomInitializer() {
         //Given
         let path = "train"
-        let url: URL! = URL(string: "http://bahn.de")
         let parameters = ["query": "2", "test": "true"]
         let body: Data! = "Hallo".data(using: .utf8)
         let httpHeaderFields = ["header": "HeaderValue"]
         
         //When
-        let request = URLRequest(path: path, baseURL: url, HTTPMethod: .DELETE, parameters: parameters, body: body, allHTTPHeaderFields: httpHeaderFields)
+        let request = URLRequest(path: path, baseURL: .defaultMock, HTTPMethod: .DELETE, parameters: parameters, body: body, allHTTPHeaderFields: httpHeaderFields)
         
         //Then
         let reuqestURL: URL! = request.url
@@ -71,7 +66,7 @@ class URLRequestConvertibleTest: XCTestCase {
     
     func testURLWithQueryParameter() {
         //Given
-        let url: URL! = URL(string: "http://bahn.de/train")
+        let url = URL(staticString: "http://bahn.de/train")
         let parameters = ["query": "2", "test": "true"]
         
         //When

@@ -53,6 +53,7 @@ public class NetworkTaskMock: NetworkTask {
     }
     
     /// Mock progress with constant value `0`
+    @available(*, deprecated, message: "Progress is no longer supported and will be removed in version 2.0")
     public var progress: Progress {
         return Progress(totalUnitCount: 0)
     }
