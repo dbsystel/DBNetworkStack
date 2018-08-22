@@ -26,10 +26,9 @@ import XCTest
 @testable import DBNetworkStack
 
 class NetworkErrorTest: XCTestCase {
-    let url: URL! = URL(string: "https://bahn.de")
     
     func urlResponseWith(statusCode: Int) -> HTTPURLResponse? {
-        return HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
+        return HTTPURLResponse(url: .defaultMock, statusCode: statusCode, httpVersion: nil, headerFields: nil)
     }
     
     private let testData: Data! = "test_string".data(using: .utf8)
@@ -131,7 +130,7 @@ class NetworkErrorTest: XCTestCase {
 
     func testUnknownError_unauthorized_description() {
         //Given
-        let response: HTTPURLResponse! = HTTPURLResponse(url: url, statusCode: 0, httpVersion: "1.1", headerFields: nil)
+        let response: HTTPURLResponse! = HTTPURLResponse(url: .defaultMock, statusCode: 0, httpVersion: "1.1", headerFields: nil)
         let data = "dataString".data(using: .utf8)
         let error: NetworkError = .unauthorized(response: response, data: data)
         
@@ -145,7 +144,7 @@ class NetworkErrorTest: XCTestCase {
     
     func testUnknownError_clientError_description() {
         //Given
-        let response: HTTPURLResponse! = HTTPURLResponse(url: url, statusCode: 0, httpVersion: "1.1", headerFields: nil)
+        let response: HTTPURLResponse! = HTTPURLResponse(url: .defaultMock, statusCode: 0, httpVersion: "1.1", headerFields: nil)
         let data = "dataString".data(using: .utf8)
         let error: NetworkError = .clientError(response: response, data: data)
         

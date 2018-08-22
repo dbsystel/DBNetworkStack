@@ -1,6 +1,6 @@
 //
-//  Copyright (C) 2017 DB Systel GmbH.
-//	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
+//  Copyright (C) 2018 DB Systel GmbH.
+//  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -23,38 +23,18 @@
 
 import Foundation
 
-/// Mock implementation for `NetworkTask`.
-public class NetworkTaskMock: NetworkTask {
+public extension URL {
     
-    /// Mock state of the network task
-    public enum State {
-        case canceled, resumed, suspended
+    /// Create a URL with a compile time constant string.
+    /// You guarantee that the string can be transformed into a valid `URL`
+    ///
+    /// - Parameter staticString: the string which gets transformed into `URL`.
+    init(staticString: StaticString) {
+        guard let newUrl = URL(string: "\(staticString)") else {
+            fatalError("Could not create url with string: \(staticString)")
+        }
+        
+        self = newUrl
     }
     
-    /// Creates an `NetworkTaskMock` instance
-    public init() {}
-    
-    /// State of the network taks. Can be used to assert.
-    public private(set) var state: State?
-    
-    /// Cancel the request. Sets state to cancled.
-    public func cancel() {
-        state = .canceled
-    }
-    
-    /// Resumes the request. Sets state to resumed.
-    public func resume() {
-        state = .resumed
-    }
-    
-    /// Suspends the request. Sets state to suspended.
-    public func suspend() {
-        state = .suspended
-    }
-    
-    /// Mock progress with constant value `0`
-    @available(*, deprecated, message: "Progress is no longer supported and will be removed in version 2.0")
-    public var progress: Progress {
-        return Progress(totalUnitCount: 0)
-    }
 }

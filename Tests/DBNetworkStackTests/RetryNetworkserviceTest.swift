@@ -27,8 +27,7 @@ import XCTest
 class RetryNetworkserviceTest: XCTestCase {
     var networkServiceMock: NetworkServiceMock!
     var resource: Resource<Int> {
-        let url: URL! = URL(string: "bahn.de")
-        let request = URLRequest(path: "/train", baseURL: url)
+        let request = URLRequest(path: "/train", baseURL: .defaultMock)
         return Resource(request: request, parse: { _ in return 1})
     }
     
@@ -48,20 +47,46 @@ class RetryNetworkserviceTest: XCTestCase {
         let numberOfRetries = 2
         var executedRetrys = 0
         
+        let retryService = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: numberOfRetries,
+                                               idleTimeInterval: 0, shouldRetry: { _ in return true }, dispatchRetry: { _, block in
+                                                executedRetrys += 1
+                                                block()
+        })
+        
         //When
-        weak var task: NetworkTask?
-        task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: numberOfRetries,
-                                   idleTimeInterval: 0, shouldRetry: { _ in return true}, dispatchRetry: { _, block in
-            executedRetrys += 1
-            block()
-        }).request(resource, onCompletionWithResponse: { _, _ in
+        weak var task = retryService.request(resource, onCompletion: { _ in
+            XCTAssertEqual(executedRetrys, numberOfRetries)
         }, onError: { _ in
             XCTFail("Expects to not call error block")
         })
-        networkServiceMock.returnError(with: .unknownError, count: errorCount)
+        (0..<errorCount).forEach { _ in
+            networkServiceMock.returnError(with: .unknownError)
+        }
+        networkServiceMock.returnSuccess(with: 1)
         
         //Then
-        XCTAssertEqual(executedRetrys, numberOfRetries)
+        XCTAssertNil(task)
+    }
+    
+    func testRetryRequestWhenCanceld_shouldNotRetry() {
+        //Given
+        let retryService = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 2,
+                                               idleTimeInterval: 0, shouldRetry: { _ in return true }, dispatchRetry: { _, block in
+                                                XCTFail("Expects to not call error block")
+                                                block()
+        })
+        weak var task = retryService.request(resource, onCompletion: { _ in
+            XCTFail("Expects to not call error block")
+        }, onError: { _ in
+            XCTFail("Expects to not call error block")
+        })
+        
+        //When
+       
+        task?.cancel()
+        networkServiceMock.returnError(with: .unknownError)
+        
+        //Then
         XCTAssertNil(task)
     }
     
@@ -72,19 +97,20 @@ class RetryNetworkserviceTest: XCTestCase {
         //When
         weak var task: NetworkTask?
         task = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 3,
-                                   idleTimeInterval: 0, shouldRetry: { _ in return true},
+                                   idleTimeInterval: 0, shouldRetry: { _ in return true },
                                    dispatchRetry: { _, block in
             executedRetrys += 1
             block()
         }).request(resource, onCompletion: { _ in
              XCTFail("Expects to not call completion block")
         }, onError: { _ in
-            XCTFail("Expects to not call error block")
+            XCTAssertEqual(executedRetrys, 3)
         })
-        networkServiceMock.returnError(with: .unknownError, count: 3)
+        (0..<4).forEach { _ in
+            networkServiceMock.returnError(with: .unknownError)
+        }
         
         //Then
-        XCTAssertEqual(executedRetrys, 3)
         XCTAssertNil(task)
     }
     
@@ -105,7 +131,7 @@ class RetryNetworkserviceTest: XCTestCase {
         }, onError: { error in
            capturedError = error
         })
-        networkServiceMock.returnError(with: .unknownError, count: 3)
+        networkServiceMock.returnError(with: .unknownError)
         
         //Then
         XCTAssertNil(task)

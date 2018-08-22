@@ -1,5 +1,5 @@
 //
-//  Copyright (C) 2017 DB Systel GmbH.
+//  Copyright (C) 2018 DB Systel GmbH.
 //  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -21,15 +21,20 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-extension Resource {
+import XCTest
+import DBNetworkStack
+
+class URLStaticStringIniTestt: XCTestCase {
     
-    /// Maps a resource result to a different resource. This is useful when you have result of R which contains T and your API request a resource of T,
-    ///
-    /// - Parameter transform: transforms the original result of the resource
-    /// - Returns: the transformed resource
-    public func map<T>(transform: @escaping (Model) throws -> T) -> Resource<T> {
-        return Resource<T>(request: request, parse: { data in
-            return try transform(try self.parse(data))
-        })
+   func testGIVEN_aStaticString_WHEN_createURL_THEN_ShouldBeValidURL() {
+        // GIVEN
+        let urlString: StaticString = "https://bahn.de"
+
+        // WHEN
+        let url = URL(staticString: urlString)
+
+        // THEN
+        XCTAssertEqual(url.absoluteString, "\(urlString)")
     }
+    
 }

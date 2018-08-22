@@ -39,7 +39,7 @@ class NetworkResponseProcessingTests: XCTestCase {
         let cancelledError = URLError(_nsError: NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: nil))
         
         // When
-        var result: Int? = nil
+        var result: Int?
         do {
             result = try processor.process(response: nil, resource: resource, data: nil, error: cancelledError)
         } catch let error as NetworkError {
@@ -51,7 +51,7 @@ class NetworkResponseProcessingTests: XCTestCase {
                 XCTFail("Expected cancelled error (got \(error)")
             }
         } catch let error {
-            XCTFail("Expected NetworkError (got \(type(of:error)))")
+            XCTFail("Expected NetworkError (got \(type(of: error)))")
         }
         
         XCTAssertNil(result, "Expected processing to fail")
@@ -80,12 +80,11 @@ class NetworkResponseProcessingTests: XCTestCase {
                 }
                 
                 XCTAssertEqual(recievedData, data)
-                break
             default:
                 XCTFail("Expected cancelled error (got \(error)")
             }
         } catch let error {
-            XCTFail("Expected NetworkError (got \(type(of:error)))")
+            XCTFail("Expected NetworkError (got \(type(of: error)))")
         }
     }
     
@@ -105,7 +104,7 @@ class NetworkResponseProcessingTests: XCTestCase {
                 XCTFail("Expected cancelled error (got \(error)")
             }
         } catch let error {
-            XCTFail("Expected NetworkError (got \(type(of:error)))")
+            XCTFail("Expected NetworkError (got \(type(of: error)))")
         }
         
     }

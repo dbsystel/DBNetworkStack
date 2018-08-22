@@ -27,8 +27,7 @@ import XCTest
 
 class DecodableResoureTest: XCTestCase {
     var resource: Resource<Train> {
-        let url: URL! = URL(string: "bahn.de")
-        let request = URLRequest(path: "/train", baseURL: url)
+        let request = URLRequest(path: "/train", baseURL: .defaultMock)
         return Resource<Train>(request: request, decoder: JSONDecoder())
     }
     

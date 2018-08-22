@@ -13,7 +13,7 @@ struct IPOrigin: Decodable {
     let origin: String
 }
 
-let url: URL! = URL(string: "https://www.httpbin.org")
+let url = URL(staticString: "https://www.httpbin.org")
 let request = URLRequest(path: "ip", baseURL: url)
 
 let resource = Resource<IPOrigin>(request: request, decoder: JSONDecoder())
