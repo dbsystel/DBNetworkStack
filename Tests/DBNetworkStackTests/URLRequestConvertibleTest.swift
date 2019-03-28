@@ -51,7 +51,12 @@ class URLRequestConvertibleTest: XCTestCase {
         let httpHeaderFields = ["header": "HeaderValue"]
         
         //When
-        let request = URLRequest(path: path, baseURL: .defaultMock, HTTPMethod: .DELETE, parameters: parameters, body: body, allHTTPHeaderFields: httpHeaderFields)
+        let request = URLRequest(path: path,
+                                 baseURL: .defaultMock,
+                                 HTTPMethod: .DELETE,
+                                 parameters: parameters,
+                                 body: body,
+                                 allHTTPHeaderFields: httpHeaderFields)
         
         //Then
         let reuqestURL: URL! = request.url
