@@ -99,8 +99,8 @@ The following table shows all the protocols and their default implementations.
 ## Requirements
 
 - iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 9.0+
-- Swift 3.2/Swift4.0
+- Xcode 10.2+
+- Swift5.0
 
 ## Installation
 
