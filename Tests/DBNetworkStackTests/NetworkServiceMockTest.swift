@@ -53,7 +53,7 @@ class NetworkServiceMockTest: XCTestCase {
             capturedResult = result
             executionCount += 1
         }, onError: { _ in })
-        networkServiceMock.returnSuccess()
+        networkServiceMock.returnSuccess(with: 1)
         
         //Then
         XCTAssertEqual(capturedResult, 1)
@@ -76,8 +76,8 @@ class NetworkServiceMockTest: XCTestCase {
                 called2First = true
             }
         }, onError: { _ in })
-        networkServiceMock.returnSuccess()
-        networkServiceMock.returnSuccess()
+        networkServiceMock.returnSuccess(with: 0)
+        networkServiceMock.returnSuccess(with: 0)
 
         //Then
         XCTAssertTrue(called1First)
@@ -96,8 +96,8 @@ class NetworkServiceMockTest: XCTestCase {
                 executionCount2 += 1
             }, onError: { _ in })
         }, onError: { _ in })
-        networkServiceMock.returnSuccess()
-        networkServiceMock.returnSuccess()
+        networkServiceMock.returnSuccess(with: 0)
+        networkServiceMock.returnSuccess(with: 0)
 
         //Then
         XCTAssertEqual(executionCount1, 1)
@@ -116,7 +116,8 @@ class NetworkServiceMockTest: XCTestCase {
         networkServiceMock.request(resource, onCompletion: { _ in
             executionCount2 += 1
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(count: 2)
+        networkServiceMock.returnSuccess(with: 0)
+        networkServiceMock.returnSuccess(with: 0)
 
         //Then
         XCTAssertEqual(executionCount1, 1)
@@ -192,7 +193,8 @@ class NetworkServiceMockTest: XCTestCase {
         networkServiceMock.request(resource, onCompletion: { _ in
             executionCount2 += 1
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(with: 10, count: 2)
+        networkServiceMock.returnSuccess(with: 10)
+        networkServiceMock.returnSuccess(with: 10)
         
         //Then
         XCTAssertEqual(executionCount1, 1)
@@ -276,7 +278,8 @@ class NetworkServiceMockTest: XCTestCase {
         networkServiceMock.request(resource, onCompletion: { _ in }, onError: { _ in
             executionCount2 += 1
         })
-        networkServiceMock.returnError(with: .unknownError, count: 2)
+        networkServiceMock.returnError(with: .unknownError)
+        networkServiceMock.returnError(with: .unknownError)
 
         //Then
         XCTAssertEqual(executionCount1, 1)

@@ -87,7 +87,6 @@ The following table shows all the protocols and their default implementations.
 | -------------------------------- | ---------------------- |
 | ```NetworkAccess```     | ```URLSession```     |
 | ```NetworkService```    | ```BasicNetworkService```   |
-| ```URLRequestConvertible```  | ```URLRequest```   |
 | ```NetworkTask```    | ```URLSessionTask``` |
 
 ## Composable Features

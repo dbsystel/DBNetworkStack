@@ -23,15 +23,15 @@
 
 import Foundation
 
-public extension URLRequestConvertible {
+public extension URLRequest {
     
     /// Creates a new `URLRequestConvertible` with HTTPHeaderFields added into the new request.
     /// Keep in mind that this overrides header fields which are already contained.
     ///
     /// - Parameter HTTPHeaderFields: the header fileds to add to the request
     /// - Returns: a new `URLRequestConvertible`
-    func added(HTTPHeaderFields: [String: String]) -> URLRequestConvertible {
-        var request = asURLRequest()
+    func added(HTTPHeaderFields: [String: String]) -> URLRequest {
+        var request = self
         let headerFiels = (request.allHTTPHeaderFields ?? [:]).merging(HTTPHeaderFields, uniquingKeysWith: { $1 })
         request.allHTTPHeaderFields = headerFiels
         
@@ -43,8 +43,8 @@ public extension URLRequestConvertible {
     /// - Parameter queryItems: the query items to append to the request
     /// - Parameter overrideExisting: if `true existing items with the same name will be overridden
     /// - Returns: a new `URLRequestConvertible`
-    func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> URLRequestConvertible {
-        var request = asURLRequest()
+    func appending(queryItems: [URLQueryItem], overrideExisting: Bool = true) -> URLRequest {
+        var request = self
         guard let url = request.url else {
             return self
         }
@@ -57,7 +57,7 @@ public extension URLRequestConvertible {
     /// - Parameter queryParameters: the parameters to append to the request
     /// - Parameter overrideExisting: if `true existing items with the same name will be overridden
     /// - Returns: a new `URLRequestConvertible`
-    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> URLRequestConvertible {
+    func appending(queryParameters: [String: String], overrideExisting: Bool = true) -> URLRequest {
         return appending(queryItems: queryParameters.asURLQueryItems() )
     }
     
@@ -65,8 +65,8 @@ public extension URLRequestConvertible {
     ///
     /// - Parameter queryItems: the query items to add to the request
     /// - Returns: a new `URLRequestConvertible`
-    func replacingAllQueryItems(with queryItems: [URLQueryItem]) -> URLRequestConvertible {
-        var request = asURLRequest()
+    func replacingAllQueryItems(with queryItems: [URLQueryItem]) -> URLRequest {
+       var request = self
         guard let url = request.url else {
             return self
         }
@@ -78,7 +78,7 @@ public extension URLRequestConvertible {
     ///
     /// - Parameter parameters: the parameters to add to the request
     /// - Returns: a new `URLRequestConvertible`
-    func replacingAllQueryItems(with parameters: [String: String]) -> URLRequestConvertible {
+    func replacingAllQueryItems(with parameters: [String: String]) -> URLRequest {
         return replacingAllQueryItems(with: parameters.asURLQueryItems() )
     }
 }

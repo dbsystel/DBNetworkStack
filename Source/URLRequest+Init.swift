@@ -23,23 +23,6 @@
 
 import Foundation
 
-/// An abstraction for types which can be represented as an URLRequest
-public protocol URLRequestConvertible {
-    /// Converts self into an `URLRequest`
-    ///
-    /// - returns: A URL request.
-    func asURLRequest() -> URLRequest
-}
-
-extension URLRequest: URLRequestConvertible {
-    /// Converts self into an `URLRequest`
-    ///
-    /// - returns: A URL request.
-    public func asURLRequest() -> URLRequest {
-        return self
-    }
-}
-
 extension URLRequest {
     
     /// Convience initializer for easy request creation.

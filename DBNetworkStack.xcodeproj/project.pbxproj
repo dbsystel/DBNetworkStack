@@ -24,7 +24,7 @@
 		C61E77891E49A57A00D55BB2 /* NetworkServiceMockTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61E77881E49A57A00D55BB2 /* NetworkServiceMockTest.swift */; };
 		C61E778B1E49B53700D55BB2 /* RetryNetworkserviceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61E778A1E49B53700D55BB2 /* RetryNetworkserviceTest.swift */; };
 		C61E778C1E49D8A900D55BB2 /* NetworkTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40B9FD1D9D66A600620563 /* NetworkTaskMock.swift */; };
-		C622A7961E5C7F6500BB3D17 /* URLRequestConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622A7951E5C7F6500BB3D17 /* URLRequestConvertible.swift */; };
+		C622A7961E5C7F6500BB3D17 /* URLRequest+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = C622A7951E5C7F6500BB3D17 /* URLRequest+Init.swift */; };
 		C62925AE1FC5900000607AEA /* URLRequestConvertible+Modifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62925AD1FC5900000607AEA /* URLRequestConvertible+Modifications.swift */; };
 		C6363D8F1F4ED1500052E9BD /* URLSession+NetworkAccessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessTest.swift */; };
 		C6363D901F4ED1950052E9BD /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6363D8B1F4ED0840052E9BD /* URLSessionMock.swift */; };
@@ -80,7 +80,7 @@
 		C60FF0F11E5C94AC00818031 /* URLRequestConvertibleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestConvertibleTest.swift; sourceTree = "<group>"; };
 		C61E77881E49A57A00D55BB2 /* NetworkServiceMockTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceMockTest.swift; sourceTree = "<group>"; };
 		C61E778A1E49B53700D55BB2 /* RetryNetworkserviceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryNetworkserviceTest.swift; sourceTree = "<group>"; };
-		C622A7951E5C7F6500BB3D17 /* URLRequestConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestConvertible.swift; sourceTree = "<group>"; };
+		C622A7951E5C7F6500BB3D17 /* URLRequest+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+Init.swift"; sourceTree = "<group>"; };
 		C62925AD1FC5900000607AEA /* URLRequestConvertible+Modifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequestConvertible+Modifications.swift"; sourceTree = "<group>"; };
 		C6363D8B1F4ED0840052E9BD /* URLSessionMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
 		C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkAccessTest.swift"; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 		C6E5A4D21E2FBD2B00F966DB /* NetworkRequest */ = {
 			isa = PBXGroup;
 			children = (
-				C622A7951E5C7F6500BB3D17 /* URLRequestConvertible.swift */,
+				C622A7951E5C7F6500BB3D17 /* URLRequest+Init.swift */,
 				C62925AD1FC5900000607AEA /* URLRequestConvertible+Modifications.swift */,
 				C6F3A3FE211D665300BF0086 /* URL+StaticStringInit.swift */,
 			);
@@ -349,6 +349,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = C60BE6511D6B2BF3006B0364;
@@ -404,7 +405,7 @@
 				C62925AE1FC5900000607AEA /* URLRequestConvertible+Modifications.swift in Sources */,
 				C66C7B961FE96CD0009B8C78 /* Resource+Inspect.swift in Sources */,
 				C6C395941E04212F00413AD2 /* ModifyRequestNetworkService.swift in Sources */,
-				C622A7961E5C7F6500BB3D17 /* URLRequestConvertible.swift in Sources */,
+				C622A7961E5C7F6500BB3D17 /* URLRequest+Init.swift in Sources */,
 				C60BE6901D6B2C46006B0364 /* Resource.swift in Sources */,
 				C6461F021E01678100E0B081 /* RetryNetworkService.swift in Sources */,
 				C61E778C1E49D8A900D55BB2 /* NetworkTaskMock.swift in Sources */,
