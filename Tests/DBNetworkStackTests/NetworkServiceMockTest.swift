@@ -43,6 +43,15 @@ class NetworkServiceMockTest: XCTestCase {
         XCTAssertEqual(networkServiceMock.requestCount, 2)
     }
     
+    func testLastRequests() {
+        //When
+        networkServiceMock.request(resource, onCompletion: { _ in }, onError: { _ in })
+        networkServiceMock.request(resource, onCompletion: { _ in }, onError: { _ in })
+        
+        //Then
+        XCTAssertEqual(networkServiceMock.lastRequests, [resource.request, resource.request])
+    }
+    
     func testReturnSuccessWithData() {
         //Given
         var capturedResult: Int?

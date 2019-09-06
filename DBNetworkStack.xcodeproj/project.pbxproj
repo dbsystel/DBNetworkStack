@@ -168,8 +168,8 @@
 			children = (
 				C6A5DED81D76A05300BC38B1 /* Helpers */,
 				C6A5DED21D760C9E00BC38B1 /* Mocks */,
-				C6E5A4D51E2FBDDD00F966DB /* NetworkServiceTests */,
-				C6E5A4D61E2FBE0000F966DB /* RessourceTests */,
+				C6E5A4D51E2FBDDD00F966DB /* NetworkService */,
+				C6E5A4D61E2FBE0000F966DB /* Ressource */,
 				C6F7E30E1E49DC4900FA625F /* NetworkTaskMockTests.swift */,
 				C699E0761D917501006FE7C6 /* NetworkErrorTest.swift */,
 				7C653BC81E09325500199993 /* NetworkResponseProcessorTest.swift */,
@@ -254,7 +254,7 @@
 			name = NetworkAccess;
 			sourceTree = "<group>";
 		};
-		C6E5A4D51E2FBDDD00F966DB /* NetworkServiceTests */ = {
+		C6E5A4D51E2FBDDD00F966DB /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
 				C61E77881E49A57A00D55BB2 /* NetworkServiceMockTest.swift */,
@@ -262,10 +262,10 @@
 				C60BE6A01D6B3807006B0364 /* NetworkServiceTest.swift */,
 				C6C395951E0422AF00413AD2 /* ModifyRequestNetworkService.swift */,
 			);
-			name = NetworkServiceTests;
+			name = NetworkService;
 			sourceTree = "<group>";
 		};
-		C6E5A4D61E2FBE0000F966DB /* RessourceTests */ = {
+		C6E5A4D61E2FBE0000F966DB /* Ressource */ = {
 			isa = PBXGroup;
 			children = (
 				C65AA9A321187234007529BF /* ContainerNetworkTaskTest.swift */,
@@ -273,7 +273,7 @@
 				C60425121D7803CA00FD3B38 /* ResourceTest.swift */,
 				C66C7B971FE96EA8009B8C78 /* ResourceInspectTest.swift */,
 			);
-			name = RessourceTests;
+			name = Ressource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +352,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				Base,
 			);
 			mainGroup = C60BE6511D6B2BF3006B0364;

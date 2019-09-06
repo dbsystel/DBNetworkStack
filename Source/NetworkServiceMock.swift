@@ -26,16 +26,9 @@ import Dispatch
 
 struct NetworkServiceMockCallback {
     let onErrorCallback: ((NetworkError) -> Void)?
-    let onSuccess: ((Data, HTTPURLResponse) -> Void)?
     let onTypedSuccess: ((Any, HTTPURLResponse) -> Void)?
     
     init<Result>(resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void, onError: @escaping (NetworkError) -> Void) {
-        onSuccess = { data, response in
-            guard let result = try? resource.parse(data) else {
-                fatalError("Could not parse data into matching result type")
-            }
-            onCompletionWithResponse(result, response)
-        }
         onTypedSuccess = { anyResult, response in
             guard let typedResult = anyResult as? Result else {
                 fatalError("Extected type of \(Result.self) but got \(anyResult.self)")
@@ -104,10 +97,20 @@ struct NetworkServiceMockCallback {
  - seealso: `NetworkService`
  */
 public final class NetworkServiceMock: NetworkService {
+    
     /// Count of all started requests
-    public var requestCount: Int = 0
+    public var requestCount: Int {
+        return lastRequests.count
+    }
+    
     /// Last executed request
-    public var lastRequest: URLRequest?
+    public var lastRequest: URLRequest? {
+        return lastRequests.last
+    }
+    
+    /// All executed requests.
+    public private(set) var lastRequests: [URLRequest] = []
+    
     /// Set this to hava a custom networktask returned by the mock
     public var nextNetworkTask: NetworkTask?
     
@@ -144,9 +147,7 @@ public final class NetworkServiceMock: NetworkService {
     @discardableResult
     public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
                                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
-        
-        lastRequest = resource.request
-        requestCount += 1
+        lastRequests.append(resource.request)
         callbacks.append(NetworkServiceMockCallback(
             resource: resource,
             onCompletionWithResponse: onCompletionWithResponse,
@@ -162,15 +163,6 @@ public final class NetworkServiceMock: NetworkService {
     ///   - error: the error which gets passed to the caller
     public func returnError(with error: NetworkError) {
         callbacks.removeFirst().onErrorCallback?(error)
-    }
-    
-    /// Will return a successful request, by using the given data as a server response.
-    ///
-    /// - Parameters:
-    ///   - data: the mock response from the server.
-    ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
-    public func returnSuccess(with data: Data, httpResponse: HTTPURLResponse = HTTPURLResponse()) {
-        callbacks.removeFirst().onSuccess?(data, httpResponse)
     }
     
     /// Will return a successful request, by using the given type `T` as serialized result of a request.
