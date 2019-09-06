@@ -30,6 +30,7 @@
 		C6363D901F4ED1950052E9BD /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6363D8B1F4ED0840052E9BD /* URLSessionMock.swift */; };
 		C6363D911F4ED2030052E9BD /* DefaultMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C21A3A1F21FD150004A7EB /* DefaultMocks.swift */; };
 		C6461F021E01678100E0B081 /* RetryNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6461F011E01678100E0B081 /* RetryNetworkService.swift */; };
+		C6576B6E21DDFD25009AC99C /* NetworkService+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6576B6D21DDFD25009AC99C /* NetworkService+Result.swift */; };
 		C65AA9A221185F68007529BF /* ContainerNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65AA9A121185F68007529BF /* ContainerNetworkTask.swift */; };
 		C65AA9A52118723F007529BF /* ContainerNetworkTaskTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65AA9A321187234007529BF /* ContainerNetworkTaskTest.swift */; };
 		C66C7B961FE96CD0009B8C78 /* Resource+Inspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66C7B951FE96CD0009B8C78 /* Resource+Inspect.swift */; };
@@ -86,6 +87,7 @@
 		C6363D8D1F4ED13C0052E9BD /* URLSession+NetworkAccessTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+NetworkAccessTest.swift"; sourceTree = "<group>"; };
 		C6461F011E01678100E0B081 /* RetryNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryNetworkService.swift; sourceTree = "<group>"; };
 		C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
+		C6576B6D21DDFD25009AC99C /* NetworkService+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkService+Result.swift"; sourceTree = "<group>"; };
 		C65AA9A121185F68007529BF /* ContainerNetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNetworkTask.swift; sourceTree = "<group>"; };
 		C65AA9A321187234007529BF /* ContainerNetworkTaskTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNetworkTaskTest.swift; sourceTree = "<group>"; };
 		C66C7B951FE96CD0009B8C78 /* Resource+Inspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Inspect.swift"; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				C6461F011E01678100E0B081 /* RetryNetworkService.swift */,
 				C6461F0A1E016C7700E0B081 /* NetworkServiceMock.swift */,
 				C6C21A381F21F90A0004A7EB /* NetworkResponseProcessor.swift */,
+				C6576B6D21DDFD25009AC99C /* NetworkService+Result.swift */,
 			);
 			name = NetworkService;
 			sourceTree = "<group>";
@@ -349,8 +352,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				en,
+				Base,
 			);
 			mainGroup = C60BE6511D6B2BF3006B0364;
 			productRefGroup = C60BE65C1D6B2BF3006B0364 /* Products */;
@@ -415,6 +417,7 @@
 				C6F3A3FF211D665300BF0086 /* URL+StaticStringInit.swift in Sources */,
 				C6F235D51D7DA75000E628D8 /* URLSession+NetworkAccess.swift in Sources */,
 				C60BE68F1D6B2C46006B0364 /* HTTPMethod.swift in Sources */,
+				C6576B6E21DDFD25009AC99C /* NetworkService+Result.swift in Sources */,
 				C6E429721F70ECFF004121F1 /* URLSessionDataTask+NetworkTask.swift in Sources */,
 				C65AA9A221185F68007529BF /* ContainerNetworkTask.swift in Sources */,
 				C68FF1F51E1A64CB00A2513F /* Resource+Map.swift in Sources */,
@@ -516,7 +519,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -572,7 +575,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
@@ -601,7 +604,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -623,7 +625,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -636,7 +637,6 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStackTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -649,7 +649,6 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbsystel.DBNetworkStackTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
