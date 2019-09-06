@@ -36,7 +36,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
     
     func testRequest_withModifedRequest() {
         //Given
-        let modification: Array<(URLRequest) -> URLRequest> = [ { request in
+        let modification: [(URLRequest) -> URLRequest] = [ { request in
             return request.appending(queryParameters: ["key": "1"])
             } ]
         let networkService: NetworkService = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
