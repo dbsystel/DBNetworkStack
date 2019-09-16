@@ -54,14 +54,14 @@ extension URLRequest {
     ///
     /// - Important: path must not start with a `/`
     public init(path: String, baseURL: URL,
-                HTTPMethod: HTTPMethod = .GET, parameters: [String: String] = [:],
+                HTTPMethod: HTTPMethod = .GET, parameters: [String: String]? = nil,
                 body: Data? = nil, allHTTPHeaderFields: Dictionary<String, String>? = nil) {
         guard let url = URL(string: path, relativeTo: baseURL) else {
             fatalError("Error creating absolute URL from path: \(path), with baseURL: \(baseURL)")
         }
         
         let urlWithParameters: URL
-        if !parameters.isEmpty {
+        if let parameters = parameters, !parameters.isEmpty {
             urlWithParameters = url.appending(queryParameters: parameters)
         } else {
             urlWithParameters = url
