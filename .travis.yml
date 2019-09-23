@@ -26,7 +26,7 @@ matrix:
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=macOS" test | xcpretty
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=tvOS Simulator,name=Apple TV" test | xcpretty
         - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=watchOS Simulator,name=Apple Watch - 38mm" build | xcpretty
-        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=iOS Simulator,name=iPhone SE" test | xcpretty
+        - set -o pipefail && xcodebuild -scheme DBNetworkStack -destination "platform=iOS Simulator,name=iPhone 8" test | xcpretty
         - swift test & pod spec lint --allow-warnings & carthage build --no-skip-current
         - jazzy --clean --author "DBSystel" --github_url https://github.com/dbsystel/DBNetworkStack --module DBNetworkStack --output docs
       after_success:
