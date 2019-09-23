@@ -31,7 +31,7 @@ extension URLRequest {
     ///   - path: path to the resource.
     ///   - baseURL: the base url of the resource.
     ///   - HTTPMethod: the HTTP method for the request. Defaults to `.GET`
-    ///   - parameters: url parameters for the request. Defaults to `nil`
+    ///   - parameters: url parameters for the request. Defaults to empty dictionary
     ///   - body: body data payload. Defaults to `nil`
     ///   - allHTTPHeaderFields: HTTP request header fields. Defaults to `nil`
     ///
@@ -44,7 +44,7 @@ extension URLRequest {
         }
         
         let urlWithParameters: URL
-        if let parameters = parameters {
+        if let parameters = parameters, !parameters.isEmpty {
             urlWithParameters = url.appending(queryParameters: parameters)
         } else {
             urlWithParameters = url

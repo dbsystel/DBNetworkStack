@@ -68,4 +68,19 @@ class URLRequestConvertibleTest: XCTestCase {
         XCTAssert(query?.contains(where: { $0.name == "query" && $0.value == "2" }) ?? false)
     }
 
+    func testNoTrailingQuestionmarkInRequestURL() {
+        //Given
+        let path = "http://bahn.de/train"
+
+        //When
+        let request = URLRequest(path: path, baseURL: .defaultMock, parameters: [:])
+
+        //Then
+        if let contains = request.url?.absoluteString.contains("?") {
+            XCTAssertFalse(contains)
+        } else {
+            XCTFail("request seem to have no url")
+        }
+    }
+
 }
