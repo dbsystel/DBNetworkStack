@@ -25,7 +25,7 @@ import Foundation
 import XCTest
 @testable import DBNetworkStack
 
-class URLRequestConvertibleTest: XCTestCase {
+class URLRequestTest: XCTestCase {
     
     func testCustomInitializer() {
         //Given
