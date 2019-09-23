@@ -26,22 +26,6 @@ import XCTest
 @testable import DBNetworkStack
 
 class URLRequestConvertibleTest: XCTestCase {
-   
-    func test_should_compile() {
-        //When
-        _ = URLRequest(url: .defaultMock) as URLRequestConvertible
-    }
-    
-    func testConvertToRequest() {
-        //Given
-        let request = URLRequest(url: .defaultMock)
-        
-        //When
-        let convertedRequest = request.asURLRequest()
-        
-        //Then
-        XCTAssertEqual(request, convertedRequest)
-    }
     
     func testCustomInitializer() {
         //Given

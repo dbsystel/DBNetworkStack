@@ -45,14 +45,5 @@ class ContainerNetworkTaskTest: XCTestCase {
         // Then
         XCTAssert(taskMock.state == .canceled)
     }
-    
-    func testGIVEN_AuthenticatorNetworkTask_WHEN_getProgress_THEN_UnderlyingTaskShouldBeCanceled() {
-        // Given
-        let taskMock = NetworkTaskMock()
-        let task = ContainerNetworkTask()
-        task.underlyingTask = taskMock
-        
-        // When/Then
-        _ = taskMock.progress
-    }
+
 }
