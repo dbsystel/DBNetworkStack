@@ -21,6 +21,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+import Foundation
+
 /**
  `Resource` describes a remote resource of generic type.
  The type can be fetched via HTTP(S) and parsed into the coresponding model object.
