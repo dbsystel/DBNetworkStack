@@ -25,9 +25,7 @@
 //  Created by Lukas Schmidt on 21.07.16.
 //
 
-
 import PackageDescription
-
 
 let package = Package(
     name: "DBNetworkStack",
@@ -40,16 +38,16 @@ let package = Package(
     products: [
         .library(
             name: "DBNetworkStack",
-            targets: ["DBNetworkStack"]),
+            targets: ["DBNetworkStack"])
     ],
     targets: [
         .target(
             name: "DBNetworkStack",
             dependencies: [],
-            path: "Source"),
+            path: "Source")
         .testTarget(
             name: "DBNetworkStackTests",
             dependencies: ["DBNetworkStack"],
-            path: "Tests"),
+            path: "Tests")
     ]
 )
