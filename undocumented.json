@@ -1,0 +1,89 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/HTTPMethod.swift",
+      "line": 33,
+      "symbol": "HTTPMethod.GET",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/HTTPMethod.swift",
+      "line": 34,
+      "symbol": "HTTPMethod.POST",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/HTTPMethod.swift",
+      "line": 35,
+      "symbol": "HTTPMethod.PUT",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/HTTPMethod.swift",
+      "line": 36,
+      "symbol": "HTTPMethod.DELETE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/HTTPMethod.swift",
+      "line": 37,
+      "symbol": "HTTPMethod.OPTIONS",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/HTTPMethod.swift",
+      "line": 38,
+      "symbol": "HTTPMethod.HEAD",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/HTTPMethod.swift",
+      "line": 39,
+      "symbol": "HTTPMethod.PATCH",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/HTTPMethod.swift",
+      "line": 40,
+      "symbol": "HTTPMethod.TRACE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/HTTPMethod.swift",
+      "line": 41,
+      "symbol": "HTTPMethod.CONNECT",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/NetworkTaskMock.swift",
+      "line": 31,
+      "symbol": "NetworkTaskMock.State.canceled",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/NetworkTaskMock.swift",
+      "line": 31,
+      "symbol": "NetworkTaskMock.State.resumed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/travis/build/dbsystel/DBNetworkStack/Source/NetworkTaskMock.swift",
+      "line": 31,
+      "symbol": "NetworkTaskMock.State.suspended",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/travis/build/dbsystel/DBNetworkStack"
+}

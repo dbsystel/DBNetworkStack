@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Resource Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/Resource" class="dashAnchor"></a>
+    <a title="Resource Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">DBNetworkStack Docs</a> (86% documented)</p>
+        <p class="header-right"><a href="https://github.com/dbsystel/DBNetworkStack"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">DBNetworkStack Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Resource Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BasicNetworkService.html">BasicNetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContainerNetworkTask.html">ContainerNetworkTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ModifyRequestNetworkService.html">ModifyRequestNetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkServiceMock.html">NetworkServiceMock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkTaskMock.html">NetworkTaskMock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkTaskMock/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RetryNetworkService.html">RetryNetworkService</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NetworkError.html">NetworkError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/URL.html">URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLRequest.html">URLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLSession.html">URLSession</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/NetworkAccess.html">NetworkAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NetworkService.html">NetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NetworkTask.html">NetworkTask</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Resource.html">Resource</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Resource</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">Model</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+              </div>
+            <p><code>Resource</code> describes a remote resource of generic type.
+The type can be fetched via HTTP(S) and parsed into the coresponding model object.</p>
+
+<p><strong>Example</strong>:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span> <span class="o">=</span> <span class="c1">//</span>
+<span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt">Resource</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span> <span class="nv">parse</span><span class="p">:</span> <span class="p">{</span> <span class="n">data</span> <span class="k">in</span>
+   <span class="kt">String</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="o">.</span><span class="n">utf8</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack8ResourceV7request10Foundation10URLRequestVvp"></a>
+                    <a name="//apple_ref/swift/Property/request" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack8ResourceV7request10Foundation10URLRequestVvp">request</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The request to fetch the resource remote payload</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack8ResourceV5parseyx10Foundation4DataVKcvp"></a>
+                    <a name="//apple_ref/swift/Property/parse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack8ResourceV5parseyx10Foundation4DataVKcvp">parse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Parses data into given model.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">parse</span><span class="p">:</span> <span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Model</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack8ResourceV7request5parseACyxG10Foundation10URLRequestV_xAG4DataVKctcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(request:parse:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack8ResourceV7request5parseACyxG10Foundation10URLRequestV_xAG4DataVKctcfc">init(request:parse:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a type safe resource, which can be used to fetch it with <code><a href="../Protocols/NetworkService.html">NetworkService</a></code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span> <span class="nv">parse</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Model</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The request to get the remote data payload</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>parse</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Parses data fetched with the request into given Model</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack8ResourceVAASeRzlE7request7decoderACyxG10Foundation10URLRequestV_AG11JSONDecoderCtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(request:decoder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack8ResourceVAASeRzlE7request7decoderACyxG10Foundation10URLRequestV_AG11JSONDecoderCtcfc">init(request:decoder:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an instace of Resource where the result type is <code>Decodable</code> and
+can be decoded with the given decoder</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">,</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">JSONDecoder</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The request to get the remote data payload</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>decoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a decoder which can decode the payload into the model type</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack8ResourceV11inspectDatayACyxGy10Foundation0E0VcF"></a>
+                    <a name="//apple_ref/swift/Method/inspectData(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack8ResourceV11inspectDatayACyxGy10Foundation0E0VcF">inspectData(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This lets one inspect the data payload before data gets parsed.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">Train</span><span class="o">&gt;</span> <span class="o">=</span> <span class="c1">//</span>
+<span class="n">resource</span><span class="o">.</span><span class="n">inspectData</span> <span class="p">{</span> <span class="n">data</span> <span class="k">in</span>
+   <span class="nf">print</span><span class="p">(</span><span class="kt">String</span><span class="p">(</span><span class="nv">bytes</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="o">.</span><span class="n">utf8</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">inspectData</span><span class="p">(</span><span class="n">_</span> <span class="nv">inspector</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">Model</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inspector</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>closure which gets passed the data</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a new resource which gets instepcted before parsing</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack8ResourceV3map9transformACyqd__Gqd__xKc_tlF"></a>
+                    <a name="//apple_ref/swift/Method/map(transform:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack8ResourceV3map9transformACyqd__Gqd__xKc_tlF">map(transform:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Maps a resource result to a different resource. This is useful when you have result of R which contains T and your API request a resource of T,</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Model</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transform</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>transforms the original result of the resource</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the transformed resource</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external">DBSystel</a>. All rights reserved. (Last updated: 2019-09-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

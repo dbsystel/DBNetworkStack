@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DBNetworkStack  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="DBNetworkStack  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">DBNetworkStack Docs</a> (86% documented)</p>
+        <p class="header-right"><a href="https://github.com/dbsystel/DBNetworkStack"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">DBNetworkStack Reference</a>
+        <img id="carat" src="img/carat.png" />
+        DBNetworkStack  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/BasicNetworkService.html">BasicNetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ContainerNetworkTask.html">ContainerNetworkTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ModifyRequestNetworkService.html">ModifyRequestNetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NetworkServiceMock.html">NetworkServiceMock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NetworkTaskMock.html">NetworkTaskMock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NetworkTaskMock/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/RetryNetworkService.html">RetryNetworkService</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/NetworkError.html">NetworkError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/URL.html">URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLRequest.html">URLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLSession.html">URLSession</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/NetworkAccess.html">NetworkAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/NetworkService.html">NetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/NetworkTask.html">NetworkTask</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/Resource.html">Resource</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='dbnetworkstack' class='heading'>DBNetworkStack</h1>
+
+<p><a href="https://travis-ci.org/dbsystel/DBNetworkStack"><img src="https://travis-ci.org/dbsystel/DBNetworkStack.svg?branch=develop" alt="Build Status"></a>
+<a href="https://codebeat.co/projects/github-com-dbsystel-dbnetworkstack-develop"><img src="https://codebeat.co/badges/e438e768-249d-4e9f-8dd8-32928537740e" alt="codebeat badge"></a>
+<a href="https://codecov.io/gh/dbsystel/DBNetworkStack"><img src="https://codecov.io/gh/dbsystel/DBNetworkStack/branch/develop/graph/badge.svg" alt="codecov"></a>
+<a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage Compatible"></a>
+<a href="https://github.com/apple/swift-package-manager"><img src="https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg" alt="Swift Package Manager compatible"></a>
+<a href="http://cocoapods.org/pods/DBNetworkStack"><img src="https://img.shields.io/cocoapods/v/DBNetworkStack.svg?style=flat" alt="Version"></a></p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>Main Features</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>🛡</td>
+<td>Typed network resources</td>
+</tr>
+<tr>
+<td>&#127968;</td>
+<td>Value oriented architecture</td>
+</tr>
+<tr>
+<td>🔀</td>
+<td>Exchangeable implementations</td>
+</tr>
+<tr>
+<td>🚄</td>
+<td>Extendable API</td>
+</tr>
+<tr>
+<td>🎹       </td>
+<td>Composable Features          </td>
+</tr>
+<tr>
+<td>&#9989;</td>
+<td>Fully unit tested</td>
+</tr>
+<tr>
+<td>📕 </td>
+<td><a href="https://dbsystel.github.io/DBNetworkStack/">Documented here</a>           </td>
+</tr>
+</tbody></table>
+
+<p>The idea behind this project comes from this <a href="https://talk.objc.io/episodes/S01E01-networking">talk.objc.io article</a>.</p>
+<h2 id='basic-demo' class='heading'>Basic Demo</h2>
+
+<p>Lets say you want to fetch a <code>html</code> string.</p>
+
+<p>First you have to create a service, by providing a network access. You can use URLSession out of the box or provide your own custom solution by implementing  <code><a href="Protocols/NetworkAccess.html">NetworkAccess</a></code>.</p>
+<pre class="highlight swift"><code>
+<span class="k">let</span> <span class="nv">networkAccess</span> <span class="o">=</span> <span class="kt">URLSession</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">networkService</span> <span class="o">=</span> <span class="kt">BasicNetworkService</span><span class="p">(</span><span class="nv">networkAccess</span><span class="p">:</span> <span class="n">networkAccess</span><span class="p">)</span>
+
+</code></pre>
+
+<p>Create a resource with a request to fetch your data.</p>
+<pre class="highlight swift"><code>
+<span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">staticString</span><span class="p">:</span> <span class="s">"https://httpbin.org"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">request</span> <span class="o">=</span> <span class="kt">URLRequest</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"/"</span><span class="p">,</span> <span class="nv">baseURL</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="kt">HTTPMethod</span><span class="p">:</span> <span class="o">.</span><span class="kt">GET</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">resource</span> <span class="o">=</span> <span class="kt">Resource</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span> <span class="nv">parse</span><span class="p">:</span> <span class="p">{</span> <span class="kt">String</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="nv">$0</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="o">.</span><span class="n">utf8</span><span class="p">)</span> <span class="p">})</span>
+
+</code></pre>
+
+<p>Request your resource and handle the result</p>
+<pre class="highlight swift"><code><span class="n">networkService</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="nv">onCompletion</span><span class="p">:</span> <span class="p">{</span> <span class="n">htmlText</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">htmlText</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">onError</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+    <span class="c1">//Handle errors</span>
+<span class="p">})</span>
+
+</code></pre>
+<h2 id='load-types-conforming-to-swift-code-decodable-code' class='heading'>Load types conforming to Swift-<code>Decodable</code></h2>
+<pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">IPOrigin</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">staticString</span><span class="p">:</span> <span class="s">"https://www.httpbin.org"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">request</span> <span class="o">=</span> <span class="kt">URLRequest</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"ip"</span><span class="p">,</span> <span class="nv">baseURL</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">resource</span> <span class="o">=</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">IPOrigin</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">JSONDecoder</span><span class="p">())</span>
+
+<span class="n">networkService</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="nv">onCompletion</span><span class="p">:</span> <span class="p">{</span> <span class="n">origin</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">onError</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+    <span class="c1">//Handle errors</span>
+<span class="p">})</span>
+</code></pre>
+<h2 id='accessing-httpresponse' class='heading'>Accessing HTTPResponse</h2>
+
+<p>Request your resource and handle the result &amp; http response. This is similar to just requesting a resulting model.</p>
+<pre class="highlight swift"><code><span class="n">networkService</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="nv">onCompletionWithResponse</span><span class="p">:</span> <span class="p">{</span> <span class="n">origin</span><span class="p">,</span> <span class="n">response</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">onError</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+    <span class="c1">//Handle errors</span>
+<span class="p">})</span>
+</code></pre>
+<h2 id='protocol-oriented-architecture-exchangability' class='heading'>Protocol oriented architecture / Exchangability</h2>
+
+<p>The following table shows all the protocols and their default implementations.</p>
+
+<table><thead>
+<tr>
+<th>Protocol</th>
+<th>Default Implementation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code><a href="Protocols/NetworkAccess.html">NetworkAccess</a></code></td>
+<td><code>URLSession</code></td>
+</tr>
+<tr>
+<td><code><a href="Protocols/NetworkService.html">NetworkService</a></code></td>
+<td><code><a href="Classes/BasicNetworkService.html">BasicNetworkService</a></code></td>
+</tr>
+<tr>
+<td><code><a href="Protocols/NetworkTask.html">NetworkTask</a></code></td>
+<td><code>URLSessionTask</code></td>
+</tr>
+</tbody></table>
+<h2 id='composable-features' class='heading'>Composable Features</h2>
+
+<table><thead>
+<tr>
+<th>Class</th>
+<th>Feature</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code><a href="Classes/RetryNetworkService.html">RetryNetworkService</a></code></td>
+<td>Retrys requests after a given delay when an error meets given criteria.</td>
+</tr>
+<tr>
+<td><code><a href="Classes/ModifyRequestNetworkService.html">ModifyRequestNetworkService</a></code></td>
+<td>Modify matching requests. Can be used to add auth tokens or API Keys</td>
+</tr>
+</tbody></table>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<ul>
+<li>iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+</li>
+<li>Xcode 10.2+</li>
+<li>Swift 5.0</li>
+</ul>
+<h2 id='installation' class='heading'>Installation</h2>
+<h3 id='carthage' class='heading'>Carthage</h3>
+
+<p><a href="https://github.com/Carthage/Carthage">Carthage</a> is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.</p>
+
+<p>Specify the following in your <code>Cartfile</code>:</p>
+<pre class="highlight plaintext"><code>github "dbsystel/dbnetworkstack" ~&gt; 2.0
+</code></pre>
+<h2 id='contributing' class='heading'>Contributing</h2>
+
+<p>Feel free to submit a pull request with new features, improvements on tests or documentation and bug fixes. Keep in mind that we welcome code that is well tested and documented.</p>
+<h2 id='contact' class='heading'>Contact</h2>
+
+<p>Lukas Schmidt (<a href="mailto:lukas.la.schmidt@deutschebahn.com">Mail</a>, <a href="https://twitter.com/lightsprint09">@lightsprint09</a>), 
+Christian Himmelsbach (<a href="mailto:christian.himmelsbach@deutschebahn.com">Mail</a>)</p>
+<h2 id='license' class='heading'>License</h2>
+
+<p>DBNetworkStack is released under the MIT license. See LICENSE for details.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external">DBSystel</a>. All rights reserved. (Last updated: 2019-09-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

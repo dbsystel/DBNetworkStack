@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Structures  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
+    <a title="Structures  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">DBNetworkStack Docs</a> (86% documented)</p>
+        <p class="header-right"><a href="https://github.com/dbsystel/DBNetworkStack"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">DBNetworkStack Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Structures  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/BasicNetworkService.html">BasicNetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ContainerNetworkTask.html">ContainerNetworkTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ModifyRequestNetworkService.html">ModifyRequestNetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NetworkServiceMock.html">NetworkServiceMock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NetworkTaskMock.html">NetworkTaskMock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NetworkTaskMock/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/RetryNetworkService.html">RetryNetworkService</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/NetworkError.html">NetworkError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/URL.html">URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLRequest.html">URLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLSession.html">URLSession</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/NetworkAccess.html">NetworkAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/NetworkService.html">NetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/NetworkTask.html">NetworkTask</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/Resource.html">Resource</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack8ResourceV"></a>
+                    <a name="//apple_ref/swift/Struct/Resource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack8ResourceV">Resource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Resource</code> describes a remote resource of generic type.
+The type can be fetched via HTTP(S) and parsed into the coresponding model object.</p>
+
+<p><strong>Example</strong>:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span> <span class="o">=</span> <span class="c1">//</span>
+<span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt">Resource</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span> <span class="nv">parse</span><span class="p">:</span> <span class="p">{</span> <span class="n">data</span> <span class="k">in</span>
+   <span class="kt">String</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="o">.</span><span class="n">utf8</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre>
+
+                        <a href="Structs/Resource.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">Model</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external">DBSystel</a>. All rights reserved. (Last updated: 2019-09-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

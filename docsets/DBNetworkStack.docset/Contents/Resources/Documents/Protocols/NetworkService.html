@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NetworkService Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/NetworkService" class="dashAnchor"></a>
+    <a title="NetworkService Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">DBNetworkStack Docs</a> (86% documented)</p>
+        <p class="header-right"><a href="https://github.com/dbsystel/DBNetworkStack"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">DBNetworkStack Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        NetworkService Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BasicNetworkService.html">BasicNetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContainerNetworkTask.html">ContainerNetworkTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ModifyRequestNetworkService.html">ModifyRequestNetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkServiceMock.html">NetworkServiceMock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkTaskMock.html">NetworkTaskMock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkTaskMock/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RetryNetworkService.html">RetryNetworkService</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NetworkError.html">NetworkError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/URL.html">URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLRequest.html">URLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLSession.html">URLSession</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/NetworkAccess.html">NetworkAccess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NetworkService.html">NetworkService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NetworkTask.html">NetworkTask</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Resource.html">Resource</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>NetworkService</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">NetworkService</span></code></pre>
+
+                </div>
+              </div>
+            <p><code>NetworkService</code> provides access to remote resources.</p>
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <code><a href="../Classes/BasicNetworkService.html">BasicNetworkService</a></code>
+
+</div>
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <code><a href="../Classes/NetworkServiceMock.html">NetworkServiceMock</a></code>
+
+</div>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack14NetworkServiceP7request5queue8resource24onCompletionWithResponse0H5ErrorAA0C4Task_pSo012OS_dispatch_F0C_AA8ResourceVyqd__Gyqd___So17NSHTTPURLResponseCtcyAA0cL0OctlF"></a>
+                    <a name="//apple_ref/swift/Method/request(queue:resource:onCompletionWithResponse:onError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack14NetworkServiceP7request5queue8resource24onCompletionWithResponse0H5ErrorAA0C4Task_pSo012OS_dispatch_F0C_AA8ResourceVyqd__Gyqd___So17NSHTTPURLResponseCtcyAA0cL0OctlF">request(queue:resource:onCompletionWithResponse:onError:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+Execution happens on no specific queue. It dependes on the network access which queue is used.
+Once execution is finished either the completion block or the error block gets called.
+You decide on which queue these blocks get executed.</p>
+
+<p><strong>Example</strong>:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">networkService</span><span class="p">:</span> <span class="kt">NetworkService</span> <span class="o">=</span> <span class="c1">//</span>
+<span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="c1">//</span>
+
+<span class="n">networkService</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">resource</span><span class="p">:</span> <span class="n">resource</span><span class="p">,</span> <span class="nv">onCompletionWithResponse</span><span class="p">:</span> <span class="p">{</span> <span class="n">htmlText</span><span class="p">,</span> <span class="n">response</span> <span class="k">in</span>
+   <span class="nf">print</span><span class="p">(</span><span class="n">htmlText</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">onError</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+   <span class="c1">// Handle errors</span>
+<span class="p">})</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="n">request</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">,</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt"><a href="../Structs/Resource.html">Resource</a></span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">onCompletionWithResponse</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>DispatchQueue</code> to execute the completion and error block on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resource</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The resource you want to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onCompletionWithResponse</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Callback which gets called when fetching and transforming into model succeeds.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onError</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Callback which gets called when fetching or transforming fails.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a running network task</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack14NetworkServicePAAE7request5queue8resource24onCompletionWithResponseAA0C4Task_pSo012OS_dispatch_F0C_AA8ResourceVyqd__Gys6ResultOyqd___So17NSHTTPURLResponseCtAA0C5ErrorOGctlF"></a>
+                    <a name="//apple_ref/swift/Method/request(queue:resource:onCompletionWithResponse:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack14NetworkServicePAAE7request5queue8resource24onCompletionWithResponseAA0C4Task_pSo012OS_dispatch_F0C_AA8ResourceVyqd__Gys6ResultOyqd___So17NSHTTPURLResponseCtAA0C5ErrorOGctlF">request(queue:resource:onCompletionWithResponse:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+Execution happens on no specific queue. It dependes on the network access which queue is used.
+Once execution is finished the completion block gets called.
+You decide on which queue completion gets executed. Defaults to <code>main</code>.</p>
+
+<p><strong>Example</strong>:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">networkService</span><span class="p">:</span> <span class="kt">NetworkService</span> <span class="o">=</span> <span class="c1">//</span>
+<span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="c1">//</span>
+
+<span class="n">networkService</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="nv">resource</span><span class="p">:</span> <span class="n">resource</span><span class="p">,</span> <span class="nv">onCompletionWithResponse</span><span class="p">:</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="n">request</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
+                     <span class="nv">resource</span><span class="p">:</span> <span class="kt"><a href="../Structs/Resource.html">Resource</a></span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">,</span>
+                     <span class="nv">onCompletionWithResponse</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">Result</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">),</span> <span class="kt"><a href="../Enums/NetworkError.html">NetworkError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/NetworkTask.html">NetworkTask</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>DispatchQueue</code> to execute the completion block on. Defaults to <code>main</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resource</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The resource you want to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onCompletionWithResponse</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Callback which gets called when request completes.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a running network task</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack14NetworkServicePAAE7request_12onCompletionAA0C4Task_pAA8ResourceVyqd__G_ys6ResultOyqd__AA0C5ErrorOGctlF"></a>
+                    <a name="//apple_ref/swift/Method/request(_:onCompletion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack14NetworkServicePAAE7request_12onCompletionAA0C4Task_pAA8ResourceVyqd__G_ys6ResultOyqd__AA0C5ErrorOGctlF">request(_:onCompletion:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+Execution happens on no specific queue. It dependes on the network access which queue is used.
+Once execution is finished the completion block gets called.
+Completion gets executed on <code>main</code> queue.</p>
+
+<p><strong>Example</strong>:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">networkService</span><span class="p">:</span> <span class="kt">NetworkService</span> <span class="o">=</span> <span class="c1">//</span>
+<span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="c1">//</span>
+
+<span class="n">networkService</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="nv">onCompletion</span><span class="p">:</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="n">request</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt"><a href="../Structs/Resource.html">Resource</a></span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">,</span>
+                     <span class="nv">onCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Result</span><span class="p">,</span> <span class="kt"><a href="../Enums/NetworkError.html">NetworkError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/NetworkTask.html">NetworkTask</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resource</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The resource you want to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onComplition</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Callback which gets called when request completes.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a running network task</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack14NetworkServicePAAE7request_12onCompletion0F5ErrorAA0C4Task_pAA8ResourceVyqd__G_yqd__cyAA0cH0OctlF"></a>
+                    <a name="//apple_ref/swift/Method/request(_:onCompletion:onError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack14NetworkServicePAAE7request_12onCompletion0F5ErrorAA0C4Task_pAA8ResourceVyqd__G_yqd__cyAA0cH0OctlF">request(_:onCompletion:onError:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+Execution happens on no specific queue. It dependes on the network access which queue is used.
+Once execution is finished either the completion block or the error block gets called.
+These blocks are called on the main queue.</p>
+
+<p><strong>Example</strong>:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">networkService</span><span class="p">:</span> <span class="kt">NetworkService</span> <span class="o">=</span> <span class="c1">//</span>
+<span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="c1">//</span>
+
+<span class="n">networkService</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="nv">onCompletion</span><span class="p">:</span> <span class="p">{</span> <span class="n">htmlText</span> <span class="k">in</span>
+   <span class="nf">print</span><span class="p">(</span><span class="n">htmlText</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">onError</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+   <span class="c1">// Handle errors</span>
+<span class="p">})</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="n">request</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt"><a href="../Structs/Resource.html">Resource</a></span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">onCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+             <span class="nv">onError</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/NetworkError.html">NetworkError</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/NetworkTask.html">NetworkTask</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resource</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The resource you want to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onComplition</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Callback which gets called when fetching and transforming into model succeeds.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onError</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Callback which gets called when fetching or transforming fails.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a running network task</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DBNetworkStack14NetworkServicePAAE7request_24onCompletionWithResponse0F5ErrorAA0C4Task_pAA8ResourceVyqd__G_yqd___So17NSHTTPURLResponseCtcyAA0cJ0OctlF"></a>
+                    <a name="//apple_ref/swift/Method/request(_:onCompletionWithResponse:onError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DBNetworkStack14NetworkServicePAAE7request_24onCompletionWithResponse0F5ErrorAA0C4Task_pAA8ResourceVyqd__G_yqd___So17NSHTTPURLResponseCtcyAA0cJ0OctlF">request(_:onCompletionWithResponse:onError:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+Execution happens on no specific queue. It dependes on the network access which queue is used.
+Once execution is finished either the completion block or the error block gets called.
+These blocks are called on the main queue.</p>
+
+<p><strong>Example</strong>:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">networkService</span><span class="p">:</span> <span class="kt">NetworkService</span> <span class="o">=</span> <span class="c1">//</span>
+<span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Resource</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="c1">//</span>
+
+<span class="n">networkService</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="nv">onCompletionWithResponse</span><span class="p">:</span> <span class="p">{</span> <span class="n">htmlText</span><span class="p">,</span> <span class="n">httpResponse</span> <span class="k">in</span>
+   <span class="nf">print</span><span class="p">(</span><span class="n">htmlText</span><span class="p">,</span> <span class="n">httpResponse</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">onError</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+   <span class="c1">// Handle errors</span>
+<span class="p">})</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="n">request</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt"><a href="../Structs/Resource.html">Resource</a></span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">onCompletionWithResponse</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="p">,</span> <span class="kt">HTTPURLResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+             <span class="nv">onError</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/NetworkError.html">NetworkError</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/NetworkTask.html">NetworkTask</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resource</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The resource you want to fetch.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onCompletion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Callback which gets called when fetching and transforming into model succeeds.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>onError</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Callback which gets called when fetching or transforming fails.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a running network task</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external">DBSystel</a>. All rights reserved. (Last updated: 2019-09-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
