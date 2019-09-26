@@ -154,4 +154,88 @@ class NetworkServiceTest: XCTestCase {
         
         waitForExpectations(timeout: 1, handler: nil)
     }
+    
+    func testGIVEN_aRequest_WHEN_requestWithResultResponse_THEN_ShouldRespond() {
+        // GIVEN
+        
+        networkAccess.changeMock(data: Train.validJSONData, response: .defaultMock, error: nil)
+        let expection = expectation(description: "loadValidRequest")
+        var expectedResult: Result<Train, NetworkError>?
+        
+        //When
+        networkService.request(resource, onCompletion: { result in
+            expectedResult = result
+            expection.fulfill()
+        })
+        
+        waitForExpectations(timeout: 1, handler: nil)
+        
+        //Then
+        switch expectedResult {
+        case .success(let train)?:
+            XCTAssertEqual(train.name, self.trainName)
+        case .failure?:
+            XCTFail("Should be an error")
+        case nil:
+            XCTFail("Result should not be nil")
+        }
+        XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
+    }
+    
+    func testGIVEN_aRequest_WHEN_requestWithResultErrorResponse_THEN_ShouldError() {
+        //Given
+        networkAccess.changeMock(data: nil, response: nil, error: nil)
+        var expectedResult: Result<Train, NetworkError>?
+        let expection = expectation(description: "testNoData")
+        
+        //When
+        
+        networkService.request(resource, onCompletion: { result in
+            expectedResult = result
+            expection.fulfill()
+        })
+        
+        //Then
+        waitForExpectations(timeout: 1, handler: nil)
+        
+        switch expectedResult {
+        case .failure(let error)?:
+            if case .serverError(let response, let data) = error {
+                XCTAssertNil(response)
+                XCTAssertNil(data)
+            } else {
+                XCTFail("Expect serverError")
+            }
+        default:
+            XCTFail("Expect serverError")
+        }
+    }
+    
+    func testGIVEN_aRequest_WHEN_requestWithResultAndResponse_THEN_ShouldRespond() {
+        // GIVEN
+        
+        networkAccess.changeMock(data: Train.validJSONData, response: .defaultMock, error: nil)
+        let expection = expectation(description: "loadValidRequest")
+        var expectedResult: Result<(Train, HTTPURLResponse), NetworkError>?
+        
+        //When
+        networkService.request(resource: resource) { (result) in
+            expectedResult = result
+            expection.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+        
+        //Then
+        switch expectedResult {
+        case .success(let result)?:
+            XCTAssertEqual(result.0.name, self.trainName)
+            XCTAssertEqual(result.1, .defaultMock)
+        case .failure?:
+            XCTFail("Should be an error")
+        case nil:
+            XCTFail("Result should not be nil")
+        }
+        XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
+    }
 }

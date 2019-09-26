@@ -23,23 +23,6 @@
 
 import Foundation
 
-/// An abstraction for types which can be represented as an URLRequest
-public protocol URLRequestConvertible {
-    /// Converts self into an `URLRequest`
-    ///
-    /// - returns: A URL request.
-    func asURLRequest() -> URLRequest
-}
-
-extension URLRequest: URLRequestConvertible {
-    /// Converts self into an `URLRequest`
-    ///
-    /// - returns: A URL request.
-    public func asURLRequest() -> URLRequest {
-        return self
-    }
-}
-
 extension URLRequest {
     
     /// Convience initializer for easy request creation.
@@ -61,7 +44,7 @@ extension URLRequest {
         }
         
         let urlWithParameters: URL
-        if let parameters = parameters {
+        if let parameters = parameters, !parameters.isEmpty {
             urlWithParameters = url.appending(queryParameters: parameters)
         } else {
             urlWithParameters = url

@@ -31,7 +31,7 @@ extension Resource where Model: Decodable {
     /// - Parameters:
     ///   - request: The request to get the remote data payload
     ///   - decoder: a decoder which can decode the payload into the model type
-    public init(request: URLRequestConvertible, decoder: JSONDecoder) {
+    public init(request: URLRequest, decoder: JSONDecoder) {
         self.init(request: request, parse: { try decoder.decode(Model.self, from: $0) })
     }
 }

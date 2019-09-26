@@ -20,6 +20,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+import Foundation
+
 extension Resource {
     /**
      This lets one inspect the data payload before data gets parsed.

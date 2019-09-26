@@ -41,7 +41,7 @@ import Dispatch
  */
 public final class ModifyRequestNetworkService: NetworkService {
     
-    private let requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>
+    private let requestModifications: [(URLRequest) -> URLRequest]
     private let networkService: NetworkService
     
     /// Creates an insatcne of `ModifyRequestNetworkService`.
@@ -49,7 +49,7 @@ public final class ModifyRequestNetworkService: NetworkService {
     /// - Parameters:
     ///   - networkService: a networkservice.
     ///   - requestModifications: array of modifications to modify requests.
-    public init(networkService: NetworkService, requestModifications: Array<(URLRequestConvertible) -> URLRequestConvertible>) {
+    public init(networkService: NetworkService, requestModifications: [(URLRequest) -> URLRequest]) {
         self.networkService = networkService
         self.requestModifications = requestModifications
     }

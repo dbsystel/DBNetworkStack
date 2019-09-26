@@ -25,23 +25,7 @@ import Foundation
 import XCTest
 @testable import DBNetworkStack
 
-class URLRequestConvertibleTest: XCTestCase {
-   
-    func test_should_compile() {
-        //When
-        _ = URLRequest(url: .defaultMock) as URLRequestConvertible
-    }
-    
-    func testConvertToRequest() {
-        //Given
-        let request = URLRequest(url: .defaultMock)
-        
-        //When
-        let convertedRequest = request.asURLRequest()
-        
-        //Then
-        XCTAssertEqual(request, convertedRequest)
-    }
+class URLRequestTest: XCTestCase {
     
     func testCustomInitializer() {
         //Given
@@ -51,7 +35,12 @@ class URLRequestConvertibleTest: XCTestCase {
         let httpHeaderFields = ["header": "HeaderValue"]
         
         //When
-        let request = URLRequest(path: path, baseURL: .defaultMock, HTTPMethod: .DELETE, parameters: parameters, body: body, allHTTPHeaderFields: httpHeaderFields)
+        let request = URLRequest(path: path,
+                                 baseURL: .defaultMock,
+                                 HTTPMethod: .DELETE,
+                                 parameters: parameters,
+                                 body: body,
+                                 allHTTPHeaderFields: httpHeaderFields)
         
         //Then
         let reuqestURL: URL! = request.url
@@ -77,6 +66,21 @@ class URLRequestConvertibleTest: XCTestCase {
         XCTAssertEqual(query?.count, 2)
         XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "true" }) ?? false)
         XCTAssert(query?.contains(where: { $0.name == "query" && $0.value == "2" }) ?? false)
+    }
+
+    func testNoTrailingQuestionmarkInRequestURL() {
+        //Given
+        let path = "http://bahn.de/train"
+
+        //When
+        let request = URLRequest(path: path, baseURL: .defaultMock, parameters: [:])
+
+        //Then
+        if let contains = request.url?.absoluteString.contains("?") {
+            XCTAssertFalse(contains)
+        } else {
+            XCTFail("request seem to have no url")
+        }
     }
 
 }

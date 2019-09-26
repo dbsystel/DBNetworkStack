@@ -1,3 +1,4 @@
+// swift-tools-version:5.0
 //
 //  Package.swift
 //
@@ -27,5 +28,26 @@
 import PackageDescription
 
 let package = Package(
-    name: "DBNetworkStack"
+    name: "DBNetworkStack",
+    platforms: [
+        .iOS(.v9),
+        .tvOS(.v9),
+        .watchOS(.v2),
+        .macOS(.v10_10)
+    ],
+    products: [
+        .library(
+            name: "DBNetworkStack",
+            targets: ["DBNetworkStack"])
+    ],
+    targets: [
+        .target(
+            name: "DBNetworkStack",
+            dependencies: [],
+            path: "Source")
+        .testTarget(
+            name: "DBNetworkStackTests",
+            dependencies: ["DBNetworkStack"],
+            path: "Tests")
+    ]
 )

@@ -36,7 +36,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
     
     func testRequest_withModifedRequest() {
         //Given
-        let modification: Array<(URLRequestConvertible) -> URLRequestConvertible> = [ { request in
+        let modification: [(URLRequest) -> URLRequest] = [ { request in
             return request.appending(queryParameters: ["key": "1"])
             } ]
         let networkService: NetworkService = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
@@ -47,7 +47,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         networkService.request(resource, onCompletion: { _ in }, onError: { _ in })
         
         //Then
-        XCTAssert(networkServiceMock.lastRequest?.asURLRequest().url?.absoluteString.contains("key=1") ?? false)
+        XCTAssert(networkServiceMock.lastRequest?.url?.absoluteString.contains("key=1") ?? false)
     }
     
     func testAddHTTPHeaderToRequest() {
@@ -56,7 +56,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         let header = ["header": "head"]
         
         //When
-        let newRequest = request.added(HTTPHeaderFields: header).asURLRequest()
+        let newRequest = request.added(HTTPHeaderFields: header)
         
         //Then
         XCTAssertEqual(newRequest.allHTTPHeaderFields?["header"], "head")
@@ -73,7 +73,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         let newRequest = request.appending(queryParameters: parameters)
         
         //Then
-        let newURL: URL! = newRequest.asURLRequest().url
+        let newURL: URL! = newRequest.url
         let query = URLComponents(url: newURL, resolvingAgainstBaseURL: true)?.queryItems
         XCTAssertEqual(query?.count, 2)
         XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "test2" }) ?? false)
@@ -91,7 +91,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         let newRequest = request.replacingAllQueryItems(with: parameters)
         
         //Then
-        let newURL: URL! = newRequest.asURLRequest().url
+        let newURL: URL! = newRequest.url
         let query = URLComponents(url: newURL, resolvingAgainstBaseURL: true)?.queryItems
         XCTAssertEqual(query?.count, 1)
         XCTAssert(query?.contains(where: { $0.name == "test5" && $0.value == "test2" }) ?? false)

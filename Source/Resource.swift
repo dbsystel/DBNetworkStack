@@ -21,6 +21,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+import Foundation
+
 /**
  `Resource` describes a remote resource of generic type.
  The type can be fetched via HTTP(S) and parsed into the coresponding model object.
@@ -28,14 +30,14 @@
  **Example**:
  ```swift
  let request: URLRequest = //
- let resource: Resource<String> = Resource(request: request, parse: { data in
+ let resource: Resource<String?> = Resource(request: request, parse: { data in
     String(data: data, encoding: .utf8)
  })
  ```
  */
 public struct Resource<Model> {
     /// The request to fetch the resource remote payload
-    public let request: URLRequestConvertible
+    public let request: URLRequest
     
     /// Parses data into given model.
     public let parse: (_ data: Data) throws -> Model
@@ -45,7 +47,7 @@ public struct Resource<Model> {
     /// - Parameters:
     ///   - request: The request to get the remote data payload
     ///   - parse: Parses data fetched with the request into given Model
-    public init(request: URLRequestConvertible, parse: @escaping (Data) throws -> Model) {
+    public init(request: URLRequest, parse: @escaping (Data) throws -> Model) {
         self.request = request
         self.parse = parse
     }

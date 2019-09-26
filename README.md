@@ -87,7 +87,6 @@ The following table shows all the protocols and their default implementations.
 | -------------------------------- | ---------------------- |
 | ```NetworkAccess```     | ```URLSession```     |
 | ```NetworkService```    | ```BasicNetworkService```   |
-| ```URLRequestConvertible```  | ```URLRequest```   |
 | ```NetworkTask```    | ```URLSessionTask``` |
 
 ## Composable Features
@@ -100,8 +99,8 @@ The following table shows all the protocols and their default implementations.
 ## Requirements
 
 - iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 9.0+
-- Swift 3.2/Swift4.0
+- Xcode 10.2+
+- Swift 5.0
 
 ## Installation
 
@@ -112,12 +111,8 @@ The following table shows all the protocols and their default implementations.
 Specify the following in your `Cartfile`:
 
 ```ogdl
-github "dbsystel/dbnetworkstack" ~> 1.2
+github "dbsystel/dbnetworkstack" ~> 2.0
 ```
-
-### CocoaPods
-
-`pod "DBNetworkStack"`
 
 ## Contributing
 Feel free to submit a pull request with new features, improvements on tests or documentation and bug fixes. Keep in mind that we welcome code that is well tested and documented.
