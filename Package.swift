@@ -44,7 +44,7 @@ let package = Package(
         .target(
             name: "DBNetworkStack",
             dependencies: [],
-            path: "Source")
+            path: "Source"),
         .testTarget(
             name: "DBNetworkStackTests",
             dependencies: ["DBNetworkStack"],
