@@ -239,7 +239,10 @@ class NetworkServiceTest: XCTestCase {
         XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
     }
     
+    @available(watchOS 6.0, *)
+    @available(tvOS 13.0, *)
     @available(iOS 13.0, *)
+    @available(OSX 10.15, *)
     func testGIVEN_aRequest_WHEN_requestrWithResponseFuture_THEN_ShouldRespond() {
         // GIVEN
         networkAccess.changeMock(data: Train.validJSONData, response: .defaultMock, error: nil)
@@ -273,7 +276,10 @@ class NetworkServiceTest: XCTestCase {
         XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
     }
     
+    @available(watchOS 6.0, *)
+    @available(tvOS 13.0, *)
     @available(iOS 13.0, *)
+    @available(OSX 10.15, *)
     func testGIVEN_aRequest_WHEN_requestWithResponseFuture_THEN_ShouldError() {
         // GIVEN
         networkAccess.changeMock(data: nil, response: nil, error: nil)
@@ -310,7 +316,10 @@ class NetworkServiceTest: XCTestCase {
         }
     }
     
+    @available(watchOS 6.0, *)
+    @available(tvOS 13.0, *)
     @available(iOS 13.0, *)
+    @available(OSX 10.15, *)
     func testGIVEN_aRequest_WHEN_requestrFuture_THEN_ShouldRespond() {
         // GIVEN
         networkAccess.changeMock(data: Train.validJSONData, response: .defaultMock, error: nil)
@@ -343,7 +352,10 @@ class NetworkServiceTest: XCTestCase {
         XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
     }
     
+    @available(watchOS 6.0, *)
+    @available(tvOS 13.0, *)
     @available(iOS 13.0, *)
+    @available(OSX 10.15, *)
     func testGIVEN_aRequest_WHEN_requestrFuture_THEN_ShouldError() {
         // GIVEN
         networkAccess.changeMock(data: nil, response: nil, error: nil)
