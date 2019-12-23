@@ -240,7 +240,7 @@ class NetworkServiceTest: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testGIVEN_aRequest_WHEN_requestrFuture_THEN_ShouldRespond() {
+    func testGIVEN_aRequest_WHEN_requestrWithResponseFuture_THEN_ShouldRespond() {
         // GIVEN
         networkAccess.changeMock(data: Train.validJSONData, response: .defaultMock, error: nil)
         let expection = expectation(description: "loadValidRequest")
@@ -274,7 +274,7 @@ class NetworkServiceTest: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testGIVEN_aRequest_WHEN_requestrFuture_THEN_ShouldError() {
+    func testGIVEN_aRequest_WHEN_requestWithResponseFuture_THEN_ShouldError() {
         // GIVEN
         networkAccess.changeMock(data: nil, response: nil, error: nil)
         let expection = expectation(description: "loadValidRequest")
@@ -282,6 +282,76 @@ class NetworkServiceTest: XCTestCase {
         
         //When
         let future = networkService.requestWithResponse(resource)
+        let sinkObserver = future.sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .finished:
+                return
+            case .failure(let networkError):
+                expectedResult = .failure(networkError)
+                expection.fulfill()
+            }
+        }, receiveValue: { _ in
+            XCTFail("should not error")
+        })
+        
+        waitForExpectations(timeout: 1, handler: nil)
+        
+        //Then
+        switch expectedResult {
+        case .failure(let error)?:
+           if case .serverError(let response, let data) = error {
+               XCTAssertNil(response)
+               XCTAssertNil(data)
+           } else {
+               XCTFail("Expect serverError")
+           }
+        default:
+           XCTFail("Expect serverError")
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func testGIVEN_aRequest_WHEN_requestrFuture_THEN_ShouldRespond() {
+        // GIVEN
+        networkAccess.changeMock(data: Train.validJSONData, response: .defaultMock, error: nil)
+        let expection = expectation(description: "loadValidRequest")
+        var expectedResult: Result<Train, NetworkError>?
+        
+        //When
+        let future = networkService.request(resource)
+        let sinkObserver = future.sink(receiveCompletion: { completion in
+            if case .finished = completion {
+                return
+            }
+             XCTFail("Should not succeed")
+        }, receiveValue: { (response) in
+            expectedResult = .success(response)
+            expection.fulfill()
+        })
+        
+        waitForExpectations(timeout: 1, handler: nil)
+        
+        //Then
+        switch expectedResult {
+        case .success(let result)?:
+            XCTAssertEqual(result.name, self.trainName)
+        case .failure?:
+            XCTFail("Should be an error")
+        case nil:
+            XCTFail("Result should not be nil")
+        }
+        XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
+    }
+    
+    @available(iOS 13.0, *)
+    func testGIVEN_aRequest_WHEN_requestrFuture_THEN_ShouldError() {
+        // GIVEN
+        networkAccess.changeMock(data: nil, response: nil, error: nil)
+        let expection = expectation(description: "loadValidRequest")
+        var expectedResult: Result<Train, NetworkError>?
+        
+        //When
+        let future = networkService.request(resource)
         let sinkObserver = future.sink(receiveCompletion: { (completion) in
             switch completion {
             case .finished:
