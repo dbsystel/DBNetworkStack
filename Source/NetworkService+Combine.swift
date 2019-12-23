@@ -30,9 +30,15 @@ public extension NetworkService {
      
      - returns: a future of the network request result
      */
-    func request<T>(_ resource: Resource<T>) -> Future<(T, HTTPURLResponse), NetworkError> {
+    func requestWithResponse<T>(_ resource: Resource<T>) -> Future<(T, HTTPURLResponse), NetworkError> {
         return Future<(T, HTTPURLResponse), NetworkError> { (promise) in
             self.request(resource: resource, onCompletionWithResponse: promise)
+        }
+    }
+    
+    func request<T>(_ resource: Resource<T>) -> Future<T, NetworkError> {
+        return Future<T, NetworkError> { (promise) in
+            self.request(resource, onCompletion: promise)
         }
     }
     

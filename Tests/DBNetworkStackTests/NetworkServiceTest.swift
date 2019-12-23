@@ -247,7 +247,7 @@ class NetworkServiceTest: XCTestCase {
         var expectedResult: Result<(Train, HTTPURLResponse), NetworkError>?
         
         //When
-        let future = networkService.request(resource)
+        let future = networkService.requestWithResponse(resource)
         let sinkObserver = future.sink(receiveCompletion: { completion in
             if case .finished = completion {
                 return
@@ -281,7 +281,7 @@ class NetworkServiceTest: XCTestCase {
         var expectedResult: Result<(Train, HTTPURLResponse), NetworkError>?
         
         //When
-        let future = networkService.request(resource)
+        let future = networkService.requestWithResponse(resource)
         let sinkObserver = future.sink(receiveCompletion: { (completion) in
             switch completion {
             case .finished:
