@@ -5,7 +5,6 @@
 [![codecov](https://codecov.io/gh/dbsystel/DBNetworkStack/branch/develop/graph/badge.svg)](https://codecov.io/gh/dbsystel/DBNetworkStack)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
-[![Version](https://img.shields.io/cocoapods/v/DBNetworkStack.svg?style=flat)](http://cocoapods.org/pods/DBNetworkStack)
 
 |           | Main Features                  |
 | --------- | ------------------------------ |
@@ -95,6 +94,7 @@ The following table shows all the protocols and their default implementations.
 | -------------------------------- | ---------------------- |
 | ```RetryNetworkService```        | Retrys requests after a given delay when an error meets given criteria. |
 | ```ModifyRequestNetworkService```        | Modify matching requests. Can be used to add auth tokens or API Keys  |
+| ```NetworkServiceMock```        | Mocks a NetworkService. Can be use during unit tests  |
 
 ## Requirements
 
@@ -103,6 +103,16 @@ The following table shows all the protocols and their default implementations.
 - Swift 5.0
 
 ## Installation
+
+### Swift Package Manager
+
+[SPM](https://swift.org/package-manager/) is integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
+
+Specify the following in your `Package.swift`:
+
+```swift
+.package(url: "https://github.com/dbsystel/DBNetworkStack", from: "2.0.0"),
+```
 
 ### Carthage
 
