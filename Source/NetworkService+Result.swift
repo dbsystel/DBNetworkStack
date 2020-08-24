@@ -33,9 +33,9 @@ public extension NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    func request<Result>(queue: DispatchQueue = .main,
-                         resource: Resource<Result>,
-                         onCompletionWithResponse: @escaping (Swift.Result<(Result, HTTPURLResponse), NetworkError>) -> Void) -> NetworkTask {
+    func request<Result, E: Error>(queue: DispatchQueue = .main,
+                         resource: ResourceWithError<Result, E>,
+                         onCompletionWithResponse: @escaping (Swift.Result<(Result, HTTPURLResponse), E>) -> Void) -> NetworkTask {
         return request(queue: queue,
                        resource: resource,
                        onCompletionWithResponse: { result, response in
@@ -67,8 +67,8 @@ public extension NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    func request<Result>(_ resource: Resource<Result>,
-                         onCompletion: @escaping (Swift.Result<Result, NetworkError>) -> Void) -> NetworkTask {
+    func request<Result, E: Error>(_ resource: ResourceWithError<Result, E>,
+                         onCompletion: @escaping (Swift.Result<Result, E>) -> Void) -> NetworkTask {
         return request(resource: resource,
                        onCompletionWithResponse: { result in
                         switch result {

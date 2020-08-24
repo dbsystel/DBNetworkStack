@@ -31,7 +31,21 @@ extension Resource where Model: Decodable {
     /// - Parameters:
     ///   - request: The request to get the remote data payload
     ///   - decoder: a decoder which can decode the payload into the model type
+    public init(request: URLRequest, decoder: JSONDecoder, parseError: @escaping (_ networkError: NetworkError) -> E) {
+        self.init(request: request, parse: { try decoder.decode(Model.self, from: $0) }, parseError: parseError)
+    }
+}
+
+extension Resource where Model: Decodable, E == NetworkError {
+
+    /// Creates an instace of Resource where the result type is `Decodable` and
+    /// can be decoded with the given decoder
+    ///
+    /// - Parameters:
+    ///   - request: The request to get the remote data payload
+    ///   - decoder: a decoder which can decode the payload into the model type
     public init(request: URLRequest, decoder: JSONDecoder) {
         self.init(request: request, parse: { try decoder.decode(Model.self, from: $0) })
     }
+
 }

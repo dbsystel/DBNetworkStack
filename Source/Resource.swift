@@ -35,20 +35,39 @@ import Foundation
  })
  ```
  */
-public struct Resource<Model> {
+public struct ResourceWithError<Model, E: Error> {
     /// The request to fetch the resource remote payload
     public let request: URLRequest
     
     /// Parses data into given model.
     public let parse: (_ data: Data) throws -> Model
+    public let parseError: (_ networkError: NetworkError) -> E
     
     /// Creates a type safe resource, which can be used to fetch it with `NetworkService`
     ///
     /// - Parameters:
     ///   - request: The request to get the remote data payload
     ///   - parse: Parses data fetched with the request into given Model
-    public init(request: URLRequest, parse: @escaping (Data) throws -> Model) {
+    public init(request: URLRequest, parse: @escaping (Data) throws -> Model, parseError: @escaping (_ networkError: NetworkError) -> E) {
         self.request = request
         self.parse = parse
+        self.parseError = parseError
     }
+}
+
+public typealias Resource<Model> = ResourceWithError<Model, NetworkError>
+
+public extension Resource where E == NetworkError {
+
+    /// Creates a type safe resource, which can be used to fetch it with `NetworkService`
+    ///
+    /// - Parameters:
+    ///   - request: The request to get the remote data payload
+    ///   - parse: Parses data fetched with the request into given Model
+    init(request: URLRequest, parse: @escaping (Data) throws -> Model) {
+        self.request = request
+        self.parse = parse
+        self.parseError = { return $0 }
+    }
+
 }

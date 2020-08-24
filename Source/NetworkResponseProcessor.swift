@@ -37,7 +37,7 @@ final class NetworkResponseProcessor {
      
      - returns: the parsed model object.
      */
-    func process<Result>(response: HTTPURLResponse?, resource: Resource<Result>, data: Data?, error: Error?) throws -> Result {
+    func process<Result, E: Error>(response: HTTPURLResponse?, resource: ResourceWithError<Result, E>, data: Data?, error: Error?) throws -> Result {
         if let error = error {
             if case URLError.cancelled = error {
                 throw NetworkError.cancelled
@@ -69,8 +69,8 @@ final class NetworkResponseProcessor {
     ///   - error: optional error from net network.
     ///   - onCompletion: completion block which gets called on the given `queue`.
     ///   - onError: error block which gets called on the given `queue`.
-    func processAsyncResponse<Result>(queue: DispatchQueue, response: HTTPURLResponse?, resource: Resource<Result>, data: Data?,
-                              error: Error?, onCompletion: @escaping (Result, HTTPURLResponse) -> Void, onError: @escaping (NetworkError) -> Void) {
+    func processAsyncResponse<Result, E: Error>(queue: DispatchQueue, response: HTTPURLResponse?, resource: ResourceWithError<Result, E>, data: Data?,
+                              error: Error?, onCompletion: @escaping (Result, HTTPURLResponse) -> Void, onError: @escaping (E) -> Void) {
         do {
             let parsed = try process(
                 response: response,
@@ -82,13 +82,13 @@ final class NetworkResponseProcessor {
                 if let response = response {
                     onCompletion(parsed, response)
                 } else {
-                    onError(NetworkError.unknownError)
+                    onError(resource.parseError(NetworkError.unknownError))
                 }
             }
         } catch let genericError {
             let dbNetworkError: NetworkError! = genericError as? NetworkError
             queue.async {
-                return onError(dbNetworkError)
+                return onError(resource.parseError(dbNetworkError))
             }
         }
     }

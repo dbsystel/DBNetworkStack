@@ -75,8 +75,12 @@ public final class BasicNetworkService: NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+    public func request<Result, E: Error>(
+        queue: DispatchQueue,
+        resource: ResourceWithError<Result, E>,
+        onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+        onError: @escaping (E) -> Void
+    ) -> NetworkTask {
         let request = resource.request
         let dataTask = networkAccess.load(request: request, callback: { data, response, error in
             self.networkResponseProcessor.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,

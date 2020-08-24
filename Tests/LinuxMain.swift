@@ -28,8 +28,8 @@
 import XCTest
 @testable import DBNetworkStackTests
 
-XCTMain([
-    testCase(ResourceTest.allTests),
-    testCase(URLSessionNetworkAccessTest.allTests),
-    testCase(NetworkRequestTest.allTests)
-    ])
+//XCTMain([
+//    testCase(ResourceTest.allTests),
+//    testCase(URLSessionNetworkAccessTest.allTests),
+//    testCase(NetworkRequestTest.allTests)
+//    ])

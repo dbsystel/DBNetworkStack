@@ -28,7 +28,7 @@ struct NetworkServiceMockCallback {
     let onErrorCallback: ((NetworkError) -> Void)?
     let onTypedSuccess: ((Any, HTTPURLResponse) -> Void)?
     
-    init<Result>(resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void, onError: @escaping (NetworkError) -> Void) {
+    init<Result, E: Error>(resource: ResourceWithError<Result, E>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void, onError: @escaping (NetworkError) -> Void) {
         onTypedSuccess = { anyResult, response in
             guard let typedResult = anyResult as? Result else {
                 fatalError("Extected type of \(Result.self) but got \(anyResult.self)")
@@ -145,13 +145,19 @@ public final class NetworkServiceMock: NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                                onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+    public func request<Result, E: Error>(
+        queue: DispatchQueue,
+        resource: ResourceWithError<Result, E>,
+        onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+        onError: @escaping (E) -> Void
+    ) -> NetworkTask {
         lastRequests.append(resource.request)
         callbacks.append(NetworkServiceMockCallback(
             resource: resource,
             onCompletionWithResponse: onCompletionWithResponse,
-            onError: onError
+            onError: {
+                onError(resource.parseError($0))
+        }
         ))
         
         return nextNetworkTask ?? NetworkTaskMock()

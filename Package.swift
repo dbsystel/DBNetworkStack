@@ -38,6 +38,7 @@ let package = Package(
     products: [
         .library(
             name: "DBNetworkStack",
+            type: .dynamic,
             targets: ["DBNetworkStack"])
     ],
     targets: [

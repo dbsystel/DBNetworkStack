@@ -210,6 +210,33 @@ class NetworkServiceTest: XCTestCase {
             XCTFail("Expect serverError")
         }
     }
+
+    func testGIVEN_aRequestWithCustomError_WHEN_requestWithResultErrorResponse_THEN_ShouldCustomError() {
+        enum TestError: Error, Equatable {
+            case error
+        }
+        //Given
+        networkAccess.changeMock(data: nil, response: nil, error: nil)
+        var expectedResult: Result<String?, TestError>?
+        let expection = expectation(description: "testNoData")
+        let resource = ResourceWithError<String?, TestError>(
+            request: .defaultMock,
+            parse: { String(data: $0, encoding: .utf8) },
+            parseError: { _ in
+                return .error
+        })
+
+        //When
+        networkService.request(resource, onCompletion: { result in
+            expectedResult = result
+            expection.fulfill()
+        })
+
+        //Then
+        waitForExpectations(timeout: 1, handler: nil)
+
+        XCTAssertEqual(expectedResult, .failure(.error))
+    }
     
     func testGIVEN_aRequest_WHEN_requestWithResultAndResponse_THEN_ShouldRespond() {
         // GIVEN

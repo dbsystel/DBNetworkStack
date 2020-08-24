@@ -80,12 +80,16 @@ public final class ModifyRequestNetworkService: NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+    public func request<Result, E: Error>(
+        queue: DispatchQueue,
+        resource: ResourceWithError<Result, E>,
+        onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+        onError: @escaping (E) -> Void
+    ) -> NetworkTask {
         let request = requestModifications.reduce(resource.request, { request, modify in
             return modify(request)
         })
-        let newResource = Resource(request: request, parse: resource.parse)
+        let newResource = ResourceWithError(request: request, parse: resource.parse, parseError: resource.parseError)
         return networkService.request(queue: queue, resource: newResource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
     }
 }

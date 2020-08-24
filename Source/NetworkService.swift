@@ -57,8 +57,12 @@ public protocol NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                 onError: @escaping (NetworkError) -> Void) -> NetworkTask
+    func request<Result, E: Error>(
+        queue: DispatchQueue,
+        resource: ResourceWithError<Result, E>,
+        onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+        onError: @escaping (E) -> Void
+    ) -> NetworkTask
 }
 
 public extension NetworkService {
@@ -87,8 +91,11 @@ public extension NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    func request<Result>(_ resource: Resource<Result>, onCompletion: @escaping (Result) -> Void,
-                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+    func request<Result, E: Error>(
+        _ resource: ResourceWithError<Result, E>,
+        onCompletion: @escaping (Result) -> Void,
+        onError: @escaping (E) -> Void
+    ) -> NetworkTask {
         return request(queue: .main, resource: resource, onCompletionWithResponse: { model, _ in onCompletion(model) }, onError: onError)
     }
     
@@ -117,8 +124,11 @@ public extension NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    func request<Result>(_ resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+    func request<Result, E: Error>(
+        _ resource: ResourceWithError<Result, E>,
+        onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+        onError: @escaping (E) -> Void
+    ) -> NetworkTask {
         return request(queue: .main, resource: resource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
     }
 }

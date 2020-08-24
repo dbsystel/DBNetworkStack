@@ -35,7 +35,7 @@ public final class RetryNetworkService: NetworkService {
     private let numberOfRetries: Int
     private let idleTimeInterval: TimeInterval
     private let dispatchRetry: (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void
-    private let shouldRetry: (NetworkError) -> Bool
+    private let shouldRetry: (Error) -> Bool
     
     /// Creates an instance of `RetryNetworkService`
     ///
@@ -46,7 +46,7 @@ public final class RetryNetworkService: NetworkService {
     ///   - shouldRetry: closure which evaluated if error should be retry
     ///   - dispatchRetry: closure where to dispatch the waiting
     public init(networkService: NetworkService, numberOfRetries: Int,
-                idleTimeInterval: TimeInterval, shouldRetry: @escaping (NetworkError) -> Bool,
+                idleTimeInterval: TimeInterval, shouldRetry: @escaping (Error) -> Bool,
                 dispatchRetry: @escaping (_ deadline: DispatchTime, _ execute: @escaping () -> Void ) -> Void = { deadline, execute in
             DispatchQueue.global(qos: .utility).asyncAfter(deadline: deadline, execute: execute)
         }) {
@@ -83,8 +83,12 @@ public final class RetryNetworkService: NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+    public func request<Result, E: Error>(
+        queue: DispatchQueue,
+        resource: ResourceWithError<Result, E>,
+        onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
+        onError: @escaping (E) -> Void
+    ) -> NetworkTask {
         let containerTask = ContainerNetworkTask()
         let retryOnError = customOnError(
             containerTask: containerTask,
@@ -104,12 +108,13 @@ public final class RetryNetworkService: NetworkService {
         return containerTask
     }
     
-    private func customOnError<Result>(containerTask: ContainerNetworkTask,
+    private func customOnError<Result, E: Error>(containerTask: ContainerNetworkTask,
                                        numberOfRetriesLeft: Int,
                                        queue: DispatchQueue,
-                                       resource: Resource<Result>,
+                                       resource: ResourceWithError<Result, E>,
                                        onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                                       onError: @escaping (NetworkError) -> Void) -> (NetworkError) -> Void {
+                                       onError: @escaping (E) -> Void
+    ) -> (E) -> Void {
         return { error in
             if self.shouldRetry(error), numberOfRetriesLeft > 0 {
                 guard !containerTask.isCanceled else {
