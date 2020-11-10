@@ -40,6 +40,39 @@ class ResourceTest: XCTestCase {
         XCTAssertEqual(name ?? nil, "ICE")
     }
 
+    func testResource2() {
+        enum TestError: Error, Equatable {
+            case error
+        }
+        //Given
+        //Given
+        let validData: Data! = "ICE".data(using: .utf8)
+        let resource = ResourceWithError<String?, TestError>(request: URLRequest.defaultMock, parse: { String(data: $0, encoding: .utf8) }, parseError: { _ in
+            return .error
+        })
+
+        //When
+        let name = try? resource.parse(validData)
+
+        //Then
+        XCTAssertEqual(name ?? nil, "ICE")
+    }
+
+    func testWithDefaultError() {
+        //Given
+        let resource = Resource<String?>(request: URLRequest.defaultMock, parse: { String(data: $0, encoding: .utf8) })
+
+        //When
+        let error = resource.parseError(.unknownError)
+
+        //Then
+        if case .unknownError = error {
+
+        } else {
+            XCTFail()
+        }
+    }
+
     func testWithErrorResource() {
         enum TestError: Error, Equatable {
             case error
