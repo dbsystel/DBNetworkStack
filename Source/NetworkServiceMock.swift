@@ -25,13 +25,13 @@ import Foundation
 import Dispatch
 
 struct NetworkServiceMockCallback {
-    let onErrorCallback: ((NetworkError) -> Void)?
-    let onTypedSuccess: ((Any, HTTPURLResponse) -> Void)?
+    let onErrorCallback: (NetworkError) -> Void
+    let onTypedSuccess: (Any, HTTPURLResponse) throws -> Void
     
     init<Result>(resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void, onError: @escaping (NetworkError) -> Void) {
         onTypedSuccess = { anyResult, response in
             guard let typedResult = anyResult as? Result else {
-                fatalError("Extected type of \(Result.self) but got \(anyResult.self)")
+                throw NetworkServiceMock.Error.typeMismatch
             }
             onCompletionWithResponse(typedResult, response)
         }
@@ -97,6 +97,20 @@ struct NetworkServiceMockCallback {
  - seealso: `NetworkService`
  */
 public final class NetworkServiceMock: NetworkService {
+
+    public enum Error: Swift.Error, CustomDebugStringConvertible {
+        case missingRequest
+        case typeMismatch
+
+        public var debugDescription: String {
+            switch self {
+            case .missingRequest:
+                return "Could not return because no request"
+            case .typeMismatch:
+                return "Return type does not match requested type"
+            }
+        }
+    }
     
     /// Count of all started requests
     public var requestCount: Int {
@@ -106,6 +120,10 @@ public final class NetworkServiceMock: NetworkService {
     /// Last executed request
     public var lastRequest: URLRequest? {
         return lastRequests.last
+    }
+
+    public var pendingRequestCount: Int {
+        return callbacks.count
     }
     
     /// All executed requests.
@@ -161,19 +179,27 @@ public final class NetworkServiceMock: NetworkService {
     ///
     /// - Parameters:
     ///   - error: the error which gets passed to the caller
-    public func returnError(with error: NetworkError) {
-        callbacks.removeFirst().onErrorCallback?(error)
+    /// 
+    /// - Throws: An error of type `NetworkServiceMock.Error`
+    public func returnError(with error: NetworkError) throws {
+        guard !callbacks.isEmpty else {
+            throw Error.missingRequest
+        }
+        callbacks.removeFirst().onErrorCallback(error)
     }
     
     /// Will return a successful request, by using the given type `T` as serialized result of a request.
     ///
-    /// **Warning:** This will crash if type `T` does not match your expected ResponseType of your current request
-    ///
     /// - Parameters:
     ///   - data: the mock response from the server. `Data()` by default
     ///   - httpResponse: the mock `HTTPURLResponse` from the server. `HTTPURLResponse()` by default
-    public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse()) {
-        callbacks.removeFirst().onTypedSuccess?(serializedResponse, httpResponse)
+    ///
+    /// - Throws: An error of type `NetworkServiceMock.Error`
+    public func returnSuccess<T>(with serializedResponse: T, httpResponse: HTTPURLResponse = HTTPURLResponse()) throws {
+        guard !callbacks.isEmpty else {
+            throw Error.missingRequest
+        }
+        try callbacks.removeFirst().onTypedSuccess(serializedResponse, httpResponse)
     }
 
 }
