@@ -26,7 +26,7 @@ import Foundation
 /**
  `NetworkTaskRepresenting` is a task which runs async to fetch data.
   */
-public protocol NetworkTask: class {
+public protocol NetworkTask: AnyObject {
     /**
      Cancels a task.
      */
