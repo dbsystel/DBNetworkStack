@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/dbsystel/DBNetworkStack.svg?branch=develop)](https://travis-ci.org/dbsystel/DBNetworkStack)
 [![codebeat badge](https://codebeat.co/badges/e438e768-249d-4e9f-8dd8-32928537740e)](https://codebeat.co/projects/github-com-dbsystel-dbnetworkstack-develop)
 [![codecov](https://codecov.io/gh/dbsystel/DBNetworkStack/branch/develop/graph/badge.svg)](https://codecov.io/gh/dbsystel/DBNetworkStack)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
 |           | Main Features                  |
@@ -112,16 +111,6 @@ Specify the following in your `Package.swift`:
 
 ```swift
 .package(url: "https://github.com/dbsystel/DBNetworkStack", from: "2.0.0"),
-```
-
-### Carthage
-
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
-
-Specify the following in your `Cartfile`:
-
-```ogdl
-github "dbsystel/dbnetworkstack" ~> 2.0
 ```
 
 ## Contributing
