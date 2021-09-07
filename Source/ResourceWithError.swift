@@ -1,5 +1,5 @@
 //
-//  Copyright (C) 2017 DB Systel GmbH.
+//  Copyright (C) 2021 DB Systel GmbH.
 //  DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -23,29 +23,37 @@
 
 import Foundation
 
-extension Resource where Model: Decodable {
+/**
+ `ResourceWithError` describes a remote resource of generic type and generic error.
+ The type can be fetched via HTTP(S) and parsed into the coresponding model object.
+
+ **Example**:
+ ```swift
+ let request: URLRequest = //
+ let resource: ResourceWithError<String?, CustomError> = Resource(request: request, parse: { data in
+    String(data: data, encoding: .utf8)
+ }, mapError: { networkError in
+    return CustomError(networkError)
+ })
+ ```
+ */
+public struct ResourceWithError<Model, E: Error> {
+    /// The request to fetch the resource remote payload
+    public let request: URLRequest
     
-    /// Creates an instace of Resource where the result type is `Decodable` and
-    /// can be decoded with the given decoder
+    /// Parses data into given model.
+    public let parse: (_ data: Data) throws -> Model
+    public let mapError: (_ networkError: NetworkError) -> E
+    
+    /// Creates a type safe resource, which can be used to fetch it with NetworkService
     ///
     /// - Parameters:
-    ///   - request: The request to get the remote data payload
-    ///   - decoder: a decoder which can decode the payload into the model type
-    public init(request: URLRequest, decoder: JSONDecoder) {
-        self.init(request: request, parse: { try decoder.decode(Model.self, from: $0) })
-    }
-}
-
-extension ResourceWithError where Model: Decodable {
-
-    /// Creates an instace of Resource where the result type is `Decodable` and
-    /// can be decoded with the given decoder
-    ///
-    /// - Parameters:
-    ///   - request: The request to get the remote data payload
-    ///   - decoder: a decoder which can decode the payload into the model type
-    ///   - mapError: a closure which maps to Error
-    public init(request: URLRequest, decoder: JSONDecoder, mapError: @escaping (_ networkError: NetworkError) -> E) {
-        self.init(request: request, parse: { try decoder.decode(Model.self, from: $0) }, mapError: mapError)
+    /// - request: The request to get the remote data payload
+    /// - parse: Parses data fetched with the request into given Model
+    
+    public init(request: URLRequest, parse: @escaping (Data) throws -> Model, mapError: @escaping (_ networkError: NetworkError) -> E) {
+        self.request = request
+        self.parse = parse
+        self.mapError = mapError
     }
 }
