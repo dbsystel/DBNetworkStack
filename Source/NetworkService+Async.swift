@@ -7,9 +7,7 @@
 
 import Foundation
 
-@available(watchOS 6.0, *)
-@available(macOS 10.15.0, *)
-@available(iOS 13.0.0, *)
+@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
 public extension NetworkService {
 
     /**
