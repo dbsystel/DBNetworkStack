@@ -26,6 +26,7 @@ public extension NetworkService {
      - parameter resource: The resource you want to fetch.
 
      - returns: a touple  containing the parsed result and the HTTP response
+     - Throws: A `NetworkError`
      */
     @discardableResult
     func request<Result>(_ resource: Resource<Result>) async throws -> (Result, HTTPURLResponse) {
