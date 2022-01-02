@@ -164,4 +164,34 @@ class NetworkServiceWithErrorTest: XCTestCase {
         }
         XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
     }
+
+    @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+    func testGIVEN_aRequest_WHEN_requestWithAsyncResultAndResponse_THEN_ShouldRespond() async throws {
+        // GIVEN
+        networkAccess.changeMock(data: Train.validJSONData, response: .defaultMock, error: nil)
+
+        //When
+        let (result, response) = try await networkService.request(resource)
+
+
+        //Then
+        XCTAssertEqual(result.name, self.trainName)
+        XCTAssertEqual(response, .defaultMock)
+        XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
+    }
+
+    @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+    func testGIVEN_aRequest_WHEN_requestWithAsyncResultAndResponse_THEN_ShouldThwo() async {
+        // GIVEN
+        let error = NSError(domain: "", code: 0, userInfo: nil)
+        networkAccess.changeMock(data: nil, response: nil, error: error)
+
+        //When
+        do {
+            try await networkService.request(resource)
+            XCTFail("Schould throw")
+        } catch let error {
+            XCTAssertTrue(error is CustomError)
+        }
+    }
 }
