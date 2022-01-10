@@ -268,4 +268,23 @@ class NetworkServiceTest: XCTestCase {
             XCTAssertTrue(error is NetworkError)
         }
     }
+
+    @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+    func testGIVEN_aRequest_WHEN_requestWithAsyncResultAndResponseAndCancel_THEN_ShouldThwo() async {
+        // GIVEN
+        let error = NSError(domain: "", code: 0, userInfo: nil)
+        networkAccess.changeMock(data: nil, response: nil, error: error)
+
+        //When
+        let task = Task {
+            try await networkService.request(resource)
+        }
+        task.cancel()
+        let result = await task.result
+        if case .failure(let error) = result, let networkError = error as? CancellationError {
+           
+        } else {
+            XCTFail("Schould throw")
+        }
+    }
 }
