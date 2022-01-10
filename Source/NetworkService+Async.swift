@@ -28,10 +28,17 @@ public extension NetworkService {
      */
     @discardableResult
     func request<Result>(_ resource: Resource<Result>) async throws -> (Result, HTTPURLResponse) {
-        return try await withCheckedThrowingContinuation({ coninuation in
-            request(resource: resource, onCompletionWithResponse: {
-                coninuation.resume(with: $0)
+        var task: NetworkTask?
+        let cancel = { task?.cancel() }
+        return try await withTaskCancellationHandler(operation: {
+            try Task.checkCancellation()
+            return try await withCheckedThrowingContinuation({ coninuation in
+                task = request(resource: resource, onCompletionWithResponse: {
+                    coninuation.resume(with: $0)
+                })
             })
+        }, onCancel: {
+            cancel()
         })
     }
 
@@ -53,10 +60,17 @@ public extension NetworkService {
      */
     @discardableResult
     func request<Result, E: Error>(_ resource: ResourceWithError<Result, E>) async throws -> (Result, HTTPURLResponse) {
-        return try await withCheckedThrowingContinuation({ coninuation in
-            request(resource: resource, onCompletionWithResponse: {
-                coninuation.resume(with: $0)
+        var task: NetworkTask?
+        let cancel = { task?.cancel() }
+        return try await withTaskCancellationHandler(operation: {
+            try Task.checkCancellation()
+            return try await withCheckedThrowingContinuation({ coninuation in
+                task = request(resource: resource, onCompletionWithResponse: {
+                    coninuation.resume(with: $0)
+                })
             })
+        }, onCancel: {
+            cancel()
         })
     }
 
