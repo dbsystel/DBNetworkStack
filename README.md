@@ -98,8 +98,6 @@ The following table shows all the protocols and their default implementations.
 ## Requirements
 
 - iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 10.2+
-- Swift 5.0
 
 ## Installation
 
@@ -110,7 +108,7 @@ The following table shows all the protocols and their default implementations.
 Specify the following in your `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/dbsystel/DBNetworkStack", from: "2.0.0"),
+.package(url: "https://github.com/dbsystel/DBNetworkStack", from: "2.1.0"),
 ```
 
 ## Contributing
