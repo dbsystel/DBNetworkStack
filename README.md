@@ -3,9 +3,7 @@
 [![Build Status](https://travis-ci.org/dbsystel/DBNetworkStack.svg?branch=develop)](https://travis-ci.org/dbsystel/DBNetworkStack)
 [![codebeat badge](https://codebeat.co/badges/e438e768-249d-4e9f-8dd8-32928537740e)](https://codebeat.co/projects/github-com-dbsystel-dbnetworkstack-develop)
 [![codecov](https://codecov.io/gh/dbsystel/DBNetworkStack/branch/develop/graph/badge.svg)](https://codecov.io/gh/dbsystel/DBNetworkStack)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
-[![Version](https://img.shields.io/cocoapods/v/DBNetworkStack.svg?style=flat)](http://cocoapods.org/pods/DBNetworkStack)
 
 |           | Main Features                  |
 | --------- | ------------------------------ |
@@ -95,23 +93,22 @@ The following table shows all the protocols and their default implementations.
 | -------------------------------- | ---------------------- |
 | ```RetryNetworkService```        | Retrys requests after a given delay when an error meets given criteria. |
 | ```ModifyRequestNetworkService```        | Modify matching requests. Can be used to add auth tokens or API Keys  |
+| ```NetworkServiceMock```        | Mocks a NetworkService. Can be use during unit tests  |
 
 ## Requirements
 
 - iOS 9.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 10.2+
-- Swift 5.0
 
 ## Installation
 
-### Carthage
+### Swift Package Manager
 
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+[SPM](https://swift.org/package-manager/) is integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
 
-Specify the following in your `Cartfile`:
+Specify the following in your `Package.swift`:
 
-```ogdl
-github "dbsystel/dbnetworkstack" ~> 2.0
+```swift
+.package(url: "https://github.com/dbsystel/DBNetworkStack", from: "2.1.0"),
 ```
 
 ## Contributing

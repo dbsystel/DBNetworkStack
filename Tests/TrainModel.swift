@@ -1,7 +1,5 @@
 //
-//  URLSessionNetworkAccessTest.swift
-//
-//  Copyright (C) 2016 DB Systel GmbH.
+//  Copyright (C) 2017 DB Systel GmbH.
 //	DB Systel GmbH; Jürgen-Ponto-Platz 1; D-60329 Frankfurt am Main; Germany; http://www.dbsystel.de/
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -22,14 +20,28 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-//  Created by Lukas Schmidt on 05.12.16.
-//
 
-import XCTest
-@testable import DBNetworkStackTests
+import Foundation
+import DBNetworkStack
 
-XCTMain([
-    testCase(ResourceTest.allTests),
-    testCase(URLSessionNetworkAccessTest.allTests),
-    testCase(NetworkRequestTest.allTests)
-    ])
+struct Train: Decodable, Equatable {
+    let name: String
+}
+
+extension Train {
+    static var validJSONData: Data! {
+        return "{ \"name\": \"ICE\"}".data(using: .utf8)
+    }
+    
+    static var invalidJSONData: Data! {
+        return "{ name: \"ICE\"}".data(using: .utf8)
+    }
+    
+    static var JSONDataWithInvalidKey: Data! {
+        return "{ \"namee\": \"ICE\"}".data(using: .utf8)
+    }
+    
+    static var validJSONArrayData: Data! {
+        return "[{ \"name\": \"ICE\"}, { \"name\": \"IC\"}, { \"name\": \"TGV\"}]".data(using: .utf8)
+    }
+}

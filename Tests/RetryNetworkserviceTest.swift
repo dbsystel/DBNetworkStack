@@ -41,7 +41,7 @@ class RetryNetworkserviceTest: XCTestCase {
         super.tearDown()
     }
     
-    func testRetryRequest_shouldRetry() {
+    func testRetryRequest_shouldRetry() throws {
         //Given
         let errorCount = 2
         let numberOfRetries = 2
@@ -59,16 +59,16 @@ class RetryNetworkserviceTest: XCTestCase {
         }, onError: { _ in
             XCTFail("Expects to not call error block")
         })
-        (0..<errorCount).forEach { _ in
-            networkServiceMock.returnError(with: .unknownError)
+        try (0..<errorCount).forEach { _ in
+            try networkServiceMock.returnError(with: .unknownError)
         }
-        networkServiceMock.returnSuccess(with: 1)
+        try networkServiceMock.returnSuccess(with: 1)
         
         //Then
         XCTAssertNil(task)
     }
     
-    func testRetryRequestWhenCanceld_shouldNotRetry() {
+    func testRetryRequestWhenCanceld_shouldNotRetry() throws {
         //Given
         let retryService = RetryNetworkService(networkService: networkServiceMock, numberOfRetries: 2,
                                                idleTimeInterval: 0, shouldRetry: { _ in return true }, dispatchRetry: { _, block in
@@ -84,13 +84,13 @@ class RetryNetworkserviceTest: XCTestCase {
         //When
        
         task?.cancel()
-        networkServiceMock.returnError(with: .unknownError)
+        try networkServiceMock.returnError(with: .unknownError)
         
         //Then
         XCTAssertNil(task)
     }
     
-    func testRetryRequest_moreErrorsThenRetryAttemps() {
+    func testRetryRequest_moreErrorsThenRetryAttemps() throws {
         //Given
         var executedRetrys = 0
         
@@ -106,15 +106,15 @@ class RetryNetworkserviceTest: XCTestCase {
         }, onError: { _ in
             XCTAssertEqual(executedRetrys, 3)
         })
-        (0..<4).forEach { _ in
-            networkServiceMock.returnError(with: .unknownError)
+        try (0..<4).forEach { _ in
+            try networkServiceMock.returnError(with: .unknownError)
         }
         
         //Then
         XCTAssertNil(task)
     }
     
-    func testRetryRequest_shouldNotRetry() {
+    func testRetryRequest_shouldNotRetry() throws {
         //Given
         let shoudlRetry = false
         var capturedError: NetworkError?
@@ -131,7 +131,7 @@ class RetryNetworkserviceTest: XCTestCase {
         }, onError: { error in
            capturedError = error
         })
-        networkServiceMock.returnError(with: .unknownError)
+        try networkServiceMock.returnError(with: .unknownError)
         
         //Then
         XCTAssertNil(task)

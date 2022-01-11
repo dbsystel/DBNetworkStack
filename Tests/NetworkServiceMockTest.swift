@@ -52,7 +52,7 @@ class NetworkServiceMockTest: XCTestCase {
         XCTAssertEqual(networkServiceMock.lastRequests, [resource.request, resource.request])
     }
     
-    func testReturnSuccessWithData() {
+    func testReturnSuccessWithData() throws {
         //Given
         var capturedResult: Int?
         var executionCount: Int = 0
@@ -62,14 +62,14 @@ class NetworkServiceMockTest: XCTestCase {
             capturedResult = result
             executionCount += 1
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(with: 1)
+        try networkServiceMock.returnSuccess(with: 1)
         
         //Then
         XCTAssertEqual(capturedResult, 1)
         XCTAssertEqual(executionCount, 1)
     }
 
-    func testCorrectOrderOfReturnSuccessWithDataForMultipleRequests() {
+    func testCorrectOrderOfReturnSuccessWithDataForMultipleRequests() throws {
         //Given
         var called1First = false
         var called2First = false
@@ -85,15 +85,15 @@ class NetworkServiceMockTest: XCTestCase {
                 called2First = true
             }
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(with: 0)
-        networkServiceMock.returnSuccess(with: 0)
+        try networkServiceMock.returnSuccess(with: 0)
+        try networkServiceMock.returnSuccess(with: 0)
 
         //Then
         XCTAssertTrue(called1First)
         XCTAssertFalse(called2First)
     }
 
-    func testRequestSuccessWithDataChaining() {
+    func testRequestSuccessWithDataChaining() throws {
         //Given
         var executionCount1: Int = 0
         var executionCount2: Int = 0
@@ -105,15 +105,15 @@ class NetworkServiceMockTest: XCTestCase {
                 executionCount2 += 1
             }, onError: { _ in })
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(with: 0)
-        networkServiceMock.returnSuccess(with: 0)
+        try networkServiceMock.returnSuccess(with: 0)
+        try networkServiceMock.returnSuccess(with: 0)
 
         //Then
         XCTAssertEqual(executionCount1, 1)
         XCTAssertEqual(executionCount2, 1)
     }
 
-    func testReturnSuccessWithDataForAllRequests() {
+    func testReturnSuccessWithDataForAllRequests() throws {
         //Given
         var executionCount1: Int = 0
         var executionCount2: Int = 0
@@ -125,15 +125,15 @@ class NetworkServiceMockTest: XCTestCase {
         networkServiceMock.request(resource, onCompletion: { _ in
             executionCount2 += 1
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(with: 0)
-        networkServiceMock.returnSuccess(with: 0)
+        try networkServiceMock.returnSuccess(with: 0)
+        try networkServiceMock.returnSuccess(with: 0)
 
         //Then
         XCTAssertEqual(executionCount1, 1)
         XCTAssertEqual(executionCount2, 1)
     }
     
-    func testReturnSuccessWithSerializedData() {
+    func testReturnSuccessWithSerializedData() throws {
         //Given
         var capturedResult: Int?
         var executionCount: Int = 0
@@ -143,14 +143,14 @@ class NetworkServiceMockTest: XCTestCase {
             capturedResult = result
             executionCount += 1
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(with: 10)
+        try networkServiceMock.returnSuccess(with: 10)
         
         //Then
         XCTAssertEqual(capturedResult, 10)
         XCTAssertEqual(executionCount, 1)
     }
     
-    func testCorrectOrderOfReturnSuccessWithSerializedDataForMultipleRequests() {
+    func testCorrectOrderOfReturnSuccessWithSerializedDataForMultipleRequests() throws {
         //Given
         var capturedResult1: Int?
         var capturedResult2: Int?
@@ -162,15 +162,15 @@ class NetworkServiceMockTest: XCTestCase {
         networkServiceMock.request(resource, onCompletion: { result in
             capturedResult2 = result
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(with: 10)
-        networkServiceMock.returnSuccess(with: 20)
+        try networkServiceMock.returnSuccess(with: 10)
+        try networkServiceMock.returnSuccess(with: 20)
         
         //Then
         XCTAssertEqual(capturedResult1, 10)
         XCTAssertEqual(capturedResult2, 20)
     }
     
-    func testRequestSuccessWithSerializedDataChaining() {
+    func testRequestSuccessWithSerializedDataChaining() throws {
         //Given
         var executionCount1: Int = 0
         var executionCount2: Int = 0
@@ -182,15 +182,15 @@ class NetworkServiceMockTest: XCTestCase {
                 executionCount2 += 1
             }, onError: { _ in })
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(with: 10)
-        networkServiceMock.returnSuccess(with: 20)
+        try networkServiceMock.returnSuccess(with: 10)
+        try networkServiceMock.returnSuccess(with: 20)
         
         //Then
         XCTAssertEqual(executionCount1, 1)
         XCTAssertEqual(executionCount2, 1)
     }
     
-    func testReturnSuccessWithSerializedDataForAllRequests() {
+    func testReturnSuccessWithSerializedDataForAllRequests() throws {
         //Given
         var executionCount1: Int = 0
         var executionCount2: Int = 0
@@ -202,15 +202,15 @@ class NetworkServiceMockTest: XCTestCase {
         networkServiceMock.request(resource, onCompletion: { _ in
             executionCount2 += 1
         }, onError: { _ in })
-        networkServiceMock.returnSuccess(with: 10)
-        networkServiceMock.returnSuccess(with: 10)
+        try networkServiceMock.returnSuccess(with: 10)
+        try networkServiceMock.returnSuccess(with: 10)
         
         //Then
         XCTAssertEqual(executionCount1, 1)
         XCTAssertEqual(executionCount2, 1)
     }
     
-    func testReturnError() {
+    func testReturnError() throws {
         //Given
         var capturedError: NetworkError?
         var executionCount: Int = 0
@@ -220,7 +220,7 @@ class NetworkServiceMockTest: XCTestCase {
             capturedError = error
             executionCount += 1
         })
-        networkServiceMock.returnError(with: .unknownError)
+        try networkServiceMock.returnError(with: .unknownError)
         
         //Then
         if let error = capturedError, case .unknownError = error {
@@ -231,7 +231,7 @@ class NetworkServiceMockTest: XCTestCase {
         XCTAssertEqual(executionCount, 1)
     }
     
-    func testCorrectOrderOfReturnErrorForMultipleRequests() {
+    func testCorrectOrderOfReturnErrorForMultipleRequests() throws {
         //Given
         var capturedError1: NetworkError?
         var capturedError2: NetworkError?
@@ -243,8 +243,8 @@ class NetworkServiceMockTest: XCTestCase {
         networkServiceMock.request(resource, onCompletion: { _ in }, onError: { error in
             capturedError2 = error
         })
-        networkServiceMock.returnError(with: .unknownError)
-        networkServiceMock.returnError(with: .cancelled)
+        try networkServiceMock.returnError(with: .unknownError)
+        try networkServiceMock.returnError(with: .cancelled)
 
         //Then
         if case .unknownError? = capturedError1, case .cancelled? = capturedError2 {
@@ -254,7 +254,7 @@ class NetworkServiceMockTest: XCTestCase {
         }
     }
     
-    func testRequestErrorChaining() {
+    func testRequestErrorChaining() throws {
         //Given
         var executionCount1: Int = 0
         var executionCount2: Int = 0
@@ -267,15 +267,15 @@ class NetworkServiceMockTest: XCTestCase {
             })
         })
 
-        networkServiceMock.returnError(with: .unknownError)
-        networkServiceMock.returnError(with: .unknownError)
+        try networkServiceMock.returnError(with: .unknownError)
+        try networkServiceMock.returnError(with: .unknownError)
         
         //Then
         XCTAssertEqual(executionCount1, 1)
         XCTAssertEqual(executionCount2, 1)
     }
 
-    func testReturnErrorsForAllRequests() {
+    func testReturnErrorsForAllRequests() throws {
         //Given
         var executionCount1: Int = 0
         var executionCount2: Int = 0
@@ -287,12 +287,42 @@ class NetworkServiceMockTest: XCTestCase {
         networkServiceMock.request(resource, onCompletion: { _ in }, onError: { _ in
             executionCount2 += 1
         })
-        networkServiceMock.returnError(with: .unknownError)
-        networkServiceMock.returnError(with: .unknownError)
+        try networkServiceMock.returnError(with: .unknownError)
+        try networkServiceMock.returnError(with: .unknownError)
 
         //Then
         XCTAssertEqual(executionCount1, 1)
         XCTAssertEqual(executionCount2, 1)
+    }
+
+    func testReturnSuccessMismatchType() {
+        //When
+        networkServiceMock.request(resource, onCompletion: { _ in }, onError: { _ in })
+
+        //Then
+        XCTAssertThrowsError(try networkServiceMock.returnSuccess(with: "Mismatch Type"))
+    }
+
+    func testReturnSuccessMissingRequest() {
+        //Then
+        XCTAssertThrowsError(try networkServiceMock.returnSuccess(with: 1))
+    }
+
+    func testReturnErrorMissingRequest() {
+        //Then
+        XCTAssertThrowsError(try networkServiceMock.returnError(with: .unknownError))
+    }
+
+    func testPendingRequestCountEmpty() {
+        XCTAssertEqual(networkServiceMock.pendingRequestCount, 0)
+    }
+
+    func testPendingRequestCountNotEmpty() {
+        //When
+        networkServiceMock.request(resource, onCompletion: { _ in }, onError: { _ in })
+
+        //Then
+        XCTAssertEqual(networkServiceMock.pendingRequestCount, 1)
     }
 
 }
