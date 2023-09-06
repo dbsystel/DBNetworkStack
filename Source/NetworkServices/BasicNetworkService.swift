@@ -36,9 +36,8 @@ import Dispatch
  - seealso: `NetworkService`
  */
 public final class BasicNetworkService: NetworkService {
-    let networkAccess: NetworkAccess
-    let networkResponseProcessor: NetworkResponseProcessor
-    
+    private let networkAccess: NetworkAccess
+
     /**
      Creates an `BasicNetworkService` instance with a given network access to execute requests on.
      
@@ -46,7 +45,6 @@ public final class BasicNetworkService: NetworkService {
      */
     public init(networkAccess: NetworkAccess) {
         self.networkAccess = networkAccess
-        self.networkResponseProcessor = NetworkResponseProcessor()
     }
     
     /**
@@ -75,14 +73,29 @@ public final class BasicNetworkService: NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTask {
-        let request = resource.request
-        let dataTask = networkAccess.load(request: request, callback: { data, response, error in
-            self.networkResponseProcessor.processAsyncResponse(queue: queue, response: response, resource: resource, data: data,
-                                      error: error, onCompletion: onCompletionWithResponse, onError: onError)
-        })
-        return dataTask
+    public func requestResultWithResponse<Success>(for resource: Resource<Success>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
+        do {
+            let (data, response) = try await networkAccess.load(request: resource.request)
+            guard let response = response as? HTTPURLResponse else {
+                return .failure(.unknownError)
+            }
+            if let responseError = NetworkError(response: response, data: data) {
+                return .failure(responseError)
+            }
+
+            do {
+                return .success((try resource.parse(data), response))
+            } catch let error {
+                return .failure(.serializationError(error: error, data: data))
+            }
+        } catch let error {
+            if case URLError.cancelled = error {
+                return .failure(.cancelled)
+            }
+
+            return .failure(.requestError(error: error))
+        }
+
     }
     
 }

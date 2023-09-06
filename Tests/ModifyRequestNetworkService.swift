@@ -27,27 +27,22 @@ import Foundation
 
 class ModifyRequestNetworkServiceTest: XCTestCase {
     
-    var networkServiceMock: NetworkServiceMock!
-    
-    override func setUp() {
-        super.setUp()
-        networkServiceMock = NetworkServiceMock()
-    }
-    
-    func testRequest_withModifedRequest() {
+    func testRequest_withModifedRequest() async {
         //Given
+        let networkServiceMock = NetworkServiceMock()
         let modification: [(URLRequest) -> URLRequest] = [ { request in
             return request.appending(queryParameters: ["key": "1"])
             } ]
-        let networkService: NetworkService = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
+        let networkService = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
         let request = URLRequest(path: "/trains", baseURL: .defaultMock)
         let resource = Resource<Int>(request: request, parse: { _ in return 1 })
         
         //When
-        networkService.request(resource, onCompletion: { _ in }, onError: { _ in })
-        
+        let response = await networkService.requestResult(for: resource)
+
         //Then
-        XCTAssert(networkServiceMock.lastRequest?.url?.absoluteString.contains("key=1") ?? false)
+        let lastRequest = await networkServiceMock.lastRequest
+        XCTAssert(lastRequest?.url?.absoluteString.contains("key=1") ?? false)
     }
     
     func testAddHTTPHeaderToRequest() {

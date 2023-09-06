@@ -25,21 +25,7 @@ import Foundation
 
 /// Adds conformens to `NetworkAccess`. `URLSession` can be used as a network access.
 extension URLSession: NetworkAccess {
-    /**
-     Fetches a request asynchrony from remote location.
-     
-     - parameter request: The request you want to fetch.
-     - parameter callback: Callback which gets called when the request finishes.
-     
-     - returns: the running network task
-     */
-    public func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTask {
-        let task = dataTask(with: request, completionHandler: { data, response, error in
-            callback(data, response as? HTTPURLResponse, error)
-        })
-        
-        task.resume()
-        
-        return task
+    public func load(request: URLRequest) async throws -> (Data, URLResponse) {
+        return try await data(for: request)
     }
 }
