@@ -68,5 +68,21 @@ class NetworkServiceWithErrorTest: XCTestCase {
         //Then
         XCTAssertEqual(result, .failure(.error))
     }
+    
+    func testRequestThrows_withError() async {
+        let error = NSError(domain: "", code: 0, userInfo: nil)
+        let networkAccess = NetworkAccessMock(result: .failure(error))
+        let networkService = BasicNetworkService(networkAccess: networkAccess)
+
+        //When
+        do {
+            try await networkService.request(resource)
+            XCTFail()
+        } catch let error as CustomError {
+            XCTAssertEqual(error, .error)
+        } catch {
+            XCTFail()
+        }
+    }
 
 }

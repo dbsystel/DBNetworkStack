@@ -83,6 +83,21 @@ class NetworkServiceTest: XCTestCase {
         }
     }
 
+    func testRequest_withErrorThrow() async {
+        //Given
+        let error = NSError(domain: "", code: 0, userInfo: nil)
+        let networkAccess = NetworkAccessMock(result: .failure(error))
+        let networkService = BasicNetworkService(networkAccess: networkAccess)
+
+        //When
+        do {
+            try await networkService.request(resource)
+            XCTFail("Expects throws")
+        } catch {
+            return
+        }
+    }
+
     func testRequest_withStatusCode401Response() async throws {
         //Given
         let testData: Data! = "test_string".data(using: .utf8)

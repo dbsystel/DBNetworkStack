@@ -27,7 +27,7 @@ import DBNetworkStack
 
 class ResourceWithErrorTest: XCTestCase {
     
-    func testResource() {
+    func testResource() throws {
         //Given
         let validData: Data! = "ICE".data(using: .utf8)
 
@@ -38,10 +38,27 @@ class ResourceWithErrorTest: XCTestCase {
         )
         
         //When
-        let name = try? resource.parse(validData)
+        let name = try resource.parse(validData)
         
         //Then
-        XCTAssertEqual(name ?? nil, "ICE")
+        XCTAssertEqual(name, "ICE")
+    }
+
+    func testResourceMap() throws {
+        //Given
+        let validData: Data! = "ICE".data(using: .utf8)
+
+        let resource = ResourceWithError<String?, NetworkError>(
+            request: URLRequest.defaultMock,
+            parse: { String(data: $0, encoding: .utf8) },
+            mapError: { $0 }
+        )
+
+        //When
+        let numberOfCharacters = try resource.map(transform: { $0?.count }).parse(validData)
+
+        //Then
+        XCTAssertEqual(numberOfCharacters, 3)
     }
 
     func testResourceMapError() {
@@ -60,5 +77,16 @@ class ResourceWithErrorTest: XCTestCase {
         //Then
         XCTAssertEqual(mappedError, .error)
     }
-    
+
+    func testResourceWithVoidResult() throws {
+        //Given
+        let resource = ResourceWithError<Void, CustomError>(
+            request: URLRequest.defaultMock,
+            mapError: { _ in return .error }
+        )
+
+        //When
+        try resource.parse(Data())
+    }
+
 }

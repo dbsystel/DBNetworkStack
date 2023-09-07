@@ -156,7 +156,6 @@ public final actor NetworkServiceMock: NetworkService {
             guard let data = try? encoder.encode(object) else {
                 fatalError("Not able to encode object")
             }
-            print(String(data: data, encoding: .utf8))
             scheduled = .success((data, httpUrlResponse))
         }
         scheduledResponses.append(scheduled)
