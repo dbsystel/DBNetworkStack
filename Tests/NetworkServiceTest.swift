@@ -46,7 +46,8 @@ class NetworkServiceTest: XCTestCase {
         //Then
         XCTAssertEqual(train.name, self.trainName)
         XCTAssertEqual(response, .defaultMock)
-        XCTAssertEqual(networkAccess.request?.url?.absoluteString, "https://bahn.de/train")
+        let request = await networkAccess.request
+        XCTAssertEqual(request?.url?.absoluteString, "https://bahn.de/train")
     }
     
     func testRequest_withFailingSerialization() async {

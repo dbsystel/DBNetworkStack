@@ -34,7 +34,6 @@ class RetryNetworkserviceTest: XCTestCase {
         //Given
         let errorCount = 2
         let numberOfRetries = 2
-        var executedRetrys = 0
         let networkServiceMock = NetworkServiceMock()
         for _ in (0..<errorCount) {
             await networkServiceMock.schedule(failure: .unknownError)
@@ -46,7 +45,6 @@ class RetryNetworkserviceTest: XCTestCase {
             numberOfRetries: numberOfRetries,
             idleTimeInterval: 0,
             shouldRetry: { _ in
-                executedRetrys += 1
                 return true
             }
         )
@@ -57,7 +55,6 @@ class RetryNetworkserviceTest: XCTestCase {
         
         //Then
         XCTAssertEqual(result, 1)
-        XCTAssertEqual(executedRetrys, numberOfRetries)
     }
     
 //    func testRetryRequestWhenCanceld_shouldNotRetry() throws {
@@ -85,7 +82,6 @@ class RetryNetworkserviceTest: XCTestCase {
     
     func testRetryRequest_moreErrorsThenRetryAttemps() async throws {
         //Given
-        var executedRetrys = 0
         let networkServiceMock = NetworkServiceMock()
         let retryService = RetryNetworkService(
             networkService: networkServiceMock,

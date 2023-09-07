@@ -24,7 +24,7 @@
 import Foundation
 
 /// `NetworkAccess` provides access to the network.
-public protocol NetworkAccess {
+public protocol NetworkAccess: Sendable {
     
     /// Fetches a request asynchrony from remote location.
     ///

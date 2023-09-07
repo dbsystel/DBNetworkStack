@@ -35,8 +35,8 @@ public final class RetryNetworkService: NetworkService {
     private let networkService: NetworkService
     private let numberOfRetries: Int
     private let idleTimeInterval: TimeInterval
-    private let shouldRetry: (NetworkError) -> Bool
-    
+    private let shouldRetry: @Sendable (NetworkError) -> Bool
+
     /// Creates an instance of `RetryNetworkService`
     ///
     /// - Parameters:
@@ -47,7 +47,8 @@ public final class RetryNetworkService: NetworkService {
     public init(
         networkService: NetworkService,
         numberOfRetries: Int,
-        idleTimeInterval: TimeInterval, shouldRetry: @escaping (NetworkError) -> Bool
+        idleTimeInterval: TimeInterval,
+        shouldRetry: @Sendable @escaping (NetworkError) -> Bool
     ) {
         self.networkService = networkService
         self.numberOfRetries = numberOfRetries

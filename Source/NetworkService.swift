@@ -30,7 +30,7 @@ import Dispatch
  - seealso: `BasicNetworkService`
  - seealso: `NetworkServiceMock`
  */
-public protocol NetworkService {
+public protocol NetworkService: Sendable {
     /**
      Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
      Execution happens on no specific queue. It dependes on the network access which queue is used.

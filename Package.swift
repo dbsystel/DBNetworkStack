@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.9
 //
 //  Package.swift
 //
@@ -44,7 +44,11 @@ let package = Package(
         .target(
             name: "DBNetworkStack",
             dependencies: [],
-            path: "Source"),
+            path: "Source",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrencyComplete")
+            ]
+        ),
         .testTarget(
             name: "DBNetworkStackTests",
             dependencies: ["DBNetworkStack"],

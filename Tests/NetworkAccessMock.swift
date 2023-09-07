@@ -24,7 +24,7 @@
 import Foundation
 import DBNetworkStack
 
-class NetworkAccessMock: NetworkAccess {
+actor NetworkAccessMock: NetworkAccess {
 
     init(result: Result<(Data, URLResponse), NSError>) {
         self.result = result
