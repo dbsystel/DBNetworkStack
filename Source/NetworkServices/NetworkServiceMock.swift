@@ -89,17 +89,38 @@ public final actor NetworkServiceMock: NetworkService {
     /// All executed requests.
     public private(set) var lastRequests: [URLRequest] = []
 
-    private var scheduledResponses: [Result<(Data, HTTPURLResponse), NetworkError>]
-
+    private var responses: [Result<(Data, HTTPURLResponse), NetworkError>]
     private let encoder: JSONEncoder
 
     /// Creates an instace of `NetworkServiceMock`
     public init(
-        scheduledResponses: [Result<(Data, HTTPURLResponse), NetworkError>] = [],
+        responses: [Result<(Data, HTTPURLResponse), NetworkError>] = [],
         encoder: JSONEncoder = JSONEncoder()
     ) {
         self.encoder = encoder
-        self.scheduledResponses = scheduledResponses
+        self.responses = responses
+    }
+
+    /// Creates an instace of `NetworkServiceMock`
+    public init<each T: Encodable>(
+        _ responses: repeat Result<(each T, HTTPURLResponse), NetworkError>,
+        encoder: JSONEncoder = JSONEncoder()
+    ) {
+        self.encoder = encoder
+        var encodedResponses: [Result<(Data, HTTPURLResponse), NetworkError>] = []
+        repeat (each responses).decode(&encodedResponses, encoder: encoder)
+        self.responses = encodedResponses
+    }
+
+    /// Creates an instace of `NetworkServiceMock`
+    public init<each T: Encodable>(
+        _ responses: repeat Result<each T, NetworkError>,
+        encoder: JSONEncoder = JSONEncoder()
+    ) {
+        self.encoder = encoder
+        var encodedResponses: [Result<(Data, HTTPURLResponse), NetworkError>] = []
+        repeat (each responses).decode(&encodedResponses, encoder: encoder)
+        self.responses = encodedResponses
     }
 
     /**
@@ -128,8 +149,8 @@ public final actor NetworkServiceMock: NetworkService {
      */
     public func requestResultWithResponse<Success>(for resource: Resource<Success>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         lastRequests.append(resource.request)
-        if !scheduledResponses.isEmpty {
-            let scheduled = scheduledResponses.removeFirst()
+        if !responses.isEmpty {
+            let scheduled = responses.removeFirst()
             switch scheduled {
             case .success((let data, let httpURLResponse)):
                 do {
@@ -143,41 +164,37 @@ public final actor NetworkServiceMock: NetworkService {
             }
         } else {
             return .failure(.serverError(response: nil, data: nil))
-
         }
-    }
-
-    public func schedule<T: Encodable>(result: Result<(T, HTTPURLResponse), NetworkError>) {
-        let scheduled: Result<(Data, HTTPURLResponse), NetworkError>
-        switch result {
-        case .failure(let error):
-            scheduled = .failure(error)
-        case .success((let object, let httpUrlResponse)):
-            guard let data = try? encoder.encode(object) else {
-                fatalError("Not able to encode object")
-            }
-            scheduled = .success((data, httpUrlResponse))
-        }
-        scheduledResponses.append(scheduled)
-    }
-
-    public func schedule(success: Void) {
-        schedule(result: .success(("", HTTPURLResponse())))
-    }
-
-    public func schedule(success: (Void, HTTPURLResponse)) {
-        schedule(result: .success(("", success.1)))
-    }
-
-    public func schedule<T: Encodable>(success: T) {
-        schedule(result: .success((success, HTTPURLResponse())))
-    }
-
-    public func schedule<T: Encodable>(success: (T, HTTPURLResponse)) {
-        schedule(result: .success(success))
-    }
-
-    public func schedule(failure: NetworkError) {
-        scheduledResponses.append(.failure(failure))
     }
 }
+
+fileprivate extension Result {
+
+    func decode<T: Encodable>(
+        _ array: inout [Result<(Data, HTTPURLResponse), NetworkError>],
+        encoder: JSONEncoder
+    ) where Success == (T, HTTPURLResponse), Failure == NetworkError {
+        array.append(self.map({ (try! encoder.encode($0.0), $0.1) }))
+    }
+
+}
+
+fileprivate extension Result where Success: Encodable, Failure == NetworkError {
+
+    func decode(
+        _ array: inout [Result<(Data, HTTPURLResponse), NetworkError>],
+        encoder: JSONEncoder
+    ) {
+        let defaultResponse: HTTPURLResponse! = HTTPURLResponse(
+            url: URL(staticString: "bahn.de"),
+            statusCode: 200,
+            httpVersion: "HTTP/1.1",
+            headerFields: nil
+        )
+        array.append(self.map({ (try! encoder.encode($0), defaultResponse) }))
+    }
+
+}
+
+
+

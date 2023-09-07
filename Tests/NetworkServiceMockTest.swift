@@ -30,9 +30,11 @@ class NetworkServiceMockTest: XCTestCase {
     let resource: Resource<Train> = Resource(request: URLRequest(path: "train", baseURL: .defaultMock), decoder: JSONDecoder())
 
     func testRequestCount() async throws {
-        let networkServiceMock = NetworkServiceMock()
-        await networkServiceMock.schedule(success: Train(name: "1"))
-        await networkServiceMock.schedule(success: Train(name: "2"))
+        //Given
+        let networkServiceMock = NetworkServiceMock(
+           .success(Train(name: "1")),
+           .success(Train(name: "2"))
+        )
 
         //When
         try await networkServiceMock.request(resource)
@@ -45,9 +47,10 @@ class NetworkServiceMockTest: XCTestCase {
     
     func testLastRequests() async throws {
         //Given
-        let networkServiceMock = NetworkServiceMock()
-        await networkServiceMock.schedule(success: Train(name: "1"))
-        await networkServiceMock.schedule(success: Train(name: "2"))
+        let networkServiceMock = NetworkServiceMock(
+           .success(Train(name: "1")),
+           .success(Train(name: "2"))
+        )
 
         //When
         try await networkServiceMock.request(resource)
@@ -60,8 +63,9 @@ class NetworkServiceMockTest: XCTestCase {
     
     func testReturnSuccessWithData() async throws {
         //Given
-        let networkServiceMock = NetworkServiceMock()
-        await networkServiceMock.schedule(success: Train(name: "1"))
+        let networkServiceMock = NetworkServiceMock(
+           .success(Train(name: "1"))
+        )
 
         //When
         let result = try await networkServiceMock.request(resource)
@@ -73,9 +77,10 @@ class NetworkServiceMockTest: XCTestCase {
 
     func testCorrectOrderOfReturnSuccessWithDataForMultipleRequests() async throws {
         //Given
-        let networkServiceMock = NetworkServiceMock()
-        await networkServiceMock.schedule(success: Train(name: "1"))
-        await networkServiceMock.schedule(success: Train(name: "2"))
+        let networkServiceMock = NetworkServiceMock(
+           .success(Train(name: "1")),
+           .success(Train(name: "2"))
+        )
 
         //When
         let result1 = try await networkServiceMock.request(resource)
@@ -88,8 +93,9 @@ class NetworkServiceMockTest: XCTestCase {
     
     func testReturnError() async throws {
         //Given
-        let networkServiceMock = NetworkServiceMock()
-        await networkServiceMock.schedule(failure: .unknownError)
+        let networkServiceMock = NetworkServiceMock(
+            Result<Train, NetworkError>.failure(.unknownError)
+        )
 
         //When
         let result = await networkServiceMock.requestResult(for: resource)
@@ -104,9 +110,10 @@ class NetworkServiceMockTest: XCTestCase {
     
     func testCorrectOrderOfReturnErrorForMultipleRequests() async throws {
         //Given
-        let networkServiceMock = NetworkServiceMock()
-        await networkServiceMock.schedule(failure: .unknownError)
-        await networkServiceMock.schedule(failure: .cancelled)
+        let networkServiceMock = NetworkServiceMock(
+            Result<Train, NetworkError>.failure(.unknownError),
+            Result<Train, NetworkError>.failure(.cancelled)
+        )
 
         //When
         let result1 = await networkServiceMock.requestResult(for: resource)

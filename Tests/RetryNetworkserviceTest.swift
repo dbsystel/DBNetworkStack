@@ -34,11 +34,11 @@ class RetryNetworkserviceTest: XCTestCase {
         //Given
         let errorCount = 2
         let numberOfRetries = 2
-        let networkServiceMock = NetworkServiceMock()
-        for _ in (0..<errorCount) {
-            await networkServiceMock.schedule(failure: .unknownError)
-        }
-        await networkServiceMock.schedule(success: 1)
+        let networkServiceMock = NetworkServiceMock(
+            Result<Int, NetworkError>.failure(.unknownError),
+            Result<Int, NetworkError>.failure(.unknownError),
+            Result<Int, NetworkError>.success(1)
+        )
 
         let retryService = RetryNetworkService(
             networkService: networkServiceMock,
@@ -82,16 +82,18 @@ class RetryNetworkserviceTest: XCTestCase {
     
     func testRetryRequest_moreErrorsThenRetryAttemps() async throws {
         //Given
-        let networkServiceMock = NetworkServiceMock()
+        let networkServiceMock = NetworkServiceMock(
+            Result<Int, NetworkError>.failure(.unknownError),
+            Result<Int, NetworkError>.failure(.unknownError),
+            Result<Int, NetworkError>.failure(.unknownError),
+            Result<Int, NetworkError>.failure(.unknownError)
+        )
         let retryService = RetryNetworkService(
             networkService: networkServiceMock,
             numberOfRetries: 3,
             idleTimeInterval: 0,
             shouldRetry: { _ in return true }
         )
-        for _ in (0..<4) {
-            await networkServiceMock.schedule(failure: .unknownError)
-        }
 
         //When
         let result = await retryService.requestResult(for: resource)
@@ -107,22 +109,17 @@ class RetryNetworkserviceTest: XCTestCase {
     
     func testRetryRequest_shouldNotRetry() async throws {
         //Given
-        var executedRetrys = 0
-        let networkServiceMock = NetworkServiceMock()
+        let networkServiceMock = NetworkServiceMock(
+            Result<Int, NetworkError>.failure(.unknownError)
+        )
         let retryService = RetryNetworkService(
             networkService: networkServiceMock,
             numberOfRetries: 3,
             idleTimeInterval: 0,
             shouldRetry: { _ in return true }
         )
-        await networkServiceMock.schedule(failure: .unknownError)
 
         //When
-        let result = await retryService.requestResult(for: resource)
-
-        
-        //Then
-//        XCTAssertNil(task)
-//        XCTAssertNotNil(capturedError)
+        await retryService.requestResult(for: resource)
     }
 }
