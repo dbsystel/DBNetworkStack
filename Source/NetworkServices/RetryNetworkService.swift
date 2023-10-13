@@ -81,7 +81,7 @@ public final class RetryNetworkService: NetworkService {
      
      - returns: a running network task
      */
-    public func requestResultWithResponse<Success>(for resource: Resource<Success>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
+    public func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         let result = await networkService.requestResultWithResponse(for: resource)
         switch result {
         case .success:
@@ -94,20 +94,24 @@ public final class RetryNetworkService: NetworkService {
     private func requestResultWithResponseOnError<Success>(
         error: NetworkError,
         numberOfRetriesLeft: Int,
-        resource: Resource<Success>
+        resource: Resource<Success, NetworkError>
     ) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         if self.shouldRetry(error), numberOfRetriesLeft > 0 {
             let duration = UInt64(idleTimeInterval * 1_000_000_000)
             try? await Task.sleep(nanoseconds: duration)
-            #warning("check for cancellation")
-            
-            let result = await networkService.requestResultWithResponse(for: resource)
-            switch result {
-            case .success:
-                return result
-            case .failure(let failure):
-                return await requestResultWithResponseOnError(error: failure, numberOfRetriesLeft: numberOfRetriesLeft - 1, resource: resource)
+            do {
+                try Task.checkCancellation()
+                let result = await networkService.requestResultWithResponse(for: resource)
+                switch result {
+                case .success:
+                    return result
+                case .failure(let failure):
+                    return await requestResultWithResponseOnError(error: failure, numberOfRetriesLeft: numberOfRetriesLeft - 1, resource: resource)
+                }
+            } catch {
+                return .failure(.cancelled)
             }
+
         } else {
             return .failure(error)
         }

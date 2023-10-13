@@ -27,7 +27,7 @@ import DBNetworkStack
 class NetworkServiceMockTest: XCTestCase {
     
     
-    let resource: Resource<Train> = Resource(request: URLRequest(path: "train", baseURL: .defaultMock), decoder: JSONDecoder())
+    let resource: Resource<Train, NetworkError> = Resource(request: URLRequest(path: "train", baseURL: .defaultMock), decoder: JSONDecoder())
 
     func testRequestCount() async throws {
         //Given

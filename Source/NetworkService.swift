@@ -57,7 +57,7 @@ public protocol NetworkService: Sendable {
      - returns: a running network task
      */
     @discardableResult
-    func requestResultWithResponse<Success>(for resource: Resource<Success>) async -> Result<(Success, HTTPURLResponse), NetworkError>
+    func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError>
 }
 
 public extension NetworkService {
@@ -87,7 +87,7 @@ public extension NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    func requestResult<Success>(for resource: Resource<Success>) async -> Result<Success, NetworkError> {
+    func requestResult<Success>(for resource: Resource<Success, NetworkError>) async -> Result<Success, NetworkError> {
         return await requestResultWithResponse(for: resource).map({ $0.0 })
     }
 
@@ -116,7 +116,12 @@ public extension NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    func request<Success>(_ resource: Resource<Success>) async throws -> Success {
+    func request<Success>(_ resource: Resource<Success, NetworkError>) async throws -> Success {
         return try await requestResultWithResponse(for: resource).get().0
+    }
+
+    @discardableResult
+    func requestWithResponse<Success>(for resource: Resource<Success, NetworkError>) async throws -> (Success, HTTPURLResponse) {
+        return try await requestResultWithResponse(for: resource).get()
     }
 }

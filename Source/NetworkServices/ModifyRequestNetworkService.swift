@@ -80,11 +80,11 @@ public final class ModifyRequestNetworkService: NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    public func requestResultWithResponse<Success>(for resource: Resource<Success>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
+    public func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         let request = requestModifications.reduce(resource.request, { request, modify in
             return modify(request)
         })
-        let newResource = Resource(request: request, parse: resource.parse)
+        let newResource = Resource<Success, NetworkError>(request: request, parse: resource.parse)
         return await networkService.requestResultWithResponse(for: newResource)
     }
 }

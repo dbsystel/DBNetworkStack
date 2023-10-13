@@ -29,7 +29,7 @@ class NetworkServiceTest: XCTestCase {
 
     let trainName = "ICE"
     
-    var resource: Resource<Train> {
+    var resource: Resource<Train, NetworkError> {
         let request = URLRequest(path: "train", baseURL: .defaultMock)
         return Resource(request: request, decoder: JSONDecoder())
     }

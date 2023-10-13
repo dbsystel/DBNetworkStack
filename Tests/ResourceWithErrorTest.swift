@@ -31,7 +31,7 @@ class ResourceWithErrorTest: XCTestCase {
         //Given
         let validData: Data! = "ICE".data(using: .utf8)
 
-        let resource = ResourceWithError<String?, NetworkError>(
+        let resource = Resource<String?, NetworkError>(
             request: URLRequest.defaultMock,
             parse: { String(data: $0, encoding: .utf8) },
             mapError: { $0 }
@@ -48,7 +48,7 @@ class ResourceWithErrorTest: XCTestCase {
         //Given
         let validData: Data! = "ICE".data(using: .utf8)
 
-        let resource = ResourceWithError<String?, NetworkError>(
+        let resource = Resource<String?, NetworkError>(
             request: URLRequest.defaultMock,
             parse: { String(data: $0, encoding: .utf8) },
             mapError: { $0 }
@@ -66,7 +66,7 @@ class ResourceWithErrorTest: XCTestCase {
         enum CustomError: Error{
             case error
         }
-        let resource = ResourceWithError<Void, CustomError>(
+        let resource = Resource<Void, CustomError>(
             request: URLRequest.defaultMock,
             mapError: { _ in return .error }
         )
@@ -80,7 +80,7 @@ class ResourceWithErrorTest: XCTestCase {
 
     func testResourceWithVoidResult() throws {
         //Given
-        let resource = ResourceWithError<Void, CustomError>(
+        let resource = Resource<Void, CustomError>(
             request: URLRequest.defaultMock,
             mapError: { _ in return .error }
         )

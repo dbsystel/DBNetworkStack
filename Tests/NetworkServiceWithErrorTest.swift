@@ -37,9 +37,9 @@ class NetworkServiceWithErrorTest: XCTestCase {
     
     let trainName = "ICE"
     
-    var resource: ResourceWithError<Train, CustomError> {
+    var resource: Resource<Train, CustomError> {
         let request = URLRequest(path: "train", baseURL: .defaultMock)
-        return ResourceWithError(request: request, decoder: JSONDecoder(), mapError: { CustomError(networkError: $0) })
+        return Resource(request: request, decoder: JSONDecoder(), mapError: { CustomError(networkError: $0) })
     }
 
     

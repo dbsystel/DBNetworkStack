@@ -13,19 +13,20 @@ public extension Resource where Model == Void {
     ///
     /// - Parameters:
     ///   - request: The request to get the remote data payload
-    init(request: URLRequest) {
-        self.init(request: request, parse: { _ in })
+    ///   - mapError: a closure which maps to Error
+    init(request: URLRequest, mapError: @escaping (_ networkError: NetworkError) -> E) {
+        self.init(request: request, parse: { _ in }, mapError: mapError)
     }
 }
 
-extension ResourceWithError where Model == Void {
+public extension Resource where Model == Void, E: NetworkErrorConvertible {
 
     /// Creates an instace of Resource where the result type is `Void`
     ///
     /// - Parameters:
     ///   - request: The request to get the remote data payload
-    ///   - mapError: a closure which maps to Error
-    public init(request: URLRequest, mapError: @escaping (_ networkError: NetworkError) -> E) {
-        self.init(request: request, parse: { _ in }, mapError: mapError)
+    init(request: URLRequest) {
+        self.init(request: request, parse: { _ in }, mapError: { E(networkError: $0) })
     }
+
 }

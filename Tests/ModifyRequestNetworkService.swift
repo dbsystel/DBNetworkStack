@@ -35,7 +35,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         ]
         let networkService = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
         let request = URLRequest(path: "/trains", baseURL: .defaultMock)
-        let resource = Resource<Int>(request: request, parse: { _ in return 1 })
+        let resource = Resource<Int, NetworkError>(request: request, parse: { _ in return 1 })
         
         //When
         await networkService.requestResult(for: resource)

@@ -31,8 +31,8 @@ class ResourceTest: XCTestCase {
         //Given
         let validData: Data! = "ICE".data(using: .utf8)
 
-        let resource = Resource<String?>(request: URLRequest.defaultMock, parse: { String(data: $0, encoding: .utf8) })
-        
+        let resource = Resource<String?, NetworkError>(request: URLRequest.defaultMock, parse: { String(data: $0, encoding: .utf8) })
+
         //When
         let name = try resource.parse(validData)
         
@@ -42,7 +42,7 @@ class ResourceTest: XCTestCase {
 
     func testResourceWithVoidResult() throws {
         //Given
-        let resource = Resource<Void>(request: URLRequest.defaultMock)
+        let resource = Resource<Void, NetworkError>(request: URLRequest.defaultMock)
 
         //When
         try resource.parse(Data())

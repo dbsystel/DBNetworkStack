@@ -25,7 +25,7 @@ import XCTest
 @testable import DBNetworkStack
 
 class RetryNetworkserviceTest: XCTestCase {
-    var resource: Resource<Int> {
+    var resource: Resource<Int, NetworkError> {
         let request = URLRequest(path: "/train", baseURL: .defaultMock)
         return Resource(request: request, parse: { _ in return 1})
     }

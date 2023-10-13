@@ -147,7 +147,7 @@ public final actor NetworkServiceMock: NetworkService {
      - parameter onError: Callback which gets called when fetching or transforming fails.
 
      */
-    public func requestResultWithResponse<Success>(for resource: Resource<Success>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
+    public func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         lastRequests.append(resource.request)
         if !responses.isEmpty {
             let scheduled = responses.removeFirst()

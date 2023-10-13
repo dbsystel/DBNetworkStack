@@ -73,7 +73,7 @@ public final class BasicNetworkService: NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    public func requestResultWithResponse<Success>(for resource: Resource<Success>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
+    public func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         do {
             let (data, response) = try await networkAccess.load(request: resource.request)
             guard let response = response as? HTTPURLResponse else {

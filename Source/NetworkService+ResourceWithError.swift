@@ -52,9 +52,9 @@ extension NetworkService {
      */
     @discardableResult
     public func requestResultWithResponse<Success, E: Error>(
-        for resource: ResourceWithError<Success, E>
+        for resource: Resource<Success, E>
     ) async -> Result<(Success, HTTPURLResponse), E> {
-        let resourceWithoutError = Resource(request: resource.request, parse: resource.parse)
+        let resourceWithoutError = Resource<Success, NetworkError>(request: resource.request, parse: resource.parse)
         return await self.requestResultWithResponse(for: resourceWithoutError)
             .mapError(resource.mapError)
     }
@@ -85,9 +85,9 @@ extension NetworkService {
      */
     @discardableResult
     public func requestResult<Success, E: Error>(
-        for resource: ResourceWithError<Success, E>
+        for resource: Resource<Success, E>
     ) async -> Result<Success, E> {
-        let resourceWithoutError = Resource(request: resource.request, parse: resource.parse)
+        let resourceWithoutError = Resource<Success, NetworkError>(request: resource.request, parse: resource.parse)
         return await requestResultWithResponse(for: resourceWithoutError)
             .mapError(resource.mapError)
             .map({ $0.0 })
@@ -120,13 +120,18 @@ extension NetworkService {
      */
     @discardableResult
     public func request<Success, E: Error>(
-        _ resource: ResourceWithError<Success, E>
+        _ resource: Resource<Success, E>
     ) async throws -> Success {
-        let resourceWithoutError = Resource(request: resource.request, parse: resource.parse)
+        let resourceWithoutError = Resource<Success, NetworkError>(request: resource.request, parse: resource.parse)
         return try await requestResultWithResponse(for: resourceWithoutError)
             .mapError(resource.mapError)
             .map({ $0.0 })
             .get()
+    }
+
+    @discardableResult
+    func requestWithResponse<Success, E: Error>(for resource: Resource<Success, E>) async throws -> (Success, HTTPURLResponse) {
+        return try await requestResultWithResponse(for: resource).get()
     }
 
 }

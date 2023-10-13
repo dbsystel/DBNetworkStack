@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension ResourceWithError where E: NetworkErrorConvertible {
+public extension Resource where E: NetworkErrorConvertible {
 
     init(request: URLRequest, parse: @escaping (Data) throws -> Model) {
         self.request = request
