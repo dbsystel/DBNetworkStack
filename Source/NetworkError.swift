@@ -94,3 +94,11 @@ extension NetworkError: CustomDebugStringConvertible {
         }
     }
 }
+
+extension NetworkError: NetworkErrorConvertible {
+
+    public init(networkError: NetworkError) {
+        self = networkError
+    }
+
+}
