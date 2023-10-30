@@ -14,7 +14,7 @@ public extension Resource where Model == Void {
     /// - Parameters:
     ///   - request: The request to get the remote data payload
     init(request: URLRequest) {
-        self.init(request: request, parse: { _ in })
+        self.init(request: request, parse: { _,_  in })
     }
 }
 
@@ -26,6 +26,6 @@ extension ResourceWithError where Model == Void {
     ///   - request: The request to get the remote data payload
     ///   - mapError: a closure which maps to Error
     public init(request: URLRequest, mapError: @escaping (_ networkError: NetworkError) -> E) {
-        self.init(request: request, parse: { _ in }, mapError: mapError)
+        self.init(request: request, parse: { _,_   in }, mapError: mapError)
     }
 }

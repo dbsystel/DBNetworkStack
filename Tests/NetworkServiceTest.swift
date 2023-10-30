@@ -90,14 +90,14 @@ class NetworkServiceTest: XCTestCase {
     
     func testRequest_withFailingSerialization() {
         //Given
-        networkAccess.changeMock(data: Train.JSONDataWithInvalidKey, response: nil, error: nil)
+        networkAccess.changeMock(data: Train.JSONDataWithInvalidKey, response: HTTPURLResponse.defaultMock, error: nil)
         let expection = expectation(description: "testRequest_withFailingSerialization")
         
         //When
         networkService.request(resource, onCompletion: { _ in
             XCTFail("Should not call success block")
         }, onError: { (error: NetworkError) in
-                if case .serializationError(_, _) = error {
+                if case .serializationError(_, _, _) = error {
                     expection.fulfill()
                 } else {
                     XCTFail("Expects serializationError")

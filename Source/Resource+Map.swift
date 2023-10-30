@@ -28,8 +28,8 @@ extension Resource {
     /// - Parameter transform: transforms the original result of the resource
     /// - Returns: the transformed resource
     public func map<T>(transform: @escaping (Model) throws -> T) -> Resource<T> {
-        return Resource<T>(request: request, parse: { data in
-            return try transform(try self.parse(data))
+        return Resource<T>(request: request, parse: { response, data in
+            return try transform(try self.parse(response, data))
         })
     }
 }
@@ -45,8 +45,8 @@ extension ResourceWithError {
     public func map<T>(transform: @escaping (Model) throws -> T) -> ResourceWithError<T, E> {
         return ResourceWithError<T, E>(
             request: request,
-            parse: { data in
-                return try transform(try self.parse(data))
+            parse: { response, data in
+                return try transform(try self.parse(response, data))
             },
             mapError: mapError
         )

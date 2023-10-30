@@ -33,8 +33,8 @@ class DecodableResoureTest: XCTestCase {
     
     func testResource_withValidData() {
         //When
-        let fetchedTrain = try? resource.parse(Train.validJSONData)
-        
+        let fetchedTrain = try? resource.parse(HTTPURLResponse.defaultMock, Train.validJSONData)
+
         //Then
         XCTAssertEqual(fetchedTrain?.name, "ICE")
     }
@@ -42,8 +42,8 @@ class DecodableResoureTest: XCTestCase {
     func testResource_withMAppedResult() {
         //When
         let nameResource = resource.map { $0.name }
-        let fetchedTrainName = try? nameResource.parse(Train.validJSONData)
-        
+        let fetchedTrainName = try? nameResource.parse(HTTPURLResponse.defaultMock, Train.validJSONData)
+
         //Then
         XCTAssertEqual(fetchedTrainName, "ICE")
     }
@@ -51,7 +51,7 @@ class DecodableResoureTest: XCTestCase {
     func testResource_WithInvalidData() throws {
         //When
         do {
-            _ = try resource.parse(Train.invalidJSONData)
+            _ = try resource.parse(HTTPURLResponse.defaultMock, Train.invalidJSONData)
             XCTFail("Expected method to throws")
         } catch { }
     }

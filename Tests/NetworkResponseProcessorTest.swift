@@ -35,7 +35,7 @@ class NetworkResponseProcessingTests: XCTestCase {
     
     func testCancelError() {
         // Given
-        let resource = Resource(request: URLRequest.defaultMock, parse: { _ in return 0 })
+        let resource = Resource(request: URLRequest.defaultMock, parse: { _, _ in return 0 })
         let cancelledError = URLError(_nsError: NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: nil))
         
         // When
@@ -61,7 +61,7 @@ class NetworkResponseProcessingTests: XCTestCase {
     
     func testParseThrowsUnknownError() {
         // Given
-        let resource = Resource(request: URLRequest.defaultMock, parse: { _  -> Int in
+        let resource = Resource(request: URLRequest.defaultMock, parse: { _, _  -> Int in
             throw NetworkError.unknownError })
         let data: Data! = "Data".data(using: .utf8)
         
@@ -71,7 +71,7 @@ class NetworkResponseProcessingTests: XCTestCase {
         } catch let error as NetworkError {
             // Then
             switch error {
-            case .serializationError(let error, let recievedData): // Excpected
+            case .serializationError(let error, _, let receivedData): // Expected
                 switch error as? NetworkError {
                 case .unknownError?:
                     XCTAssert(true)
@@ -79,7 +79,7 @@ class NetworkResponseProcessingTests: XCTestCase {
                     XCTFail("Expects unknownError")
                 }
                 
-                XCTAssertEqual(recievedData, data)
+                XCTAssertEqual(receivedData, data)
             default:
                 XCTFail("Expected cancelled error (got \(error)")
             }
@@ -90,11 +90,11 @@ class NetworkResponseProcessingTests: XCTestCase {
     
     func testParseSucessFullWithNilResponse() {
         //Given
-        let resource = Resource(request: URLRequest.defaultMock, parse: { _ in return 0 })
+        let resource = Resource(request: URLRequest.defaultMock, parse: { _,_  in return 0 })
         
         //When
         do {
-            _ = try processor.process(response: nil, resource: resource, data: Data(), error: nil)
+            _ = try processor.process(response: HTTPURLResponse.defaultMock, resource: resource, data: Data(), error: nil)
         } catch let error as NetworkError {
             // Then
             switch error {

@@ -36,10 +36,10 @@ extension Resource {
      - parameter inspector: closure which gets passed the data
      - returns: a new resource which gets instepcted before parsing
      */
-    public func inspectData(_ inspector: @escaping (Data) -> Void) -> Resource<Model> {
-        return Resource(request: request, parse: { data in
-            inspector(data)
-            return try self.parse(data)
+    public func inspectData(_ inspector: @escaping (HTTPURLResponse, Data) -> Void) -> Resource<Model> {
+        return Resource(request: request, parse: { response, data in
+            inspector(response, data)
+            return try self.parse(response, data)
         })
     }
 

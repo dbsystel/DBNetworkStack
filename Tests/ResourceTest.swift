@@ -31,11 +31,11 @@ class ResourceTest: XCTestCase {
         //Given
         let validData: Data! = "ICE".data(using: .utf8)
 
-        let resource = Resource<String?>(request: URLRequest.defaultMock, parse: { String(data: $0, encoding: .utf8) })
-        
+        let resource = Resource<String?>(request: URLRequest.defaultMock, parse: { String(data: $1, encoding: .utf8) })
+
         //When
-        let name = try? resource.parse(validData)
-        
+        let name = try? resource.parse(HTTPURLResponse.defaultMock, validData)
+
         //Then
         XCTAssertEqual(name ?? nil, "ICE")
     }
