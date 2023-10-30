@@ -138,8 +138,8 @@ class NetworkErrorTest: XCTestCase {
         let debugDescription = error.debugDescription
         
         //Then
-        XCTAssert(debugDescription.hasPrefix("Authorization error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("response: dataString"))
+        XCTAssert(debugDescription.hasPrefix("Authorization error, "))
+        XCTAssert(debugDescription.hasSuffix("response body: dataString"))
     }
     
     func testUnknownError_clientError_description() {
@@ -152,21 +152,22 @@ class NetworkErrorTest: XCTestCase {
         let debugDescription = error.debugDescription
         
         //Then
-        XCTAssert(debugDescription.hasPrefix("Client error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("response: dataString"))
+        XCTAssert(debugDescription.hasPrefix("Client error, "))
+        XCTAssert(debugDescription.hasSuffix("response body: dataString"))
     }
     
     func testUnknownError_serializationError_description() {
         //Given
         let nserror = NSError(domain: "TestError", code: 0, userInfo: nil)
         let data = "dataString".data(using: .utf8)
-        let error: NetworkError = .serializationError(error: nserror, data: data)
+        let error: NetworkError = .serializationError(error: nserror, response: HTTPURLResponse.defaultMock, data: data)
         
         //When
         let debugDescription = error.debugDescription
         
         //Then
-        XCTAssertEqual(debugDescription, "Serialization error: Error Domain=TestError Code=0 \"(null)\", response: dataString")
+        XCTAssert(debugDescription.hasPrefix("Serialization error: Error Domain=TestError Code=0 \"(null)\""))
+        XCTAssert(debugDescription.hasSuffix("{ Status Code: 200, Headers {\n} }, response body: dataString"))
     }
     
     func testUnknownError_requestError_description() {

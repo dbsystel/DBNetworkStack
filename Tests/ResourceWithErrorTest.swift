@@ -33,12 +33,12 @@ class ResourceWithErrorTest: XCTestCase {
 
         let resource = ResourceWithError<String?, NetworkError>(
             request: URLRequest.defaultMock,
-            parse: { String(data: $0, encoding: .utf8) },
+            parse: { String(data: $1, encoding: .utf8) },
             mapError: { $0 }
         )
         
         //When
-        let name = try? resource.parse(validData)
+        let name = try? resource.parse(HTTPURLResponse.defaultMock, validData)
         
         //Then
         XCTAssertEqual(name ?? nil, "ICE")
