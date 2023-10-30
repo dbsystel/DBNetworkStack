@@ -40,14 +40,14 @@ public struct Resource<Model> {
     public let request: URLRequest
     
     /// Parses data into given model.
-    public let parse: (_ data: Data) throws -> Model
-    
+    public let parse: (_ response: HTTPURLResponse, _ data: Data) throws -> Model
+
     /// Creates a type safe resource, which can be used to fetch it with `NetworkService`
     ///
     /// - Parameters:
     ///   - request: The request to get the remote data payload
     ///   - parse: Parses data fetched with the request into given Model
-    public init(request: URLRequest, parse: @escaping (Data) throws -> Model) {
+    public init(request: URLRequest, parse: @escaping (HTTPURLResponse, Data) throws -> Model) {
         self.request = request
         self.parse = parse
     }

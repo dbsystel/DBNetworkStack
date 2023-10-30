@@ -42,7 +42,7 @@ public struct ResourceWithError<Model, E: Error> {
     public let request: URLRequest
     
     /// Parses data into given model.
-    public let parse: (_ data: Data) throws -> Model
+    public let parse: (_ response: HTTPURLResponse, _ data: Data) throws -> Model
     public let mapError: (_ networkError: NetworkError) -> E
     
     /// Creates a type safe resource, which can be used to fetch it with NetworkService
@@ -51,7 +51,7 @@ public struct ResourceWithError<Model, E: Error> {
     /// - request: The request to get the remote data payload
     /// - parse: Parses data fetched with the request into given Model
     
-    public init(request: URLRequest, parse: @escaping (Data) throws -> Model, mapError: @escaping (_ networkError: NetworkError) -> E) {
+    public init(request: URLRequest, parse: @escaping (HTTPURLResponse, Data) throws -> Model, mapError: @escaping (_ networkError: NetworkError) -> E) {
         self.request = request
         self.parse = parse
         self.mapError = mapError

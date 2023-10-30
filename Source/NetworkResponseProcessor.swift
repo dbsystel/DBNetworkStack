@@ -48,13 +48,13 @@ final class NetworkResponseProcessor {
         if let responseError = NetworkError(response: response, data: data) {
             throw responseError
         }
-        guard let data = data else {
+        guard let data, let response else {
             throw NetworkError.serverError(response: response, data: nil)
         }
         do {
-            return try resource.parse(data)
+            return try resource.parse(response, data)
         } catch let error {
-            throw NetworkError.serializationError(error: error, data: data)
+            throw NetworkError.serializationError(error: error, response: response, data: data)
         }
     }
     
