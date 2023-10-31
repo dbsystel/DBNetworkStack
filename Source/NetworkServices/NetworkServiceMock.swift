@@ -166,6 +166,40 @@ public final actor NetworkServiceMock: NetworkService {
             return .failure(.serverError(response: nil, data: nil))
         }
     }
+
+    public func schedule<T: Encodable>(result: Result<(T, HTTPURLResponse), NetworkError>) {
+        let scheduled: Result<(Data, HTTPURLResponse), NetworkError>
+        switch result {
+        case .failure(let error):
+            scheduled = .failure(error)
+        case .success((let object, let httpUrlResponse)):
+            guard let data = try? encoder.encode(object) else {
+                fatalError("Not able to encode object")
+            }
+            scheduled = .success((data, httpUrlResponse))
+        }
+        responses.append(scheduled)
+    }
+
+    public func schedule(success: Void) {
+        schedule(result: .success(("", HTTPURLResponse())))
+    }
+
+    public func schedule(success: (Void, HTTPURLResponse)) {
+        schedule(result: .success(("", success.1)))
+    }
+
+    public func schedule<T: Encodable>(success: T) {
+        schedule(result: .success((success, HTTPURLResponse())))
+    }
+
+    public func schedule<T: Encodable>(success: (T, HTTPURLResponse)) {
+        schedule(result: .success(success))
+    }
+
+    public func schedule(failure: NetworkError) {
+        responses.append(.failure(failure))
+    }
 }
 
 fileprivate extension Result {
