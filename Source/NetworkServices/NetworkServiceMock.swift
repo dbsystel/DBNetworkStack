@@ -60,7 +60,7 @@ import Foundation
 
  - seealso: `NetworkService`
  */
-public final actor NetworkServiceMock: NetworkService {
+public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
 
     public enum Error: Swift.Error, CustomDebugStringConvertible {
         case missingRequest
