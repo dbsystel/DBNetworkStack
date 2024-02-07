@@ -62,20 +62,6 @@ import Foundation
  */
 public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
 
-    public enum Error: Swift.Error, CustomDebugStringConvertible {
-        case missingRequest
-        case typeMismatch
-
-        public var debugDescription: String {
-            switch self {
-            case .missingRequest:
-                return "Could not return because no request"
-            case .typeMismatch:
-                return "Return type does not match requested type"
-            }
-        }
-    }
-
     /// Count of all started requests
     public var requestCount: Int {
         return lastRequests.count
@@ -147,6 +133,7 @@ public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
      - parameter onError: Callback which gets called when fetching or transforming fails.
 
      */
+    @MainActor
     public func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         lastRequests.append(resource.request)
         if !responses.isEmpty {
