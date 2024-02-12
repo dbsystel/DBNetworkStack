@@ -75,7 +75,7 @@ public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
     /// All executed requests.
     public private(set) var lastRequests: [URLRequest] = []
 
-    private var responses: [Result<(Data, HTTPURLResponse), NetworkError>]
+    private var responses: [(String, Result<(Data, HTTPURLResponse), NetworkError>)]
     private let encoder: JSONEncoder
 
     /// Creates an instace of `NetworkServiceMock`
@@ -84,7 +84,7 @@ public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
         encoder: JSONEncoder = JSONEncoder()
     ) {
         self.encoder = encoder
-        self.responses = responses
+        self.responses = responses.map({ ("*", $0) })
     }
 
     /// Creates an instace of `NetworkServiceMock`
@@ -94,8 +94,8 @@ public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
     ) {
         self.encoder = encoder
         var encodedResponses: [Result<(Data, HTTPURLResponse), NetworkError>] = []
-        repeat (each responses).decode(&encodedResponses, encoder: encoder)
-        self.responses = encodedResponses
+        repeat encodedResponses.append((each responses).encode(encoder: encoder))
+        self.responses = encodedResponses.map({ ("*", $0) })
     }
 
     /// Creates an instace of `NetworkServiceMock`
@@ -105,8 +105,43 @@ public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
     ) {
         self.encoder = encoder
         var encodedResponses: [Result<(Data, HTTPURLResponse), NetworkError>] = []
-        repeat (each responses).decode(&encodedResponses, encoder: encoder)
-        self.responses = encodedResponses
+        repeat encodedResponses.append((each responses).encode(encoder: encoder))
+        self.responses = encodedResponses.map({ ("*", $0) })
+    }
+
+    /// Creates an instace of `NetworkServiceMock`
+    public init(
+        mappings responses: [(String, Result<(Data, HTTPURLResponse), NetworkError>)],
+        encoder: JSONEncoder = JSONEncoder()
+    ) {
+        self.encoder = encoder
+        self.responses = responses
+    }
+
+    /// Creates an instace of `NetworkServiceMock`
+    public init<each T: Encodable>(
+        mappings responses: repeat (String, Result<(each T, HTTPURLResponse), NetworkError>),
+        encoder: JSONEncoder = JSONEncoder()
+    ) {
+        self.encoder = encoder
+        var encodedResponses: [Result<(Data, HTTPURLResponse), NetworkError>] = []
+        var paths: [String] = []
+        repeat encodedResponses.append((each responses).1.encode(encoder: encoder))
+        repeat paths.append((each responses).0)
+        self.responses = encodedResponses.enumerated().map({ (paths[$0.offset], $0.element) })
+    }
+
+    /// Creates an instace of `NetworkServiceMock`
+    public init<each T: Encodable>(
+        mappings responses: repeat (String, Result<each T, NetworkError>),
+        encoder: JSONEncoder = JSONEncoder()
+    ) {
+        self.encoder = encoder
+        var encodedResponses: [Result<(Data, HTTPURLResponse), NetworkError>] = []
+        var paths: [String] = []
+        repeat encodedResponses.append((each responses).1.encode(encoder: encoder))
+        repeat paths.append((each responses).0)
+        self.responses = encodedResponses.enumerated().map({ (paths[$0.offset], $0.element) })
     }
 
     /**
@@ -137,7 +172,13 @@ public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
     public func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         lastRequests.append(resource.request)
         if !responses.isEmpty {
-            let scheduled = responses.removeFirst()
+            let index = responses.firstIndex(where: {
+                return $0.0 == "*" || $0.0 == resource.request.url?.path
+            })
+            guard let index else {
+                return .failure(.serverError(response: nil, data: nil))
+            }
+            let scheduled = responses.remove(at: index).1
             switch scheduled {
             case .success((let data, let httpURLResponse)):
                 do {
@@ -165,7 +206,7 @@ public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
             }
             scheduled = .success((data, httpUrlResponse))
         }
-        responses.append(scheduled)
+        responses.append(("*", scheduled))
     }
 
     public func schedule(success: Void) {
@@ -185,34 +226,32 @@ public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
     }
 
     public func schedule(failure: NetworkError) {
-        responses.append(.failure(failure))
+        responses.append(("*", .failure(failure)))
     }
 }
 
 fileprivate extension Result {
 
-    func decode<T: Encodable>(
-        _ array: inout [Result<(Data, HTTPURLResponse), NetworkError>],
+    func encode<T: Encodable>(
         encoder: JSONEncoder
-    ) where Success == (T, HTTPURLResponse), Failure == NetworkError {
-        array.append(self.map({ (try! encoder.encode($0.0), $0.1) }))
+    ) -> Result<(Data, HTTPURLResponse), NetworkError> where Success == (T, HTTPURLResponse), Failure == NetworkError {
+        return self.map({ ((try? encoder.encode($0.0)) ?? Data(), $0.1) })
     }
 
 }
 
 fileprivate extension Result where Success: Encodable, Failure == NetworkError {
 
-    func decode(
-        _ array: inout [Result<(Data, HTTPURLResponse), NetworkError>],
+    func encode(
         encoder: JSONEncoder
-    ) {
+    ) -> Result<(Data, HTTPURLResponse), NetworkError> {
         let defaultResponse: HTTPURLResponse! = HTTPURLResponse(
             url: URL(staticString: "bahn.de"),
             statusCode: 200,
             httpVersion: "HTTP/1.1",
             headerFields: nil
         )
-        array.append(self.map({ (try! encoder.encode($0), defaultResponse) }))
+        return self.map({ ((try? encoder.encode($0)) ?? Data(), defaultResponse) })
     }
 
 }
