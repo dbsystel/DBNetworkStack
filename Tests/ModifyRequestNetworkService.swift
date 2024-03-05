@@ -27,27 +27,23 @@ import Foundation
 
 class ModifyRequestNetworkServiceTest: XCTestCase {
     
-    var networkServiceMock: NetworkServiceMock!
-    
-    override func setUp() {
-        super.setUp()
-        networkServiceMock = NetworkServiceMock()
-    }
-    
-    func testRequest_withModifedRequest() {
+    func testRequest_withModifedRequest() async throws {
         //Given
-        let modification: [(URLRequest) -> URLRequest] = [ { request in
-            return request.appending(queryParameters: ["key": "1"])
-            } ]
-        let networkService: NetworkService = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
+        let networkServiceMock = NetworkServiceMock()
+        let modification: [@Sendable (URLRequest) -> URLRequest] = [ 
+            { $0.appending(queryParameters: ["key": "1"]) }
+        ]
+        let networkService = ModifyRequestNetworkService(networkService: networkServiceMock, requestModifications: modification)
         let request = URLRequest(path: "/trains", baseURL: .defaultMock)
-        let resource = Resource<Int>(request: request, parse: { _ in return 1 })
+        let resource = Resource<Int, NetworkError>(request: request, parse: { _ in return 1 })
         
         //When
-        networkService.request(resource, onCompletion: { _ in }, onError: { _ in })
-        
+        await networkService.requestResult(for: resource)
+
         //Then
-        XCTAssert(networkServiceMock.lastRequest?.url?.absoluteString.contains("key=1") ?? false)
+        let lastRequest = await networkServiceMock.lastRequest
+        let lastRequestURL = try XCTUnwrap(lastRequest?.url)
+        XCTAssert(lastRequestURL.absoluteString.contains("key=1"))
     }
     
     func testAddHTTPHeaderToRequest() {
@@ -62,7 +58,7 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         XCTAssertEqual(newRequest.allHTTPHeaderFields?["header"], "head")
     }
     
-    func testAddDuplicatedQueryToRequest() {
+    func testAddDuplicatedQueryToRequest() throws {
         //Given
         let url = URL(staticString: "bahn.de?test=test&bool=true")
         let request = URLRequest(url: url)
@@ -73,14 +69,15 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         let newRequest = request.appending(queryParameters: parameters)
         
         //Then
-        let newURL: URL! = newRequest.url
-        let query = URLComponents(url: newURL, resolvingAgainstBaseURL: true)?.queryItems
-        XCTAssertEqual(query?.count, 2)
-        XCTAssert(query?.contains(where: { $0.name == "test" && $0.value == "test2" }) ?? false)
-        XCTAssert(query?.contains(where: { $0.name == "bool" && $0.value == "true" }) ?? false)
+        let newURL = try XCTUnwrap(newRequest.url)
+        let urlComponents = URLComponents(url: newURL, resolvingAgainstBaseURL: true)
+        let query = try XCTUnwrap(urlComponents?.queryItems)
+        XCTAssertEqual(query.count, 2)
+        XCTAssert(query.contains(where: { $0.name == "test" && $0.value == "test2" }))
+        XCTAssert(query.contains(where: { $0.name == "bool" && $0.value == "true" }))
     }
     
-    func testReplaceAllQueryItemsFromRequest() {
+    func testReplaceAllQueryItemsFromRequest() throws {
         //Given
         let url = URL(staticString: "bahn.de?test=test&bool=true")
         let request = URLRequest(url: url)
@@ -91,9 +88,10 @@ class ModifyRequestNetworkServiceTest: XCTestCase {
         let newRequest = request.replacingAllQueryItems(with: parameters)
         
         //Then
-        let newURL: URL! = newRequest.url
-        let query = URLComponents(url: newURL, resolvingAgainstBaseURL: true)?.queryItems
-        XCTAssertEqual(query?.count, 1)
-        XCTAssert(query?.contains(where: { $0.name == "test5" && $0.value == "test2" }) ?? false)
+        let newURL = try XCTUnwrap(newRequest.url)
+        let urlComponents = URLComponents(url: newURL, resolvingAgainstBaseURL: true)
+        let query = try XCTUnwrap(urlComponents?.queryItems)
+        XCTAssertEqual(query.count, 1)
+        XCTAssert(query.contains(where: { $0.name == "test5" && $0.value == "test2" }))
     }
 }

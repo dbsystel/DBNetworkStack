@@ -24,7 +24,7 @@
 import Foundation
 import DBNetworkStack
 
-struct Train: Decodable, Equatable {
+struct Train: Codable, Equatable {
     let name: String
 }
 

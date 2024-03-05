@@ -30,7 +30,7 @@ import Dispatch
  - seealso: `BasicNetworkService`
  - seealso: `NetworkServiceMock`
  */
-public protocol NetworkService {
+public protocol NetworkService: Sendable {
     /**
      Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
      Execution happens on no specific queue. It dependes on the network access which queue is used.
@@ -57,40 +57,10 @@ public protocol NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                 onError: @escaping (NetworkError) -> Void) -> NetworkTask
+    func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError>
 }
 
 public extension NetworkService {
-    /**
-     Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
-     Execution happens on no specific queue. It dependes on the network access which queue is used.
-     Once execution is finished either the completion block or the error block gets called.
-     These blocks are called on the main queue.
-     
-     **Example**:
-     ```swift
-     let networkService: NetworkService = //
-     let resource: Resource<String> = //
-     
-     networkService.request(resource, onCompletion: { htmlText in
-        print(htmlText)
-     }, onError: { error in
-        // Handle errors
-     })
-     ```
-     
-     - parameter resource: The resource you want to fetch.
-     - parameter onComplition: Callback which gets called when fetching and transforming into model succeeds.
-     - parameter onError: Callback which gets called when fetching or transforming fails.
-     
-     - returns: a running network task
-     */
-    @discardableResult
-    func request<Result>(_ resource: Resource<Result>, onCompletion: @escaping (Result) -> Void,
-                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
-        return request(queue: .main, resource: resource, onCompletionWithResponse: { model, _ in onCompletion(model) }, onError: onError)
-    }
     
     /**
      Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
@@ -117,8 +87,41 @@ public extension NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    func request<Result>(_ resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                 onError: @escaping (NetworkError) -> Void) -> NetworkTask {
-        return request(queue: .main, resource: resource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
+    func requestResult<Success>(for resource: Resource<Success, NetworkError>) async -> Result<Success, NetworkError> {
+        return await requestResultWithResponse(for: resource).map({ $0.0 })
+    }
+
+    /**
+     Fetches a resource asynchronously from remote location. Execution of the requests starts immediately.
+     Execution happens on no specific queue. It dependes on the network access which queue is used.
+     Once execution is finished either the completion block or the error block gets called.
+     These blocks are called on the main queue.
+
+     **Example**:
+     ```swift
+     let networkService: NetworkService = //
+     let resource: Resource<String> = //
+
+     networkService.request(resource, onCompletionWithResponse: { htmlText, httpResponse in
+        print(htmlText, httpResponse)
+     }, onError: { error in
+        // Handle errors
+     })
+     ```
+
+     - parameter resource: The resource you want to fetch.
+     - parameter onCompletion: Callback which gets called when fetching and transforming into model succeeds.
+     - parameter onError: Callback which gets called when fetching or transforming fails.
+
+     - returns: a running network task
+     */
+    @discardableResult
+    func request<Success>(_ resource: Resource<Success, NetworkError>) async throws -> Success {
+        return try await requestResultWithResponse(for: resource).get().0
+    }
+
+    @discardableResult
+    func requestWithResponse<Success>(for resource: Resource<Success, NetworkError>) async throws -> (Success, HTTPURLResponse) {
+        return try await requestResultWithResponse(for: resource).get()
     }
 }

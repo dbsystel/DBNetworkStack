@@ -24,7 +24,7 @@
 import Foundation
 
 /// `NetworkAccess` provides access to the network.
-public protocol NetworkAccess {
+public protocol NetworkAccess: Sendable {
     
     /// Fetches a request asynchrony from remote location.
     ///
@@ -32,6 +32,6 @@ public protocol NetworkAccess {
     ///   - request: The request one wants to fetch.
     ///   - callback: Callback which gets called when the request finishes.
     /// - Returns: the running network task
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTask
+    func load(request: URLRequest) async throws -> (Data, URLResponse)
 
 }

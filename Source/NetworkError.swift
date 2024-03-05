@@ -24,7 +24,7 @@
 import Foundation
 
 /// `NetworkError` provides a collection of error types which can occur during execution.
-public enum NetworkError: Error {
+public enum NetworkError: Error, Sendable {
     /// The error is unkonw
     case unknownError
     /// The request was cancelled before it finished
@@ -40,11 +40,7 @@ public enum NetworkError: Error {
     /// Complete request failed.
     case requestError(error: Error)
     
-    public init?(response: HTTPURLResponse?, data: Data?) {
-        guard let response = response else {
-            return nil
-        }
-
+    public init?(response: HTTPURLResponse, data: Data) {
         switch response.statusCode {
         case 200..<300: return nil
         case 401:
@@ -97,4 +93,12 @@ extension NetworkError: CustomDebugStringConvertible {
             }
         }
     }
+}
+
+extension NetworkError: NetworkErrorConvertible {
+
+    public init(networkError: NetworkError) {
+        self = networkError
+    }
+
 }

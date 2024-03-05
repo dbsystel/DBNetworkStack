@@ -26,9 +26,9 @@ import XCTest
 @testable import DBNetworkStack
 
 class DecodableResoureTest: XCTestCase {
-    var resource: Resource<Train> {
+    var resource: Resource<Train, NetworkError> {
         let request = URLRequest(path: "/train", baseURL: .defaultMock)
-        return Resource<Train>(request: request, decoder: JSONDecoder())
+        return Resource<Train, NetworkError>(request: request, decoder: JSONDecoder())
     }
     
     func testResource_withValidData() {

@@ -29,7 +29,7 @@ final class ResourceInspectTest: XCTestCase {
         let data = Data()
         var capuredParsingData: Data?
         var capturedInspectedData: Data?
-        let resource = Resource<Int>(request: URLRequest.defaultMock, parse: { data in
+        let resource = Resource<Int, NetworkError>(request: URLRequest.defaultMock, parse: { data in
             capuredParsingData = data
             return 1
         })
