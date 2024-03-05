@@ -32,7 +32,7 @@ extension Resource where Model: Decodable {
     ///   - request: The request to get the remote data payload
     ///   - decoder: a decoder which can decode the payload into the model type
     ///   - mapError: a closure which maps to Error
-    public init(request: URLRequest, decoder: JSONDecoder, mapError: @escaping (_ networkError: NetworkError) -> E) {
+    public init(request: URLRequest, decoder: JSONDecoder, mapError: @escaping @Sendable  (_ networkError: NetworkError) -> E) {
         self.init(request: request, parse: { try decoder.decode(Model.self, from: $0) }, mapError: mapError)
     }
 }

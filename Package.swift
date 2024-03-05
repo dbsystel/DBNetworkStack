@@ -48,7 +48,7 @@ let package = Package(
             dependencies: [],
             path: "Source",
             swiftSettings: [
-                .enableExperimentalFeature("StrictConcurrencyComplete")
+                .enableExperimentalFeature("StrictConcurrency")
             ]
         ),
         .testTarget(

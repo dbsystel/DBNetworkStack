@@ -169,7 +169,7 @@ public final class NetworkServiceMock: NetworkService, @unchecked Sendable  {
 
      */
     @MainActor
-    public func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
+    public func requestResultWithResponse<Success: Sendable>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         lastRequests.append(resource.request)
         if !responses.isEmpty {
             let index = responses.firstIndex(where: {

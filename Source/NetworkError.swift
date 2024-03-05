@@ -24,7 +24,7 @@
 import Foundation
 
 /// `NetworkError` provides a collection of error types which can occur during execution.
-public enum NetworkError: Error {
+public enum NetworkError: Error, Sendable {
     /// The error is unkonw
     case unknownError
     /// The request was cancelled before it finished

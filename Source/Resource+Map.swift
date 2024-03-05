@@ -27,7 +27,7 @@ extension Resource {
     ///
     /// - Parameter transform: transforms the original result of the resource
     /// - Returns: the transformed resource
-    public func map<T>(transform: @escaping (Model) throws -> T) -> Resource<T, E> {
+    public func map<T>(transform: @escaping @Sendable  (Model) throws -> T) -> Resource<T, E> {
         return Resource<T, E>(
             request: request,
             parse: {  return try transform(try self.parse($0)) },

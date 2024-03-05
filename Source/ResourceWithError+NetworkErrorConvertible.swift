@@ -9,7 +9,7 @@ import Foundation
 
 public extension Resource where E: NetworkErrorConvertible {
 
-    init(request: URLRequest, parse: @escaping (Data) throws -> Model) {
+    init(request: URLRequest, parse: @escaping @Sendable (Data) throws -> Model) {
         self.request = request
         self.parse = parse
         self.mapError = { E(networkError: $0) }
