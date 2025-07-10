@@ -26,15 +26,15 @@ import XCTest
 @testable import DBNetworkStack
 
 class DecodableResoureTest: XCTestCase {
-    var resource: Resource<Train> {
+    var resource: Resource<Train, NetworkError> {
         let request = URLRequest(path: "/train", baseURL: .defaultMock)
-        return Resource<Train>(request: request, decoder: JSONDecoder())
+        return Resource<Train, NetworkError>(request: request, decoder: JSONDecoder())
     }
     
     func testResource_withValidData() {
         //When
         let fetchedTrain = try? resource.parse(Train.validJSONData)
-        
+
         //Then
         XCTAssertEqual(fetchedTrain?.name, "ICE")
     }
@@ -43,7 +43,7 @@ class DecodableResoureTest: XCTestCase {
         //When
         let nameResource = resource.map { $0.name }
         let fetchedTrainName = try? nameResource.parse(Train.validJSONData)
-        
+
         //Then
         XCTAssertEqual(fetchedTrainName, "ICE")
     }

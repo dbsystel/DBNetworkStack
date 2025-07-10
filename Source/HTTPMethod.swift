@@ -29,7 +29,7 @@ import Foundation
  
  See [IETF document](https://tools.ietf.org/html/rfc7231#section-4.3)
  */
-public enum HTTPMethod: String {
+public enum HTTPMethod: String, Sendable {
     case GET
     case POST
     case PUT

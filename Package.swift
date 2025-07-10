@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.9
 //
 //  Package.swift
 //
@@ -30,10 +30,12 @@ import PackageDescription
 let package = Package(
     name: "DBNetworkStack",
     platforms: [
-        .iOS(.v9),
-        .tvOS(.v9),
-        .watchOS(.v2),
-        .macOS(.v10_10)
+        .iOS(.v13),
+        .tvOS(.v13),
+        .watchOS(.v6),
+        .macOS(.v10_15),
+        .visionOS(.v1),
+        .macCatalyst(.v14)
     ],
     products: [
         .library(
@@ -44,7 +46,11 @@ let package = Package(
         .target(
             name: "DBNetworkStack",
             dependencies: [],
-            path: "Source"),
+            path: "Source",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
+            ]
+        ),
         .testTarget(
             name: "DBNetworkStackTests",
             dependencies: ["DBNetworkStack"],

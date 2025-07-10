@@ -24,7 +24,7 @@
 import Foundation
 
 /// `NetworkError` provides a collection of error types which can occur during execution.
-public enum NetworkError: Error {
+public enum NetworkError: Error, Sendable {
     /// The error is unkonw
     case unknownError
     /// The request was cancelled before it finished
@@ -36,15 +36,11 @@ public enum NetworkError: Error {
     /// Error on the server (HTTP Error 500...511)
     case serverError(response: HTTPURLResponse?, data: Data?)
     /// Parsing the body into expected type failed.
-    case serializationError(error: Error, data: Data?)
+    case serializationError(error: Error, response: HTTPURLResponse, data: Data?)
     /// Complete request failed.
     case requestError(error: Error)
     
-    public init?(response: HTTPURLResponse?, data: Data?) {
-        guard let response = response else {
-            return nil
-        }
-
+    public init?(response: HTTPURLResponse, data: Data) {
         switch response.statusCode {
         case 200..<300: return nil
         case 401:
@@ -79,22 +75,30 @@ extension NetworkError: CustomDebugStringConvertible {
         case .cancelled:
             return "Request cancelled"
         case .unauthorized(let response, let data):
-            return "Authorization error: \(response), response: ".appendingContentsOf(data: data)
+            return "Authorization error, response headers: \(response), response body: ".appendingContentsOf(data: data)
         case .clientError(let response, let data):
             if let response = response {
-                return "Client error: \((response)), response: ".appendingContentsOf(data: data)
+                return "Client error, response headers: \((response)), response body: ".appendingContentsOf(data: data)
             }
-            return "Client error, response: ".appendingContentsOf(data: data)
-        case .serializationError(let description, let data):
-            return "Serialization error: \(description), response: ".appendingContentsOf(data: data)
+            return "Client error, response headers: nil, response body: ".appendingContentsOf(data: data)
+        case .serializationError(let error, let response, let data):
+            return "Serialization error: \(error), response headers: \(response), response body: ".appendingContentsOf(data: data)
         case .requestError(let error):
             return "Request error: \(error)"
         case .serverError(let response, let data):
-            if let response = response {
-                return "Server error: \(String(describing: response)), response: ".appendingContentsOf(data: data)
+            if let response {
+                return "Server error, response headers: \(String(describing: response)), response body: ".appendingContentsOf(data: data)
             } else {
-                return "Server error: nil, response: ".appendingContentsOf(data: data)
+                return "Server error: nil, response body: ".appendingContentsOf(data: data)
             }
         }
     }
+}
+
+extension NetworkError: NetworkErrorConvertible {
+
+    public init(networkError: NetworkError) {
+        self = networkError
+    }
+
 }

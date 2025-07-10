@@ -24,24 +24,22 @@
 import Foundation
 import DBNetworkStack
 
-class NetworkAccessMock: NetworkAccess {
-    fileprivate(set) var data: Data?
-    fileprivate(set) var response: HTTPURLResponse?
-    fileprivate(set) var error: NSError?
-    
+actor NetworkAccessMock: NetworkAccess {
+
+    init(result: Result<(Data, URLResponse), NSError>) {
+        self.result = result
+    }
+
+    private let result: Result<(Data, URLResponse), NSError>
     fileprivate(set) var request: URLRequest?
     
-    func load(request: URLRequest, callback: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> NetworkTask {
+   func load(request: URLRequest) async throws -> (Data, URLResponse) {
         self.request = request
-        
-        callback(data, response, error)
-        
-        return NetworkTaskMock()
-    }
-    
-    func changeMock(data: Data?, response: HTTPURLResponse?, error: NSError?) {
-        self.data = data
-        self.response = response
-        self.error = error
+        switch result {
+        case .success(let success):
+            return success
+        case .failure(let failure):
+            throw failure
+        }
     }
 }

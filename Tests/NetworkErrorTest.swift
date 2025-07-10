@@ -26,17 +26,14 @@ import XCTest
 @testable import DBNetworkStack
 
 class NetworkErrorTest: XCTestCase {
-    
-    func urlResponseWith(statusCode: Int) -> HTTPURLResponse? {
-        return HTTPURLResponse(url: .defaultMock, statusCode: statusCode, httpVersion: nil, headerFields: nil)
-    }
+
     
     private let testData: Data! = "test_string".data(using: .utf8)
     
-    func testInit_WithHTTPStatusCode400() {
+    func testInit_WithHTTPStatusCode400() throws {
         //Given
-        let expectedResponse = urlResponseWith(statusCode: 400)
-        
+        let expectedResponse = try XCTUnwrap(HTTPURLResponse(url: .defaultMock, statusCode: 400, httpVersion: nil, headerFields: nil))
+
         //When
          let error = NetworkError(response: expectedResponse, data: testData)
         
@@ -50,10 +47,10 @@ class NetworkErrorTest: XCTestCase {
         }
     }
     
-    func testInit_WithHTTPStatusCode401() {
+    func testInit_WithHTTPStatusCode401() throws {
         //Given
-        let expectedResponse = urlResponseWith(statusCode: 401)
-        
+        let expectedResponse = try XCTUnwrap(HTTPURLResponse(url: .defaultMock, statusCode: 401, httpVersion: nil, headerFields: nil))
+
         //When
         let error = NetworkError(response: expectedResponse, data: testData)
         
@@ -67,21 +64,21 @@ class NetworkErrorTest: XCTestCase {
         }
     }
     
-    func testInit_WithHTTPStatusCode200() {
+    func testInit_WithHTTPStatusCode200() throws {
         //Given
-        let response = urlResponseWith(statusCode: 200)
-        
+        let response = try XCTUnwrap(HTTPURLResponse(url: .defaultMock, statusCode: 200, httpVersion: nil, headerFields: nil))
+
         //When
-        let error = NetworkError(response: response, data: nil)
-        
+        let error = NetworkError(response: response, data: testData)
+
         //Then
         XCTAssertNil(error)
     }
     
-    func testInit_WithHTTPStatusCode511() {
+    func testInit_WithHTTPStatusCode511() throws {
         //Given
-        let expectedResponse = urlResponseWith(statusCode: 511)
-        
+        let expectedResponse = try XCTUnwrap(HTTPURLResponse(url: .defaultMock, statusCode: 511, httpVersion: nil, headerFields: nil))
+
         //When
         let error = NetworkError(response: expectedResponse, data: testData)
         
@@ -95,12 +92,12 @@ class NetworkErrorTest: XCTestCase {
         }
     }
     
-    func testInit_WithInvalidHTTPStatusCode900() {
+    func testInit_WithInvalidHTTPStatusCode900() throws {
         //Given
-        let response = urlResponseWith(statusCode: 900)
-        
+        let response = try XCTUnwrap(HTTPURLResponse(url: .defaultMock, statusCode: 900, httpVersion: nil, headerFields: nil))
+
         //When
-        let error = NetworkError(response: response, data: nil)
+        let error = NetworkError(response: response, data: testData)
         
         //Then
         XCTAssertNil(error)
@@ -138,8 +135,8 @@ class NetworkErrorTest: XCTestCase {
         let debugDescription = error.debugDescription
         
         //Then
-        XCTAssert(debugDescription.hasPrefix("Authorization error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("response: dataString"))
+        XCTAssert(debugDescription.hasPrefix("Authorization error, response headers: <NSHTTPURLResponse: "), debugDescription)
+        XCTAssert(debugDescription.hasSuffix("response body: dataString"), debugDescription)
     }
     
     func testUnknownError_clientError_description() {
@@ -152,21 +149,22 @@ class NetworkErrorTest: XCTestCase {
         let debugDescription = error.debugDescription
         
         //Then
-        XCTAssert(debugDescription.hasPrefix("Client error: <NSHTTPURLResponse: "))
-        XCTAssert(debugDescription.hasSuffix("response: dataString"))
+        XCTAssert(debugDescription.hasPrefix("Client error, response headers: <NSHTTPURLResponse: "), debugDescription)
+        XCTAssert(debugDescription.hasSuffix("response body: dataString"), debugDescription)
     }
     
     func testUnknownError_serializationError_description() {
         //Given
         let nserror = NSError(domain: "TestError", code: 0, userInfo: nil)
         let data = "dataString".data(using: .utf8)
-        let error: NetworkError = .serializationError(error: nserror, data: data)
-        
+        let error: NetworkError = .serializationError(error: nserror, response: HTTPURLResponse.defaultMock, data: data)
+
         //When
         let debugDescription = error.debugDescription
         
         //Then
-        XCTAssertEqual(debugDescription, "Serialization error: Error Domain=TestError Code=0 \"(null)\", response: dataString")
+        XCTAssert(debugDescription.hasPrefix("Serialization error: Error Domain=TestError Code=0 \"(null)\", response headers: <NSHTTPURLResponse:"), debugDescription)
+        XCTAssert(debugDescription.hasSuffix("response body: dataString"), debugDescription)
     }
     
     func testUnknownError_requestError_description() {

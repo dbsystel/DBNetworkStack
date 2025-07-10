@@ -27,23 +27,42 @@ final class ResourceInspectTest: XCTestCase {
     func testInspect() {
         //Given
         let data = Data()
-        var capuredParsingData: Data?
-        var capturedInspectedData: Data?
-        let resource = Resource<Int>(request: URLRequest.defaultMock, parse: { data in
-            capuredParsingData = data
+        let capturedParsingData = Container<Data?>(nil)
+        let capturedInspectedData = Container<Data?>(nil)
+
+        let resource = Resource<Int, NetworkError>(request: URLRequest.defaultMock, parse: { data in
+            capturedParsingData.setValue(data)
             return 1
         })
         
         //When
         let inspectedResource = resource.inspectData({ data in
-            capturedInspectedData = data
+            capturedInspectedData.setValue(data)
         })
         let result = try? inspectedResource.parse(data)
-        
+
         //Then
         XCTAssertNotNil(result)
-        XCTAssertEqual(capuredParsingData, capturedInspectedData)
-        XCTAssertEqual(data, capturedInspectedData)
-        XCTAssertEqual(capuredParsingData, data)
+        XCTAssertEqual(capturedParsingData.getValue(), capturedInspectedData.getValue())
+        XCTAssertEqual(data, capturedInspectedData.getValue())
+        XCTAssertEqual(capturedParsingData.getValue(), data)
+    }
+}
+
+private class Container<T> {
+    private var value: T
+
+    init(_ value: T) {
+        self.value = value
+    }
+
+    /// caller should manage concurrent access to its own state
+    func setValue(_ newValue: T) {
+        value = newValue
+    }
+
+    /// caller should manage concurrent access to its own state
+    func getValue() -> T {
+        value
     }
 }

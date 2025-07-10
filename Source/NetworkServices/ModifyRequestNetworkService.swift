@@ -41,7 +41,7 @@ import Dispatch
  */
 public final class ModifyRequestNetworkService: NetworkService {
     
-    private let requestModifications: [(URLRequest) -> URLRequest]
+    private let requestModifications: [@Sendable (URLRequest) -> URLRequest]
     private let networkService: NetworkService
     
     /// Creates an insatcne of `ModifyRequestNetworkService`.
@@ -49,7 +49,7 @@ public final class ModifyRequestNetworkService: NetworkService {
     /// - Parameters:
     ///   - networkService: a networkservice.
     ///   - requestModifications: array of modifications to modify requests.
-    public init(networkService: NetworkService, requestModifications: [(URLRequest) -> URLRequest]) {
+    public init(networkService: NetworkService, requestModifications: [@Sendable (URLRequest) -> URLRequest]) {
         self.networkService = networkService
         self.requestModifications = requestModifications
     }
@@ -80,12 +80,11 @@ public final class ModifyRequestNetworkService: NetworkService {
      - returns: a running network task
      */
     @discardableResult
-    public func request<Result>(queue: DispatchQueue, resource: Resource<Result>, onCompletionWithResponse: @escaping (Result, HTTPURLResponse) -> Void,
-                        onError: @escaping (NetworkError) -> Void) -> NetworkTask {
+    public func requestResultWithResponse<Success>(for resource: Resource<Success, NetworkError>) async -> Result<(Success, HTTPURLResponse), NetworkError> {
         let request = requestModifications.reduce(resource.request, { request, modify in
             return modify(request)
         })
-        let newResource = Resource(request: request, parse: resource.parse)
-        return networkService.request(queue: queue, resource: newResource, onCompletionWithResponse: onCompletionWithResponse, onError: onError)
+        let newResource = Resource<Success, NetworkError>(request: request, parse: resource.parse)
+        return await networkService.requestResultWithResponse(for: newResource)
     }
 }

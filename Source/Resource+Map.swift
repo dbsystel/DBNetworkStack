@@ -27,23 +27,8 @@ extension Resource {
     ///
     /// - Parameter transform: transforms the original result of the resource
     /// - Returns: the transformed resource
-    public func map<T>(transform: @escaping (Model) throws -> T) -> Resource<T> {
-        return Resource<T>(request: request, parse: { data in
-            return try transform(try self.parse(data))
-        })
-    }
-}
-
-extension ResourceWithError {
-
-    /// Maps a resource result to a different resource. This is useful when you have result of R which contains T and your API request a resource of T,
-    ///
-    /// Error parsing is not changed
-    ///
-    /// - Parameter transform: transforms the original result of the resource
-    /// - Returns: the transformed resource
-    public func map<T>(transform: @escaping (Model) throws -> T) -> ResourceWithError<T, E> {
-        return ResourceWithError<T, E>(
+    public func map<T>(transform: @escaping @Sendable  (Model) throws -> T) -> Resource<T, E> {
+        return Resource<T, E>(
             request: request,
             parse: { data in
                 return try transform(try self.parse(data))
